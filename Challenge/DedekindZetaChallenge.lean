@@ -1,6 +1,7 @@
 module
 
 public import Mathlib.NumberTheory.NumberField.DedekindZeta
+public import Mathlib.Analysis.CStarAlgebra.Classes
 
 @[expose] public section
 
