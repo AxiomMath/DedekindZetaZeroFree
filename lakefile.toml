@@ -1,0 +1,32 @@
+name = "dedekind_zeta"
+defaultTargets = ["DedekindZetaZeroFree", "DedekindZetaChallenge", "DedekindZetaSolution"]
+
+[leanOptions]
+autoImplicit = false
+relaxedAutoImplicit = false
+
+[[require]]
+name = "TauCeti"
+git = "https://github.com/TauCetiProject/TauCeti.git"
+rev = "c197d7bdbae257e85d23443c89aa7cd34c13410b"
+
+[[require]]
+name = "FiniteAbelianGlobalReciprocityv2"
+path = "vendor/class-field-theory"
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "0493595ecd5da8ef14742febab99728f98e948e8"
+
+[[lean_lib]]
+name = "DedekindZetaZeroFree"
+globs = ["DedekindZetaZeroFree", "DedekindZetaZeroFree.+"]
+
+[[lean_lib]]
+name = "DedekindZetaChallenge"
+srcDir = "Challenge"
+
+[[lean_lib]]
+name = "DedekindZetaSolution"
+srcDir = "Solution"

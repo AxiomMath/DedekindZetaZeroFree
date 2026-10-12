@@ -1,0 +1,66 @@
+module
+
+public import ClassFieldTheory.GlobalClassFieldTheory.IdealClassFieldTheory.AbstractCapitulation
+public import ClassFieldTheory.GlobalClassFieldTheory.IdealClassFieldTheory.ArithmeticIdealArtin
+public import ClassFieldTheory.GlobalClassFieldTheory.IdealClassFieldTheory.ArithmeticIdealDecompositionLaw
+public import ClassFieldTheory.GlobalClassFieldTheory.IdealClassFieldTheory.IdealArtinMap
+public import ClassFieldTheory.GlobalClassFieldTheory.IdealClassFieldTheory.IdealArtinQuotient
+public import ClassFieldTheory.GlobalClassFieldTheory.IdealClassFieldTheory.IdealDecompositionLaw
+public import ClassFieldTheory.GlobalClassFieldTheory.IdealClassFieldTheory.IdealFrobenius
+public import ClassFieldTheory.GlobalClassFieldTheory.IdealClassFieldTheory.IdealNormArtinExactness
+public import ClassFieldTheory.GlobalClassFieldTheory.IdealClassFieldTheory.NormLimitation
+public import ClassFieldTheory.GlobalClassFieldTheory.IdealClassFieldTheory.NormLimitationCore
+public import ClassFieldTheory.GlobalClassFieldTheory.IdealClassFieldTheory.NormLimitationStatement
+public import ClassFieldTheory.GlobalClassFieldTheory.IdealClassFieldTheory.PrincipalIdealTheorem
+public import ClassFieldTheory.GlobalClassFieldTheory.IdealClassFieldTheory.PrincipalIdealTower
+public import ClassFieldTheory.GlobalClassFieldTheory.IdealClassFieldTheory.PrincipalIdealTransfer
+public import ClassFieldTheory.GlobalClassFieldTheory.IdealClassFieldTheory.RationalAbstractExtensionToOrdinary
+public import ClassFieldTheory.GlobalClassFieldTheory.IdealClassFieldTheory.RationalFiniteNormTransfer.All
+public import ClassFieldTheory.GlobalClassFieldTheory.IdealClassFieldTheory.RationalFixedFieldBaseChange
+public import ClassFieldTheory.GlobalClassFieldTheory.IdealClassFieldTheory.SmallHilbertPrincipalization
+public import ClassFieldTheory.GlobalClassFieldTheory.IdealClassFieldTheory.SmallHilbertSplitting
+public import ClassFieldTheory.GlobalClassFieldTheory.IdealClassFieldTheory.SmallHilbertTowerConjugation
+public import ClassFieldTheory.GlobalClassFieldTheory.IdealClassFieldTheory.SmallHilbertTowerRealization
+public import ClassFieldTheory.GlobalClassFieldTheory.IdealClassFieldTheory.SmallHilbertTowerUnramified
+
+@[expose] public section
+
+/-
+Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
+-/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+set_option autoImplicit false
+
+/-!
+# Ideal class field theory
+
+This public root exports ideal Artin maps and quotients, Frobenius classes,
+splitting in the small Hilbert class field, the genuine idèle-extension
+transfer square, and principalization of every integral and fractional ideal
+in the selected small Hilbert class field.
+-/

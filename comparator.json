@@ -1,0 +1,12 @@
+{
+  "challenge_module": "DedekindZetaChallenge",
+  "solution_module": "DedekindZetaSolution",
+  "theorem_names": [
+    "DedekindZetaZeroFree.main"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ]
+}

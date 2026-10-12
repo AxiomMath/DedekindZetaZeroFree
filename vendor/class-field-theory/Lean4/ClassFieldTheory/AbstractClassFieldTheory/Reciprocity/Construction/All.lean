@@ -1,0 +1,94 @@
+module
+
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.CanonicalUnramifiedNormQuotient
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.ChosenDegreeOneFrobenius
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.CoreFrobeniusNorm
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.DoubleCosetOrbitGeometry
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.FiniteFieldUnitMaps
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.FiniteIntermediateCompositum
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.FiniteIntermediateFieldCompositum
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.FiniteNormQuotient
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.FixedTowerUnitCorrection
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.FixedTowerUnitDescent
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.FrobeniusClosureCommutation
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.FrobeniusDescent
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.FrobeniusField
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.FrobeniusFixedFieldAction
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.FrobeniusFixedFieldTower
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.FrobeniusPowerFixedField
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.FrobeniusQuotientDescent
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.FrobeniusSemigroup
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.InfiniteUnitDescent
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.InfiniteUnitNormSubgroup
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.MainFiniteReciprocity
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.MainMultiplicativity.All
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.MainNaturality
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.MainTransfer
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.MainTransferFrobenius
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.MainTransferFrobeniusGeometry
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.NormSubgroup
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.PrimeChoice
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.ReciprocityDefinition
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.ReciprocityIndependence
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.RelativeNormDoubleCoset
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.TransferNaturality
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.TransferOrbitClosure
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.UnitCohomologyAxiom
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.Universal
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.UniversalNormDescent
+public import ClassFieldTheory.AbstractClassFieldTheory.Reciprocity.Construction.UnramifiedNormQuotient
+
+@[expose] public section
+
+/-
+Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
+-/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+set_option autoImplicit false
+
+/-!
+# Abstract reciprocity construction
+
+Aggregate for norm quotients, Frobenius descent, prime independence, transfer naturality, and the
+canonical abstract reciprocity map.
+-/

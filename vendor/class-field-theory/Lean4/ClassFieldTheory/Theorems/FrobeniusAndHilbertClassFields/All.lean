@@ -1,0 +1,73 @@
+module
+
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.ArithmeticFrobeniusEqOneIffSplitsCompletely
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.ArithmeticFrobeniusAlgEquivTransport
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.ArithmeticFrobeniusIndependentOfPrime
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.ArithmeticFrobeniusIsArithmetic
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.ArithmeticFrobeniusOrder
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.ArithmeticFrobeniusRestrictTower
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.BigHilbertClassFieldDegree
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.BigHilbertClassFieldExists
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.BigHilbertClassFieldArtinEquiv
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.BigHilbertClassFieldNarrowRayRealization
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.BigHilbertClassFieldPrimeSplitting
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.BigHilbertClassFieldPrimeSplittingPositivePrincipal
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.BigHilbertClassFieldUnique
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.NarrowRayRealizationIsBigHilbertClassField
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.SmallHilbertClassFieldDegree
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.SmallHilbertClassFieldEmbedsInBig
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.SmallHilbertClassFieldLeBig
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.SmallBigHilbertClassFieldIffOfNoReal
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.SmallHilbertClassFieldExists
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.SmallHilbertClassFieldArtinEquiv
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.SmallHilbertClassFieldOrdinaryRayRealization
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.OrdinaryRayRealizationIsSmallHilbertClassField
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.SmallHilbertClassFieldPrimeSplitting
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.SmallHilbertClassFieldPrincipalization
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.SmallHilbertClassFieldUniqueUpToEquiv
+public import ClassFieldTheory.Theorems.FrobeniusAndHilbertClassFields.SmallHilbertClassFieldUnique
+
+@[expose] public section
+
+/-
+Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
+-/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+set_option autoImplicit false
+
+/-!
+# Frobenius and Hilbert class fields
+
+This `All` module collects the Mathlib-native arithmetic Frobenius statements
+and the intrinsic existence, Artin isomorphism, degree, splitting, and
+principalization results for small and big Hilbert class fields.
+-/

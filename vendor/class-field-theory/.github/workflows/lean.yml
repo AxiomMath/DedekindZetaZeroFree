@@ -1,0 +1,53 @@
+name: Lean
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lean-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596 # v1.6.0
+        with:
+          auto-config: "false"
+          build: "false"
+          test: "false"
+          lint: "false"
+          use-mathlib-cache: "true"
+          use-github-cache: "false"
+      - name: Build complete class field theory library
+        run: lake --no-ansi build ClassFieldTheory.All
+      - name: Build shared definitions
+        run: lake --no-ansi --wfail build Definitions
+      - name: Build statement
+        run: lake --no-ansi build Challenge
+      - name: Build proved declaration
+        run: lake --no-ansi --wfail build Solution
+      - name: Check whitespace
+        run: git diff-tree --check --root -r HEAD
+
+  palomar-preflight:
+    uses: PalomarRegistry/PalomarSubmission/.github/workflows/submission.yml@a59f25bd8a66bf6faf3a4f4260d412989c0185ea
+    with:
+      repository: ${{ github.repository }}
+      commit: ${{ github.sha }}
+      pipeline_commit: a59f25bd8a66bf6faf3a4f4260d412989c0185ea
+      request_id: gcftv2prep01
+      mode: full
+      execution_profile: palomar-standard-v1
+      options: '{"comparator_config_path":"comparator.json","authorization_relationship":"I am a responsible author or maintainer"}'

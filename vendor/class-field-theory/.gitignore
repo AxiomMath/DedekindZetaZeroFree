@@ -1,0 +1,30 @@
+# Lake state and build output
+/.lake/
+**/.lake/
+/build/
+**/build/
+
+# Lean and native-code build artifacts
+*.olean
+*.ilean
+*.o
+*.obj
+*.a
+*.so
+*.dll
+*.dylib
+*.bc
+*.trace
+*.prof
+*.log
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Editor and operating-system files
+*~
+*.swp
+*.swo
+.DS_Store
+Thumbs.db

@@ -1,0 +1,193 @@
+module
+
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.AbstractFixedFieldGlobalNormResidue
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.ArithmeticNormalization
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.ComplexificationArtin.All
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.CyclotomicAbstractFixedFieldArtin
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.CyclotomicIdeleClassValuation
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.CyclotomicIdeleValue
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.CyclotomicIdeleValueTopology
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.CyclotomicNormOneCorrection
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.CyclotomicPrincipalIdele
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.CyclotomicTorsionFixedField
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.CyclotomicUnramifiedGeometricRestriction
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.CyclotomicUnramifiedLocalGlobalCompatibility
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.CyclotomicUnramifiedRestriction
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.CyclotomicZHatBaseChange
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.FiniteGaloisRealization
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.FiniteGaloisRealizationCore
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.FiniteGaloisRealizationFinitePlace
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.FiniteGaloisRealizationNormQuotient
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.FiniteGaloisRealizationSubextension
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.FiniteIdeleArtin
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.FiniteLocalFamily
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.FinitePlaceArtin.All
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.FinitePlaceAdicHilbertComparison
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.FinitePlaceAdicHilbertProductFormula
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.FinitePlaceAdicLocalField
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.FinitePlaceCyclotomicFrobeniusLift
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.GlobalArtin
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.GlobalArtinCompatibility
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.GlobalArtinFiniteSupportApproximation
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.GlobalHilbertSymbol.All
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.GlobalNormResidue
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.GlobalNormResidueAbelianization
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.GlobalNormResidueAbelianizationNaturality
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.GlobalNormResidueNaturality
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.HilbertProductFormula
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.HilbertFiniteFactorNaturality
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.HilbertFamilyAlgEquiv
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.HilbertProductFormulaAlgEquiv
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.InfiniteHilbertFactorNaturality
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.MathlibHilbertProductFormula
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.IdeleClassDirectLimitAbstractFixedField
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.IdeleClassDirectLimitCore
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.IdeleClassDirectLimitExtension
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.IdeleClassDirectLimitExtensionAction
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.IdeleClassDirectLimitExtensionNorm
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.IdeleClassDirectLimitFiniteLevel
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.IdeleClassDirectLimitFiniteLevelCore
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.IdeleClassDirectLimitFiniteTowerNormCore
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.IdeleClassDirectLimitFiniteTowerNormProof
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.IdeleClassDirectLimitFiniteTowerNormStatement
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.IdeleClassDirectLimitFixedPointDescent
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.IdeleClassDirectLimitFixedPointDescentCore
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.IdeleClassDirectLimitFixedPoints
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.IdeleClassDirectLimitNormQuotient
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.IdeleClassNormTopology
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.InfiniteGlobalArtin
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.InfiniteGlobalArtinDescent
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.InfiniteGlobalArtinSurjectivity
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.InfiniteLocalGlobalArtinCompatibility
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.InfinitePlaceArtin
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.IntermediateNormAbelianization
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.LocalGlobalArtinCompatibility.All
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.MaximalAbelianGlobalArtin
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.MaximalAbelianKernel
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.MathlibTopologicalGlobalReciprocity
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.NormQuotient
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.OnePlaceNormKernel
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.PowerResidueReciprocity
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.ProductFormula
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.RationalCyclotomicArithmeticProduct
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.RationalCyclotomicCharacterRigidity
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.RationalCyclotomicFinitePlace
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.RationalCyclotomicFinitePlaceArtin
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.RationalCyclotomicLocalization
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.RationalCyclotomicPrincipalAwayProduct
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.RationalCyclotomicPrincipalPrimeFactor
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.RationalCyclotomicPrincipalProduct
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.RationalCyclotomicRayNorm
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.RationalCyclotomicZHatRigidity
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.RationalPrimeFactorization
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.RationalPrincipalLocalUnit
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.RationalQuadraticPowerResidueReciprocity
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.TopologicalGlobalNormResidue
+public import ClassFieldTheory.GlobalClassFieldTheory.Reciprocity.TopologicalGlobalNormResidueAbelianization
+
+@[expose] public section
+
+/-
+Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
+-/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+set_option autoImplicit false
+
+/-!
+# Global reciprocity
+
+This public root exports global Artin maps, cyclotomic comparisons, local norm
+kernels, the principal-idèle product formula, the concrete cyclotomic
+idèle-class valuation, local--global compatibility, and the descended global
+norm-residue homomorphism with its actual norm-range kernel.  It also exports
+the finite- and infinite-place Kummer-character comparison, the all-place
+Hilbert product formula, general power-residue reciprocity with explicit
+bad-place correction, and Gauss quadratic reciprocity over `ℚ`.
+-/

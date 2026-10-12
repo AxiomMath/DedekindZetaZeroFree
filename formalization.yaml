@@ -1,0 +1,150 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "A uniform zero-free region for Dedekind zeta functions"
+  description: >-
+    A Lean formalization of Theorem 1.1 of A quasi-Riemann hypothesis for
+    Dedekind zeta functions: for every number field K, its Dedekind zeta
+    function has no zeros in Re(s) > 1 - 1/6000. The formal statement asserts
+    the existence of a holomorphic function away from 1 that agrees with
+    Mathlib's Dedekind zeta function for Re(s) > 1 and is nonzero for
+    Re(s) > 5999/6000 with s different from 1. This repository contains the substantive Lean
+    development, including its Challenge and Solution.
+  authors: ["Dean Cureton"]
+  responsible_maintainers: ["Dean Cureton"]
+  license: "Apache-2.0"
+  affiliations:
+    - name: "Dean Cureton"
+      institution: "Axiom Math"
+
+sources:
+  - title: "A quasi-Riemann hypothesis for Dedekind zeta functions"
+    authors: ["Dean Cureton", "Jesse Thorner"]
+    id: "https://hexagonmath.org/2610.00200v1"
+    type: "paper"
+    relationship: "formalizes"
+    location: "Version 1 (12 October 2026), Theorem 1.1, p. 3"
+    note: >-
+      Dean Cureton and Jesse Thorner directed the research and made the
+      mathematical judgments. The manuscript and formalization were developed
+      at Axiom Math with AxiomProver; Section 15 describes this human-AI
+      collaboration. The compared theorem formalizes Theorem 1.1, not the
+      separate Hecke L-function claim in Corollary 1.2.
+  - title: "Metaplectic forms"
+    authors: ["D. A. Kazhdan", "S. J. Patterson"]
+    id: "https://www.numdam.org/article/PMIHES_1984__59__35_0.pdf"
+    type: "paper"
+    relationship: "background"
+    location: "IHES 59 (1984), I.1.3, I.2.9, I.6.4(c), I.6.5(c), II.1.3, p. 113, II.2.1–II.2.6"
+    note: >-
+      Background for the Eisenstein series, exceptional representations, and
+      Whittaker models used in the mathematical development.
+  - title: "Correction to Metaplectic forms"
+    authors: ["D. A. Kazhdan", "S. J. Patterson"]
+    id: "https://www.numdam.org/articles/10.1007/BF02698809/"
+    type: "paper"
+    relationship: "background"
+    location: "1985 correction"
+    note: "Correction to the Whittaker factorization normalization."
+  - title: "Smooth Frechet globalizations of Harish-Chandra modules"
+    authors: ["Joseph Bernstein", "Bernhard Krotz"]
+    id: "https://arxiv.org/abs/0812.1684v3"
+    type: "paper"
+    relationship: "background"
+    location: "Section 11.1, Proposition 11.2 and Example 11.1(a)"
+    note: >-
+      Background for fixed-level smooth globalization and the extension of
+      automorphic realizations.
+
+related_formalizations:
+  - id: "https://github.com/leanprover-community/mathlib4"
+    relationship: "builds-on"
+    note: "Pinned in lake-manifest.json."
+  - id: "https://github.com/PalomarArchive/n-yamaguchi-0729--FiniteAbelianGlobalReciprocityv2--ccc6f4bb14f4"
+    relationship: "builds-on"
+    note: >-
+      The 1658 retained Lean modules are vendored from revision
+      58370e628052f54159c1eac913de908e360059d6 with the original Apache-2.0 license.
+      Adapted for Lean's module system and the pinned Lean/Mathlib versions.
+  - id: "https://github.com/TauCetiProject/TauCeti"
+    relationship: "builds-on"
+    note: >-
+      The compact-group representative-density development is adapted from
+      revision 66f3330c1cbabafd0f5b3ea4a646c43e23105ee2. Original Apache-2.0
+      copyright and author notices are retained in the source files. Tau Ceti is
+      also a pinned dependency at c197d7bdbae257e85d23443c89aa7cd34c13410b,
+      supplying power-class quotients, the Borel subgroup, the diagonal torus,
+      and the finite-completion local-field construction.
+  - id: "https://github.com/LeanPool/lean-pool"
+    relationship: "builds-on"
+    note: >-
+      Adapted source from revision 68aa6ee63d20ad76bcc15f595adfc72949991f06
+      supplies Dedekind zeta function and algebraic number theory support.
+      Original FLT Project attribution is retained in the source files.
+      This is source reuse, not a declared Lake package dependency.
+  - id: "https://github.com/openai/math"
+    relationship: "builds-on"
+    note: >-
+      Adapted source from revision adc7f1241b42e322a6451854ab7e4b4c146bf78a
+      supplies analytic number theory support. Upstream paths and revisions
+      are recorded in the source files. This is source reuse, not a declared
+      Lake package dependency.
+
+classification:
+  arxiv: ["math.NT"]
+  msc2020: ["11M41", "11F70"]
+
+status:
+  scope: >-
+    DedekindZetaZeroFree.main states the unconditional zero-free theorem for every
+    number field. The full default build passes for all library modules, the
+    Challenge, and the Solution, admitting only the three standard axioms.
+    The sorry counts below exclude the intentional Challenge placeholder.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Quot.sound", "Classical.choice"]
+  main_results:
+    - declaration: "DedekindZetaZeroFree.main"
+      file: "Solution/DedekindZetaSolution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Quot.sound", "Classical.choice"]
+      comparator_config: "comparator.json"
+
+automation:
+  methods:
+    - method: "manual"
+      tool_setup: >-
+        Dean Cureton and Jesse Thorner directed the research and made the
+        mathematical judgments, as described in the manuscript. Dean Cureton
+        directed repository preparation and maintains the formalization.
+    - method: "agent"
+      framework: "AxiomProver"
+      tool_setup: >-
+        Axiom Math's AI system generated the proofs and Lean formalization
+        under the investigators' direction, as reported by the manuscript's
+        provenance statement and Section 15.
+  notes: >-
+    AxiomProver generated the proofs and Lean formalization under human
+    direction. Additional AI-assisted work covered proof integration, repository
+    cleanup, documentation, and review. Dean Cureton is responsible for this
+    formalization repository.
+
+fidelity:
+  divergences: >-
+    The canonical statement is Challenge/DedekindZetaChallenge.lean. It states
+    the existence of a holomorphic continuation away from 1, agreeing with
+    Mathlib's Dedekind zeta function in its convergence half-plane, with the
+    explicit zero-free bound 5999/6000 = 1 - 1/6000. The quantification over
+    every number field and this bound agree with Theorem 1.1. The exclusion
+    of s = 1 makes the pole explicit. The separate Hecke L-function conclusion
+    in Corollary 1.2 is outside the compared theorem's scope.
+
+review:
+  status: "agent-reviewed"
+  notes: >-
+    Agent review, the full default build, and compiled transitive proof audits
+    cover this unconditional checkpoint.
+    The final Challenge statement was compared with Theorem 1.1 of the
+    versioned Hexagon manuscript. This does not establish line-by-line
+    correspondence between the informal and formal proofs.

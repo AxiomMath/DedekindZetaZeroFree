@@ -1,0 +1,55 @@
+module
+
+public import ClassFieldTheory.Definitions.ConductorsAndRayClassFields.EmbedsInRayClassField
+public import ClassFieldTheory.Definitions.ConductorsAndRayClassFields.FractionalIdealNormExponentMap
+public import ClassFieldTheory.Definitions.ConductorsAndRayClassFields.FractionalIdealNorm
+public import ClassFieldTheory.Definitions.ConductorsAndRayClassFields.IsAbelianConductor
+public import ClassFieldTheory.Definitions.ConductorsAndRayClassFields.IsRayCongruent
+public import ClassFieldTheory.Definitions.ConductorsAndRayClassFields.IsUnramifiedOutsideModulus
+public import ClassFieldTheory.Definitions.ConductorsAndRayClassFields.NarrowClassGroup
+public import ClassFieldTheory.Definitions.ConductorsAndRayClassFields.NarrowRayClassModulus
+public import ClassFieldTheory.Definitions.ConductorsAndRayClassFields.OrdinaryRayClassModulus
+public import ClassFieldTheory.Definitions.ConductorsAndRayClassFields.RayArtin
+public import ClassFieldTheory.Definitions.ConductorsAndRayClassFields.RayClassFieldRealization
+public import ClassFieldTheory.Definitions.ConductorsAndRayClassFields.RayClassGroup
+public import ClassFieldTheory.Definitions.ConductorsAndRayClassFields.RayClassIdealModulusProjection
+public import ClassFieldTheory.Definitions.ConductorsAndRayClassFields.RayClassIdealNorm
+public import ClassFieldTheory.Definitions.ConductorsAndRayClassFields.RayClassModulus
+public import ClassFieldTheory.Definitions.ConductorsAndRayClassFields.RayClassOfFinitePrime
+public import ClassFieldTheory.Definitions.ConductorsAndRayClassFields.RayClassPrimeToIdeals
+public import ClassFieldTheory.Definitions.ConductorsAndRayClassFields.RayClassSubgroupRealization
+public import ClassFieldTheory.Definitions.ConductorsAndRayClassFields.RayClassSubgroupQuotientEquiv
+public import ClassFieldTheory.Definitions.ConductorsAndRayClassFields.RayLocalHigherUnitGroup
+public import ClassFieldTheory.Definitions.ConductorsAndRayClassFields.RayPrincipalIdealSubgroup
+
+@[expose] public section
+
+/-
+Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
+-/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+set_option autoImplicit false

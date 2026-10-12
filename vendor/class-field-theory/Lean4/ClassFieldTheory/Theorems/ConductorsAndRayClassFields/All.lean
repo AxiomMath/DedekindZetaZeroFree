@@ -1,0 +1,116 @@
+module
+
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.EmbedsInRayClassFieldIffConductorLe
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.EmbedsInEveryRayClassFieldRealization
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.AbelianConductorFiniteUnramified
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.AbelianConductorFiniteSupport
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.AbelianConductorFiniteNormCriterion
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.AbelianConductorTameCriterion
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.AbelianConductorFiniteExponentIsLeast
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.AbelianConductorRayClassFieldLe
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.AbelianConductorRealRamification
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.IsAbelianConductorUnique
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.IsRayCongruentOfLe
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.NarrowRayClassGroupEquivNarrowClassGroup
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.OrdinaryNarrowModuliEqOfNoReal
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.OrdinaryRayClassGroupEquivClassGroup
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.ExistsAbelianConductor
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.ExistsUniqueAbelianConductor
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.FractionalIdealNormPrimeExponent
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayClassGroupFinite
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayClassIdealNormImageLeArtinKer
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayClassIdealNormImageEqArtinKer
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayClassIdealArtinKerEqNormRangeSupPrincipal
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayClassGroupHomExtFinitePrime
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayClassFieldDegree
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayClassFieldPrimeSplitting
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayClassFieldReciprocity
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayArtinModulusProjection
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.ExistsRayArtinModulusProjection
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayClassFieldModulusMonotone
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayClassIdealModulusProjectionPrime
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayClassIdealModulusProjectionSurjective
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayLocalHigherUnitAntitone
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayLocalHigherUnitMembership
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayLocalHigherUnitOpen
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayLocalHigherUnitOneAdd
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayLocalHigherUnitZero
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayClassSubgroupPrimeInertiaDegree
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayClassSubgroupDegree
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayClassSubgroupExistence
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayClassSubgroupEmbedding
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayClassSubgroupFieldAntitone
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayClassSubgroupRealizationEq
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayClassSubgroupRealizationEquiv
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayClassSubgroupPrimeSplitting
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayClassSubgroupQuotient
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayClassSubgroupQuotientEquivMk
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayPrincipalIdealMembership
+public import ClassFieldTheory.Theorems.ConductorsAndRayClassFields.RayPrincipalIdealPrimeTo
+
+@[expose] public section
+
+/-
+Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
+-/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+set_option autoImplicit false
+
+/-!
+# Conductors and ray class fields
+
+This `All` module collects the implementation-independent finite class-field
+correspondence for ray-class subgroups, full ray class fields, their degree
+and prime-splitting formulas, and conductor minimality.  Each theorem has its
+own leaf module.
+-/
