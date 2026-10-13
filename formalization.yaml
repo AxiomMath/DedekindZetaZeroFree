@@ -6,10 +6,10 @@ project:
   description: >-
     A Lean formalization of Theorem 1.1 of A quasi-Riemann hypothesis for
     Dedekind zeta functions: for every number field K, its Dedekind zeta
-    function has no zeros in Re(s) > 1 - 1/6000. The formal statement asserts
+    function has no zeros in Re(s) > 31/32. The formal statement asserts
     the existence of a holomorphic function away from 1 that agrees with
     Mathlib's Dedekind zeta function for Re(s) > 1 and is nonzero for
-    Re(s) > 5999/6000 with s different from 1. This repository contains the substantive Lean
+    Re(s) > 31/32 with s different from 1. This repository contains the substantive Lean
     development, including its Challenge and Solution.
   authors: ["Dean Cureton"]
   responsible_maintainers: ["Dean Cureton"]
@@ -135,10 +135,10 @@ fidelity:
     The canonical statement is Challenge/DedekindZetaChallenge.lean. It states
     the existence of a holomorphic continuation away from 1, agreeing with
     Mathlib's Dedekind zeta function in its convergence half-plane, with the
-    explicit zero-free bound 5999/6000 = 1 - 1/6000. The quantification over
-    every number field and this bound agree with Theorem 1.1. The exclusion
-    of s = 1 makes the pole explicit. The separate Hecke L-function conclusion
-    in Corollary 1.2 is outside the compared theorem's scope.
+    explicit zero-free bound 31/32. The quantification over every number field
+    and this bound agree with Theorem 1.1. The exclusion of s = 1 makes the pole
+    explicit. The separate Hecke L-function conclusion in Corollary 1.2 is
+    outside the compared theorem's scope.
 
 review:
   status: "agent-reviewed"

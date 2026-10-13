@@ -1,7 +1,6 @@
 module
 
-public import DedekindZetaZeroFree.Nonvanishing.Descent.TwelfthRootExtension
-public import DedekindZetaZeroFree.LFunctions.Dedekind.TwelfthRootContinuationAndNonvanishing
+public import DedekindZetaZeroFree.Nonvanishing.Mellin.Quantitative.DedekindZetaNonvanishing
 
 @[expose] public section
 
@@ -11,8 +10,7 @@ theorem dedekindZeta_ne_zero
     (K : Type) [Field K] [NumberField K] :
     ∃ f : ℂ → ℂ, DifferentiableOn ℂ f ({1}ᶜ : Set ℂ) ∧
       (∀ s : ℂ, 1 < s.re → f s = NumberField.dedekindZeta K s) ∧
-      ∀ s : ℂ, 5999 / 6000 < s.re → s ≠ 1 → f s ≠ 0 := by
-  exact dedekindZeta_ne_zero_of_mu12
-    (fun F _ _ htc hmu => principal_mu12_dedekindZeta_ne_zero F htc hmu) K
+      ∀ s : ℂ, 31 / 32 < s.re → s ≠ 1 → f s ≠ 0 := by
+  exact DedekindZetaZeroFree.Quantitative.dedekindZeta_ne_zero K
 
 end DedekindZetaZeroFree

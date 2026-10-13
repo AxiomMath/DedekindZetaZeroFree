@@ -15,7 +15,7 @@ formalization. The work was developed at Axiom Math.
 $\zeta_K$ has no zeros in the half-plane
 
 $$
-\mathrm{Re}(s) > 1-\frac{1}{6000}.
+\mathrm{Re}(s) > \frac{31}{32}.
 $$
 
 The formal proof uses only Lean's three standard axioms: `propext`,
