@@ -2,7 +2,7 @@
 
 # Dedekind Zeta Zero-Free Region
 
-This is a Lean formalization of Theorem 1.1 of
+This is a Lean formalization of Theorem 1.1 and Corollary 1.2 of
 [A quasi-Riemann hypothesis for Dedekind zeta functions](https://hexagonmath.org/2610.00200v1).
 
 The investigators, Dean Cureton and Jesse Thorner, directed the research and
@@ -17,6 +17,9 @@ $\zeta_K$ has no zeros in the half-plane
 $$
 \mathrm{Re}(s) > \frac{31}{32}.
 $$
+
+**Corollary 1.2.** The same zero-free region holds for finite-order Hecke
+L-functions, with $s = 1$ included for nonprincipal characters.
 
 The formal proof uses only Lean's three standard axioms: `propext`,
 `Quot.sound`, and `Classical.choice`.
@@ -43,9 +46,10 @@ It also includes code adapted from Tau Ceti and:
 ## Formal Challenge
 
 [Solution/DedekindZetaSolution.lean](Solution/DedekindZetaSolution.lean)
-proves `DedekindZetaZeroFree.main` from
+proves `DedekindZetaZeroFree.main` and `DedekindZetaZeroFree.heckeCorollary` from
 [Challenge/DedekindZetaChallenge.lean](Challenge/DedekindZetaChallenge.lean),
-using the library's [main theorem](DedekindZetaZeroFree/Main.lean).
+using the library's [main theorem](DedekindZetaZeroFree/Main.lean) and
+[Hecke corollary](DedekindZetaZeroFree/HeckeCorollary.lean).
 
 To build:
 

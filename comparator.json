@@ -2,7 +2,8 @@
   "challenge_module": "DedekindZetaChallenge",
   "solution_module": "DedekindZetaSolution",
   "theorem_names": [
-    "DedekindZetaZeroFree.main"
+    "DedekindZetaZeroFree.main",
+    "DedekindZetaZeroFree.heckeCorollary"
   ],
   "permitted_axioms": [
     "propext",

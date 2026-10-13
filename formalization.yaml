@@ -4,12 +4,15 @@ version: "v0.4"
 project:
   name: "A uniform zero-free region for Dedekind zeta functions"
   description: >-
-    A Lean formalization of Theorem 1.1 of A quasi-Riemann hypothesis for
+    A Lean formalization of Theorem 1.1 and Corollary 1.2 of A quasi-Riemann hypothesis for
     Dedekind zeta functions: for every number field K, its Dedekind zeta
     function has no zeros in Re(s) > 31/32. The formal statement asserts
     the existence of a holomorphic function away from 1 that agrees with
     Mathlib's Dedekind zeta function for Re(s) > 1 and is nonzero for
-    Re(s) > 31/32 with s different from 1. This repository contains the substantive Lean
+    Re(s) > 31/32 with s different from 1. The corollary gives the same zero-free bound
+    for Hecke L-functions associated with finite-order Hecke characters,
+    including s = 1 for nonprincipal characters. These characters are
+    represented in Lean as ray class characters. This repository contains the substantive Lean
     development, including its Challenge and Solution.
   authors: ["Dean Cureton"]
   responsible_maintainers: ["Dean Cureton"]
@@ -24,13 +27,13 @@ sources:
     id: "https://hexagonmath.org/2610.00200v1"
     type: "paper"
     relationship: "formalizes"
-    location: "Version 1 (12 October 2026), Theorem 1.1, p. 3"
+    location: "Version 1 (12 October 2026), Theorem 1.1 and Corollary 1.2"
     note: >-
       Dean Cureton and Jesse Thorner directed the research and made the
       mathematical judgments. The manuscript and formalization were developed
       at Axiom Math with AxiomProver; Section 15 describes this human-AI
-      collaboration. The compared theorem formalizes Theorem 1.1, not the
-      separate Hecke L-function claim in Corollary 1.2.
+      collaboration. The compared theorems formalize Theorem 1.1 and the
+      finite-order Hecke L-function claim in Corollary 1.2.
   - title: "Metaplectic forms"
     authors: ["D. A. Kazhdan", "S. J. Patterson"]
     id: "https://www.numdam.org/article/PMIHES_1984__59__35_0.pdf"
@@ -98,14 +101,20 @@ classification:
 status:
   scope: >-
     DedekindZetaZeroFree.main states the unconditional zero-free theorem for every
-    number field. The full default build passes for all library modules, the
+    number field. DedekindZetaZeroFree.heckeCorollary gives the corresponding
+    finite-order Hecke L-function result. The full default build passes for all library modules, the
     Challenge, and the Solution, admitting only the three standard axioms.
-    The sorry counts below exclude the intentional Challenge placeholder.
+    The sorry counts below exclude the intentional Challenge placeholders.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Quot.sound", "Classical.choice"]
   main_results:
     - declaration: "DedekindZetaZeroFree.main"
+      file: "Solution/DedekindZetaSolution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Quot.sound", "Classical.choice"]
+      comparator_config: "comparator.json"
+    - declaration: "DedekindZetaZeroFree.heckeCorollary"
       file: "Solution/DedekindZetaSolution.lean"
       sorry_count: 0
       axioms: ["propext", "Quot.sound", "Classical.choice"]
@@ -137,8 +146,10 @@ fidelity:
     Mathlib's Dedekind zeta function in its convergence half-plane, with the
     explicit zero-free bound 31/32. The quantification over every number field
     and this bound agree with Theorem 1.1. The exclusion of s = 1 makes the pole
-    explicit. The separate Hecke L-function conclusion in Corollary 1.2 is
-    outside the compared theorem's scope.
+    explicit. The Hecke statement concerns finite-order Hecke characters,
+    represented in Lean as ray class characters, and their ideal Dirichlet
+    series, with the same bound. It includes s = 1 for
+    nonprincipal characters, whose continuations are entire.
 
 review:
   status: "agent-reviewed"
