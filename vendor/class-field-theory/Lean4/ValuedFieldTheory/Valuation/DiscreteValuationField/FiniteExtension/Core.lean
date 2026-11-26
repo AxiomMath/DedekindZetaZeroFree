@@ -472,7 +472,7 @@ theorem integralClosure_base_maximal_map_henselianRing_of_base_isPrecomplete
   have hHausR : IsHausdorff base.maximalIdeal base.valuationSubring :=
     IsHausdorff.of_le_jacobson
       (I := base.maximalIdeal) (M := base.valuationSubring)
-      (show base.maximalIdeal ≤ Ideal.jacobson (⊥ : Ideal base.valuationSubring) from
+      (show base.maximalIdeal ≤ Ring.jacobson base.valuationSubring from
         HenselianRing.jac)
   have hCompleteR : IsAdicComplete base.maximalIdeal base.valuationSubring :=
     { toIsHausdorff := hHausR

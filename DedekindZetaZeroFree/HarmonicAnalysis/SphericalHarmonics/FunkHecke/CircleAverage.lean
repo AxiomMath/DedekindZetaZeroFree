@@ -19,7 +19,7 @@ instance angleMeasure_isProbabilityMeasure : IsProbabilityMeasure angleMeasure :
 
 @[simp] theorem shiftedLegendre_eval_zero (ℓ : ℕ) :
     (Polynomial.shiftedLegendre ℓ).eval₂ (Int.castRingHom ℝ) 0 = 1 := by
-  simp [Polynomial.shiftedLegendre, Polynomial.eval₂_finset_sum, Finset.sum_range_succ']
+  simp [Polynomial.shiftedLegendre, Polynomial.eval₂_finsetSum, Finset.sum_range_succ']
 
 @[simp] theorem latitudePoint_zero_val (g : Ambient ≃ₗᵢ[ℝ] Ambient) (θ : ℝ) :
     (latitudePoint g 0 θ : Ambient) = g north := by

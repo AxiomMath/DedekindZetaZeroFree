@@ -406,12 +406,12 @@ private theorem raw_correctionProduct_slice_differentiableOn
         AllRowEuler.InitialSeparation.localCorrection C U p (e t).1 (e t).2.1 (e t).2.2)
       (e ⁻¹' CorrectionFactors.Omega) := by
   have hlim := (raw_correctionProduct_locallyUniformlyOn C U).comp e
-    (fun _ ht => ht) he.continuous.continuousOn
+    (fun x (ht : x ∈ e ⁻¹' CorrectionFactors.Omega) => ht) he.continuous.continuousOn
   apply hlim.differentiableOn
   · apply Filter.Eventually.of_forall
     intro s
     simpa only [Finset.prod_fn, Function.comp_apply] using
-      (DifferentiableOn.finset_prod (u := s) fun p _ =>
+      (DifferentiableOn.finsetProd (u := s) fun p _ =>
         (raw_localCorrection_differentiableOn C U p).comp he.differentiableOn (fun _ ht => ht))
   · exact CorrectionFactors.isOpen_Omega.preimage he.continuous
 
@@ -576,7 +576,7 @@ private theorem raw_minusL_inv_bound (R : PrincipalMellin.ActualRecipe S η)
 private theorem actual_L_differentiableOn (R : PrincipalMellin.ActualRecipe S η) :
     DifferentiableOn ℂ R.L {s : ℂ | 0 < s.re ∧ s ≠ 1} := by
   apply R.continuation.L_holo.mul
-  apply DifferentiableOn.fun_finset_prod
+  apply DifferentiableOn.fun_finsetProd
   intro v hv
   exact ((((differentiable_id.neg).mul_const
     (Real.log (idealNorm v.asIdeal) : ℂ)).cexp).const_mul

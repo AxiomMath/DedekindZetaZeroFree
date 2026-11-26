@@ -654,7 +654,7 @@ private theorem all_jets_energy {I : Type*}
       ∃ B : ℝ, 0 ≤ B ∧ ∀ i, KPMeanZeroWeightedEnergy.energy E (v k i) A R ≤ ENNReal.ofReal B := by
   intro k
   induction k using Nat.strong_induction_on with
-  | h k ih =>
+  | ind k ih =>
     intro A hA R hR
     let T := R/2
     have hT : 0 < T := half_pos hR
@@ -773,9 +773,9 @@ private theorem energyDensity_continuous (k : ℕ) (s : ℂ) (hs : s ∈ V) (A :
   unfold energyDensity jetScalar gradientSq
   apply Continuous.mul (by fun_prop)
   apply Continuous.add ((hh.continuous.comp (KPCuspCharts.toArch_contDiff F).continuous).norm.pow 2)
-  apply continuous_finset_sum
+  apply continuous_finsetSum
   intro i hi
-  apply continuous_finset_sum
+  apply continuous_finsetSum
   intro j hj
   exact ((((continuous_apply j).comp ((continuous_apply i).comp hd)).comp
     (hreal.comp (KPCuspCharts.toArch_contDiff F).continuous)).norm.pow 2)

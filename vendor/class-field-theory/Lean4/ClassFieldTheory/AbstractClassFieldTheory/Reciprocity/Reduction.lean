@@ -766,7 +766,7 @@ theorem abstractReciprocity_commutator_mem_kernel
       map_one' := r.map_zero
       map_mul' := r.map_add }
   have hker : q ∈ rMul.ker :=
-    Abelianization.commutator_subset_ker rMul hq
+    Group.Abelianization.commutator_le_ker rMul hq
   change Multiplicative.ofAdd (r (Additive.ofMul q)) = 1 at hker
   exact Multiplicative.ofAdd.injective (by simpa using hker)
 

@@ -157,7 +157,7 @@ private lemma integral_sum {ι : Type*} (I : Finset ι) (F : ι → Sphere → �
   classical
   funext x
   simp only [fractionalIntegral, Finset.mul_sum]
-  exact MeasureTheory.integral_finset_sum I
+  exact MeasureTheory.integral_finsetSum I
     (by intro i hi; exact (fractionalIntegral_rotation α hα _ (hF i hi)).1 x)
 
 private lemma integral_mul (c : ℂ) (F : Sphere → ℂ) (α : ℝ) :

@@ -103,14 +103,14 @@ private theorem classFieldAxiom_unramifiedUnits_hMinusOne
   have hExact : S.Exact := by
     rw [S.moduleCat_exact_iff]
     intro u hu
-    have huNorm : U.norm.hom u = 0 := by
+    have huNorm : U.norm.asHom.hom u = 0 := by
       simpa [S] using hu
     let uM : M.V :=
       (extensionFixedRepresentationEquiv A K L hLK hnormal).symm u.1
-    have huMNorm : M.norm.hom uM = 0 := by
+    have huMNorm : M.norm.asHom.hom uM = 0 := by
       apply Subtype.ext
       calc
-        (M.norm.hom uM).1 =
+        (M.norm.asHom.hom uM).1 =
             ((relativeNorm A K L hLK
               (extensionFixedRepresentationEquiv A K L hLK hnormal uM) :
                 ambientFixedAddSubgroup A K) : A.V) :=
@@ -118,7 +118,7 @@ private theorem classFieldAxiom_unramifiedUnits_hMinusOne
         _ = ((relativeNorm A K L hLK u.1 :
                 ambientFixedAddSubgroup A K) : A.V) := by
           rfl
-        _ = ((((U.norm.hom u).1 : ambientFixedAddSubgroup A L)) : A.V) :=
+        _ = ((((U.norm.asHom.hom u).1 : ambientFixedAddSubgroup A L)) : A.V) :=
           (v.unitRepresentation_norm_coe E hnormal u).symm
         _ = 0 := by rw [huNorm]; rfl
     obtain ⟨a, ha⟩ :=
@@ -237,7 +237,7 @@ private theorem classFieldAxiom_unramifiedUnits_hZero
     let normK : ambientFixedAddSubgroup A K :=
       relativeNorm A K L hLK yL
     have hnormM :
-        extensionFixedRepresentationEquiv A K L hLK hnormal (M.norm.hom y) =
+        extensionFixedRepresentationEquiv A K L hLK hnormal (M.norm.asHom.hom y) =
           fixedFieldInclusion A K L hLK normK := by
       apply Subtype.ext
       exact extensionFixedRepresentation_norm_coe A K L hLK hnormal y
@@ -251,7 +251,7 @@ private theorem classFieldAxiom_unramifiedUnits_hZero
     have hvalNorm :
         v.valuationAt E.field
             (extensionFixedRepresentationEquiv A K L hLK hnormal
-              (M.norm.hom y)) =
+              (M.norm.asHom.hom y)) =
           n • v.valuationAt E.field yL := by
       rw [hnormM,
         v.valuationAt_fixedFieldInclusion_of_unramified E hUnramified normK]
@@ -260,7 +260,7 @@ private theorem classFieldAxiom_unramifiedUnits_hZero
     change v.valueModulo n hn
         (v.valuationAt E.field
           (extensionFixedRepresentationEquiv A K L hLK hnormal
-            (M.norm.hom y))) = 0
+            (M.norm.asHom.hom y))) = 0
     rw [hvalNorm]
     exact v.valueModulo_nsmul n hn (v.valuationAt E.field yL)
   let H := T.moduleCatLeftHomologyData.H
@@ -370,7 +370,7 @@ private theorem classFieldAxiom_unramifiedUnits_hZero
         uCycle ∈ LinearMap.range T.moduleCatToCycles := by
       exact (Submodule.Quotient.mk_eq_zero _).1 huClass
     obtain ⟨y, hy⟩ := huCycleRange
-    have hyNorm : M.norm.hom y = uM := by
+    have hyNorm : M.norm.asHom.hom y = uM := by
       exact congrArg Subtype.val hy
     let yL : ambientFixedAddSubgroup A L :=
       extensionFixedRepresentationEquiv A K L hLK hnormal y
@@ -380,7 +380,7 @@ private theorem classFieldAxiom_unramifiedUnits_hZero
         fixedFieldInclusion A K L hLK normK = u.1 := by
       apply Subtype.ext
       calc
-        normK.1 = (M.norm.hom y).1 :=
+        normK.1 = (M.norm.asHom.hom y).1 :=
           (extensionFixedRepresentation_norm_coe A K L hLK hnormal y).symm
         _ = uM.1 := congrArg Subtype.val hyNorm
         _ = u.1.1 := rfl
@@ -412,9 +412,9 @@ private theorem classFieldAxiom_unramifiedUnits_hZero
     apply Subtype.ext
     apply Subtype.ext
     calc
-      ((((U.norm.hom yU).1 : ambientFixedAddSubgroup A L)) : A.V) =
+      ((((U.norm.asHom.hom yU).1 : ambientFixedAddSubgroup A L)) : A.V) =
           normK.1 := v.unitRepresentation_norm_coe E hnormal yU
-      _ = (M.norm.hom y).1 :=
+      _ = (M.norm.asHom.hom y).1 :=
         (extensionFixedRepresentation_norm_coe A K L hLK hnormal y).symm
       _ = uM.1 := congrArg Subtype.val hyNorm
       _ = u.1.1 := rfl
@@ -907,13 +907,13 @@ to an additive commutative group factors canonically through its
 abelianization.  This is the factor map used in the first reduction once the finite reciprocity equivalence supplies the reciprocity homomorphism. -/
 def abstractReciprocityAbelianizationFactor
     {Q : Type*} {B : Type*} [Group Q] [AddCommGroup B]
-    (f : Additive Q →+ B) : Additive (Abelianization Q) →+ B := by
+    (f : Additive Q →+ B) : Additive (Group.Abelianization Q) →+ B := by
   let fMul : Q →* Multiplicative B :=
     { toFun := fun q => Multiplicative.ofAdd (f (Additive.ofMul q))
       map_one' := f.map_zero
       map_mul' := f.map_add }
-  let fAb : Abelianization Q →* Multiplicative B :=
-    Abelianization.lift fMul
+  let fAb : Group.Abelianization Q →* Multiplicative B :=
+    Group.Abelianization.lift fMul
   exact
     { toFun := fun q => Multiplicative.toAdd (fAb q.toMul)
       map_zero' := fAb.map_one
@@ -928,9 +928,9 @@ theorem abstractReciprocityAbelianizationFactor_of
     {Q : Type*} {B : Type*} [Group Q] [AddCommGroup B]
     (f : Additive Q →+ B) (q : Q) :
     abstractReciprocityAbelianizationFactor f
-        (Additive.ofMul (Abelianization.of q)) =
+        (Additive.ofMul (Group.Abelianization.of q)) =
       f (Additive.ofMul q) := by
-  exact Abelianization.lift_apply_of
+  exact Group.Abelianization.lift_apply_of
     ({ toFun := fun q => Multiplicative.ofAdd (f (Additive.ofMul q))
        map_one' := f.map_zero
        map_mul' := f.map_add } : Q →* Multiplicative B) q
@@ -944,10 +944,10 @@ def abstractReciprocityAbelianizedRestriction
     [hLnormal :
       (extensionSubgroup K L (hLM.trans hMK)).Normal]
     [hMnormal : (extensionSubgroup K M hMK).Normal] :
-    Abelianization
+    Group.Abelianization
         (K.toSubgroup ⧸ extensionSubgroup K L (hLM.trans hMK)) →*
-      Abelianization (K.toSubgroup ⧸ extensionSubgroup K M hMK) :=
-  Abelianization.map (abstractReciprocityRestriction K M L hLM hMK)
+      Group.Abelianization (K.toSubgroup ⧸ extensionSubgroup K M hMK) :=
+  Group.Abelianization.map (abstractReciprocityRestriction K M L hLM hMK)
 
 /-- The identity `N_{M/K} ∘ i = [M:K]` used in the Sylow argument of the
 first reduction.  Here `i` is the actual inclusion of finite norm

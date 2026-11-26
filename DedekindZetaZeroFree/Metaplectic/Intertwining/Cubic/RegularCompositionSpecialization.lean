@@ -38,7 +38,7 @@ private lemma regular_inv {a : ℂ} {f : RatFunc ℂ} (_hf : Regular a f)
   have hf0 : f ≠ 0 := by intro h; simp [h] at hne
   intro h
   have H := Polynomial.eval₂_eq_zero_of_dvd_of_eval₂_eq_zero (RingHom.id ℂ) a
-    (RatFunc.denom_inv_dvd hf0) (by simpa using h)
+    (RatFunc.denom_inv_dvd _) (by simpa using h)
   apply hne
   simp [RatFunc.eval, H]
  lemma eval_mul' {a : ℂ} {f g : RatFunc ℂ} (hf : Regular a f) (hg : Regular a g) :
@@ -53,7 +53,7 @@ private lemma eval_inv' {a : ℂ} {f : RatFunc ℂ} (hf : Regular a f)
   rw [← eval_mul' hf (regular_inv hf hne), mul_inv_cancel₀ hf0, RatFunc.eval_one,
     mul_inv_cancel₀ hne]
  def regularSpace (a : ℂ) : Submodule ℂ (RatFunc ℂ) where
-  carrier := Regular a
+  carrier := {f | Regular a f}
   zero_mem' := regular_zero a
   add_mem' := regular_add
   smul_mem' c f hf := by

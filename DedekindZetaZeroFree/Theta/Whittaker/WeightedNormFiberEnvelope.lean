@@ -139,6 +139,7 @@ theorem sheetHaar_integral_eq (A : SArithmeticData F) (v₀ : InfinitePlace F)
 
 set_option maxHeartbeats 1000000 in
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
 theorem product_power_majorant_sheet_bound (A : SArithmeticData F)
     (v₀ : InfinitePlace F) (μG : Measure A.G) [μG.IsHaarMeasure]
     (M B s : ℝ) (hM : 0 < M) (hs : -(1 / 4 : ℝ) < s) (hBs : s < B) :

@@ -183,7 +183,7 @@ theorem exists_norm_eq_of_tateHZero_isZero
     {Q : IntegralRepGroupType} [Group Q] [Fintype Q]
     (M : Rep ℤ Q) (g : Q) (hg : ∀ x, x ∈ Subgroup.zpowers g)
     (hzero : Limits.IsZero (tateCohomology M 0)) :
-    ∀ x : M.V, M.ρ g x = x → ∃ y : M.V, M.norm.hom y = x := by
+    ∀ x : M.V, M.ρ g x = x → ∃ y : M.V, M.norm.asHom.hom y = x := by
   let : IsCyclic Q := isCyclic_of_generator g hg
   let : CommGroup Q := IsCyclic.commGroup (α := Q)
   let S := Rep.FiniteCyclicGroup.normHomCompSub M g
@@ -401,7 +401,7 @@ theorem unitRepresentation_norm_coe
     letI := Fintype.ofFinite
       (E.base.field.toSubgroup ⧸
         extensionSubgroup E.base.field E.field.field E.below)
-    ((((v.unitRepresentation E hnormal).norm.hom u).1 :
+    ((((v.unitRepresentation E hnormal).norm.asHom.hom u).1 :
         ambientFixedAddSubgroup A E.field.field) : A.V) =
       ((relativeNorm A E.base.field E.field.field E.below u.1 :
         ambientFixedAddSubgroup A E.base.field) : A.V) := by
@@ -465,7 +465,7 @@ theorem exists_unit_relativeNorm_eq_of_tateHZero_isZero
   calc
     ((relativeNorm A E.base.field E.field.field E.below ε.1 :
         ambientFixedAddSubgroup A E.base.field) : A.V) =
-        ((((v.unitRepresentation E hnormal).norm.hom ε).1 :
+        ((((v.unitRepresentation E hnormal).norm.asHom.hom ε).1 :
           ambientFixedAddSubgroup A E.field.field) : A.V) :=
       (v.unitRepresentation_norm_coe E hnormal ε).symm
     _ = ((uL.1 : ambientFixedAddSubgroup A E.field.field) : A.V) :=
@@ -488,7 +488,7 @@ theorem exists_unit_sigma_sub_eq_of_tateHMinusOne_isZero
     Limits.IsZero
         (tateCohomology (v.unitRepresentation E hnormal) (-1)) →
       ∀ u : (v.unitRepresentation E hnormal).V,
-        (v.unitRepresentation E hnormal).norm.hom u = 0 →
+        (v.unitRepresentation E hnormal).norm.asHom.hom u = 0 →
         ∃ ε : (v.unitRepresentation E hnormal).V,
           (v.unitRepresentation E hnormal).ρ g ε - ε = u := by
   let := Fintype.ofFinite

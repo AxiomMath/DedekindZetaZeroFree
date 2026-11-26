@@ -204,7 +204,8 @@ theorem local_overlap (Ω : Set ℂ)
       locals.coefficient ⟨i, y, O', m', B', hB'⟩ s q =
         restriction F ζ hζ U R P H i y O' m' B' hB' (u s) q :=
     (ae_restrict_iff' Metric.isOpen_ball.measurableSet).mp hb
-  have hτ := (overlapCoordinate_quasiMeasurePreserving F ζ hζ U R P H i γ).ae hb'
+  have hτ := MeasureTheory.QuasiMeasurePreserving.ae
+    (overlapCoordinate_quasiMeasurePreserving F ζ hζ U R P H i γ) hb'
   have hrel := restriction_overlap F ζ hζ U R P H i x y O O' m m' ε γ B B' hB hB' hm (u s)
   have haS : locals.coefficient ⟨i, x, O, m, B, hB⟩ s =ᵐ[
       volume.restrict (B.carrier ∩ overlapCoordinate F ζ hζ U R P H i γ ⁻¹' B'.carrier)]

@@ -19,9 +19,9 @@ def plusTensorEvaluation {ι : Type*} [Fintype ι] :
   PiTensorProduct.lift
     ((MultilinearMap.mkPiAlgebra ℂ ι ((ι → KPCplxCharacterHaar.ComplexGL2) → ℂ)).compLinearMap
       (fun i =>
-        { toFun := fun f a => f.val (a i)
-          map_add' := fun _ _ => rfl
-          map_smul' := fun _ _ => rfl }))
+        ({ toFun := fun f a => f.val (a i)
+           map_add' := fun _ _ => rfl
+           map_smul' := fun _ _ => rfl } : KPLiteralTensor.harmonicPlus →ₗ[ℂ] ((ι → KPCplxCharacterHaar.ComplexGL2) → ℂ))))
 
 @[simp] theorem plusTensorEvaluation_pure {ι : Type*} [Fintype ι]
     (f : ι → KPLiteralTensor.harmonicPlus)

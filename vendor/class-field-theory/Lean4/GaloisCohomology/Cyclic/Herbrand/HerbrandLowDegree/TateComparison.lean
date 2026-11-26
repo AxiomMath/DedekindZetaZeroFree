@@ -190,7 +190,7 @@ noncomputable def tateH0IsoHerbrandH0 :
       ModuleCat.of ℤ (Additive (HerbrandH0 G A)) := by
   let M := Rep.ofMulDistribMulAction G A
   let S : ShortComplex (ModuleCat ℤ) :=
-    ShortComplex.mk M.norm.toModuleCatHom (groupCohomology.d₀₁ M)
+    ShortComplex.mk M.norm.asHom.toModuleCatHom (groupCohomology.d₀₁ M)
       (Rep.norm_comp_d_eq_zero M)
   let eKOwner :
       S.moduleCatLeftHomologyData.K ≅
@@ -254,7 +254,7 @@ noncomputable def tateH0IsoHerbrandH0 :
 
  def normKernelCyclesAddEquiv :
     LinearMap.ker
-        (Rep.ofMulDistribMulAction G A).norm.toModuleCatHom.hom ≃+
+        (Rep.ofMulDistribMulAction G A).norm.asHom.toModuleCatHom.hom ≃+
       Additive (normKernelSubgroup G A) where
   toFun x :=
     let a : Additive A := x.1
@@ -305,7 +305,7 @@ noncomputable def tateH0IsoHerbrandH0 :
       S.moduleCatLeftHomologyData.K ≅
         ModuleCat.of ℤ
           (LinearMap.ker
-            (Rep.ofMulDistribMulAction G A).norm.toModuleCatHom.hom) :=
+            (Rep.ofMulDistribMulAction G A).norm.asHom.toModuleCatHom.hom) :=
     eqToIso (by rfl)
   let eK :=
     (eKOwner ≪≫

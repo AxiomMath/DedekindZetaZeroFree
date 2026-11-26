@@ -396,6 +396,24 @@ attribute [local instance]
       toMonoidHom a
 
  theorem
+    rawGlobalArtinMonoidHom_numberFieldCyclotomicZHatFiniteLayer_restriction
+    (E :
+      FiniteGaloisIntermediateField
+        ℚ rationalCyclotomicZHatField)
+    (a : IdeleGroup K) :
+    AlgEquiv.restrictNormalHom
+        (numberFieldCyclotomicZHatFiniteLayerInCompositum K E)
+        (infiniteGlobalArtinMonoidHom K
+          (numberFieldCyclotomicZHatCompositum K) a) =
+      globalArtinMonoidHom
+        (K := K)
+        (L :=
+          numberFieldCyclotomicZHatFiniteLayerInCompositum K E) a :=
+  restrictNormalHom_infiniteGlobalArtinMonoidHom_intermediateField
+    K (numberFieldCyclotomicZHatCompositum K) a
+    (numberFieldCyclotomicZHatFiniteLayerInCompositum K E)
+
+ theorem
     rawGlobalArtinMonoidHom_numberFieldCyclotomicZHatFiniteLayer_principalIdele
     (E :
       FiniteGaloisIntermediateField
@@ -418,10 +436,8 @@ attribute [local instance]
           (L :=
             numberFieldCyclotomicZHatFiniteLayerInCompositum K E)
           (IdeleGroup.principalIdele K x) :=
-    restrictNormalHom_infiniteGlobalArtinMonoidHom
-      K (numberFieldCyclotomicZHatCompositum K)
-      (IdeleGroup.principalIdele K x)
-      (numberFieldCyclotomicZHatFiniteGaloisLayerInCompositum K E)
+    rawGlobalArtinMonoidHom_numberFieldCyclotomicZHatFiniteLayer_restriction
+      K E (IdeleGroup.principalIdele K x)
   calc
     globalArtinMonoidHom
           (K := K)
@@ -441,24 +457,6 @@ attribute [local instance]
     _ = 1 := map_one
       (AlgEquiv.restrictNormalHom
         (numberFieldCyclotomicZHatFiniteLayerInCompositum K E))
-
- theorem
-    rawGlobalArtinMonoidHom_numberFieldCyclotomicZHatFiniteLayer_restriction
-    (E :
-      FiniteGaloisIntermediateField
-        ℚ rationalCyclotomicZHatField)
-    (a : IdeleGroup K) :
-    AlgEquiv.restrictNormalHom
-        (numberFieldCyclotomicZHatFiniteLayerInCompositum K E)
-        (infiniteGlobalArtinMonoidHom K
-          (numberFieldCyclotomicZHatCompositum K) a) =
-      globalArtinMonoidHom
-        (K := K)
-        (L :=
-          numberFieldCyclotomicZHatFiniteLayerInCompositum K E) a :=
-  restrictNormalHom_infiniteGlobalArtinMonoidHom
-    K (numberFieldCyclotomicZHatCompositum K) a
-    (numberFieldCyclotomicZHatFiniteGaloisLayerInCompositum K E)
 
  noncomputable def
     numberFieldCyclotomicZHatFiniteLayerArtinData

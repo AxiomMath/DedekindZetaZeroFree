@@ -469,7 +469,7 @@ private theorem infinityDiagonalProduct_apply (A : SArithmeticData F)
       ∏ w : InfinitePlace F,
         DHCubic.infinityComponent (DHCubic.E0 F A) F ι w (w.embedding (a : F)) := by
   change Circle.coeHom ((∏ w : InfinitePlace F, infinityDiagonal A ι w) a) = _
-  rw [MonoidHom.finset_prod_apply, map_prod]
+  rw [MonoidHom.finsetProd_apply, map_prod]
   exact Finset.prod_congr rfl (fun w _ => infinityDiagonal_apply A ι w a)
 
 def principalDiscrepancy (A : SArithmeticData F) (ι : DHCubic.E0 F A →+* ℂ) :
@@ -649,7 +649,7 @@ def product (A : SArithmeticData F) (σ : F →+* ℂ) : A.G →* Circle where
 
 theorem continuous_product (A : SArithmeticData F) (σ : F →+* ℂ) :
     Continuous (product A σ) := by
-  apply continuous_finset_prod
+  apply continuous_finsetProd
   intro w _
   exact (continuous_character A σ w).comp ((continuous_apply w).comp continuous_fst)
 
@@ -662,7 +662,9 @@ theorem character_diagonal (A : SArithmeticData F) (σ : F →+* ℂ)
   congr 2
   change InfinitePlace.Completion.extensionEmbedding w
     (algebraMap F w.Completion (a : F)) = _
-  simp
+  rw [AbsoluteValue.Completion.algebraMap_def, WithAbs.algebraMap_right_apply,
+    Algebra.algebraMap_self_apply, InfinitePlace.Completion.extensionEmbedding_coe]
+  rfl
 
 end EisensteinInfinityRecipe
 

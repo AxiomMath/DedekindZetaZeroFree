@@ -101,12 +101,12 @@ theorem finitePlaceHilbertSymbol_hasFiniteMulSupport
     _ = chi
         (chosenFinitePlaceArtinMonoidHom (K := K) (L := L) v
           (Units.map (algebraMap K (v.adicCompletion K)).toMonoidHom a)) := by
-      change finitePlaceKummerRootCharacter K n hnK hmu v a b =
-        finitePlaceKummerRootCharacterOfExtension K n hnK hmu v a b
-          (chosenFinitePlaceExtension (L := L) v)
-      exact
-        (finitePlaceKummerRootCharacterOfExtension_eq K n hnK hmu v a b
-          (chosenFinitePlaceExtension (L := L) v)).symm
+      rw [← finitePlaceKummerRootCharacterOfExtension_eq K n hnK hmu v a b
+          (chosenFinitePlaceExtension (L := L) v)]
+      simp only [finitePlaceKummerRootCharacterOfExtension, chi,
+        chosenFinitePlaceArtinMonoidHom, MonoidHom.coe_comp, Function.comp_apply,
+        MulEquiv.coe_toMonoidHom]
+      congr 1
 
 end Reciprocity
 end GlobalClassFieldTheory

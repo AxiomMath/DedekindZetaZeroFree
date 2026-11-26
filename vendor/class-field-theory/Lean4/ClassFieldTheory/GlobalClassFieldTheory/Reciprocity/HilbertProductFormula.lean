@@ -171,11 +171,12 @@ theorem globalHilbertProduct_principal
           (chosenFinitePlaceArtinMonoidHom (K := K) (L := L) v
             (Units.map (algebraMap K (v.adicCompletion K)).toMonoidHom a)) =
           finitePlaceKummerRootCharacter K n hnK hmu v a b := by
-        change finitePlaceKummerRootCharacterOfExtension K n hnK hmu v a b
-          (chosenFinitePlaceExtension (L := L) v) =
-            finitePlaceKummerRootCharacter K n hnK hmu v a b
-        exact finitePlaceKummerRootCharacterOfExtension_eq K n hnK hmu v a b
-          (chosenFinitePlaceExtension (L := L) v)
+        rw [← finitePlaceKummerRootCharacterOfExtension_eq K n hnK hmu v a b
+          (chosenFinitePlaceExtension (L := L) v)]
+        simp only [finitePlaceKummerRootCharacterOfExtension, chi,
+          chosenFinitePlaceArtinMonoidHom, MonoidHom.coe_comp, Function.comp_apply,
+          MulEquiv.coe_toMonoidHom]
+        congr 1
       _ = finitePlaceHilbertSymbol K n hnK hmu v a b :=
         finitePlaceKummerRootCharacter_localGlobal
           K n hnK hmu v a b

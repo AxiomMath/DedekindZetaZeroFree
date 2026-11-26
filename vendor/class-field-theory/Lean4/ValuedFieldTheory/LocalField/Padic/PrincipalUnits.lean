@@ -247,8 +247,8 @@ theorem padicInt_exists_degree_root_of_mem_maximalIdeal_pow_succ
     omega
   have hvalpred : (p - 1 : ℤ_[p]).valuation = 0 := by
     have hvalNat : (((p - 1 : ℕ) : ℤ_[p])).valuation = 0 := by
-      rw [LocalFieldTheory.DiscreteValuationField.padicInt_valuation_natCast,
-        padicValNat.eq_zero_of_not_dvd hp_not_dvd_pred]
+      rw [LocalFieldTheory.DiscreteValuationField.padicInt_valuation_natCast, Nat.padicValNat_def,
+        multiplicity_eq_zero_of_not_dvd hp_not_dvd_pred]
     rw [Nat.cast_sub hpone, Nat.cast_one] at hvalNat
     exact hvalNat
   have hpred_qp_ne : (p - 1 : ℤ_[p]) ≠ 0 := by exact_mod_cast hpred_ne

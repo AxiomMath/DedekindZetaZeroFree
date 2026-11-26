@@ -97,7 +97,7 @@ theorem local_valuation_ball_fourier (F : Type) [Field F] [NumberField F]
     rfl
   have hq : (0 : ℝ) < (v.asIdeal.absNorm : ℝ) := by
     exact_mod_cast (lt_trans Nat.zero_lt_one
-      (NumberField.RingOfIntegers.HeightOneSpectrum.one_lt_absNorm v))
+      (NumberField.HeightOneSpectrum.one_lt_absNorm v))
   have heq : (v.asIdeal.absNorm : ℝ) ^ (-k) * ‖y‖ ≤
       (v.asIdeal.absNorm : ℝ) ^ differentExponent F v ↔
       ‖y‖ ≤ (v.asIdeal.absNorm : ℝ) ^ (k + differentExponent F v) := by
@@ -188,7 +188,7 @@ private theorem kernel_continuous (F : Type) [Field F] [NumberField F]
         (inner ℝ x.1 (PoissonArch.traceAdapter F y.1) : ℂ)) by
         funext x; rw [PoissonArch.tracePairing_eq_inner]]
     fun_prop
-  · apply continuous_finset_prod
+  · apply continuous_finsetProd
     intro v _
     exact continuous_subtype_val.comp ((he v).comp
       ((continuous_apply v |>.comp continuous_snd).neg.mul continuous_const))
@@ -216,7 +216,7 @@ theorem fourierIntegral_finset_sum (F : Type) [Field F] [NumberField F]
   simp only [hk]
   simp_rw [Finset.sum_mul]
   simp_rw [mul_assoc]
-  rw [integral_finset_sum T hi]
+  rw [integral_finsetSum T hi]
   simp_rw [integral_const_mul]
 
 theorem poisson_finset_sum (F : Type) [Field F] [NumberField F]
@@ -642,7 +642,7 @@ theorem local_ball_test (F : Type) [Field F] [NumberField F]
     IsLocallyConstant (fun z => if ‖z-b‖ ≤ (v.asIdeal.absNorm : ℝ) ^ (-k) then (1 : ℂ) else 0) ∧
     HasCompactSupport (fun z => if ‖z-b‖ ≤ (v.asIdeal.absNorm : ℝ) ^ (-k) then (1 : ℂ) else 0) := by
   have hq : (0 : ℝ) < (v.asIdeal.absNorm : ℝ) := by exact_mod_cast
-    (lt_trans Nat.zero_lt_one (NumberField.RingOfIntegers.HeightOneSpectrum.one_lt_absNorm v))
+    (lt_trans Nat.zero_lt_one (NumberField.HeightOneSpectrum.one_lt_absNorm v))
   have hp := zpow_pos hq (-k)
   have he : {z : v.adicCompletion F | ‖z-b‖ ≤ (v.asIdeal.absNorm : ℝ) ^ (-k)} =
       Metric.closedBall b ((v.asIdeal.absNorm : ℝ) ^ (-k)) := by ext z; simp [dist_eq_norm]
@@ -684,8 +684,8 @@ theorem traceConductor_nontrivial (F : Type) [Field F] [NumberField F]
     rw [FinitePlace.norm_def, ha, WithZeroMulInt.toNNReal_neg_apply _ WithZero.exp_ne_zero,
       WithZero.log_exp, NNReal.coe_zpow]
     rfl
-  have hq : (1 : ℝ) < (v.val.asIdeal.absNorm : ℝ) := by exact_mod_cast
-    NumberField.RingOfIntegers.HeightOneSpectrum.one_lt_absNorm v.val
+  have hq : (1 : ℝ) < (v.val.asIdeal.absNorm : ℝ) := by
+    exact_mod_cast NumberField.HeightOneSpectrum.one_lt_absNorm v.val
   have hp := zpow_pos (lt_trans zero_lt_one hq) (differentExponent F v.val)
   have hl := hh a
   rw [hna, zpow_add₀ (ne_of_gt (lt_trans zero_lt_one hq)), zpow_one] at hl

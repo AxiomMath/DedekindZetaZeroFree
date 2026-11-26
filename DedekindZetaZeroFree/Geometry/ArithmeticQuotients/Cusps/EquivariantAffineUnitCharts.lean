@@ -325,7 +325,7 @@ theorem toArch_contDiff (F : Type*) [Field F] [NumberField F] :
   apply contDiff_pi.mpr
   intro i
   exact (by fun_prop : ContDiff ℝ ⊤ (fun p : Coordinates F => p.1.1 i)).prodMk
-    (contDiff_snd.add ((contDiff_apply ℝ ℝ i).comp hb))
+    (contDiff_snd.add ((contDiff_apply ℝ (fun _ : Fin (KPCuspLogShape.dimension F) => ℝ) i).comp hb))
 
 theorem affine_contDiff (F : Type*) [Field F] [NumberField F]
     (hF : NumberField.InfinitePlace.nrRealPlaces F = 0)

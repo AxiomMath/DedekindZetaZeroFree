@@ -111,7 +111,6 @@ theorem weighted_theta_descent (C : JointMellinGaussianSources R N) (v : R.A.Uni
       weightedDigits R C.sources C.realization C.packet v m b y := by
   unfold weightedDigits
   simp only [map_mul, gamma_class, branch_gamma, one_mul, theta_descent]
-  rw [one_mul (QuotientGroup.mk' R.A.sixthPowers y)]
 
 theorem weighted_upper_descent (C : JointMellinGaussianSources R N) (v : R.A.UnitQuotient)
     (m : ThetaReflectionData.Row R.A) (b : Bool) (γ : R.A.Gamma) (y : R.A.G) :
@@ -119,7 +118,6 @@ theorem weighted_upper_descent (C : JointMellinGaussianSources R N) (v : R.A.Uni
       weightedUpper R C.sources C.realization C.packet v m b y := by
   unfold weightedUpper
   simp only [map_mul, gamma_class, branch_gamma, one_mul, upper_descent]
-  rw [one_mul (QuotientGroup.mk' R.A.sixthPowers y)]
 
 open _root_.DedekindZetaZeroFree.KPLiteralPeriod renaming raw_rationalLift_mk → raw_rationalLift_mk
 

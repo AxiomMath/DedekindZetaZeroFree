@@ -51,7 +51,7 @@ theorem
     [FiniteDimensional F E] [IsAbelianGalois F E]
     (j : E →ₐ[K] SeparableClosure K)
     (e : ambientEmbeddedSeparableClosureEquiv K F E j)
-    (z : Abelianization Gal(E / F)) :
+    (z : Group.Abelianization Gal(E / F)) :
     ∃ x : Fˣ,
       localArtinMonoidHom F E x = z ∧
         ambientEmbeddedNormResidueAbelianElement K F E j e x = z := by
@@ -259,11 +259,11 @@ theorem
     ambientEmbeddedNormResidueAbelianElement_eq_of_normClass_eq
       K F E j e a x hnormClass
   change
-    (Abelianization.equivOfComm (H := Gal(E / F))).symm
+    (Group.Abelianization.equivOfComm (H := Gal(E / F))).symm
         (localArtinMonoidHom F E a) =
-      (Abelianization.equivOfComm (H := Gal(E / F))).symm
+      (Group.Abelianization.equivOfComm (H := Gal(E / F))).symm
         (ambientEmbeddedNormResidueAbelianElement K F E j e a)
-  apply congrArg (Abelianization.equivOfComm (H := Gal(E / F))).symm
+  apply congrArg (Group.Abelianization.equivOfComm (H := Gal(E / F))).symm
   calc
     localArtinMonoidHom F E a =
         ambientEmbeddedNormResidueAbelianElement K F E j e x :=

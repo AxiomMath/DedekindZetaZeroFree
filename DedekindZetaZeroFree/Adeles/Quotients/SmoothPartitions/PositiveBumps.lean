@@ -267,7 +267,7 @@ private theorem produce {n : ℕ} (C : Fin n → ShrunkChart F ζ hζ U R P H)
     apply (sum_tsupport (t i) b).trans
     exact Set.iUnion₂_subset (fun x hx => by simpa [hidx' i x hx] using hbsub x)
   refine ⟨{ bump := fs
-            continuous := fun i => continuous_finset_sum _ (fun x _ => hfc x)
+            continuous := fun i => continuous_finsetSum _ (fun x _ => hfc x)
             smooth := fun i c => ContDiff.sum (fun x _ => hfsm x c)
             nonnegative := fun i z => Finset.sum_nonneg (fun x _ => hfn x z)
             compact_support := ?_

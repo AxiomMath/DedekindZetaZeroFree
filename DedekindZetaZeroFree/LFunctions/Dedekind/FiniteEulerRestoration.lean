@@ -61,7 +61,7 @@ theorem continuation_eq_of_right_match
   have hLa : AnalyticOnNhd ℂ L {s : ℂ | 0 < s.re ∧ s ≠ 1} :=
     hL.analyticOnNhd hopen
   have hfa : AnalyticOnNhd ℂ f {s : ℂ | 0 < s.re ∧ s ≠ 1} :=
-    (hf.mono (fun s hs => hs.2)).analyticOnNhd hopen
+    (hf.mono (fun s hs => by exact hs.2)).analyticOnNhd hopen
   have hfreq : ∃ᶠ z in 𝓝[≠] (2 : ℂ), L z = f z := by
     have hacc := mellin_punctured_halfplane_two_accPt
     apply (accPt_iff_frequently_nhdsNE.mp hacc).mono

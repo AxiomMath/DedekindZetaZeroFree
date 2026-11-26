@@ -52,7 +52,7 @@ private theorem finite_pi (I : Type u) [Fintype I] : PiSpec I := by
       exact (e.prod_comp (fun j => ∑' d, a j d)).symm
   · intro a h
     constructor
-    · exact summable_of_finite_support (Set.toFinite _)
+    · exact summable_of_hasFiniteSupport (Set.toFinite _)
     · simp
   · intro I _ ih a h
     obtain ⟨hs, ht⟩ := ih (fun i => a (some i)) (fun i => h (some i))
@@ -136,8 +136,5 @@ theorem hasProd {P : Type*} [DecidableEq P]
     have ht := tsum_subtype {d : P →₀ Digit | d.support ⊆ s} (coefficient a)
     simp only [Set.indicator, Set.mem_setOf_eq] at ht
     convert ht using 1
-    exact (Equiv.subtypeEquivRight (fun d : P →₀ Digit =>
-      (Iff.rfl : (d.support ⊆ s) ↔ d ∈ {d : P →₀ Digit | d.support ⊆ s}))).tsum_eq
-      (fun d => coefficient a d.1)
 
 end DedekindZetaZeroFree.FinsuppEulerProduct

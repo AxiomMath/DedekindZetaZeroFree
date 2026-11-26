@@ -142,7 +142,7 @@ theorem finiteAbelianIntermediateField_le_maximalAbelianExtension
   apply Subgroup.topologicalClosure_minimal
   · rw [← E.restrictNormalHom_ker]
     exact
-      Abelianization.commutator_subset_ker
+      Group.Abelianization.commutator_le_ker
         (AlgEquiv.restrictNormalHom
           (F := K) (K₁ := SeparableClosure K) E)
   · exact E.fixingSubgroup_isClosed

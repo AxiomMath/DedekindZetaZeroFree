@@ -15,6 +15,10 @@ open MomentSources NumberField MeasureTheory ThetaProfileHaarSheets ThetaSheetEx
 open ThetaExpansion.SignedExpansion
 open scoped NumberField Classical Topology
 variable {F : Type} [Field F] [NumberField F]
+
+local instance instContinuousDivG (A : SArithmeticData F) : ContinuousDiv A.G :=
+  IsTopologicalGroup.to_continuousDiv
+
 variable {S : SArithmeticData F} {η : RayClassCharacter F S.modulus}
 variable (R : PrincipalMellin.ActualRecipe S η)
 
@@ -59,11 +63,11 @@ private theorem correctionLS_continuous :
     R.probe.correction.Λ_continuous R.probe.correction.G_continuous
     R.probe.correction.eta_continuous
   apply Continuous.mul
-  · apply continuous_finset_prod
+  · apply continuous_finsetProd
     intro w hw
     exact (hθ.comp ((SArithmeticData.CorrectionTopology.infinite_embedding_continuous w).comp
       ((continuous_apply w).comp continuous_fst))).inv
-  · apply continuous_finset_prod
+  · apply continuous_finsetProd
     intro v hv
     exact (hθ.comp ((SArithmeticData.CorrectionTopology.finite_embedding_continuous v.val).comp
       ((continuous_apply v).comp continuous_snd))).inv
@@ -125,10 +129,10 @@ theorem localIdele_continuous : Continuous (localIdele R) := by
       exact continuous_const.prodMk ((RestrictedProduct.continuous_inclusion hs).comp hf)
   unfold localIdele
   apply Continuous.mul
-  · apply continuous_finset_prod
+  · apply continuous_finsetProd
     intro w hw
     exact (hi (Sum.inl w)).comp ((continuous_apply w).comp continuous_fst)
-  · apply continuous_finset_prod
+  · apply continuous_finsetProd
     intro p hp
     exact (hi (Sum.inr p.val)).comp ((continuous_apply p).comp continuous_snd)
 

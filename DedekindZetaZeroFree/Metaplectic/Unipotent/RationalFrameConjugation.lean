@@ -83,7 +83,6 @@ theorem root_arch_insertion (a : NumberField.InfiniteAdeleRing F) :
       rw [hc, pow_one]
       simp [p, f, localToRestricted, RestrictedProduct.mulSingleMonoidHom_apply,
         KPGlobalTorusFunctionData.rootTuple, adeleEval, RingHom.fst]
-      rfl
     | inr q =>
       have hf : ∀ w, p (f w) = 1 := by
         intro w
@@ -130,9 +129,7 @@ theorem rationalLift_archProjection (σ : KPCuspArithmetic.PGL2 F) :
     ext x
     change NumberField.InfinitePlace.Completion.extensionEmbedding w
       (algebraMap F w.Completion x) = w.embedding x
-    change NumberField.InfinitePlace.Completion.extensionEmbedding w
-      ((WithAbs.equiv w.1).symm x : w.Completion) = _
-    simp
+    simp [AbsoluteValue.Completion.algebraMap_def, WithAbs.algebraMap_right_apply]
   change Matrix.ProjGenLinGroup.mk
     (Matrix.GeneralLinearGroup.map _ (Matrix.GeneralLinearGroup.map _ σ.out)) = _
   simp only [← MonoidHom.comp_apply, ← Matrix.GeneralLinearGroup.map_comp]

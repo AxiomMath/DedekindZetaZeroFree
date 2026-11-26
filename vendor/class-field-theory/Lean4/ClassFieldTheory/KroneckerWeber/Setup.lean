@@ -102,8 +102,8 @@ noncomputable def kroneckerWeberPadicExtension
   let hUniform : UniformContinuousConstSMul ℚ (WithAbs vK) :=
     WithAbs.instUniformContinuousConstSMulReal _
   let hBase : Algebra ℚ vK.Completion :=
-    @UniformSpace.Completion.algebra
-      (WithAbs vK) _ _ _ _ ℚ _ hWith hUniform
+    @AbsoluteValue.Completion.instAlgebra
+      ℚ _ vK ℚ _ hWith hUniform
   let hClosure : Algebra ℚ
       (absoluteValueExtension_algebraicCompletionClosure vK) :=
     @AlgebraicClosure.instAlgebra vK.Completion _ ℚ _ hBase

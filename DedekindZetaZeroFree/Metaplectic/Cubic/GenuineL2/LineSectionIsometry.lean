@@ -474,7 +474,8 @@ theorem null_iff_scalar_ae_eq (s t : BorelL2Sections F ζ hζ U R P H) :
     have hsub : scalarRepresentative F ζ hζ U R P H (s.val - t.val) =
         scalarRepresentative F ζ hζ U R P H s.val -
           scalarRepresentative F ζ hζ U R P H t.val := by
-      simp only [scalarRepresentative_eq_symm, map_sub]
+      simp only [scalarRepresentative_eq_symm]
+      exact (S F ζ hζ U R P H).symm.toLinearMap.map_sub _ _
     rw [squaredNorm, hnorm, hsub]
     change ENNReal.ofReal
       (‖(scalarRepresentative F ζ hζ U R P H s.val).val v -

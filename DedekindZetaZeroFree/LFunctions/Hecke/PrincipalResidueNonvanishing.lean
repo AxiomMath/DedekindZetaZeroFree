@@ -129,7 +129,7 @@ theorem principal_regularization_ne_zero
     field_simp at h
     linear_combination -h
   have hecont : Continuous e := by
-    apply continuous_finset_prod
+    apply continuous_finsetProd
     intro p hp
     apply continuous_const.sub
     apply Continuous.const_cpow continuous_id.neg

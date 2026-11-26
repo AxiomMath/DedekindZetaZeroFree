@@ -261,7 +261,7 @@ theorem
       ‖algebraMap K C (b : K)‖ = 1 := by
     calc
       ‖algebraMap K C (b : K)‖ = vK (b : K) :=
-        AbsoluteValue.completionAbsoluteValue_coe vK (b : K)
+        AbsoluteValue.completionAbsoluteValue_algebraMap vK (b : K)
       _ = 1 := hbAbv
   let bC : C := algebraMap K C (b : K)
   have hbCNorm : vCNorm bC = 1 := by
@@ -275,7 +275,7 @@ theorem
           ‖algebraMap K C ((n : ℕ) : K)‖ := by
             rw [map_natCast]
       _ = vK ((n : ℕ) : K) :=
-        AbsoluteValue.completionAbsoluteValue_coe vK ((n : ℕ) : K)
+        AbsoluteValue.completionAbsoluteValue_algebraMap vK ((n : ℕ) : K)
       _ = 1 := hnAbv
   let nC : C := (n : ℕ)
   have hnCNorm : vCNorm nC = 1 := by

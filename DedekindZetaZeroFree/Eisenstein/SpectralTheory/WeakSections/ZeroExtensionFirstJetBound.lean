@@ -115,7 +115,7 @@ private theorem base_direction (j : Fin (3*d F)) :
   simp only [baseReindex, LinearIsometryEquiv.piLpCongrLeft_symm,
     LinearIsometryEquiv.piLpCongrLeft_apply, Equiv.symm_symm, HyperbolicChart.coordinateVector,
     WithLp.ofLp_toLp]
-  simp [EuclideanSpace.single_apply, Pi.single_apply, ← Equiv.apply_eq_iff_eq_symm_apply]
+  simp [PiLp.single_apply, Pi.single_apply, ← Equiv.apply_eq_iff_eq_symm_apply]
 private theorem flat_derivative (g : M F → ℂ) (hg : ContDiff ℝ (⊤ : ℕ∞) g)
     (x : Space (3*d F)) (j : Fin (3*d F)) :
     KPCompactInteriorH1.coordinatePartial j (fun y => g ((baseReindex (F:=F)).symm y)) x =
@@ -318,13 +318,13 @@ theorem scalarZeroExtension_firstJet_bound
   let V := fun x => ‖gf x‖ ^ 2
   let W := fun x => ‖CotangentLogCoframe.j (d F) (HyperbolicChart.differential (d F) g ((baseReindex (F:=F)).symm x))‖ ^ 2
   have hV : Continuous V := hgf.continuous.norm.pow 2
-  have hJ : Continuous J := hV.add (continuous_finset_sum _ fun j _ => (hder j).continuous.norm.pow 2)
+  have hJ : Continuous J := hV.add (continuous_finsetSum _ fun j _ => (hder j).continuous.norm.pow 2)
   have hW : Continuous W := by
     dsimp [W]
     rw [show (fun x => ‖CotangentLogCoframe.j (d F) (HyperbolicChart.differential (d F) g ((baseReindex (F:=F)).symm x))‖ ^ 2) =
       (fun x => ∑ i : Fin (d F), ∑ k : Fin 3, ‖HyperbolicChart.differential (d F) g ((baseReindex (F:=F)).symm x) i k‖ ^ 2) by
         funext x; rw [EuclideanSpace.norm_sq_eq, Fintype.sum_prod_type]; simp only [CotangentLogCoframe.j_apply]]
-    apply continuous_finset_sum
+    apply continuous_finsetSum
     intro i _
     simp only [Fin.sum_univ_three]
     have hd (k : Fin 3) : ContDiff ℝ (⊤ : ℕ∞) (HyperbolicChart.coordinateDerivative (d F) i k g) :=

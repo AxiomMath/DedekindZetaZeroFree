@@ -28,6 +28,12 @@ def GenuineCoveredScalars :
     simp only [Pi.smul_apply, smul_eq_mul, hf ε v]
     ring
 
+/-! Shortcut instances: stating these directly keeps instance search on
+`GenuineCoveredScalars` (e.g. `AddMonoidHomClass` for equivalences into it) cheap. -/
+instance : AddCommGroup (GenuineCoveredScalars F ζ hζ U) := Submodule.addCommGroup _
+
+instance : Module ℂ (GenuineCoveredScalars F ζ hζ U) := Submodule.module _
+
 def J : GenuineCoveredScalars F ζ hζ U ≃ₗ[ℂ]
     KPFiniteCuspAtlas.genuineScalars F ζ hζ U where
   toFun f := ⟨fun p => f.val (Quotient.mk (coveredRelation F ζ hζ U) p), by
@@ -89,6 +95,19 @@ def J : GenuineCoveredScalars F ζ hζ U ≃ₗ[ℂ]
     funext p
     rfl
 
+/-! Shortcut instances: the default `AddMonoidHomClass` search for these equivalence types
+times out before reaching `AddEquivClass.instAddMonoidHomClass`, which `map_add`, `map_zero`,
+`map_sum` need. -/
+instance : AddMonoidHomClass
+    (GenuineCoveredScalars F ζ hζ U ≃ₗ[ℂ] KPFiniteCuspAtlas.genuineScalars F ζ hζ U)
+    (GenuineCoveredScalars F ζ hζ U) (KPFiniteCuspAtlas.genuineScalars F ζ hζ U) :=
+  AddEquivClass.instAddMonoidHomClass _
+
+instance : AddMonoidHomClass
+    (KPFiniteCuspAtlas.genuineScalars F ζ hζ U ≃ₗ[ℂ] GenuineCoveredScalars F ζ hζ U)
+    (KPFiniteCuspAtlas.genuineScalars F ζ hζ U) (GenuineCoveredScalars F ζ hζ U) :=
+  AddEquivClass.instAddMonoidHomClass _
+
 theorem J_apply (f : GenuineCoveredScalars F ζ hζ U)
     (x : SymmetricSpace F) (c : FiniteCover F ζ hζ) :
     (J F ζ hζ U f).val (x, c) =
@@ -104,6 +123,28 @@ def S : GenuineCoveredScalars F ζ hζ U ≃ₗ[ℂ]
       KPCuspGenuineMonodromy.sections F ζ hζ U
         ((H.atlas U).representative i) ((H.atlas U).line i).rho) :=
   (J F ζ hζ U).trans (H.atlas U).scalar_realization
+
+instance : AddMonoidHomClass
+    (GenuineCoveredScalars F ζ hζ U ≃ₗ[ℂ]
+      (∀ i : Fin (H.atlas U).componentCount,
+      KPCuspGenuineMonodromy.sections F ζ hζ U
+        ((H.atlas U).representative i) ((H.atlas U).line i).rho))
+    (GenuineCoveredScalars F ζ hζ U)
+    (∀ i : Fin (H.atlas U).componentCount,
+      KPCuspGenuineMonodromy.sections F ζ hζ U
+        ((H.atlas U).representative i) ((H.atlas U).line i).rho) :=
+  AddEquivClass.instAddMonoidHomClass _
+
+instance : AddMonoidHomClass
+    ((∀ i : Fin (H.atlas U).componentCount,
+      KPCuspGenuineMonodromy.sections F ζ hζ U
+        ((H.atlas U).representative i) ((H.atlas U).line i).rho) ≃ₗ[ℂ]
+      GenuineCoveredScalars F ζ hζ U)
+    (∀ i : Fin (H.atlas U).componentCount,
+      KPCuspGenuineMonodromy.sections F ζ hζ U
+        ((H.atlas U).representative i) ((H.atlas U).line i).rho)
+    (GenuineCoveredScalars F ζ hζ U) :=
+  AddEquivClass.instAddMonoidHomClass _
 
 theorem S_apply (f : GenuineCoveredScalars F ζ hζ U)
     (i : Fin (H.atlas U).componentCount) (x : SymmetricSpace F) :

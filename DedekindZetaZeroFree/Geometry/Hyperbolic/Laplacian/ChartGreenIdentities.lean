@@ -162,7 +162,7 @@ private theorem compact_differential (d : ℕ) (f : Space d → ℂ) (hf : HasCo
 
 private theorem continuous_codifferential (d : ℕ) (W : Space d → Cotangent d)
     (hW : ContDiff ℝ ∞ W) : Continuous (codifferential d W) := by
-  apply continuous_finset_sum
+  apply continuous_finsetSum
   intro i hi
   have h (k : Fin 3) : ContDiff ℝ ∞ (fun p => W p i k) :=
     contDiff_pi.mp (contDiff_pi.mp hW i) k
@@ -173,9 +173,9 @@ private theorem continuous_codifferential (d : ℕ) (W : Space d → Cotangent d
 
 private theorem continuous_pairing (d : ℕ) (U W : Space d → Cotangent d)
     (hU : Continuous U) (hW : Continuous W) : Continuous (fun p => pairing d (U p) (W p)) := by
-  apply continuous_finset_sum
+  apply continuous_finsetSum
   intro i hi
-  apply continuous_finset_sum
+  apply continuous_finsetSum
   intro k hk
   exact ((continuous_apply k).comp ((continuous_apply i).comp hU)).star.mul
     ((continuous_apply k).comp ((continuous_apply i).comp hW))
@@ -318,7 +318,7 @@ private theorem compact_pairing_right (d : ℕ) (U W : Space d → Cotangent d)
     · exact (compact_star d f hfc).mul_right
   have hAB (i : Fin d) : (∫ p, ∑ k : Fin 3, A i k p ∂measure d) =
       ∫ p, B i p ∂measure d := by
-    rw [integral_finset_sum _ (fun k hk => hA i k)]
+    rw [integral_finsetSum _ (fun k hk => hA i k)]
     simp only [Fin.sum_univ_three]
     have ht := component_parts d i 2 f (fun p => W p i 0) hf (hs i 0) hfc (hcs i 0)
     have hx := component_parts d i 0 f (fun p => W p i 1) hf (hs i 1) hfc (hcs i 1)
@@ -368,10 +368,10 @@ private theorem compact_pairing_right (d : ℕ) (U W : Space d → Cotangent d)
     rw [← integral_add htxy hry]
     congr 1; funext p; dsimp [B]; ring
   change (∫ p, ∑ i : Fin d, ∑ k : Fin 3, A i k p ∂measure d) = _
-  rw [integral_finset_sum _ (fun i hi => integrable_finset_sum _ (fun k hk => hA i k))]
+  rw [integral_finsetSum _ (fun i hi => integrable_finsetSum _ (fun k hk => hA i k))]
   have hBe : (fun p => star (f p) * codifferential d W p) = fun p => ∑ i : Fin d, B i p := by
     funext p; simp only [codifferential, Finset.mul_sum]; rfl
-  rw [hBe, integral_finset_sum _ (fun i hi => hB i)]
+  rw [hBe, integral_finsetSum _ (fun i hi => hB i)]
   exact Finset.sum_congr rfl (fun i hi => hAB i)
 
 theorem codifferential_differential (d : ℕ) (hd : 1 ≤ d)

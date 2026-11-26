@@ -72,7 +72,7 @@ theorem uniform_concentric_cutoff (n : ℕ) (r R : ℝ)
           ‖fderiv ℝ f (x + -outer.center)‖ * ‖EuclideanSpace.single j (1 : ℝ)‖ :=
         ContinuousLinearMap.le_opNorm _ _
       _ = ‖fderiv ℝ f (x + -outer.center)‖ := by
-        simp [EuclideanSpace.norm_single]
+        simp [PiLp.norm_single]
       _ ≤ C := hC _
       _ ≤ max C 1 := le_max_left _ _
   · change Metric.cthickening ((R - r) / 8) (tsupport g) ⊆ mid.carrier

@@ -46,7 +46,7 @@ theorem IsAbelianConductor.finiteExponent_isLeast_tensorNorm
     {c : RayClassModulus K}
     (hc : IsAbelianConductor K L c)
     (v : HeightOneSpectrum (𝓞 K)) :
-    IsLeast (α := ℕ) (fun n =>
+    IsLeast (α := ℕ) (setOf fun n =>
       rayLocalHigherUnitGroup v n ≤
         (Units.map (Algebra.norm (v.adicCompletion K)) :
           (v.adicCompletion K ⊗[K] L)ˣ →*

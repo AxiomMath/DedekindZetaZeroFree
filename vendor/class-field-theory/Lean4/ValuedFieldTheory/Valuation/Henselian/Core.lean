@@ -168,7 +168,7 @@ theorem henselianRing_map_algebraMap_of_moduleFinite_of_base_isPrecomplete
   have hHausdorff : IsHausdorff I R :=
     IsHausdorff.of_le_jacobson
       (R := R) (M := R) (I := I)
-      (show I ≤ Ideal.jacobson (⊥ : Ideal R) from HenselianRing.jac)
+      (show I ≤ Ring.jacobson R from HenselianRing.jac)
   let : IsAdicComplete I R :=
     { toIsHausdorff := hHausdorff
       toIsPrecomplete := inferInstance }

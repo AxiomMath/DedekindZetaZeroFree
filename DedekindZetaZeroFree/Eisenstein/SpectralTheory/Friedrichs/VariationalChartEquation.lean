@@ -209,7 +209,7 @@ private theorem reindex_direction {n m : ℕ} (e : Fin n ≃ Fin m) (j : Fin n) 
     LinearIsometryEquiv.piLpCongrLeft 2 ℝ ℝ e (EuclideanSpace.single j 1) =
       EuclideanSpace.single (e j) 1 := by
   ext k
-  simp [LinearIsometryEquiv.piLpCongrLeft_apply, EuclideanSpace.single_apply,
+  simp [LinearIsometryEquiv.piLpCongrLeft_apply, PiLp.single_apply,
     e.symm_apply_eq, Pi.single_apply]
  def pullbackTest {n m : ℕ} (e : Fin n ≃ Fin m) (A : LocalBall n)
     (φ : TestFunction A.toOpens ℂ ⊤) : TestFunction (reindexedBall e A).toOpens ℂ ⊤ where

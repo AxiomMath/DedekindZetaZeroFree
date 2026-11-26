@@ -149,10 +149,10 @@ theorem differentiated_pairing_shifted {n r : ℕ} {B : LocalBall n}
         ((D.density x * D.matrix x i j : ℝ) : ℂ) * jet u (unitCount j) x *
           star (coordinateDerivativeList [i] (fun y => ψ y) x) := by
     simp only [← hj, Finset.mul_sum, ← mul_assoc, ← Complex.ofReal_mul]
-    rw [integral_finset_sum _ (fun i _ => integrable_finset_sum _ (fun j _ => hi i j))]
+    rw [integral_finsetSum _ (fun i _ => integrable_finsetSum _ (fun j _ => hi i j))]
     apply Finset.sum_congr rfl
     intro i _
-    exact integral_finset_sum _ (fun j _ => hi i j)
+    exact integral_finsetSum _ (fun j _ => hi i j)
   rw [hf] at hw
   have ht (i : Fin n) (x : Space n) := congrFun (htest i) x
   have ht0 (x : Space n) := congrFun htest0 x

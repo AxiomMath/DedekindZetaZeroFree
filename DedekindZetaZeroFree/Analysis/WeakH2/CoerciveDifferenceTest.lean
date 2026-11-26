@@ -101,7 +101,7 @@ theorem cutoffDifference_zero_off {n : ℕ} {B : LocalBall n}
     intro h
     apply hx
     apply Metric.mem_cthickening_of_dist_le x (x + (-t) • EuclideanSpace.single k 1) |t| _ h
-    simp [dist_eq_norm, norm_smul, EuclideanSpace.norm_single]
+    simp [dist_eq_norm, norm_smul, PiLp.norm_single]
   unfold differenceQuotient
   rw [cutoffValue_zero_off η q x hx0, cutoffValue_zero_off η q _ hx1]
   simp

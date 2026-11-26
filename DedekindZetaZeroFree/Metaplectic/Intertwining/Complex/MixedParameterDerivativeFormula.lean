@@ -44,7 +44,7 @@ private lemma direction_commute (F : E → V) (x : E) (hF : ContDiffAt ℝ (⊤ 
   have hd := (hF.fderiv_right (m := (⊤ : ℕ∞)) (by simp)).differentiableAt (by simp)
   rw [fderiv_clm_apply hd (differentiableAt_const a),
     fderiv_clm_apply hd (differentiableAt_const b)]
-  simpa using hF.isSymmSndFDerivAt (by simp [minSmoothness]) b a
+  simpa using hF.isSymmSndFDerivAt (by simp) b a
 
 private lemma jet_succ (F : ℂ × E → V) (U : Set E) (hU : IsOpen U)
     (hF : ContDiffOn ℝ (⊤ : ℕ∞) F (Set.univ ×ˢ U)) (n : ℕ)

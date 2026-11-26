@@ -113,7 +113,7 @@ theorem frequency_count_le (R : PrincipalMellin.ActualRecipe S η) :
   refine ⟨hfin, ?_⟩
   have hinj := Set.ncard_le_ncard_of_injOn
     (fun u : Frequency R => ProbeOrbitNormSum.orbitMk R.A u.val)
-    (fun u hu => by
+    (fun u (hu : u ∈ {u : Frequency R | frequencyNorm R u ≤ X}) => by
       show ProbeOrbitNormSum.orbitNorm R.A (ProbeOrbitNormSum.orbitMk R.A u.val) ≤ X
       rw [← freqOrbit_norm R u]
       exact hu)
@@ -121,7 +121,8 @@ theorem frequency_count_le (R : PrincipalMellin.ActualRecipe S η) :
   have hnat : Nat.card {o : ProbeOrbitNormSum.Orbit R.A //
       ProbeOrbitNormSum.orbitNorm R.A o ≤ X} =
       Set.ncard {o : ProbeOrbitNormSum.Orbit R.A |
-        ProbeOrbitNormSum.orbitNorm R.A o ≤ X} := Nat.card_coe_set_eq _
+        ProbeOrbitNormSum.orbitNorm R.A o ≤ X} := by
+    rw [← Nat.card_coe_set_eq]; rfl
   have hBcard' : (Set.ncard {I : R.A.Exterior | R.A.exteriorNorm I ≤ X} : ℝ) ≤ C * X := by
     rw [← Nat.card_coe_set_eq]
     exact hBcard

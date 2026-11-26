@@ -71,13 +71,13 @@ theorem Raw.Coefficients.matrix_entry_bound {n : ℕ} {B : LocalBall n} {cρ Cρ
   classical
   have hdi : κ ≤ D.matrix x i i := by
     have hh := D.ellipticity x hx (EuclideanSpace.single i (1 : ℝ))
-    simpa [EuclideanSpace.norm_single, EuclideanSpace.single_apply, mul_ite, ite_mul] using hh
+    simpa [PiLp.norm_single, PiLp.single_apply, mul_ite, ite_mul] using hh
   have hdiu : D.matrix x i i ≤ Λ := by
     have hh := D.upper_bound x hx (EuclideanSpace.single i (1 : ℝ))
-    simpa [EuclideanSpace.norm_single, EuclideanSpace.single_apply, mul_ite, ite_mul] using hh
+    simpa [PiLp.norm_single, PiLp.single_apply, mul_ite, ite_mul] using hh
   have hdju : D.matrix x j j ≤ Λ := by
     have hh := D.upper_bound x hx (EuclideanSpace.single j (1 : ℝ))
-    simpa [EuclideanSpace.norm_single, EuclideanSpace.single_apply, mul_ite, ite_mul] using hh
+    simpa [PiLp.norm_single, PiLp.single_apply, mul_ite, ite_mul] using hh
   by_cases hij : i = j
   · subst j
     rw [abs_of_nonneg (hκ.trans hdi)]
@@ -92,7 +92,7 @@ theorem Raw.Coefficients.matrix_entry_bound {n : ℕ} {B : LocalBall n} {cρ Cρ
         (EuclideanSpace.single i (1 : ℝ) - EuclideanSpace.single j (1 : ℝ)) a *
         (EuclideanSpace.single i (1 : ℝ) - EuclideanSpace.single j (1 : ℝ)) b :=
       (mul_nonneg hκ (sq_nonneg _)).trans hminus
-    simp only [PiLp.add_apply, PiLp.sub_apply, EuclideanSpace.single_apply,
+    simp only [PiLp.add_apply, PiLp.sub_apply, PiLp.single_apply,
       mul_add, add_mul, mul_sub, sub_mul, Finset.sum_add_distrib, Finset.sum_sub_distrib,
       mul_ite, ite_mul, mul_zero, zero_mul, mul_one, one_mul, Finset.sum_ite_eq,
       Finset.mem_univ, if_true] at hp hm
@@ -183,7 +183,7 @@ theorem uniform_cutoff_with_derivative_bound (n : ℕ) (r R : ℝ) (hr : 0 < r) 
     rw [hcast, ContinuousLinearMap.comp_apply, Complex.ofRealCLM_apply,
       Complex.norm_real, hdg]
     have hbound := (fderiv ℝ b (x - outer.center)).le_opNorm (EuclideanSpace.single i 1)
-    simp only [EuclideanSpace.norm_single, norm_one, mul_one] at hbound
+    simp only [PiLp.norm_single, norm_one, mul_one] at hbound
     exact hbound.trans ((hK _).trans (by linarith [le_abs_self K]))
 
 private theorem young_sum {n : ℕ} (a T : ℝ) (ha : 0 < a) (g : Fin n → ℂ)
@@ -385,9 +385,9 @@ private theorem energy_integrable {n : ℕ} {B : LocalBall n} {cρ Cρ κ Λ : �
       (D.matrix x i j : ℂ) * gradient u j x * star (gradient w i x))
       (volume.restrict B.carrier) := by
   simp only [Finset.mul_sum, ← mul_assoc]
-  apply integrable_finset_sum
+  apply integrable_finsetSum
   intro i _
-  apply integrable_finset_sum
+  apply integrable_finsetSum
   intro j _
   have hm : MemLp (fun x => (D.density x : ℂ) *
       ((D.matrix x i j : ℂ) * gradient u j x)) 2 (volume.restrict B.carrier) :=
@@ -464,7 +464,7 @@ theorem cutoff_quadratic_form_bound (n : ℕ) (hn : 0 < n)
   have hgi (i : Fin n) : Integrable (fun x => ‖gradient u i x‖ ^ 2) μ :=
     (Lp.memLp (gradient u i)).integrable_norm_pow (by norm_num)
   have hgs : Integrable (fun x => ∑ i, ‖gradient u i x‖ ^ 2) μ :=
-    integrable_finset_sum _ (fun i _ => hgi i)
+    integrable_finsetSum _ (fun i _ => hgi i)
   have hGi : Integrable G μ := by
     apply hgs.bdd_mul (c := 1) (η.continuous.pow 2).aestronglyMeasurable
     filter_upwards with x
@@ -539,7 +539,7 @@ theorem cutoff_quadratic_form_bound (n : ℕ) (hn : 0 < n)
           dsimp [G]
           rw [hηinner x hx]
           simp
-        _ = _ := integral_finset_sum _ (fun i _ => (hgi i).mono_measure
+        _ = _ := integral_finsetSum _ (fun i _ => (hgi i).mono_measure
           (Measure.restrict_mono hsub le_rfl))
     rw [← hGinner]
     exact setIntegral_mono_set hGi (Filter.Eventually.of_forall (fun x => by dsimp [G]; positivity))

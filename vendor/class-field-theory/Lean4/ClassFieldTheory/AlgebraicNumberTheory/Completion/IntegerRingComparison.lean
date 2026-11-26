@@ -57,10 +57,9 @@ noncomputable def finitePlaceIntegerToCompletion
     𝒪[ChosenFinitePlaceBaseCompletion (K := K) v] (by
       intro x
       rw [finitePlaceCompletion_mem_integers_iff_norm_le_one]
-      change ‖((WithAbs.toAbs (HeightOneSpectrum.adicAbv K v) (x : K) :
-        WithAbs (HeightOneSpectrum.adicAbv K v)) :
-          ChosenFinitePlaceBaseCompletion (K := K) v)‖ ≤ 1
-      rw [UniformSpace.Completion.norm_coe, WithAbs.norm_toAbs_eq]
+      change ‖algebraMap K (ChosenFinitePlaceBaseCompletion (K := K) v) (x : K)‖ ≤ 1
+      rw [AbsoluteValue.Completion.algebraMap_def, AbsoluteValue.Completion.norm_coe]
+      change HeightOneSpectrum.adicAbv K v (x : K) ≤ 1
       rw [HeightOneSpectrum.adicAbv_def]
       apply (WithZeroMulInt.toNNReal_le_one_iff
         (HeightOneSpectrum.one_lt_absNorm_nnreal v)).2
@@ -87,10 +86,8 @@ theorem finitePlaceCompletionRingEquiv_toCompletion
         (algebraMap K (ChosenFinitePlaceBaseCompletion (K := K) v) x) =
       FinitePlace.embedding v x := by
   change finitePlaceCompletionRingHom v
-    ((WithAbs.toAbs (HeightOneSpectrum.adicAbv K v) x :
-      WithAbs (HeightOneSpectrum.adicAbv K v)) :
-        ChosenFinitePlaceBaseCompletion (K := K) v) = _
-  rw [finitePlaceCompletionRingHom_coe,
+    (algebraMap K (ChosenFinitePlaceBaseCompletion (K := K) v) x) = _
+  rw [AbsoluteValue.Completion.algebraMap_def, finitePlaceCompletionRingHom_coe,
     finitePlaceCompletionBaseMap_apply]
   rfl
 

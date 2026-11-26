@@ -162,7 +162,7 @@ private theorem verticalIntegral_sum {ι : Type*} [Fintype ι] (c : ℝ) (f : ι
     (hf : ∀ i, Complex.VerticalIntegrable (f i) c) :
     verticalIntegral c (fun s => ∑ i, f i s) = ∑ i, verticalIntegral c (f i) := by
   simp only [verticalIntegral]
-  rw [integral_finset_sum Finset.univ (fun i _ => hf i), Finset.mul_sum]
+  rw [integral_finsetSum Finset.univ (fun i _ => hf i), Finset.mul_sum]
 
 theorem verticalIntegral_sub_eq_sum_residues
     {a b : ℝ} (hab : a < b) (n : ℕ) (p : Fin n → ℝ) (R : Fin n → ℂ)
@@ -207,7 +207,7 @@ theorem verticalIntegral_sub_eq_sum_residues
       · exact ne_of_lt (hp_strip j).1
       · exact ne_of_gt (hp_strip j).2
     have hcQ : c ≠ Q := by rcases hc with rfl | rfl <;> linarith
-    apply integrable_finset_sum
+    apply integrable_finsetSum
     intro j hj
     have hi := (integrable_poleKernel (c-p j) (c-Q)
       (sub_ne_zero.mpr (hcp j)) (sub_ne_zero.mpr hcQ)).const_mul (R j)

@@ -156,7 +156,7 @@ theorem localIdele_eval_continuous (v : KPHilbert.Place F) :
         (fun y => ∏ p : R.A.Sf, Pi.mulSingle (M := fun v => (KPHilbert.Completion F v)ˣ)
           (Sum.inr p.val) (y.2 p) (Sum.inr q)) := funext (fun y => localIdele_eval_finite R y q)
     rw [he]
-    apply continuous_finset_prod
+    apply continuous_finsetProd
     intro p hp
     exact ((continuous_apply (Sum.inr q)).comp (continuous_mulSingle (Sum.inr p.val))).comp
       ((continuous_apply p).comp continuous_snd)

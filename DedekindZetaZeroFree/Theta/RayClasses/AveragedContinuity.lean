@@ -75,7 +75,8 @@ theorem rayTheta_continuousOn_fδ
     simpa only [one_div, Function.comp_def] using
       (continuousOn_thetaParityShape K δ).comp
         ((continuous_fst.prodMk (continuous_snd.prodMk continuous_const)).continuousOn)
-        (fun th hth => hth.1)
+        (fun th (hth : th ∈ Set.Ioi (0 : ℝ) ×ˢ
+          closure (RayCoset.rayUnitHalfOpenDomain K D.m D.modulus_ne_bot)) => hth.1)
   have hb := thetaParityShapeBounds K δ
     (closure (RayCoset.rayUnitHalfOpenDomain K D.m D.modulus_ne_bot))
     (RayCoset.isCompact_closure_rayUnitHalfOpenDomain K D.m D.modulus_ne_bot)

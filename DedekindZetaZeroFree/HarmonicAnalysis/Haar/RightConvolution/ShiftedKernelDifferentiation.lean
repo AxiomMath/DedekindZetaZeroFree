@@ -193,7 +193,7 @@ theorem shifted_kernel_contDiffOn
     have hcEll : ContinuousOn (affineEll F) C := fun u hu =>
       (affineEll_continuousAt F u (hCD hu)).continuousWithinAt
     have hS : IsCompact S := (hC.prod hs).image_of_continuousOn
-      ((hcEll.comp continuousOn_fst (fun p hp => hp.1)).mul continuousOn_const |>.mul continuousOn_snd)
+      ((hcEll.comp continuousOn_fst (fun p (hp : p ∈ C ×ˢ tsupport q) => hp.1)).mul continuousOn_const |>.mul continuousOn_snd)
     letI : CompactSpace S := isCompact_iff_compactSpace.mp hS
     let ν : Measure S := Measure.comap Subtype.val μL
     have hSm : MeasurableSet S := hS.measurableSet

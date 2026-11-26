@@ -256,7 +256,7 @@ theorem chart_uniform_ellipticity (A : KPFiniteCuspAtlas.Atlas F ζ hζ hF U)
     have hc := C.smooth_coordinates.continuousOn
     have hD := C.smooth_coordinates.continuousOn_fderiv_of_isOpen C.open_extendedDomain (by simp)
     have hBc : ContinuousOn B C.extendedDomain := by
-      apply continuousOn_finset_sum
+      apply continuousOn_finsetSum
       intro i _
       have hi : ContinuousOn (fun x => (C.coordinates x i).2) C.extendedDomain :=
         ((continuous_apply i : Continuous (fun z : KPArch.Space d => z i)).comp_continuousOn hc).snd

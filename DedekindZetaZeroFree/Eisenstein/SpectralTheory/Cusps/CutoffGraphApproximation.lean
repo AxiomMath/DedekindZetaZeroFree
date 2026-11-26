@@ -279,7 +279,7 @@ private lemma clm_coordinate_sum (L : Coordinates F →L[ℝ] ℂ) (p : Coordina
   simp only [map_smul, EuclideanSpace.basisFun_repr, Complex.real_smul]
   congr 2
   ext ik
-  simp [EuclideanSpace.basisFun_apply, EuclideanSpace.single_apply, HyperbolicChart.coordinateVector]
+  simp [EuclideanSpace.basisFun_apply, PiLp.single_apply, Pi.single_apply, HyperbolicChart.coordinateVector]
 private lemma covector_gradient (s : scalarTests F ζ hζ hF U a)
     (i : Fin a.componentCount) (x v : Arch F) :
     covector F ζ hζ U (gradient F ζ hζ hF U a ⟨s.val,s.property.1⟩ ⟨i,x⟩) x v =

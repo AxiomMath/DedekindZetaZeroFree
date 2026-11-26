@@ -89,7 +89,7 @@ is the actual abelian Galois group of `L / K`. -/
 noncomputable def
     numberFieldTowerAbelianizedExtensionQuotientEquivGaloisGroup :
     Additive
-        (Abelianization
+        (Group.Abelianization
           (ClassFormation.FiniteGaloisSubextension.extensionQuotient
             (numberFieldTowerFiniteGaloisSubextension K L))) ≃+
       Additive (Gal(L / K)) :=
@@ -97,9 +97,9 @@ noncomputable def
     (MulEquiv.trans
       (MulEquiv.abelianizationCongr
         (numberFieldTowerExtensionQuotientEquivGaloisGroup K L))
-        (Abelianization.equivOfComm :
+        (Group.Abelianization.equivOfComm :
           Gal(L / K) ≃*
-            Abelianization (Gal(L / K))).symm)
+            Group.Abelianization (Gal(L / K))).symm)
 
 /-- The compatible abelianized extension-quotient comparison sends the
 class of an abstract automorphism to the corresponding actual
@@ -111,23 +111,23 @@ theorem
       ClassFormation.FiniteGaloisSubextension.extensionQuotient
         (numberFieldTowerFiniteGaloisSubextension K L)) :
     numberFieldTowerAbelianizedExtensionQuotientEquivGaloisGroup K L
-        (Additive.ofMul (Abelianization.of q)) =
+        (Additive.ofMul (Group.Abelianization.of q)) =
       Additive.ofMul
         (numberFieldTowerExtensionQuotientEquivGaloisGroup K L q) := by
   apply Additive.toMul.injective
   change
-    (Abelianization.equivOfComm :
+    (Group.Abelianization.equivOfComm :
         Gal(L / K) ≃*
-          Abelianization (Gal(L / K))).symm
+          Group.Abelianization (Gal(L / K))).symm
         (MulEquiv.abelianizationCongr
           (numberFieldTowerExtensionQuotientEquivGaloisGroup K L)
-          (Abelianization.of q)) =
+          (Group.Abelianization.of q)) =
       numberFieldTowerExtensionQuotientEquivGaloisGroup K L q
   rw [abelianizationCongr_of]
   exact
-    (Abelianization.equivOfComm :
+    (Group.Abelianization.equivOfComm :
       Gal(L / K) ≃*
-        Abelianization (Gal(L / K))).symm_apply_apply _
+        Group.Abelianization (Gal(L / K))).symm_apply_apply _
 
 /-- The abstract norm-residue map followed by the compatible actual
 Galois-group comparison.  Keeping this composition behind a typed boundary
@@ -156,7 +156,7 @@ with the concrete quotient comparison. -/
         (numberFieldTowerTopSubgroup L)
         (numberFieldTowerTopSubgroup_le_baseSubgroup K L))
       (Additive
-        (Abelianization
+        (Group.Abelianization
           (ClassFormation.FiniteGaloisSubextension.extensionQuotient
             (numberFieldTowerFiniteGaloisSubextension K L))))
       (Additive (Gal(L / K)))
@@ -300,7 +300,7 @@ theorem globalNormResidueEquiv_finiteReciprocityHom
       numberFieldTowerAbstractNormResidueGaloisEquiv_apply K L x
     _ =
         numberFieldTowerAbelianizedExtensionQuotientEquivGaloisGroup K L
-          (Additive.ofMul (Abelianization.of q)) :=
+          (Additive.ofMul (Group.Abelianization.of q)) :=
       congrArg
         (numberFieldTowerAbelianizedExtensionQuotientEquivGaloisGroup K L)
         (rationalCyclotomicDegreeData.normResidueSymbol_finiteReciprocityHom
@@ -419,7 +419,7 @@ theorem globalNormResidueMonoidHom_eq_maximalUnramifiedRestriction
     _ =
         Additive.toMul
           (numberFieldTowerAbelianizedExtensionQuotientEquivGaloisGroup K L
-            (Additive.ofMul (Abelianization.of q))) :=
+            (Additive.ofMul (Group.Abelianization.of q))) :=
       congrArg
         (fun z =>
           Additive.toMul

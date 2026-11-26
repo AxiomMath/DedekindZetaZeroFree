@@ -62,11 +62,11 @@ theorem normTopology_open_iff_closed_finiteIndex
   let : (extensionSubgroup K L.field L.below).Normal := L.normal
   let : Finite
       (K.toSubgroup ⧸ extensionSubgroup K L.field L.below) := L.finite
-  let : Finite (Abelianization L.extensionQuotient) :=
-    Finite.of_surjective Abelianization.of QuotientGroup.mk_surjective
+  let : Finite (Group.Abelianization L.extensionQuotient) :=
+    Finite.of_surjective Group.Abelianization.of QuotientGroup.mk_surjective
   change Finite (FiniteNormQuotient A K L.field L.below)
   exact Finite.of_equiv
-    (Additive (Abelianization L.extensionQuotient))
+    (Additive (Group.Abelianization L.extensionQuotient))
     (D.abstractReciprocityEquiv A v hcf KF L).toEquiv
 
 end ValuationData

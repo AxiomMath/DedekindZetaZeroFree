@@ -144,7 +144,7 @@ theorem exterior_zeta_at_two_pos
     apply Finset.prod_pos
     intro p hp
     have hn : (1 : ℝ) < Ideal.absNorm p.asIdeal := by
-      exact_mod_cast NumberField.RingOfIntegers.HeightOneSpectrum.one_lt_absNorm p
+      exact_mod_cast NumberField.HeightOneSpectrum.one_lt_absNorm p
     have hn2 : (1 : ℝ) < (Ideal.absNorm p.asIdeal : ℝ) ^ 2 := by nlinarith
     exact sub_pos.mpr ((inv_lt_one₀ (by positivity)).mpr hn2)
   simp only [exteriorZeta, he, Complex.mul_im, Complex.mul_re, Complex.ofReal_im,
@@ -155,13 +155,13 @@ private theorem euler_differentiable (F : Type) [Field F] [NumberField F]
     (S : Finset (HeightOneSpectrum (𝓞 F))) :
     Differentiable ℂ (PositiveZetaResidue.exteriorEulerFactor F S) := by
   intro s
-  apply DifferentiableAt.fun_finset_prod
+  apply DifferentiableAt.fun_finsetProd
   intro p hp
   apply (differentiableAt_const (1 : ℂ)).sub
   apply differentiableAt_id.neg.const_cpow
   left
   exact_mod_cast (zero_lt_one.trans
-    (NumberField.RingOfIntegers.HeightOneSpectrum.one_lt_absNorm p)).ne'
+    (NumberField.HeightOneSpectrum.one_lt_absNorm p)).ne'
 
 theorem exterior_positive_simple_residue
 

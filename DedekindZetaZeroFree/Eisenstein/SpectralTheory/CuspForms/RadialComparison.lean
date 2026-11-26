@@ -463,7 +463,7 @@ private theorem cuspFlatScalar_smooth
   have hlabel : ContDiff ℝ (⊤ : ℕ∞) (labeledA (placeEquiv F ζ hζ)) := by
     apply contDiff_pi.mpr
     intro i
-    exact (contDiff_apply (𝕜 := ℝ) (E := KPArch.H3) (placeEquiv F ζ hζ |>.symm i)).comp
+    exact (contDiff_apply (𝕜 := ℝ) (F' := fun _ => KPArch.H3) (placeEquiv F ζ hζ |>.symm i)).comp
       (CotangentLogCoframe.A (KPContCotangentActualOverlap.d F)).contDiff
   exact ((tests.scalar_smooth f) c.1).comp (hact.comp hlabel)
 private theorem actual_radial_height_sum

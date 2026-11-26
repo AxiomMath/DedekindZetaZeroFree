@@ -413,7 +413,7 @@ private theorem base_direction (j : Fin (3*d F)) :
   simp only [baseReindex, LinearIsometryEquiv.piLpCongrLeft_symm,
     LinearIsometryEquiv.piLpCongrLeft_apply, Equiv.symm_symm, HyperbolicChart.coordinateVector,
     WithLp.ofLp_toLp]
-  simp [EuclideanSpace.single_apply, Pi.single_apply, ← Equiv.apply_eq_iff_eq_symm_apply]
+  simp [PiLp.single_apply, Pi.single_apply, ← Equiv.apply_eq_iff_eq_symm_apply]
 private theorem decoder_differential (a : ActualChart (U:=U) (H:=H)) (f : omega a → ℂ)
     (x : Space (3*d F)) (hx : x ∈ coordinateDomain a) (j : Fin (3*d F)) :
     (let p := (baseReindex (F:=F)).symm x

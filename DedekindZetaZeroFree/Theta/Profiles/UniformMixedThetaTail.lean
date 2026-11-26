@@ -294,7 +294,7 @@ theorem continuousOn_mixedRadialTheta
     apply Filter.Eventually.frequently
     apply Filter.Eventually.of_forall
     intro n
-    apply continuousOn_finset_sum
+    apply continuousOn_finsetSum
     intro x hx
     apply (continuousOn_summand K I x).mono
     intro q hq

@@ -469,7 +469,7 @@ theorem decompositionField_decompositionField_residueMap_surjective
         rw [AbsoluteValue.map_neg]
       _ ≤ 1 := max_le hyle hclose.le
   have hxbase : vK x ≤ 1 := by
-    rw [← AbsoluteValue.completionAbsoluteValue_coe vK x]
+    rw [← AbsoluteValue.completionAbsoluteValue_algebraMap vK x]
     exact hxle
   let xA : AK :=
     ⟨x, (mem_absoluteValueValuationSubring_iff

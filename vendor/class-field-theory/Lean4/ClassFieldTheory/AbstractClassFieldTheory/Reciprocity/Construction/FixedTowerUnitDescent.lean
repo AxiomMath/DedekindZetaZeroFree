@@ -299,11 +299,11 @@ theorem universalNormDescent_fixedTower_solution
         s φ.1 hφσ hφσn (fun i => (τ i).1) hτσ hτσn
         u uᵢ uBar uBarᵢ huBar huBarᵢ hstar
   let U := v.unitRepresentation E hEnormal
-  have hdeltaNorm : U.norm.hom delta = 0 := by
+  have hdeltaNorm : U.norm.asHom.hom delta = 0 := by
     apply Subtype.ext
     apply Subtype.ext
     calc
-      (((U.norm.hom delta).1 : ambientFixedAddSubgroup A T) : A.V) =
+      (((U.norm.asHom.hom delta).1 : ambientFixedAddSubgroup A T) : A.V) =
           ((relativeNorm A S T hTS delta.1 : ambientFixedAddSubgroup A S) : A.V) :=
         v.unitRepresentation_norm_coe E hEnormal delta
       _ = 0 := congrArg Subtype.val hdeltaRelativeNorm
@@ -470,18 +470,18 @@ theorem maximalNorm_relativeNorm_fixedTower
     (v.unitRepresentation_generator_action_eq
       tower generator.toRepresentative z).symm
   have hRep := rep_norm_eq_generatorIterateSum U g hg n hcard' f hgen a
-  have hMapped : F (U.norm.hom a) =
+  have hMapped : F (U.norm.asHom.hom a) =
       ∑ i : Fin n, F ((f^[i.1]) a) := by
     calc
-      F (U.norm.hom a) = F (∑ i : Fin n, (f^[i.1]) a) :=
+      F (U.norm.asHom.hom a) = F (∑ i : Fin n, (f^[i.1]) a) :=
         congrArg F hRep
       _ = ∑ i : Fin n, F ((f^[i.1]) a) :=
         map_sum F (fun i : Fin n => (f^[i.1]) a) Finset.univ
-  have hMapped' : F (U.norm.hom a) =
+  have hMapped' : F (U.norm.asHom.hom a) =
       ∑ i : Fin n, D.frobeniusQuotientAction A K.field L hLK
         (σ.1 ^ i.1) (F a) := by
     calc
-      F (U.norm.hom a) = ∑ i : Fin n, F ((f^[i.1]) a) := hMapped
+      F (U.norm.asHom.hom a) = ∑ i : Fin n, F ((f^[i.1]) a) := hMapped
       _ = ∑ i : Fin n, (act^[i.1]) (F a) := by
         apply Finset.sum_congr rfl
         intro i _
@@ -497,7 +497,7 @@ theorem maximalNorm_relativeNorm_fixedTower
             D.frobeniusQuotientAction A K.field L hLK
               (σ.1 ^ i.1) (F a) at hpow
         simpa only [act] using hpow
-  have hLeft : F (U.norm.hom a) =
+  have hLeft : F (U.norm.asHom.hom a) =
       J (N (fixedFieldInclusion A S E hSE
         (relativeNorm A S T hTS a.1))) := by
     apply congrArg (J.comp N)
@@ -505,7 +505,7 @@ theorem maximalNorm_relativeNorm_fixedTower
     exact v.unitRepresentation_norm_coe Ext hExtNormal a
   calc
     J (N (fixedFieldInclusion A S E hSE
-        (relativeNorm A S T hTS a.1))) = F (U.norm.hom a) := hLeft.symm
+        (relativeNorm A S T hTS a.1))) = F (U.norm.asHom.hom a) := hLeft.symm
     _ = ∑ i : Fin n, D.frobeniusQuotientAction A K.field L hLK
         (σ.1 ^ i.1) (F a) := hMapped'
     _ = D.frobeniusPowerSum A K.field L hLK σ.1 n

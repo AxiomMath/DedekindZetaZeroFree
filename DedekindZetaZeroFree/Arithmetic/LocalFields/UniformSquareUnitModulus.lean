@@ -56,7 +56,7 @@ theorem squareUnitModulus_support (Sf : Finset (HeightOneSpectrum (𝓞 F)))
     (hr : ∀ v : HeightOneSpectrum (𝓞 F), v ∈ Sf → 1 ≤ r v)
     (v : HeightOneSpectrum (𝓞 F)) :
     squareUnitModulus Sf r ≤ v.asIdeal ↔ v ∈ Sf := by
-  rw [← Ideal.dvd_iff_le, squareUnitModulus, Prime.dvd_finset_prod_iff v.prime]
+  rw [← Ideal.dvd_iff_le, squareUnitModulus, Prime.dvd_finsetProd_iff v.prime]
   constructor
   · rintro ⟨w, hw, hdvd⟩
     obtain ⟨hvw, -⟩ := (prime_dvd_prime_pow_iff v.prime w.prime (r w)).mp hdvd

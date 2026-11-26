@@ -192,7 +192,7 @@ private theorem smooth_height (d : ℕ) : ContDiff ℝ (⊤ : ℕ∞)
 
 private theorem continuous_height (d : ℕ) : Continuous (KPCuspLogShape.meanHeight d) := by
   unfold KPCuspLogShape.meanHeight
-  exact (continuous_finset_sum _ (fun i _ => (continuous_apply i).snd)).div_const _
+  exact (continuous_finsetSum _ (fun i _ => (continuous_apply i).snd)).div_const _
 
 variable {F : Type} [Field F] [NumberField F] {ζ : F} {hζ : IsPrimitiveRoot ζ 12}
     {S : Subgroup (KPCuspArithmetic.PGL2 F)} {ρ : S →* rootsOfUnity 3 F}

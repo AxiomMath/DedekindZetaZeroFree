@@ -141,7 +141,7 @@ private theorem arrow_psi_formula {a b : ShrunkChart F ζ hζ U R P H}
 
 private theorem psi_quasiMeasurePreserving {a b : ShrunkChart F ζ hζ U R P H}
     (e : ActualBranch a b) :
-    Measure.QuasiMeasurePreserving e.arrow.psi
+    QuasiMeasurePreserving e.arrow.psi
       (coordinateMeasure (F := F) (ζ := ζ) (hζ := hζ))
       (coordinateMeasure (F := F) (ζ := ζ) (hζ := hζ)) := by
   rw [arrow_psi_formula e]

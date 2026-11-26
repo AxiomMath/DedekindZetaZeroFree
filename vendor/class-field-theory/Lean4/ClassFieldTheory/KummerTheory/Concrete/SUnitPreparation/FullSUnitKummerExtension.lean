@@ -335,7 +335,7 @@ theorem exists_finset_fullSUnitKummerExtensionRoots_adjoin_eq_top
         (⟨x, hT₀E hx⟩ : E) ∈ R := by
     intro x hx
     exact IntermediateField.adjoin_induction K
-      (p := fun y hy => (⟨y, hT₀E hy⟩ : E) ∈ R)
+      (motive := fun y hy => (⟨y, hT₀E hy⟩ : E) ∈ R)
       (fun y hy => by
         let yT : ↥T₀ := ⟨y, hy⟩
         have hyT : toE yT ∈ T := by

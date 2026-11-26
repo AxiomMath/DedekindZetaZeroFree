@@ -173,7 +173,7 @@ theorem radial_jet_bound_direct (n : ℕ) :
       ‖iteratedFDeriv ℝ n (radialExtension F) p‖ ≤ A * rotationSup n F := by
   classical
   induction n using Nat.strong_induction_on with
-  | h n ih =>
+  | ind n ih =>
     cases n with
     | zero =>
       refine ⟨1, zero_le_one, ?_⟩

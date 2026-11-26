@@ -1106,6 +1106,12 @@ theorem principalIdele_infinite_mem_iff_pos
       0 <
         NumberField.InfinitePlace.Completion.extensionEmbeddingOfIsReal
           Rat.isReal_infinitePlace
+          (algebraMap ℚ Rat.infinitePlace.Completion (x : ℚ)) at hpos
+    rw [AbsoluteValue.Completion.algebraMap_def] at hpos
+    change
+      0 <
+        NumberField.InfinitePlace.Completion.extensionEmbeddingOfIsReal
+          Rat.isReal_infinitePlace
           ((WithAbs.toAbs Rat.infinitePlace.1 (x : ℚ) :
             WithAbs Rat.infinitePlace.1) :
               Rat.infinitePlace.Completion) at hpos
@@ -1118,6 +1124,11 @@ theorem principalIdele_infinite_mem_iff_pos
   · intro hx v
     rw [mem_infinitePositiveSubgroup_iff]
     intro hv
+    change
+      0 <
+        NumberField.InfinitePlace.Completion.extensionEmbeddingOfIsReal
+          hv (algebraMap ℚ v.Completion (x : ℚ))
+    rw [AbsoluteValue.Completion.algebraMap_def]
     change
       0 <
         NumberField.InfinitePlace.Completion.extensionEmbeddingOfIsReal

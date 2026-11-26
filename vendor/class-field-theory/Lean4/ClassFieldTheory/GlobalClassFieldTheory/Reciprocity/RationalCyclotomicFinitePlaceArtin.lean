@@ -91,9 +91,8 @@ namespace Reciprocity
       (WithAbs (HeightOneSpectrum.adicAbv ℚ v)) :=
     WithAbs.instUniformContinuousConstSMulReal _
   exact
-    @UniformSpace.Completion.algebra
-      (WithAbs (HeightOneSpectrum.adicAbv ℚ v)) _ _ _ _
-      ℚ _ hWith hUniform
+    @AbsoluteValue.Completion.instAlgebra
+      ℚ _ (HeightOneSpectrum.adicAbv ℚ v) ℚ _ hWith hUniform
 
 open AlgebraicNumberTheory.Valuations
 open HilbertRamification
@@ -1552,6 +1551,7 @@ private theorem
       (rationalCyclotomicArtin_padicAlgebraAdjoin_restrict_eq_top
         (rationalCyclotomicPrincipalPrimeModulus p n) p)
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
  theorem
     rationalCyclotomicPrincipalPrimeLocalizedLevel_isCyclotomicExtension
     (p : Nat.Primes) (n : ℕ) :
@@ -1980,6 +1980,7 @@ private theorem rationalCyclotomicPrincipalPrime_localizedBase_commutes
         (rationalFinitePlaceCompletionRingEquivPadic p y) :=
       eL.commutes (rationalFinitePlaceCompletionRingEquivPadic p y)
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
 /-- Specialized ramified-prime bridge from the standard `p`-adic Artin value
 to the canonical global finite-place Artin value.  The localized completion
 and all of its dependent instances remain private to this provider. -/
@@ -2250,6 +2251,7 @@ private theorem
       tau.toMonoidHom zetaT (eL zetaE)
       (p.1 ^ (n + 1)) a.val.val hzetaT hrho htauZetaT
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
 private theorem rationalCyclotomicPrincipalPrime_localArtin_action
     (p : Nat.Primes) (n : ℕ) (x : ℚˣ) :
     finitePlaceLocalArtinMonoidHom
@@ -2330,6 +2332,7 @@ noncomputable def rationalCyclotomicPrincipalPrimeChosenArtin
         (RayClass.rationalPrime p)
         (IdeleGroup.principalIdele ℚ x)))
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
 /-- At the ramified prime, the cyclotomic character of the chosen finite-place
 Artin symbol is the direct reduction of the rational `p`-adic unit. -/
 theorem galEquivZMod_chosenFinitePlaceArtinMonoidHom_principal_at_prime
@@ -2358,6 +2361,7 @@ theorem galEquivZMod_chosenFinitePlaceArtinMonoidHom_principal_at_prime
 
 end RationalCyclotomicPrincipalPrime
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
  theorem rationalCyclotomicArtinUnramified
     (m : ℕ+) (q : Nat.Primes)
     (hq : ¬ q.1 ∣ (m : ℕ)) :
@@ -2479,6 +2483,7 @@ noncomputable def rationalCyclotomicChosenFinitePlaceArtinValue
     (L := KummerTheory.rationalCyclotomicLevel m)
     (RayClass.rationalPrime q) x
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
 private theorem rationalCyclotomicArtinLocalArtin_eq
     (m : ℕ+) (q : Nat.Primes)
     (x : ((RayClass.rationalPrime q).adicCompletion ℚ)ˣ) :
@@ -2599,6 +2604,7 @@ private theorem
         m q (rationalCyclotomicArtinLocalizedIsAbelianGalois m q)
         (rationalCyclotomicArtinUnramified m q hq) x
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
 /-- The chosen local Artin symbol is the chosen global Frobenius lift raised
 to the normalized local valuation. -/
 private theorem
@@ -2661,6 +2667,7 @@ private theorem rationalCyclotomicArtinResidueFieldCard
     rationalFinitePlaceCompletion_residueField_card
       (rationalCyclotomicArtinPlace q)
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
 private theorem rationalCyclotomicArtinLocalFrobenius_apply_root
     (m : ℕ+) (q : Nat.Primes)
     (hq : ¬ q.1 ∣ (m : ℕ)) :
@@ -2837,6 +2844,7 @@ private theorem rationalCyclotomicArtinLocalizedRoot_pow
           m (rationalCyclotomicArtinPlace q))
         (rationalCyclotomicLevelPrimitiveRoot m) q.1).symm
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
 private theorem rationalCyclotomicChosenArithmeticFrobenius_apply_root
     (m : ℕ+) (q : Nat.Primes)
     (hq : ¬ q.1 ∣ (m : ℕ)) :

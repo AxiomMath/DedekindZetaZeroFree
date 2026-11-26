@@ -541,7 +541,7 @@ lemma projectiveIdealAut_properlyDiscontinuous (F : Type) [Field F] [NumberField
   let f : (KPArch.Space (KPCuspLogShape.dimension F) × KPArch.Space (KPCuspLogShape.dimension F)) → ℝ :=
     fun p => ∑ v, (matrixEntryBound (p.1 v) (p.2 v) * matrixEntryBound (p.2 v) (p.1 v) + 1)
   have hf : Continuous f := by
-    apply continuous_finset_sum
+    apply continuous_finsetSum
     intro v hv
     have hzw : Continuous (fun p : KPArch.Space (KPCuspLogShape.dimension F) × KPArch.Space (KPCuspLogShape.dimension F) => (p.1 v, p.2 v)) :=
       ((continuous_apply v).comp continuous_fst).prodMk ((continuous_apply v).comp continuous_snd)

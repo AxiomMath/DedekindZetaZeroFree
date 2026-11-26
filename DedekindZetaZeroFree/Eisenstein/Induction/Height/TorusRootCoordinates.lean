@@ -66,7 +66,8 @@ private theorem infinite_rational_mul (A : RatGL F) (B : AdelGL F)
       algebraMap F v.Completion := by ext a; rfl
   have hn : ‖algebraMap F v.Completion (GeneralLinearGroup.det A : F)‖ =
       v (GeneralLinearGroup.det A : F) :=
-    InfinitePlace.Completion.norm_coe v ((WithAbs.equiv v.1).symm _)
+    by rw [AbsoluteValue.Completion.algebraMap_def, AbsoluteValue.Completion.norm_coe,
+          WithAbs.algebraMap_right_apply, WithAbs.ofAbs_toAbs, Algebra.algebraMap_self_apply]; rfl
   rw [hd, hc, hn]
   change (_ / (Real.sqrt (v (GeneralLinearGroup.det A : F)) * _)) ^ v.mult = _
   rw [mul_comm (Real.sqrt (v (GeneralLinearGroup.det A : F))), div_mul_eq_div_div, div_pow]

@@ -96,7 +96,9 @@ private theorem isNormAtInfinitePlace_iff
           algebraMap K w.Completion (x : K) := hy
       _ = (IdeleGroup.infiniteComponent w
           (IdeleGroup.principalIdele K x) : w.Completion) :=
-        (IdeleGroup.infiniteComponent_principalIdele x w).symm
+        by
+          rw [IdeleGroup.infiniteComponent_principalIdele]
+          exact AbsoluteValue.Completion.algebraMap_def (R := K) w.1 (x : K)
   · rintro ⟨y, hy⟩
     refine ⟨y, ?_⟩
     calc
@@ -104,8 +106,9 @@ private theorem isNormAtInfinitePlace_iff
           (IdeleGroup.infiniteComponent w
             (IdeleGroup.principalIdele K x) : w.Completion) :=
         congrArg Units.val hy
-      _ = algebraMap K w.Completion (x : K) :=
-        IdeleGroup.infiniteComponent_principalIdele x w
+      _ = algebraMap K w.Completion (x : K) := by
+        rw [IdeleGroup.infiniteComponent_principalIdele]
+        exact (AbsoluteValue.Completion.algebraMap_def (R := K) w.1 (x : K)).symm
 
 private theorem isEverywhereLocalNorm_iff_mem_everywhereLocalFieldNormSubgroup
     (K L : Type)

@@ -17,6 +17,7 @@ variable {U : KPMsFixedHaarDisintegration.Level F ζ hζ}
 variable {R : KPSmoothLocalQuotientCharts.HaarRecipe F ζ hζ}
 variable {P : KPMsFixedHaarDisintegration.SphericalTransport F ζ hζ}
 variable {H : KPMsFixedHaarDisintegration.AllLevels F ζ hζ R P}
+
 private theorem overlap_mul (i : Fin (H.atlas U).componentCount)
     (γ δ : Component F ζ hζ U R P H i) (p : Space (KPCuspLogShape.dimension F * 3)) :
     overlapCoordinate F ζ hζ U R P H i (γ * δ) p =
@@ -182,10 +183,9 @@ private theorem chart_action_mem (i : Fin (H.atlas U).componentCount)
       change complexProjectiveEmbedding F σ.val.val • x = x
       rw [complexProjectiveEmbedding_smul]
       exact σ.property⟩
-  have h := Set.mem_image_of_mem (fun z : SymmetricSpace F => τ • z)
-    (show coordinates F p ∈ O.neighborhood from hp)
-  rw [O.invariant τ] at h
-  change complexProjectiveEmbedding F σ.val.val • coordinates F p ∈ O.neighborhood at h
+  have h : complexProjectiveEmbedding F σ.val.val • coordinates F p ∈ O.neighborhood := by
+    rw [← O.invariant τ]
+    exact ⟨coordinates F p, hp, rfl⟩
   simpa only [chartDomain, Set.mem_preimage, overlapCoordinate,
     Homeomorph.apply_symm_apply, complexProjectiveEmbedding_smul] using h
 
@@ -537,9 +537,9 @@ private theorem orbifold_action_mem (F : Type) [Field F] [NumberField F] (ζ : F
       change complexProjectiveEmbedding F σ.val.val • x = x
       rw [complexProjectiveEmbedding_smul]
       exact σ.property⟩
-  have h := Set.mem_image_of_mem (fun z : SymmetricSpace F => τ • z) hy
-  rw [O.invariant τ] at h
-  change complexProjectiveEmbedding F σ.val.val • y ∈ O.neighborhood at h
+  have h : complexProjectiveEmbedding F σ.val.val • y ∈ O.neighborhood := by
+    rw [← O.invariant τ]
+    exact ⟨y, hy, rfl⟩
   simpa only [complexProjectiveEmbedding_smul] using h
 
 private theorem supplied_compact_shrinking (F : Type) [Field F] [NumberField F] (ζ : F) (hζ : IsPrimitiveRoot ζ 12)

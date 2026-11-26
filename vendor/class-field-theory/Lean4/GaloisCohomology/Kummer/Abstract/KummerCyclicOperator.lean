@@ -101,8 +101,8 @@ theorem cyclic_single_radical_of_tateHMinusOne_isZero
     simp only [eta, map_nsmul, hxi_fixed]
   have heta_kernel : wp.hom eta = 0 := by
     simp only [eta, map_nsmul, hxi_kernel, smul_zero]
-  have heta_norm : B.norm.hom eta = 0 := by
-    have hnorm : B.norm.hom eta = d • eta := by
+  have heta_norm : B.norm.asHom.hom eta = 0 := by
+    have hnorm : B.norm.asHom.hom eta = d • eta := by
       simp [Rep.norm, Representation.norm, d, heta_fixed]
     rw [hnorm, ← heta_order]
     exact addOrderOf_nsmul_eq_zero eta

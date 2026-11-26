@@ -49,7 +49,7 @@ theorem normQuotientFiniteOfIsAbelianGalois
     [Field L] [Algebra K L] [FiniteDimensional K L] [IsAbelianGalois K L] :
     Finite (NormQuotient K L) := by
   exact Finite.of_equiv Gal(L / K)
-    ((Abelianization.equivOfComm (H := Gal(L / K))).trans
+    ((Group.Abelianization.equivOfComm (H := Gal(L / K))).trans
       (abelianizationEquivNormQuotient K L)).toEquiv
 
 /-- If every base integer unit is a norm, the actual norm quotient is the
@@ -132,15 +132,15 @@ theorem card_normQuotient_eq_finrank_of_isAbelianGalois
     Nat.card (NormQuotient K L) = Module.finrank K L := by
   let : Finite (NormQuotient K L) :=
     normQuotientFiniteOfIsAbelianGalois K L
-  let : Finite (Abelianization Gal(L / K)) :=
+  let : Finite (Group.Abelianization Gal(L / K)) :=
     Finite.of_equiv Gal(L / K)
-      (Abelianization.equivOfComm (H := Gal(L / K))).toEquiv
+      (Group.Abelianization.equivOfComm (H := Gal(L / K))).toEquiv
   calc
     Nat.card (NormQuotient K L) =
-        Nat.card (Abelianization Gal(L / K)) :=
+        Nat.card (Group.Abelianization Gal(L / K)) :=
       Nat.card_congr (abelianizationEquivNormQuotient K L).toEquiv.symm
     _ = Nat.card Gal(L / K) :=
-      Nat.card_congr (Abelianization.equivOfComm
+      Nat.card_congr (Group.Abelianization.equivOfComm
         (H := Gal(L / K))).toEquiv.symm
     _ = Module.finrank K L := galoisGroup_card_eq_finrank K L
 

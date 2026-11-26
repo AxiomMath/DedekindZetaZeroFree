@@ -26,11 +26,11 @@ theorem branch_measurable {Q : AdmissibleFlatSources R} (P : Packet R Q) (v : R.
     have hθ := SArithmeticData.CorrectionAssembly.correctionTheta_continuous R.A
       D.Λ D.G D.η_id D.Λ_continuous D.G_continuous D.eta_continuous
     apply Continuous.mul
-    · apply continuous_finset_prod
+    · apply continuous_finsetProd
       intro w hw
       exact (hθ.comp ((SArithmeticData.CorrectionTopology.infinite_embedding_continuous w).comp
         ((continuous_apply w).comp continuous_fst))).inv
-    · apply continuous_finset_prod
+    · apply continuous_finsetProd
       intro p hp
       exact (hθ.comp ((SArithmeticData.CorrectionTopology.finite_embedding_continuous p.val).comp
         ((continuous_apply p).comp continuous_snd))).inv

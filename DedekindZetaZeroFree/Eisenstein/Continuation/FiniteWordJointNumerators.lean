@@ -68,12 +68,12 @@ include C R P H in
       apply Finset.univ.analyticAt_fun_sum
       intro j _
       exact ((hB i j) s (hO hs)).mul (hNa i j g s (hball i j hs))
-    · apply continuousOn_finset_sum
+    · apply continuousOn_finsetSum
       intro i _
-      apply continuousOn_finset_sum
+      apply continuousOn_finsetSum
       intro j _
       exact (((hB i j).continuousOn.mono hO).comp continuous_fst.continuousOn
-        (fun p hp => hp.1)).mul
+        (fun p hp => (Set.mem_prod.mp hp).1)).mul
           ((hNj i j).mono (Set.prod_mono (hball i j) (Set.Subset.refl Set.univ)))
     · intro s hs hne
       ext g

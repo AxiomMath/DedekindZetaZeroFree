@@ -182,7 +182,7 @@ private theorem originMellinQ_bound_of_re_bounds (b : ℝ) (hb : 0 < b) (K : Set
   have h4 : b ^ (s + (m : ℂ)).re / (s + (m : ℂ)).re ≤ max CB 1 := by
     have hmem : s.re ∈ Set.Icc σlo σhi := ⟨hslo, hhi s hs⟩
     have hthis := hCB s.re hmem
-    rw [Real.norm_of_nonneg (by positivity)] at hthis
+    rw [Real.norm_of_nonneg (div_nonneg (Real.rpow_nonneg hb.le _) (by linarith [hsm]))] at hthis
     rw [hre]
     exact le_trans hthis (le_max_left _ _)
   rw [originMellinQ_eq_chart h hh hc m s hsm, originMellinChart]

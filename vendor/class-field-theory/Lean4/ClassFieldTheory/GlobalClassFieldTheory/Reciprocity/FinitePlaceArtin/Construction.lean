@@ -145,9 +145,7 @@ theorem finitePlaceCompletionRingEquiv_eq_relative
   change
     finitePlaceCompletionRingHom v x =
       relativeFinitePlaceCompletionRingHom v x
-  refine UniformSpace.Completion.induction_on
-    (α := WithAbs
-      (NumberField.HeightOneSpectrum.adicAbv F v)) x ?_ ?_
+  refine AbsoluteValue.Completion.induction_on x ?_ ?_
   · exact isClosed_eq
       (finitePlaceCompletionRingHom_isometry v).continuous
       (relativeFinitePlaceCompletionRingHom_isometry v).continuous

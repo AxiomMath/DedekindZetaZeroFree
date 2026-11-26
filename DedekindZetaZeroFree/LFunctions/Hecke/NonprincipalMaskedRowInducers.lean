@@ -231,7 +231,7 @@ private lemma sexticResidue_one_valuation (A : SArithmeticData F)
     exact h1
   have hmem : x ^ ((Ideal.absNorm v.asIdeal - 1) / 6) - 1 ∈ A.extendIdeal I := by
     apply Ideal.Quotient.eq_zero_iff_mem.mp
-    rw [map_sub, hmk, map_one, sub_self]
+    rw [RingHom.map_sub, hmk, RingHom.map_one, sub_self]
   have hmap : A.extendIdeal I ≤ valuationIdeal A v hv := by
     apply Ideal.map_le_iff_le_comap.mpr
     intro a ha

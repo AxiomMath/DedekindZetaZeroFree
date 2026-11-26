@@ -187,7 +187,9 @@ private theorem tuple_cont : Continuous (scalarTuple F ζ hζ) := by
     fun z => ⟨scalarCoordinates F ζ hζ z, by
       intro v hv
       cases v with
-      | inl w => exact Subgroup.mem_top _
+      | inl w =>
+        exact Subgroup.mem_top (G := KPLocalCover.CubicGL2Raw F ζ hζ (Sum.inl w))
+          (scalarCoordinates F ζ hζ (z : Ideles F) (Sum.inl w))
       | inr q => exact integral_scalar_mem F ζ hζ z q (z.property.1 q hv) (z.property.2 q hv) hv⟩
   have hf : Continuous f := RestrictedProduct.continuous_rng_of_principal.mpr
     (continuous_pi (fun v => (coordinate_cont F ζ hζ v).comp continuous_subtype_val))

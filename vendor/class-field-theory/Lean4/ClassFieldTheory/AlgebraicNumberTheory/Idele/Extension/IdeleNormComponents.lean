@@ -952,13 +952,11 @@ theorem infiniteComponent_norm_eq_prod
   have hcompletion :=
     infiniteComponent_norm_eq_prod_completion
       (K := K) (L := L) v a
-  change
-    infiniteComponent v (norm K L a) =
-      ∏ W : {W : InfinitePlace L //
-          _root_.infinitePlaceBelow (K := K) W = v},
-        LocalFieldTheory.normUnits
-          v.Completion W.1.Completion
-          (infiniteComponent W.1 a)
+  intro _ _ _
+  refine Eq.trans ?_ (Finset.prod_congr rfl fun W _ =>
+    congrArg
+      (fun I => @LocalFieldTheory.normUnits _ _ _ _ I (infiniteComponent W.1 a))
+      (absoluteValue_completionAlgebra_eq_algebraOfLiesOver vK W.1.1 (eAbove W).2))
   calc
     infiniteComponent v (norm K L a) =
         Units.mapEquiv eBase.symm.toMulEquiv
@@ -1003,11 +1001,10 @@ theorem infiniteComponent_norm_eq_prod
             RingHom.comp
               (InfinitePlace.Completion.equiv W.1).toRingHom
               (algebraMap v.Completion W.1.Completion) := by
-        have hComparison :=
-          _root_.infinitePlaceCompletionAlgEquiv_algebraMap
-            (K := K) (L := L) v W.1 W.2
-        dsimp only [eBase, infinitePlaceCompletionAlgEquiv] at hComparison ⊢
-        exact hComparison
+        refine RingHom.ext fun x => ?_
+        simp only [RingHom.comp_apply, RingEquiv.toRingHom_eq_coe, RingEquiv.coe_toRingHom,
+          AlgEquiv.coe_ringEquiv, eBase, infinitePlaceCompletionAlgEquiv_apply,
+          InfinitePlace.Completion.equiv_apply, InfinitePlace.Completion.toCompletion]
       have hCompatible :=
         LocalClassFieldTheory.ringEquiv_compat_symm
           eBase.toRingEquiv

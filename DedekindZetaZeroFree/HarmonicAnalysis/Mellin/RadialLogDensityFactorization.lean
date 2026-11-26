@@ -435,7 +435,7 @@ theorem finite_positive_weights_pushforward
   have hd : ∀ i, Integrable (d i) μ := fun i => Measure.integrable_toReal_rnDeriv
   let w : ℝ → ℂ := fun s => ∑ i, c i * (d i s : ℂ)
   have hw : Integrable w μ :=
-    integrable_finset_sum Finset.univ (fun i _ => (hd i).ofReal.const_mul (c i))
+    integrable_finsetSum Finset.univ (fun i _ => (hd i).ofReal.const_mul (c i))
   refine ⟨μ, hμ, w, hw, ?_⟩
   intro φ hφ hb
   obtain ⟨C, hC⟩ := hb
@@ -464,8 +464,8 @@ theorem finite_positive_weights_pushforward
     fun i => ((hd i).ofReal.const_mul (c i)).mul_bdd
       hφ.aestronglyMeasurable (Filter.Eventually.of_forall hC)
   simp only [w, Finset.sum_mul]
-  rw [integral_finset_sum _ (fun i _ => huint i),
-    integral_finset_sum _ (fun i _ => hdφ i)]
+  rw [integral_finsetSum _ (fun i _ => huint i),
+    integral_finsetSum _ (fun i _ => hdφ i)]
   apply Finset.sum_congr rfl
   intro i _
   simp only [mul_assoc, integral_const_mul, hlocal i]

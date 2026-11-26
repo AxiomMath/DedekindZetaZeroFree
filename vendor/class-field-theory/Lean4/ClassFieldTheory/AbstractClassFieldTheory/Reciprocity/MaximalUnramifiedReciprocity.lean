@@ -84,7 +84,7 @@ theorem normResidueSymbol_finiteNormClass_eq_maximalUnramifiedRestriction
     D.normResidueSymbol A v hcf K L
         (finiteNormClass A K.field L.field L.below a) =
       Additive.ofMul
-        (Abelianization.of
+        (Group.Abelianization.of
           (DegreeData.finiteUnramifiedRestriction D
             (K.toFiniteResidueAbstractField D) L hUnramified
             (maximalUnramifiedNormResidueSymbol v K a).toMul)) := by

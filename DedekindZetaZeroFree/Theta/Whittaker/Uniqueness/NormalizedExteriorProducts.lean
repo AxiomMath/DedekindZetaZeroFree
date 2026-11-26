@@ -35,7 +35,7 @@ theorem slot_eq_normalized
 theorem replace_eq_product_of_slot_comparison
     {J : Type*} [DecidableEq J] {V : J → Type*}
     [∀ j, AddCommGroup (V j)] [∀ j, Module ℂ (V j)]
-    (L : MultilinearMap ℂ V ℂ) (S : Finset J)
+    (L : MultilinearMap (RingHom.id ℂ) V ℂ) (S : Finset J)
     (x y : ∀ j, V j) (ell : ∀ j, V j →ₗ[ℂ] ℂ)
     (hnorm : ∀ j ∈ S, ell j (x j) = 1)
     (hslot : ∀ j ∈ S, ∀ z : ∀ i, V i, ∀ u : V j,

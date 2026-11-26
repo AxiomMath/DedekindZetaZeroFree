@@ -55,11 +55,11 @@ local instance
     IsMulCommutative (IdeleClassGroup K) :=
   ⟨⟨fun a b => mul_comm a b⟩⟩
 
-/-- `Abelianization` is an opaque quotient alias, so install its native
+/-- `Group.Abelianization` is an opaque quotient alias, so install its native
 quotient topology explicitly before asking for topological properties. -/
 local instance
     topologicalGlobalNormResidueAbelianization_galoisAbelianizationTopology :
-    TopologicalSpace (Abelianization (Gal(L / K))) := by
+    TopologicalSpace (Group.Abelianization (Gal(L / K))) := by
   change
     TopologicalSpace
       (Gal(L / K) ⧸ commutator (Gal(L / K)))
@@ -82,7 +82,7 @@ omit [NumberField K] [NumberField L] [IsGalois K L] in
 discrete quotient topology. -/
 theorem finiteGaloisAbelianization_discreteTopology :
     DiscreteTopology
-      (Abelianization (Gal(L / K))) := by
+      (Group.Abelianization (Gal(L / K))) := by
   change
     DiscreteTopology
       (Gal(L / K) ⧸
@@ -99,7 +99,7 @@ local instance
 
 local instance
     topologicalGlobalNormResidueAbelianization_galoisAbelianizationDiscreteTopology :
-    DiscreteTopology (Abelianization (Gal(L / K))) :=
+    DiscreteTopology (Group.Abelianization (Gal(L / K))) :=
   finiteGaloisAbelianization_discreteTopology K L
 
 /-- The full finite-Galois norm-residue isomorphism with its native
@@ -109,11 +109,11 @@ topologies:
 noncomputable def globalNormResidueAbelianizationContinuousMulEquiv :
     (IdeleClassGroup K ⧸
         (_root_.ideleClassNorm K L).range) ≃ₜ*
-      Abelianization (Gal(L / K)) := by
+      Group.Abelianization (Gal(L / K)) := by
   let e :
       (IdeleClassGroup K ⧸
           (_root_.ideleClassNorm K L).range) ≃*
-        Abelianization (Gal(L / K)) :=
+        Group.Abelianization (Gal(L / K)) :=
     AddEquiv.toMultiplicative
       (globalNormResidueAbelianizationEquiv K L)
   exact
@@ -140,7 +140,7 @@ used by the class-field correspondence:
 
 `Gal(L / K)ᵃᵇ ≃ₜ* C_K / N_{L/K}(C_L)`. -/
 noncomputable def globalReciprocityAbelianizationContinuousMulEquiv :
-    Abelianization (Gal(L / K)) ≃ₜ*
+    Group.Abelianization (Gal(L / K)) ≃ₜ*
       (IdeleClassGroup K ⧸
         (_root_.ideleClassNorm K L).range) :=
   (globalNormResidueAbelianizationContinuousMulEquiv K L).symm
@@ -149,7 +149,7 @@ noncomputable def globalReciprocityAbelianizationContinuousMulEquiv :
 actual finite-Galois norm-residue map. -/
 @[simp]
 theorem globalReciprocityAbelianizationContinuousMulEquiv_apply
-    (σ : Abelianization (Gal(L / K))) :
+    (σ : Group.Abelianization (Gal(L / K))) :
     globalReciprocityAbelianizationContinuousMulEquiv K L σ =
       Additive.toMul
         ((globalNormResidueAbelianizationEquiv K L).symm
@@ -173,7 +173,7 @@ idele-class and finite Krull quotient topologies. -/
 noncomputable def
     globalNormResidueAbelianizationContinuousMonoidHom :
     IdeleClassGroup K →ₜ*
-      Abelianization (Gal(L / K)) :=
+      Group.Abelianization (Gal(L / K)) :=
   (ContinuousMonoidHom.toContinuousMonoidHom
       (globalNormResidueAbelianizationContinuousMulEquiv K L)).comp
     (ideleClassNormAbelianizationQuotientContinuousMonoidHom K L)

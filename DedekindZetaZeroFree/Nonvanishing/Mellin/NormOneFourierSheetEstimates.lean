@@ -267,6 +267,8 @@ lemma units_val_isEmbedding :
       (Topology.IsEmbedding.piMap (fun _ => Units.isEmbedding_val₀))
   exact hc.comp (localUnitsContinuous A).symm.toHomeomorph.isEmbedding
 
+attribute [local instance 101] secondCountableTopologyEither_of_left
+
 local instance unitsBorelSpace : BorelSpace (SLocalProduct F A.Sf)ˣ := by
   constructor
   change (borel (SLocalProduct F A.Sf)).comap Units.val = borel _

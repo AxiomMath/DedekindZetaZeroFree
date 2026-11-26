@@ -309,7 +309,7 @@ theorem abstractFixedFieldNormResidueSymbol_apply_primeNorm
       Additive.ofMul
         ((abstractExtensionQuotientEquivGaloisGroup
           k Ω K L hLK hnormal).abelianizationCongr
-          (Abelianization.of q)) := by
+          (Group.Abelianization.of q)) := by
   dsimp only
   let KF : FiniteAbstractField Gal(Ω / k) :=
     ⟨K, hKabsolute⟩
@@ -352,10 +352,10 @@ theorem abstractFixedFieldNormResidueSymbol_apply_primeNorm
           (finiteNormClass (galoisAmbientUnitsRep k Ω)
             K L hLK (b (Additive.ofMul x)))) =
       Additive.ofMul
-        (qGal.abelianizationCongr (Abelianization.of q))
+        (qGal.abelianizationCongr (Group.Abelianization.of q))
   rw [hbase, ← hprime]
   exact congrArg
-    (fun z : Additive (Abelianization E.extensionQuotient) =>
+    (fun z : Additive (Group.Abelianization E.extensionQuotient) =>
       MulEquiv.toAdditive qGal.abelianizationCongr z)
     (D.normResidueSymbol_finiteReciprocityHom
       (galoisAmbientUnitsRep k Ω) v hcf KF E

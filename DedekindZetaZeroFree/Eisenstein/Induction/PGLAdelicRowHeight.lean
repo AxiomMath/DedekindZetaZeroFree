@@ -781,7 +781,8 @@ private theorem infiniteFactor_smul (r : Fin 2 → F) (a : F) (A : AdelGL F)
   rw [he, Real.sqrt_mul (sq_nonneg _), Real.sqrt_sq (norm_nonneg _)]
   rw [mul_div_assoc, mul_pow]
   have hn : ‖algebraMap F v.Completion a‖ = v a :=
-    InfinitePlace.Completion.norm_coe v ((WithAbs.equiv v.1).symm a)
+    by rw [AbsoluteValue.Completion.algebraMap_def, AbsoluteValue.Completion.norm_coe,
+          WithAbs.algebraMap_right_apply, WithAbs.ofAbs_toAbs, Algebra.algebraMap_self_apply]; rfl
   rw [hn]
   rfl
 
@@ -945,7 +946,8 @@ private theorem fin_one (r : Fin 2 → F) (v : HeightOneSpectrum (RingOfIntegers
 private theorem inf_one (r : Fin 2 → F) (v : InfinitePlace F) :
   infiniteFactor F r 1 v = (Real.sqrt ((v (r 0))^2 + (v (r 1))^2)) ^ v.mult := by
   have hn (a : F) : ‖algebraMap F v.Completion a‖ = v a :=
-    InfinitePlace.Completion.norm_coe v ((WithAbs.equiv v.1).symm a)
+    by rw [AbsoluteValue.Completion.algebraMap_def, AbsoluteValue.Completion.norm_coe,
+          WithAbs.algebraMap_right_apply, WithAbs.ofAbs_toAbs, Algebra.algebraMap_self_apply]; rfl
   simp [infiniteFactor, rowAction, GeneralLinearGroup.coe_one, Matrix.one_apply, hn]
   rfl
 private theorem mulHeight_formula (r : Fin 2 → F) (hr : r ≠ 0) :

@@ -58,8 +58,8 @@ private lemma difference_equation {n k : ℕ} {B : LocalBall n} {cρ Cρ κ Λ :
           have hd : (firstIndex i).directions = [i] :=
             KPContLocalEnergy.SobolevEnergyEstimates.firstIndex_directions i
           simp only [coordinateDerivative, hd]))
-    have hh := integrable_finset_sum Finset.univ (fun i _ =>
-      integrable_finset_sum Finset.univ (fun j _ => hterm i j))
+    have hh := integrable_finsetSum Finset.univ (fun i _ =>
+      integrable_finsetSum Finset.univ (fun j _ => hterm i j))
     simpa only [E, Finset.mul_sum, mul_assoc] using hh
   have he : (∫ x in B.carrier, E (subtractSobolev u₁ u₀) x) =
       (∫ x in B.carrier, E u₁ x) - (∫ x in B.carrier, E u₀ x) := by

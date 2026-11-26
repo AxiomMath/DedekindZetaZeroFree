@@ -12,7 +12,7 @@ variable {J : Type u} [Fintype J] [DecidableEq J] {V : J → Type v}
 variable [∀ j, AddCommGroup (V j)] [∀ j, Module ℂ (V j)]
 
 theorem multilinear_factorization_of_normalized
-    (m : MultilinearMap ℂ V ℂ) (W : ∀ j, Submodule ℂ (V j →ₗ[ℂ] ℂ))
+    (m : MultilinearMap (RingHom.id ℂ) V ℂ) (W : ∀ j, Submodule ℂ (V j →ₗ[ℂ] ℂ))
     (hmem : ∀ x j, m.toLinearMap x j ∈ W j)
     (hdim : ∀ j, Module.finrank ℂ (W j) = 1)
     (ell : ∀ j, V j →ₗ[ℂ] ℂ) (hell : ∀ j, ell j ∈ W j)

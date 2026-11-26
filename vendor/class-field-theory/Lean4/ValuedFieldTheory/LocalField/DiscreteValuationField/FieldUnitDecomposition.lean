@@ -1103,7 +1103,7 @@ theorem continuous_valuationSubringUnitsEquivRootsTimesPrincipalUnits_symm_mrang
         ((valuationSubringUnitsEquivRootsTimesPrincipalUnits
           F).symm x).2 ∈ s₂} ∈ 𝓝 u :=
     hsnd.tendsto u hs₂
-  exact Filter.mem_of_superset (Filter.inter_mem hpre₁ hpre₂) fun x hx =>
+  exact Filter.mem_map.2 <| Filter.mem_of_superset (Filter.inter_mem hpre₁ hpre₂) fun x hx =>
     hsubset ⟨hx.1, hx.2⟩
 
 /-- Topological half of the uniformizer–residue–principal-unit decomposition: for the
@@ -1222,7 +1222,7 @@ theorem continuous_fieldUnitsEquivRootsPrincipalUnitsUniformizer_symm_mrangeRest
     hfst.tendsto x hs₁
   have hpre₂ : {y : Kˣ | (E.symm y).2 ∈ s₂} ∈ 𝓝 x :=
     hsnd.tendsto x hs₂
-  exact Filter.mem_of_superset (Filter.inter_mem hpre₁ hpre₂) fun y hy =>
+  exact Filter.mem_map.2 <| Filter.mem_of_superset (Filter.inter_mem hpre₁ hpre₂) fun y hy =>
     hsubset ⟨hy.1, hy.2⟩
 
 /-- The uniformizer–residue–principal-unit decomposition, topological group-isomorphism form for

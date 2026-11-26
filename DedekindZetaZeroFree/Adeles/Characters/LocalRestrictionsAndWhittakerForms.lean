@@ -24,7 +24,9 @@ def actualLocalAdditive (v : KPHilbert.Place F) :
     cases v with
     | inl w =>
       apply Prod.ext
-      · change Pi.single w (x + y) = Pi.single w x + Pi.single w y
+      · change Pi.single (M := fun j : InfinitePlace F => j.Completion) w (x + y : w.Completion) =
+          Pi.single (M := fun j : InfinitePlace F => j.Completion) w (x : w.Completion) +
+          Pi.single (M := fun j : InfinitePlace F => j.Completion) w (y : w.Completion)
         exact Pi.single_add _ _ _
       · change (0 : FiniteAdeleRing (𝓞 F) F) = 0 + 0
         simp

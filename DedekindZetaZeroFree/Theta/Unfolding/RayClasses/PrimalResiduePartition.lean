@@ -184,7 +184,7 @@ theorem weightedIdealBlock_eq_sum_residue_averages :
     _ = ∑ q : R, ∫ h in RayCoset.rayUnitHalfOpenDomain F m hm,
         coprimeIdealResidueCoefficient hF m a hm ha hcop hmt η E q *
           affineResidueTheta m hm I (lift q) u h ∂Theta.normalizedLogHaar F := by
-      apply MeasureTheory.integral_finset_sum
+      apply MeasureTheory.integral_finsetSum
       intro q hq
       exact (affineResidueTheta_integrableOn m hm I (lift q) u hu).const_mul _
     _ = _ := by

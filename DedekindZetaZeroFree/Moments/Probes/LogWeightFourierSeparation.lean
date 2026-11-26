@@ -481,13 +481,13 @@ theorem continuous_weight (A : SArithmeticData F) (W0 : SLocalProduct F A.Sf →
   rw [he]
   apply Continuous.mul
   · apply Continuous.mul
-    · apply continuous_finset_prod
+    · apply continuous_finsetProd
       intro v hv
       exact (hr v).1.continuous.comp ((continuous_apply v).comp (continuous_fst.comp (hm.comp continuous_fst)))
-    · apply continuous_finset_prod
+    · apply continuous_finsetProd
       intro v hv
       exact (hc v).1.continuous.comp ((continuous_apply v).comp (continuous_snd.comp (hm.comp continuous_fst)))
-  · apply continuous_finset_prod
+  · apply continuous_finsetProd
     intro v hv
     exact (hf v).1.continuous.comp ((continuous_apply v).comp continuous_snd)
 

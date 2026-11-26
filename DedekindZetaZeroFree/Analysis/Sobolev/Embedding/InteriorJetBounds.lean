@@ -40,7 +40,7 @@ theorem mollify_eq_of_ae {n : ℕ} (U : Set (Space n)) (hU : MeasurableSet U)
     (φ : Space n → ℝ) (δ : ℝ) (t : ℕ) (hc : δ / (t + 1 : ℕ) ≠ 0)
     (x : Space n) (hsub : ∀ y ∈ tsupport φ, x - (δ / (t + 1 : ℕ)) • y ∈ U) :
     mollify φ δ h t x = mollify φ δ f t x := by
-  have hq : Measure.QuasiMeasurePreserving (fun y : Space n => x - (δ / (t + 1 : ℕ)) • y)
+  have hq : MeasureTheory.QuasiMeasurePreserving (fun y : Space n => x - (δ / (t + 1 : ℕ)) • y)
       volume volume := by
     simpa only [Function.comp_def, sub_eq_add_neg, neg_smul] using
       (measurePreserving_add_left volume x).quasiMeasurePreserving.comp

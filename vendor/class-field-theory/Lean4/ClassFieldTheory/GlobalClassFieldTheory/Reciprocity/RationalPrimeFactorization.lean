@@ -126,11 +126,13 @@ theorem rational_factorization_over_support
         (q : ℚ) ^ padicValNat q r.num.natAbs) =
           (r.num.natAbs : ℚ) := by
     norm_cast
+    simpa only [Nat.padicValNat_def] using hnumNat
   have hden :
       (∏ q ∈ s,
         (q : ℚ) ^ padicValNat q r.den) =
           (r.den : ℚ) := by
     norm_cast
+    simpa only [Nat.padicValNat_def] using hdenNat
   have hsign :
       (r.num : ℚ) =
         (((r.num.sign : ℤ) : ℚ)) * (r.num.natAbs : ℚ) := by
@@ -159,6 +161,7 @@ theorem rational_factorization_over_support
         rw [padicValRat_def, padicValInt,
           zpow_sub₀ (by exact_mod_cast hqprime.ne_zero),
           zpow_natCast, zpow_natCast]
+        simp only [Nat.padicValNat_def]
       _ =
           (∏ q ∈ s,
               (q : ℚ) ^ padicValNat q r.num.natAbs) /

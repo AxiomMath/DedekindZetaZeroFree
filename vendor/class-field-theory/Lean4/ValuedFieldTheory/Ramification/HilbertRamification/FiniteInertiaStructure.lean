@@ -100,7 +100,7 @@ theorem sylow_eq_ramificationGroup_of_residueChar
     [Finite (inertiaGroup K A)] [CharP (IsLocalRing.ResidueField A) p]
     (P : Sylow p (inertiaGroup K A)) :
     (P : Subgroup (inertiaGroup K A)) = ramificationGroup K A := by
-  exact (P.is_maximal' (ramificationGroup_isPGroup_of_residueChar K A p)
+  exact (P.maximal_isPGroup.eq_of_ge (ramificationGroup_isPGroup_of_residueChar K A p)
     (pSubgroup_le_ramificationGroup_of_residueChar K A p P P.isPGroup')).symm
 
 /-- In positive residue characteristic, the actual finite ramification group

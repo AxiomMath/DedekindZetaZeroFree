@@ -306,37 +306,27 @@ private theorem relativeAdeleBaseChangeRingEquiv_tower_infiniteComponent
               [hVv : V.1.LiesOver v'.1]
               [hWV : W.1.LiesOver V.1]
               [hWv : W.1.LiesOver v.1] :
-              NumberField.LiesOver.completionMap
-                    (v := V) (w := W)
-                    (NumberField.LiesOver.completionMap
-                        (v := v') (w := V) (a.1 v') *
+              AbsoluteValue.Completion.map
+                    V.1 W.1
+                    (AbsoluteValue.Completion.map
+                        v'.1 V.1 (a.1 v') *
                       algebraMap M V.Completion m) *
                   algebraMap L W.Completion x =
-                NumberField.LiesOver.completionMap
-                    (v := v) (w := W) (a.1 v) *
+                AbsoluteValue.Completion.map
+                    v.1 W.1 (a.1 v) *
                   algebraMap L W.Completion
                     (algebraMap M L m * x) := by
             subst v'
             have hm :
-                NumberField.LiesOver.completionMap
-                    (v := V) (w := W)
+                AbsoluteValue.Completion.map
+                    V.1 W.1
                     (algebraMap M V.Completion m) =
                   algebraMap L W.Completion
                     (algebraMap M L m) := by
-              have h :
-                  algebraMap M V.Completion m =
-                    ((WithAbs.toAbs V.1 m : WithAbs V.1) :
-                      V.Completion) :=
-                rfl
-              rw [h,
-                NumberField.LiesOver.completionMap_coe
-                  (v := V) (w := W)]
-              apply InfinitePlace.Completion.ext
-              rw [
-                InfinitePlace.Completion.algebraMap_toCompletion,
-                UniformSpace.Completion.algebraMap_def]
-              simp [WithAbs.algebraMap_left_apply,
-                WithAbs.algebraMap_right_apply]
+              rw [AbsoluteValue.Completion.algebraMap_def,
+                AbsoluteValue.Completion.map_coe,
+                AbsoluteValue.Completion.algebraMap_def]
+              rfl
             rw [map_mul,
               infinitePlaceCompletionMap_comp_apply
                 (K := K) (M := M) (L := L) W,
@@ -352,8 +342,8 @@ private theorem relativeAdeleBaseChangeRingEquiv_tower_infiniteComponent
             relativeAdeleBaseChangeRingEquiv_infiniteComponent_tmul
               (K := M) (L := L)]
           change
-            NumberField.LiesOver.completionMap
-                (v := V) (w := W)
+            AbsoluteValue.Completion.map
+                V.1 W.1
                 ((relativeAdeleBaseChangeRingEquiv
                   (K := K) (L := M) (a ⊗ₜ[K] m)).1 V) *
               algebraMap L W.Completion x =

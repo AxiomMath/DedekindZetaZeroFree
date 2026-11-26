@@ -486,7 +486,7 @@ private theorem group_chart_analytic (hι : Function.Injective ι)
     obtain ⟨j,hj,heq⟩ := compact_right_pullback F ζ hζ U ι f hι hf O ℓ hℓ K hK hKO w
     have hcont : ContinuousOn (fun p : ℂ × K => j p.1 p.2) (V ×ˢ Set.univ) :=
       continuous_eval.comp_continuousOn ((hj.continuousOn.comp continuous_fst.continuousOn
-        (fun _ hp => hp.1)).prodMk continuous_snd.continuousOn)
+        (fun _ hp => (Set.mem_prod.mp hp).1)).prodMk continuous_snd.continuousOn)
     apply continuousOn_iff_continuous_restrict.mpr
     let a : (V ×ˢ K) → ℂ × K := fun p => (p.val.1, ⟨p.val.2,p.property.2⟩)
     have ha : Continuous a := (continuous_fst.comp continuous_subtype_val).prodMk
@@ -545,7 +545,7 @@ private theorem iwasawa_jet_smooth_from_geometry (hι : Function.Injective ι)
     obtain ⟨j,hj,heq⟩ := compact_right_pullback F ζ hζ U ι f hι hf O ℓ hℓ K hK hKO w
     have hcont : ContinuousOn (fun p : ℂ × K => j p.1 p.2) (V ×ˢ Set.univ) :=
       continuous_eval.comp_continuousOn ((hj.continuousOn.comp continuous_fst.continuousOn
-        (fun _ hp => hp.1)).prodMk continuous_snd.continuousOn)
+        (fun _ hp => (Set.mem_prod.mp hp).1)).prodMk continuous_snd.continuousOn)
     apply continuousOn_iff_continuous_restrict.mpr
     let a : (V ×ˢ K) → ℂ × K := fun p => (p.val.1, ⟨p.val.2,p.property.2⟩)
     have ha : Continuous a := (continuous_fst.comp continuous_subtype_val).prodMk

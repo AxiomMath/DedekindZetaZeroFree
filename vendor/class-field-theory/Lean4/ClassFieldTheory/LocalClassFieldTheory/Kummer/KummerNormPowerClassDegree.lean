@@ -203,7 +203,7 @@ theorem chosenSimpleKummerExtension_finrank_eq_powerClassOrder
         Polynomial.natDegree_le_of_dvd
           (minpoly.dvd K (β : E) hpolyroot)
           (Polynomial.X_pow_sub_C_ne_zero hdpos c)
-      _ = d := Polynomial.natDegree_X_pow_sub_C
+      _ = d := Polynomial.natDegree_X_pow_sub_C _
   let χ := KummerTheory.chosenSimpleKummerRootCharacter K n hnK hmu a
   have hcard : Nat.card Gal(E/K) = e :=
     IsGalois.card_aut_eq_finrank K E

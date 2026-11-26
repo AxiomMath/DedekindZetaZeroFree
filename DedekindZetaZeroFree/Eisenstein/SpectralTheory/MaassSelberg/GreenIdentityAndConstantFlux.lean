@@ -203,7 +203,7 @@ def fourWaveFlux (β : Measure (KPMsFixedHaarDisintegration.Omega A))
 private theorem ray_deriv {f g : ℝ → ℂ} {Y : ℝ}
     (hf : DifferentiableAt ℝ f Y) (hg : HasDerivAt g (deriv g Y) Y)
     (hfg : ∀ r, Y ≤ r → f r = g r) : deriv f Y = deriv g Y := by
-  have h := hg.hasDerivWithinAt.congr (fun r hr => hfg r hr) (hfg Y le_rfl)
+  have h := hg.hasDerivWithinAt.congr (fun r (hr : r ∈ Set.Ici Y) => hfg r hr) (hfg Y le_rfl)
   have hh := ((uniqueDiffOn_Ici Y) Y (Set.mem_Ici.mpr le_rfl)).eq hf.hasDerivAt.hasDerivWithinAt h
   simpa using congrArg (fun L : ℝ →L[ℝ] ℂ => L 1) hh
 private theorem wave_deriv (a : ℂ) (r : ℝ) (hr : 0 < r) :

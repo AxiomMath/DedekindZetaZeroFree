@@ -156,7 +156,7 @@ private theorem smooth_mean (d : ℕ) : ContDiff ℝ (⊤ : ℕ∞) (KPCuspLogSh
   apply ContDiff.div_const
   apply ContDiff.sum
   intro i hi
-  exact contDiff_snd.comp (contDiff_apply ℝ KPArch.H3 i)
+  exact contDiff_snd.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i)
  def verticalLine {F : Type} [Field F] [NumberField F]
     (hd : 0 < KPCuspLogShape.dimension F) (c : KPCuspCharts.Cross F) (t : ℝ)
     (i : Fin (KPCuspLogShape.dimension F)) (r : ℝ) : KPCuspCharts.Coordinates F :=
@@ -256,10 +256,10 @@ private theorem smooth_real (d : ℕ) : ContDiff ℝ (⊤ : ℕ∞) (real d) := 
   intro ⟨i,k⟩
   fin_cases k
   · simpa [real, Function.comp_def] using Complex.reCLM.contDiff.comp
-      (contDiff_fst.comp (contDiff_apply ℝ KPArch.H3 i))
+      (contDiff_fst.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i))
   · simpa [real, Function.comp_def] using Complex.imCLM.contDiff.comp
-      (contDiff_fst.comp (contDiff_apply ℝ KPArch.H3 i))
-  · simpa [real, Function.comp_def] using contDiff_snd.comp (contDiff_apply ℝ KPArch.H3 i)
+      (contDiff_fst.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i))
+  · simpa [real, Function.comp_def] using contDiff_snd.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i)
 set_option maxHeartbeats 600000 in
 
 theorem cutoff_verticalFlux_haar_average_logLattice_periodic
@@ -639,7 +639,7 @@ private theorem cutoff_flux_horizontalShift_invariant
   · have hmc : Continuous m := by
       unfold m KPCuspLogShape.meanHeight
       apply Continuous.div_const
-      apply continuous_finset_sum
+      apply continuous_finsetSum
       intro j hj
       exact (EuclideanSpace.proj (𝕜 := ℝ) (j, (2 : Fin 3))).continuous
     have hn : ∀ᶠ r in 𝓝 q, T < m r :=
@@ -817,7 +817,7 @@ theorem cutoff_horizontalDivergence_integral_zero
     simp only [Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im, zero_mul, sub_zero]
     rfl
   change (∫ x in A, horizontalDivergence F W (x,b) t) = 0
-  rw [he, integral_finset_sum]
+  rw [he, integral_finsetSum]
   · apply Finset.sum_eq_zero
     intro i hi
     rw [integral_add ((hre i 0 1).const_mul _) ((hre i 1 2).const_mul _),
@@ -947,7 +947,7 @@ theorem cutoff_shapeDivergence_rectangle_integral_zero
         |>.mono_set subset_closure
     change (∫ c in A ×ˢ B, shapeDivergence F W c t ∂volume.prod G.shapeMeasure) = 0
     simp_rw [he]
-    rw [integral_finset_sum Finset.univ (fun i hi => hint i)]
+    rw [integral_finsetSum Finset.univ (fun i hi => hint i)]
     apply Finset.sum_eq_zero
     intro i hi
     exact cutoff_verticalFlux_shape_direction_integral_zero G u hu hinv a ha t A B hAm hAb hBm hBb hA hB i

@@ -15,7 +15,7 @@ namespace FourierEnvelopePrivate
 
 def complexEuler (g : SchwartzMap ℂ ℂ) : SchwartzMap ℂ ℂ :=
   (1 / 2 : ℝ) • SchwartzMap.bilinLeftCLM
-    (ContinuousLinearMap.apply (E := ℂ) ℝ ℂ).flip
+    (ContinuousLinearMap.apply (E' := ℂ) ℝ ℂ).flip
     (Function.HasTemperateGrowth.id') (SchwartzMap.fderivCLM ℝ ℂ ℂ g)
 
 @[simp] theorem complexEuler_apply (g : SchwartzMap ℂ ℂ) (z : ℂ) :

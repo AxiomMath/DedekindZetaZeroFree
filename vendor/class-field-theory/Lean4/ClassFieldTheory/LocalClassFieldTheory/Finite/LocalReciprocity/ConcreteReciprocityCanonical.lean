@@ -437,7 +437,7 @@ private theorem finiteGaloisConjugationOfEmbeddings_apply_factor
 
 private theorem finiteGaloisConjugationOfEmbeddings_abelianization_factor
     (i j : L →ₐ[K] SeparableClosure K)
-    (z : Abelianization
+    (z : Group.Abelianization
       (finiteGaloisAbstractExtensionOfEmbedding K L i).extensionQuotient) :
     let hLK := fixingSubgroupLeBase K (SeparableClosure K)
       (finiteGaloisFieldRangeOfEmbedding K L i)
@@ -476,14 +476,14 @@ private theorem finiteGaloisConjugationOfEmbeddings_abelianization_factor
   intro x
   change
     (finiteGaloisConjugationOfEmbeddings K L i j).abelianizationCongr
-        (Abelianization.of x) =
-      c.abelianizationCongr (e.abelianizationCongr (Abelianization.of x))
-  exact (abelianizationCongr_of
+        (Group.Abelianization.of x) =
+      c.abelianizationCongr (e.abelianizationCongr (Group.Abelianization.of x))
+  exact (Group.abelianizationCongr_of
       (finiteGaloisConjugationOfEmbeddings K L i j) x).trans
-    ((congrArg Abelianization.of
+    ((congrArg Group.Abelianization.of
       (finiteGaloisConjugationOfEmbeddings_apply_factor K L i j x)).trans
-      ((abelianizationCongr_of c (e x)).symm.trans
-        (congrArg c.abelianizationCongr (abelianizationCongr_of e x).symm)))
+      ((Group.abelianizationCongr_of c (e x)).symm.trans
+        (congrArg c.abelianizationCongr (Group.abelianizationCongr_of e x).symm)))
 
 section EmbeddingNormConjugation
 
@@ -771,7 +771,7 @@ theorem finiteGaloisNormConjugationOfEmbeddings_finiteNormClass_baseUnit
 chosen realization. -/
 theorem finiteGaloisAbstractQuotientEquivGaloisGroup_conjugation
     (i j : L →ₐ[K] SeparableClosure K)
-    (z : Abelianization
+    (z : Group.Abelianization
       (finiteGaloisAbstractExtensionOfEmbedding K L i).extensionQuotient) :
     (finiteGaloisAbstractQuotientEquivGaloisGroupOfEmbedding K L j).abelianizationCongr
         ((finiteGaloisConjugationOfEmbeddings K L i j).abelianizationCongr z) =
@@ -812,31 +812,31 @@ theorem finiteGaloisAbstractQuotientEquivGaloisGroup_conjugation
   calc
     (finiteGaloisAbstractQuotientEquivGaloisGroupOfEmbedding K L j).abelianizationCongr
         ((finiteGaloisConjugationOfEmbeddings K L i j).abelianizationCongr
-          (Abelianization.of q)) =
+          (Group.Abelianization.of q)) =
       (finiteGaloisAbstractQuotientEquivGaloisGroupOfEmbedding K L j).abelianizationCongr
-        (Abelianization.of
+        (Group.Abelianization.of
           (finiteGaloisConjugationOfEmbeddings K L i j q)) :=
       congrArg
         (finiteGaloisAbstractQuotientEquivGaloisGroupOfEmbedding K L j).abelianizationCongr
-        (abelianizationCongr_of
+        (Group.abelianizationCongr_of
           (finiteGaloisConjugationOfEmbeddings K L i j) q)
-    _ = Abelianization.of
+    _ = Group.Abelianization.of
         (finiteGaloisAbstractQuotientEquivGaloisGroupOfEmbedding K L j
           (finiteGaloisConjugationOfEmbeddings K L i j q)) :=
-      abelianizationCongr_of
+      Group.abelianizationCongr_of
         (finiteGaloisAbstractQuotientEquivGaloisGroupOfEmbedding K L j) _
-    _ = Abelianization.of
+    _ = Group.Abelianization.of
         (finiteGaloisAbstractQuotientEquivGaloisGroupOfEmbedding K L i q) :=
-      congrArg Abelianization.of hraw
+      congrArg Group.Abelianization.of hraw
     _ = (finiteGaloisAbstractQuotientEquivGaloisGroupOfEmbedding K L i).abelianizationCongr
-        (Abelianization.of q) :=
-      (abelianizationCongr_of
+        (Group.Abelianization.of q) :=
+      (Group.abelianizationCongr_of
         (finiteGaloisAbstractQuotientEquivGaloisGroupOfEmbedding K L i) q).symm
 
 /-- Additive form of the preceding source comparison. -/
 theorem finiteGaloisAbstractQuotientEquivGaloisGroup_conjugation_additive
     (i j : L →ₐ[K] SeparableClosure K)
-    (z : Additive (Abelianization
+    (z : Additive (Group.Abelianization
       (finiteGaloisAbstractExtensionOfEmbedding K L i).extensionQuotient)) :
     MulEquiv.toAdditive
         ((finiteGaloisAbstractQuotientEquivGaloisGroupOfEmbedding K L j).abelianizationCongr)
@@ -954,7 +954,7 @@ theorem concreteReciprocityAddEquivOfEmbedding_eq
     ((finiteGaloisAbstractQuotientEquivGaloisGroupOfEmbedding K L i).abelianizationCongr)
   let sj := MulEquiv.toAdditive
     ((finiteGaloisAbstractQuotientEquivGaloisGroupOfEmbedding K L j).abelianizationCongr)
-  have hsource (z : Additive (Abelianization Ei.extensionQuotient)) :
+  have hsource (z : Additive (Group.Abelianization Ei.extensionQuotient)) :
       sj (q z) = si z := by
     exact finiteGaloisAbstractQuotientEquivGaloisGroup_conjugation_additive
       K L i j z
@@ -1056,7 +1056,7 @@ theorem concreteReciprocityAddEquivOfEmbedding_eq
     exact hqfactor.trans (hcombined.trans
       (congrArg (D.normResidueSymbol (AG K) v hcf
         (intrinsicFiniteAbstractBase K) Ej) hbfactor.symm))
-  have hforward (z : Additive (Abelianization Ei.extensionQuotient)) :
+  have hforward (z : Additive (Group.Abelianization Ei.extensionQuotient)) :
       b (ri z) = rj (q z) := by
     have hz := DFunLike.congr_fun hinv (ri z)
     change q (ri.symm (ri z)) = rj.symm (b (ri z)) at hz

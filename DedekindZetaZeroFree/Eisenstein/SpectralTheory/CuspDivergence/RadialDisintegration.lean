@@ -71,7 +71,7 @@ private theorem smooth_mean (d : ℕ) : ContDiff ℝ (⊤ : ℕ∞) (KPCuspLogSh
   apply ContDiff.div_const
   apply ContDiff.sum
   intro i hi
-  exact contDiff_snd.comp (contDiff_apply ℝ KPArch.H3 i)
+  exact contDiff_snd.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i)
 
 private theorem arch_real (d : ℕ) (z : KPArch.Space d) : arch d (real d z) = z := by
   ext i <;> simp [arch, real]
@@ -319,7 +319,7 @@ private theorem contDiff_meanHeight_for_realCoordinates (d : ℕ) : ContDiff ℝ
   apply ContDiff.div_const
   apply ContDiff.sum
   intro i hi
-  exact contDiff_snd.comp (contDiff_apply ℝ KPArch.H3 i)
+  exact contDiff_snd.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i)
 
 private theorem smooth_real (d : ℕ) : ContDiff ℝ (⊤ : ℕ∞) (real d) := by
   apply (contDiff_piLp 2).mpr
@@ -327,10 +327,10 @@ private theorem smooth_real (d : ℕ) : ContDiff ℝ (⊤ : ℕ∞) (real d) := 
   rcases j with ⟨i, k⟩
   fin_cases k
   · simpa [real, Function.comp_def] using
-      Complex.reCLM.contDiff.comp (contDiff_fst.comp (contDiff_apply ℝ KPArch.H3 i))
+      Complex.reCLM.contDiff.comp (contDiff_fst.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i))
   · simpa [real, Function.comp_def] using
-      Complex.imCLM.contDiff.comp (contDiff_fst.comp (contDiff_apply ℝ KPArch.H3 i))
-  · simpa [real, Function.comp_def] using contDiff_snd.comp (contDiff_apply ℝ KPArch.H3 i)
+      Complex.imCLM.contDiff.comp (contDiff_fst.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i))
+  · simpa [real, Function.comp_def] using contDiff_snd.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i)
 
 private theorem derivative_smoothAt (d : ℕ) (g : Space d → ℂ) (x : Space d)
     (hg : ContDiffAt ℝ (⊤ : ℕ∞) g x) (i : Fin d) (k : Fin 3) :
@@ -357,7 +357,7 @@ private theorem contDiff_exp_coord (d : ℕ) (i : Fin d) :
 private theorem continuous_codifferential (d : ℕ) (W : Space d → Cotangent d)
     (hW : ContDiff ℝ (⊤ : ℕ∞) W) : Continuous (codifferential d W) := by
   unfold codifferential
-  apply continuous_finset_sum
+  apply continuous_finsetSum
   intro i _
   have h (k : Fin 3) : ContDiff ℝ (⊤ : ℕ∞) (fun p => W p i k) :=
     contDiff_pi.mp (contDiff_pi.mp hW i) k
@@ -454,7 +454,7 @@ private theorem contDiff_meanHeight_for_radialCutoff (d : ℕ) : ContDiff ℝ (�
   apply ContDiff.div_const
   apply ContDiff.sum
   intro i hi
-  exact contDiff_snd.comp (contDiff_apply ℝ KPArch.H3 i)
+  exact contDiff_snd.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i)
 
 private theorem codifferential_radial_mul_eq_zero_of_notMem_tsupport
     (d : ℕ) (a : ℝ → ℝ)

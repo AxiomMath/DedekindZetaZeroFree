@@ -54,7 +54,7 @@ noncomputable def coefficientExcept (i : I) (φ : ∀ k, Module.Dual K (W k)) :
       subst k
       simpa [S] using hk
     simp only [q, Function.update_of_ne hki]
-  let m : MultilinearMap K W (W i) :=
+  let m : MultilinearMap (RingHom.id K) W (W i) :=
     { toFun := fun x => (∏ k ∈ S, q x k) • x i
       map_update_add' := fun x j z w => by
         by_cases hj : j = i
@@ -66,11 +66,11 @@ noncomputable def coefficientExcept (i : I) (φ : ∀ k, Module.Dual K (W k)) :
       map_update_smul' := fun x j c z => by
         by_cases hj : j = i
         · subst j
-          simp only [hsame, Function.update_self, smul_comm c]
+          simp only [hsame, Function.update_self, smul_comm c, RingHom.id_apply]
         · have hjS : j ∈ S := by simpa [S] using hj
           simp only [hq, Finset.prod_update_of_mem hjS,
             Function.update_of_ne (Ne.symm hj), map_smul, smul_eq_mul,
-            mul_assoc, mul_smul] }
+            mul_assoc, mul_smul, RingHom.id_apply] }
   exact PiTensorProduct.lift m
 
 theorem coefficientExcept_pure (i : I) (φ : ∀ k, Module.Dual K (W k))
@@ -212,6 +212,7 @@ theorem insert_contract_eq_map (e : ∀ j, V j) (s t : Finset J) (hst : s ⊆ t)
     funext j
     by_cases hj : (j : J) ∈ s <;> simp [hj, LinearMap.smulRight_apply]
   rw [hfun, (PiTensorProduct.tprod ℂ).map_smul_univ]
+  simp only [RingHom.id_apply]
 
 theorem exists_insert_of_slot_invariant (e : ∀ j, V j)
     (s t : Finset J) (hst : s ⊆ t)

@@ -133,7 +133,7 @@ noncomputable def unramifiedLocalReciprocityIso
     [IsIntegralClosure 𝒪[L] 𝒪[K] L]
     [Module.Finite 𝒪[K] 𝒪[L]]
     [IsUnramifiedValuedExtension K L] :
-    NormQuotient K L ≃* Abelianization (Gal(L / K)) :=
+    NormQuotient K L ≃* Group.Abelianization (Gal(L / K)) :=
   (unramifiedLocalReciprocityIsoToGaloisGroup K L).trans
     (galoisGroupEquivAbelianizationOfUnramifiedValuation K L)
 
@@ -151,12 +151,12 @@ theorem unramifiedLocalReciprocityIso_inverseIntegerRingUniformizerFieldUnit
     [IsUnramifiedValuedExtension K L] :
     unramifiedLocalReciprocityIso K L
         (normClass K L (inverseIntegerRingUniformizerFieldUnit K)) =
-      Abelianization.of (arithmeticFrobeniusOfUnramifiedValuation K L) := by
+      Group.Abelianization.of (arithmeticFrobeniusOfUnramifiedValuation K L) := by
   unfold unramifiedLocalReciprocityIso
   change galoisGroupEquivAbelianizationOfUnramifiedValuation K L
       (unramifiedLocalReciprocityIsoToGaloisGroup K L
         (normClass K L (inverseIntegerRingUniformizerFieldUnit K))) =
-    Abelianization.of (arithmeticFrobeniusOfUnramifiedValuation K L)
+    Group.Abelianization.of (arithmeticFrobeniusOfUnramifiedValuation K L)
   rw [unramifiedLocalReciprocityIsoToGaloisGroup_inverseIntegerRingUniformizerFieldUnit]
   rfl
 
@@ -173,7 +173,7 @@ theorem unramifiedLocalReciprocityIso_inverseIntegerRingUniformizerFieldUnit_zpo
     [IsUnramifiedValuedExtension K L] (m : Int) :
     unramifiedLocalReciprocityIso K L
         ((normClass K L (inverseIntegerRingUniformizerFieldUnit K)) ^ m) =
-      (Abelianization.of (arithmeticFrobeniusOfUnramifiedValuation K L)) ^ m := by
+      (Group.Abelianization.of (arithmeticFrobeniusOfUnramifiedValuation K L)) ^ m := by
   rw [map_zpow,
     unramifiedLocalReciprocityIso_inverseIntegerRingUniformizerFieldUnit]
 
@@ -190,12 +190,12 @@ theorem unramifiedLocalReciprocityIso_normClass
     [Module.Finite 𝒪[K] 𝒪[L]]
     [IsUnramifiedValuedExtension K L] (x : Kˣ) :
     unramifiedLocalReciprocityIso K L (normClass K L x) =
-      (Abelianization.of (arithmeticFrobeniusOfUnramifiedValuation K L)) ^
+      (Group.Abelianization.of (arithmeticFrobeniusOfUnramifiedValuation K L)) ^
         LocalFieldTheory.IsNonarchimedeanLocalField.valuationMap K (Additive.ofMul x) := by
   unfold unramifiedLocalReciprocityIso
   change galoisGroupEquivAbelianizationOfUnramifiedValuation K L
       (unramifiedLocalReciprocityIsoToGaloisGroup K L (normClass K L x)) =
-    (Abelianization.of (arithmeticFrobeniusOfUnramifiedValuation K L)) ^
+    (Group.Abelianization.of (arithmeticFrobeniusOfUnramifiedValuation K L)) ^
       LocalFieldTheory.IsNonarchimedeanLocalField.valuationMap K (Additive.ofMul x)
   rw [unramifiedLocalReciprocityIsoToGaloisGroup_normClass]
   rw [galoisGroupEquivAbelianizationOfUnramifiedValuation_apply]
@@ -213,7 +213,7 @@ noncomputable def unramifiedLocalArtinMap
     [IsIntegralClosure 𝒪[L] 𝒪[K] L]
     [Module.Finite 𝒪[K] 𝒪[L]]
     [IsUnramifiedValuedExtension K L] :
-    Kˣ →* Abelianization (Gal(L / K)) :=
+    Kˣ →* Group.Abelianization (Gal(L / K)) :=
   (unramifiedLocalReciprocityIso K L).toMonoidHom.comp (normClass K L)
 
 /-- States the theorem `unramifiedLocalArtinMap_apply`. -/
@@ -244,7 +244,7 @@ theorem unramifiedLocalArtinMap_eq_frobenius_zpow
     [Module.Finite 𝒪[K] 𝒪[L]]
     [IsUnramifiedValuedExtension K L] (x : Kˣ) :
     unramifiedLocalArtinMap K L x =
-      (Abelianization.of (arithmeticFrobeniusOfUnramifiedValuation K L)) ^
+      (Group.Abelianization.of (arithmeticFrobeniusOfUnramifiedValuation K L)) ^
         LocalFieldTheory.IsNonarchimedeanLocalField.valuationMap K (Additive.ofMul x) := by
   rw [unramifiedLocalArtinMap_apply,
     unramifiedLocalReciprocityIso_normClass]

@@ -25,7 +25,7 @@ def sexticResiduePowerChar (A : SArithmeticData F) (σ : F →+* ℂ)
 theorem exteriorResidue_card (A : SArithmeticData F) (I : A.Exterior) :
     Nat.card (A.R ⧸ A.extendIdeal I) = Ideal.absNorm I.val := by
   rw [← Nat.card_congr (ArithGaussCRT.exteriorQuotientEquiv A I).toEquiv]
-  exact (Submodule.cardQuot_apply I.val).symm
+  exact (Ideal.absNorm_eq_natCard I.val).symm
 
 theorem exteriorResidue_finite (A : SArithmeticData F) (I : A.Exterior) :
     Finite (A.R ⧸ A.extendIdeal I) := by
@@ -234,11 +234,11 @@ theorem idealGauss_squarefree_crt (A : SArithmeticData F) (σ : F →+* ℂ)
   have hub : IsUnit (Ideal.Quotient.mk (A.extendIdeal I) b) := by
     apply IsUnit.of_mul_eq_one (Ideal.Quotient.mk (A.extendIdeal I) s)
     have h := congrArg (Ideal.Quotient.mk (A.extendIdeal I)) hrs
-    simpa [map_add, map_mul, haz, mul_comm] using h
+    simpa [RingHom.map_add, RingHom.map_mul, haz, mul_comm] using h
   have hua : IsUnit (Ideal.Quotient.mk (A.extendIdeal J) a) := by
     apply IsUnit.of_mul_eq_one (Ideal.Quotient.mk (A.extendIdeal J) r)
     have h := congrArg (Ideal.Quotient.mk (A.extendIdeal J)) hrs
-    simpa [map_add, map_mul, hbz, mul_comm] using h
+    simpa [RingHom.map_add, RingHom.map_mul, hbz, mul_comm] using h
   let e : ((A.R ⧸ A.extendIdeal I) × (A.R ⧸ A.extendIdeal J)) ≃
       (A.R ⧸ A.extendIdeal K) :=
     ((Units.mulLeft hub.unit).prodCongr (Units.mulLeft hua.unit)).trans E.symm.toEquiv
@@ -249,7 +249,7 @@ theorem idealGauss_squarefree_crt (A : SArithmeticData F) (σ : F →+* ℂ)
     change E (E.symm _) = E _
     rw [E.apply_symm_apply, hE]
     simp only [Equiv.prodCongr_apply, Units.mulLeft_apply, hub.unit_spec, hua.unit_spec,
-      map_add, map_mul, haz, hbz, zero_mul, mul_zero, add_zero, zero_add]
+      RingHom.map_add, RingHom.map_mul, haz, hbz, zero_mul, mul_zero, add_zero, zero_add]
     rfl
   have hphase (x y : A.R) :
       A.residueTraceCharacter hS K (a * b) hab
@@ -272,7 +272,9 @@ theorem idealGauss_squarefree_crt (A : SArithmeticData F) (σ : F →+* ℂ)
       (σ (A.sexticResidue J a) ^ sexticExponent j *
         A.sexticResiduePowerChar σ J j (Ideal.Quotient.mk (A.extendIdeal J) y)) := by
     rw [gaussCRT_char_mul_modulus A σ I J K hK _ (hu _) j]
-    simp only [map_add, map_mul, haz, hbz, zero_mul, mul_zero, add_zero, zero_add]
+    simp only [RingHom.map_add, RingHom.map_mul, map_mul (A.sexticResiduePowerChar σ I j),
+      map_mul (A.sexticResiduePowerChar σ J j), haz, hbz, zero_mul, mul_zero,
+      add_zero, zero_add]
     rw [gaussCRT_char_unit A σ I b hub j, gaussCRT_char_unit A σ J a hua j]
   letI : Finite (A.R ⧸ A.extendIdeal I) := A.exteriorResidue_finite I
   letI : Finite (A.R ⧸ A.extendIdeal J) := A.exteriorResidue_finite J

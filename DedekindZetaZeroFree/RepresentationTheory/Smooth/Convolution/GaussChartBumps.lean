@@ -216,7 +216,7 @@ theorem fromAffine_contDiff :
   fin_cases i <;> simp
   all_goals
     have hc : ContDiff ℝ (⊤ : ℕ∞) (fun x : Y F => PGLComplex.complexCoordinates (x w)) :=
-      PGLComplex.contDiff_complexCoordinates.comp (contDiff_apply ℝ PGLComplex.Coordinates w)
+      PGLComplex.contDiff_complexCoordinates.comp (contDiff_apply ℝ (fun _ => PGLComplex.Coordinates) w)
     have hci (j : Fin 3) : ContDiffAt ℝ (⊤ : ℕ∞)
         (fun x : Y F => PGLComplex.complexCoordinates (x w) j) x :=
       (contDiff_pi.mp hc j).contDiffAt
@@ -281,7 +281,7 @@ private theorem affineTransition_contDiffAt (l r : L F) (x : Y F)
   apply contDiffAt_pi.mpr
   intro w
   apply (PGLComplex.contDiffAt_affineTranslate (l w).out (r w).out (x w) ?_).comp
-    x (contDiff_apply ℝ PGLComplex.Coordinates w).contDiffAt
+    x (contDiff_apply ℝ (fun _ => PGLComplex.Coordinates) w).contDiffAt
   rw [PGLComplex.affineTranslate_denominator _ _ _ (hx w)]
   rw [show Matrix.ProjGenLinGroup.mk (l w).out = l w from Quotient.out_eq _,
     show Matrix.ProjGenLinGroup.mk (r w).out = r w from Quotient.out_eq _]

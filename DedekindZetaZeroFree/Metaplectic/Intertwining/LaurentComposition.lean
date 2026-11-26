@@ -185,7 +185,7 @@ private lemma numeric_inv {w a : ℂ} {A : RatFunc ℂ}
   have hA0 : A ≠ 0 := by intro h; subst A; simp [Numeric] at ha; exact ha0 ha.symm
   have hi : A⁻¹.denom.eval w ≠ 0 := by
     intro h
-    have hn := Polynomial.eval_eq_zero_of_dvd_of_eval_eq_zero (RatFunc.denom_inv_dvd hA0) h
+    have hn := Polynomial.eval_eq_zero_of_dvd_of_eval_eq_zero (RatFunc.denom_inv_dvd _) h
     apply ha0
     rw [← ha.2,RatFunc.eval,Polynomial.eval₂_id,hn,zero_div]
   refine ⟨hi,?_⟩

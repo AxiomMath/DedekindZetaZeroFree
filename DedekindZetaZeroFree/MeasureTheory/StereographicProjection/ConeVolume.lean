@@ -146,7 +146,6 @@ theorem cone_injective : Set.InjOn cone (Ioo 0 1 ×ˢ (univ : Set ℂ)) := by
 
 theorem south_ray_null : (volume : Measure rawAmbient)
     {v : rawAmbient | v 0 = 0 ∧ v 1 = 0 ∧ v 2 ≤ 0} = 0 := by
-  apply measure_mono_null (fun x hx => hx.1)
   let l : rawAmbient →ₗ[ℝ] ℝ :=
     (LinearMap.proj (0 : Fin 3)).comp (WithLp.linearEquiv 2 ℝ (Fin 3 → ℝ)).toLinearMap
   have hker : l.ker ≠ ⊤ := by
@@ -154,7 +153,8 @@ theorem south_ray_null : (volume : Measure rawAmbient)
     have hv : WithLp.toLp 2 ![(1 : ℝ), 0, 0] ∈ l.ker := by rw [h]; trivial
     change (1 : ℝ) = 0 at hv
     norm_num at hv
-  exact Measure.addHaar_submodule volume l.ker hker
+  refine measure_mono_null (fun x hx => ?_) (Measure.addHaar_submodule volume l.ker hker)
+  exact hx.1
 
 namespace CV
 
@@ -249,7 +249,6 @@ lemma cone_image_ae (s : Set rawSphere) :
     cone '' (Ioo (0 : ℝ) 1 ×ˢ (sigma ⁻¹' s)) =ᵐ[volume]
       Ioo (0 : ℝ) 1 • (Subtype.val '' s) := by
   filter_upwards [measure_eq_zero_iff_ae_notMem.mp south_ray_null] with v hv
-  apply propext
   constructor
   · rintro ⟨⟨t,z⟩, ⟨ht,hz⟩, rfl⟩
     exact ⟨t, ht, sigmaVector z, ⟨sigma z, hz, rfl⟩, rfl⟩

@@ -131,7 +131,7 @@ private theorem class_cubes_closed (F : Type) [Field F] [NumberField F] :
   let H := IdeleClassGroup.normOneSubgroup (K := F)
   let K : Set (IdeleClassGroup F) := (fun c : IdeleClassGroup F => c ^ 3) '' H
   have hK : IsClosed K :=
-    (IdeleClassGroup.normOneSubgroup_isCompact.image (continuous_id.pow 3)).isClosed
+    ((IdeleClassGroup.normOneSubgroup_isCompact (K := F)).image (continuous_id.pow 3)).isClosed
   have heq : Set.range (fun c : IdeleClassGroup F => c ^ 3) =
       normProjection F ⁻¹' K := by
     ext c

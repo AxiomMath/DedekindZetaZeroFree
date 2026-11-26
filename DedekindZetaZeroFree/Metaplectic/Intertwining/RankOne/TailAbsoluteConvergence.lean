@@ -36,7 +36,7 @@ private theorem summable_three (A : ℕ → ℝ) (c : ℝ) (hc0 : 0 ≤ c) (hc1 
   constructor
   · intro i
     exact hsub i
-  · exact summable_of_finite_support (Set.toFinite _)
+  · exact summable_of_hasFiniteSupport (Set.toFinite _)
 
 theorem actual_tail_absolute_convergence (P : Polarization S.heisenberg)
     (J : CompactOpenLevel (ActualCover F ζ hζ q))

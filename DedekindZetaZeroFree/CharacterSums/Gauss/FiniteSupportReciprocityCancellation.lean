@@ -599,7 +599,7 @@ theorem actual_pair_phase_cancel
       exact Ideal.subset_span (Set.mem_singleton a)
     apply IsUnit.of_mul_eq_one (Ideal.Quotient.mk (A.extendIdeal I) s)
     have hh := congrArg (Ideal.Quotient.mk (A.extendIdeal I)) hrs
-    simpa only [map_add, map_mul, map_one, haz, zero_mul, zero_add, mul_comm] using hh
+    simpa only [RingHom.map_add, RingHom.map_mul, RingHom.map_one, haz, zero_mul, zero_add, mul_comm] using hh
   have hroot := (frequencyTheta_unit A σ I b hbu).2
   dsimp only
   rw [SexticPairwiseExponent.raw_phase_cancel _ _ (congrArg σ hrec) hroot]

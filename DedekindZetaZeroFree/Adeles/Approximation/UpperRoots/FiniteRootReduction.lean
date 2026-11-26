@@ -138,7 +138,7 @@ private theorem finiteRootTupleHom_continuous : Continuous (finiteRootTupleHom F
     fun z => ⟨(finiteRootTupleHom F ζ hζ z.val).val, by
       intro v hv
       cases v with
-      | inl w => exact Subgroup.mem_top _
+      | inl w => simp [compact]
       | inr q => exact finiteRoot_good F ζ hζ q hv ⟨z.val.toAdd q, (finiteRoot_integral_iff F q _).mpr (z.property q hv)⟩⟩
   have hf : Continuous f := RestrictedProduct.continuous_rng_of_principal.mpr (by
     apply continuous_pi

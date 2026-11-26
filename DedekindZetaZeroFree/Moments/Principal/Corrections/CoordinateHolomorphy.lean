@@ -38,12 +38,12 @@ private theorem product_slice_differentiableOn
       (fun t : ℂ => ∏' p : ExteriorPrime A, localFactor C U p (e t).1 (e t).2.1 (e t).2.2)
       (e ⁻¹' Omega) := by
   have hlim := (hasProdLocallyUniformlyOn_localFactor C U).comp e
-    (fun _ ht => ht) he.continuous.continuousOn
+    (fun _ (ht : _ ∈ e ⁻¹' Omega) => ht) he.continuous.continuousOn
   apply hlim.differentiableOn
   · apply Filter.Eventually.of_forall
     intro s
     simpa only [Finset.prod_fn, Function.comp_apply] using
-      (DifferentiableOn.finset_prod (u := s) fun p _ =>
+      (DifferentiableOn.finsetProd (u := s) fun p _ =>
         (localFactor_differentiableOn C U p).comp he.differentiableOn (fun _ ht => ht))
   · exact isOpen_Omega.preimage he.continuous
 

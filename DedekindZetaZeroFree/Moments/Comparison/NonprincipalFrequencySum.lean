@@ -72,7 +72,7 @@ private lemma frequencyIntegral_sum {ι : Type*}
       ∑ u ∈ C, comparisonFrequencyIntegral q M W E {u} Z 4 4 2 := by
   simp only [comparisonFrequencyIntegral, comparisonTripleVerticalIntegral, Finset.sum_singleton,
     Complex.ofReal_ofNat]
-  rw [integral_finset_sum C hi, Finset.mul_sum]
+  rw [integral_finsetSum C hi, Finset.mul_sum]
 
 private lemma near_power_bound (Z U a b c t δ : ℝ)
     (hZ : 1 ≤ Z) (hU : 1 ≤ U) (hb : 0 ≤ b) (hUmax : U ≤ Z ^ b)
@@ -378,7 +378,7 @@ theorem comparison_nonprincipal_sum_margins_analytic :
   let far := fun j : ℕ => if Z ^ (10001 / 100000 : ℝ) < (2 : ℝ) ^ j then
     ‖comparisonFrequencyIntegral q M W E (D j) Z 4 4 2‖ else 0
   have hnfinite : (Function.support near).Finite := near_finite Z _
-  have hn : Summable near := summable_of_finite_support hnfinite
+  have hn : Summable near := summable_of_hasFiniteSupport hnfinite
   have hnmajor : ∀ j, near j ≤ B * Z ^ t * w j := by
     intro j
     dsimp [near]
@@ -460,7 +460,7 @@ theorem comparison_nonprincipal_sum_analytic :
   have hEq' : (∑' u, singleton u) = ∑' j, dyadic j :=
     hEq.trans (tsum_congr (fun j => (hSum j).symm))
   obtain ⟨hFinite, hNearBound, hFar, hFarStrong, hFarBound, hGood⟩ := hmargin Z hZ
-  have hNear : Summable near := summable_of_finite_support hFinite
+  have hNear : Summable near := summable_of_hasFiniteSupport hFinite
   have hSplit : ∀ j, ‖dyadic j‖ = near j + far j := by
     intro j
     dsimp [near, far]

@@ -95,7 +95,7 @@ theorem phase_continuous (w : InfinitePlace F) : Continuous
 
 theorem archComplement_continuous (w : InfinitePlace F) : Continuous
     (fun g : Raw => archComplement A P C s x g w) := by
-  apply continuous_finset_prod
+  apply continuous_finsetProd
   intro j _
   rcases j with ⟨j, hj⟩
   cases j with

@@ -164,7 +164,7 @@ theorem characterIntegral_finite_coset_expansion
       simp [Set.indicator_of_mem hx, hp]
     · simp [Set.indicator_of_notMem hx]
   simp only [characterIntegral_apply, hφ, Finset.smul_sum, ht]
-  rw [integral_finset_sum _ (fun i _ => integrable_coset μ H hHopen hHcompact _ _)]
+  rw [integral_finsetSum _ (fun i _ => integrable_coset μ H hHopen hHcompact _ _)]
   simp only [integral_coset μ H hHopen hHcompact, Finset.smul_sum]
 
 theorem characterIntegral_translation (ψ : Multiplicative K →* ℂˣ)

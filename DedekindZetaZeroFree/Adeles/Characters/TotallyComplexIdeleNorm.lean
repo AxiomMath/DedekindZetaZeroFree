@@ -113,7 +113,8 @@ theorem idele_localAbs_finprod [NumberField.IsTotallyComplex F] (y : Ideles F) :
     rw [hinf w,
       NumberField.InfinitePlace.IsComplex.mult_eq_two (NumberField.IsTotallyComplex.isComplex w)]
     apply Units.ext
-    simp [nnnormUnitHom]
+    simp [nnnormUnitHom, nnNormHom_apply]
+    rfl
   have hfinp : (∏ᶠ q, f (Sum.inr q)) = (FiniteIdeleGroup.absoluteNorm a.2)⁻¹ := by
     have : (∏ᶠ q, f (Sum.inr q)) =
         ∏ᶠ q, Units.mk0 (‖(a.2 q : q.adicCompletion F)‖₊) (by simp) := by

@@ -269,10 +269,10 @@ theorem abstractReciprocity_exists_hMinusOne_primitive
   let z : M.V :=
     (extensionFixedRepresentationEquiv A E.base.field E.field.field
       E.below hnormal).symm (w - u)
-  have hzNorm : M.norm.hom z = 0 := by
+  have hzNorm : M.norm.asHom.hom z = 0 := by
     apply Subtype.ext
     calc
-      (M.norm.hom z).1 =
+      (M.norm.asHom.hom z).1 =
           ((relativeNorm A E.base.field E.field.field E.below (w - u) :
             ambientFixedAddSubgroup A E.base.field) : A.V) :=
         extensionFixedRepresentation_norm_coe A E.base.field E.field.field

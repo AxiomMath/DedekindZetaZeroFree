@@ -109,9 +109,9 @@ private theorem actual_atlas_group_domain
       Measure.map_smul _ measurable_fst.aemeasurable, Measure.map_fst_prod]
     simp
   have hb := (basepoint_continuous F ζ hζ).measurable
-  have hqmp : Measure.QuasiMeasurePreserving (KPMsFixedHaarDisintegration.archBasepoint F)
+  have hqmp : QuasiMeasurePreserving (KPMsFixedHaarDisintegration.archBasepoint F)
       R.archHaar (KPArch.hyperbolicVolume (KPCuspLogShape.dimension F)) :=
-    ⟨hb, by rw [hfst]; exact Measure.smul_absolutelyContinuous⟩
+    ⟨hb.aemeasurable, by rw [hfst]; exact Measure.smul_absolutelyContinuous⟩
   exact (A.cuspAtlas i).isFundamentalDomain.preimage_of_equiv hqmp
     (subgroupEquiv F ζ hζ hF U A i).bijective
     (fun γ g => rationalArch_equivariant F ζ hζ γ g)

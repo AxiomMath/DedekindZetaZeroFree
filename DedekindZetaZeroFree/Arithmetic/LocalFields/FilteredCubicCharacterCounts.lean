@@ -112,7 +112,7 @@ theorem kp_filtered_cubic_character_count
       (isOpen_discrete {1}).preimage χ.continuous
     exact hbasis _ (ho.mem_nhds (by simp))
   have hmin : ∀ χ : Character U, V (conductor V χ) ≤ χ.toMonoidHom.ker :=
-    fun χ => Nat.sInf_mem (hex χ)
+    fun χ => Nat.sInf_mem (s := {j | V j ≤ χ.toMonoidHom.ker}) (hex χ)
   have hiff : ∀ (χ : Character U) (j : ℕ),
       conductor V χ ≤ j ↔ V j ≤ χ.toMonoidHom.ker := by
     intro χ j

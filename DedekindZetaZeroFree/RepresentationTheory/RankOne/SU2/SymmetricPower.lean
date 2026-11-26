@@ -16,7 +16,7 @@ Authors: The Tau Ceti contributors
 Vendored from TauCetiProject/TauCeti at 66f3330c1cbabafd0f5b3ea4a646c43e23105ee2,
 `TauCeti/RepresentationTheory/SU2/SymmetricPower.lean`. Original Apache-2.0 copyright and authors retained.
 Source Lean v4.35.0-rc3 / Mathlib f6090c7095e1e56b3464c1daba5f24631f1290d2;
-target Lean v4.35.0-rc2 / Mathlib 065356127b1dc0016f66b7283ce0ce2c4055aa55.
+target Lean v4.36.0 / Mathlib fc4f59e577feb1a4956671bc04ac18aaaf8cd842.
 Port: import/module surface and TauCeti-owned namespace references only;
 root Mathlib extensions are retained. Proof bodies otherwise unchanged.
 License: vendor root LICENSE.

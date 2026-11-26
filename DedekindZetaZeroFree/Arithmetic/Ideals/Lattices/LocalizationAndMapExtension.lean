@@ -13,7 +13,7 @@ theorem kp_cusp_full_lattice_clear_denominators
     (K : Type*) [Field K] [Algebra R K] [IsFractionRing R K]
     (V : Type*) [AddCommGroup V] [Module R V] [Module K V]
     [IsScalarTower R K V] [FiniteDimensional K V]
-    (M : Submodule R V) [Submodule.IsLattice K M] (x : V) :
+    (M : Submodule R V) [Submodule.IsFullLattice K M] (x : V) :
     ∃ r : R, r ≠ 0 ∧ (algebraMap R K r) • x ∈ M := by
   have clear (x : V) (hx : x ∈ Submodule.span K (M : Set V)) :
       ∃ r : R, r ≠ 0 ∧ (algebraMap R K r) • x ∈ M := by
@@ -43,7 +43,7 @@ theorem kp_cusp_full_lattice_clear_denominators
       rw [smul_smul, hs, map_mul, mul_smul, algebraMap_smul]
       exact M.smul_mem a hxr
   apply clear
-  rw [Submodule.IsLattice.span_eq_top]
+  rw [Submodule.IsFullLattice.span_eq_top]
   trivial
 
 private theorem localizedSubmodule
@@ -68,7 +68,7 @@ theorem kp_cusp_full_lattice_equiv_extension
     [Module R W] [Module K W] [IsScalarTower R K W]
     [FiniteDimensional K V] [FiniteDimensional K W]
     (M : Submodule R V) (N : Submodule R W)
-    [Submodule.IsLattice K M] [Submodule.IsLattice K N]
+    [Submodule.IsFullLattice K M] [Submodule.IsFullLattice K N]
     (f : M ≃ₗ[R] N) :
     ∃! fK : V ≃ₗ[K] W,
       (∀ m : M, fK (m : V) = (f m : W)) ∧

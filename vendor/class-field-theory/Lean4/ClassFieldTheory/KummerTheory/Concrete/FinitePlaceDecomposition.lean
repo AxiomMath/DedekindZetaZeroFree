@@ -225,12 +225,10 @@ theorem
         Units.map
           (algebraMap K (v.adicCompletion K)).toMonoidHom u := by
     apply Units.ext
-    let x : WithAbs vK :=
-      (WithAbs.equiv vK).symm (u : K)
     change
-      finitePlaceCompletionRingHom v (x : C) =
+      finitePlaceCompletionRingHom v (algebraMap K C (u : K)) =
         algebraMap K (v.adicCompletion K) (u : K)
-    rw [finitePlaceCompletionRingHom_coe]
+    rw [AbsoluteValue.algebraMap_eq_coe, finitePlaceCompletionRingHom_coe]
     rfl
   have hbeta_val :
       (beta : L) ^ (n : ℕ) =

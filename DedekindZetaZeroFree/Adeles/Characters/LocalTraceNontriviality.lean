@@ -68,7 +68,8 @@ theorem actualLocalAdditive_principal_mul (t : F) (v : KPHilbert.Place F)
     apply Prod.ext
     · change (fun j : InfinitePlace F => algebraMap F j.Completion t) * Pi.single w x =
         Pi.single w (algebraMap F w.Completion t * x)
-      exact (Pi.single_mul_right (i := w) x).symm
+      exact (Pi.single_mul_right (α := fun j : InfinitePlace F => j.Completion) (i := w)
+        (x : w.Completion)).symm
     · exact mul_zero _
   | inr q =>
     apply Prod.ext

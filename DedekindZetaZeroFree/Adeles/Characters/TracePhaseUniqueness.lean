@@ -72,11 +72,11 @@ theorem compatible_phase_eq_trace (A : SArithmeticData F)
   let g (y : (w : ↥A.Sf) → w.val.adicCompletion F) : ℂ :=
     ∏ w, (localFiniteCharacter F w.val (y w) : ℂ)
   have hf : Continuous f := by
-    apply continuous_finset_prod
+    apply continuous_finsetProd
     intro w hw
     exact continuous_subtype_val.comp ((he w).comp (continuous_apply w))
   have hg : Continuous g := by
-    apply continuous_finset_prod
+    apply continuous_finsetProd
     intro w hw
     exact continuous_subtype_val.comp
       ((continuous_localFiniteCharacter F w.val).comp (continuous_apply w))

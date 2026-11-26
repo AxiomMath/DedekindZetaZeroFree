@@ -95,7 +95,7 @@ private theorem mulExact_transport_mulEquiv
     (tateComplex (Rep.ofMulDistribMulAction G A)).cycles 0 := by
   let M := Rep.ofMulDistribMulAction G A
   let S : ShortComplex (ModuleCat ℤ) :=
-    ShortComplex.mk M.norm.toModuleCatHom (groupCohomology.d₀₁ M)
+    ShortComplex.mk M.norm.asHom.toModuleCatHom (groupCohomology.d₀₁ M)
       (Rep.norm_comp_d_eq_zero M)
   let eS : (tateComplex M).sc' (-1) 0 1 ≅ S :=
     ShortComplex.isoMk
@@ -104,7 +104,7 @@ private theorem mulExact_transport_mulEquiv
       (groupCohomology.cochainsIso₁ M)
       (by
         show
-          (groupHomology.chainsIso₀ M).hom ≫ M.norm.toModuleCatHom =
+          (groupHomology.chainsIso₀ M).hom ≫ M.norm.asHom.toModuleCatHom =
             M.tateNorm ≫ (groupCohomology.cochainsIso₀ M).hom
         rw [Rep.tateNorm]
         simp)
@@ -135,7 +135,7 @@ private theorem tateH0FixedCycle_iCycles
           exact Additive.ofMul a.1) := by
   let M := Rep.ofMulDistribMulAction G A
   let S : ShortComplex (ModuleCat ℤ) :=
-    ShortComplex.mk M.norm.toModuleCatHom (groupCohomology.d₀₁ M)
+    ShortComplex.mk M.norm.asHom.toModuleCatHom (groupCohomology.d₀₁ M)
       (Rep.norm_comp_d_eq_zero M)
   let eS : (tateComplex M).sc' (-1) 0 1 ≅ S :=
     ShortComplex.isoMk
@@ -144,7 +144,7 @@ private theorem tateH0FixedCycle_iCycles
       (groupCohomology.cochainsIso₁ M)
       (by
         show
-          (groupHomology.chainsIso₀ M).hom ≫ M.norm.toModuleCatHom =
+          (groupHomology.chainsIso₀ M).hom ≫ M.norm.asHom.toModuleCatHom =
             M.tateNorm ≫ (groupCohomology.cochainsIso₀ M).hom
         rw [Rep.tateNorm]
         simp)
@@ -242,7 +242,7 @@ private theorem isoZeroBoundary_fixedCycle
     (a : fixedSubgroup G A) :
     let M := Rep.ofMulDistribMulAction G A
     let S : ShortComplex (ModuleCat ℤ) :=
-      ShortComplex.mk M.norm.toModuleCatHom (groupCohomology.d₀₁ M)
+      ShortComplex.mk M.norm.asHom.toModuleCatHom (groupCohomology.d₀₁ M)
         (Rep.norm_comp_d_eq_zero M)
     (TateCohomology.isoZeroBoundary M).hom
         ((tateComplex M).homologyπ 0 (tateH0FixedCycle a)) =
@@ -260,7 +260,7 @@ private theorem isoZeroBoundary_fixedCycle
   dsimp only
   let M := Rep.ofMulDistribMulAction G A
   let S : ShortComplex (ModuleCat ℤ) :=
-    ShortComplex.mk M.norm.toModuleCatHom (groupCohomology.d₀₁ M)
+    ShortComplex.mk M.norm.asHom.toModuleCatHom (groupCohomology.d₀₁ M)
       (Rep.norm_comp_d_eq_zero M)
   let eSc :
       (tateComplex M).sc 0 ≅ (tateComplex M).sc' (-1) 0 1 :=
@@ -272,7 +272,7 @@ private theorem isoZeroBoundary_fixedCycle
       (groupCohomology.cochainsIso₁ M)
       (by
         show
-          (groupHomology.chainsIso₀ M).hom ≫ M.norm.toModuleCatHom =
+          (groupHomology.chainsIso₀ M).hom ≫ M.norm.asHom.toModuleCatHom =
             M.tateNorm ≫ (groupCohomology.cochainsIso₀ M).hom
         rw [Rep.tateNorm]
         simp)
@@ -341,7 +341,7 @@ private theorem tateH0IsoHerbrandH0_fixedCycle
       Additive.ofMul (HerbrandH0.mk a) := by
   let M := Rep.ofMulDistribMulAction G A
   let S : ShortComplex (ModuleCat ℤ) :=
-    ShortComplex.mk M.norm.toModuleCatHom (groupCohomology.d₀₁ M)
+    ShortComplex.mk M.norm.asHom.toModuleCatHom (groupCohomology.d₀₁ M)
       (Rep.norm_comp_d_eq_zero M)
   let x : S.moduleCatLeftHomologyData.K := by
     show LinearMap.ker
@@ -368,6 +368,7 @@ private theorem tateH0IsoHerbrandH0_fixedCycle
     rw [ShortComplex.π_moduleCatCyclesIso_hom_apply]
     rw [show y = S.moduleCatCyclesIso.inv x by rfl,
       Iso.inv_hom_id_apply]
+    rfl
   have hPresentation :
       ∃ eQ : S.moduleCatLeftHomologyData.H ≅
           ModuleCat.of ℤ (Additive (HerbrandH0 G A)),

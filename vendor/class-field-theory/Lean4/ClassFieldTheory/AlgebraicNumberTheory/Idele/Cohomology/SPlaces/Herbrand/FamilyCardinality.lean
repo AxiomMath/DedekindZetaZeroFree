@@ -48,88 +48,82 @@ theorem
     (σ : L ≃ₐ[K] L)
     (hgen : ∀ τ : L ≃ₐ[K] L,
       τ ∈ Subgroup.zpowers σ) :
-    let d :=
-      relativeUnrestrictedSPlaceDatum
-        (K := K) (L := L) S
     letI : ∀ i, MulDistribMulAction
-        (absoluteValueDecompositionGroup K (d i).extension.1)
+        (absoluteValueDecompositionGroup K ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension.1)
         (LocalizedCompletion
-          (d i).base (d i).extension)ˣ :=
+          ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).base ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension)ˣ :=
       fun i =>
         decompositionGroupLocalUnitsAction
-          (d i).base (d i).base_isNontrivial
-          (d i).extension
+          ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).base ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).base_isNontrivial
+          ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension
     letI : ∀ i, MulDistribMulAction
         (L ≃ₐ[K] L)
         (LocalPlaceBlock
-          (d i).base (d i).base_isNontrivial
-          (d i).extension) :=
+          ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).base ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).base_isNontrivial
+          ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension) :=
       fun i =>
         inducedMulDistribMulAction
           (absoluteValueDecompositionGroup K
-            (d i).extension.1)
+            ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension.1)
     letI : MulDistribMulAction (L ≃ₐ[K] L)
-        (LocalBlockFamily d) :=
+        (LocalBlockFamily (relativeUnrestrictedSPlaceDatum (K := K) (L := L) S)) :=
       piMulDistribMulAction (L ≃ₐ[K] L)
         (fun i =>
           LocalPlaceBlock
-            (d i).base (d i).base_isNontrivial
-            (d i).extension)
+            ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).base ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).base_isNontrivial
+            ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension)
     letI : Finite
         (HerbrandH0 (L ≃ₐ[K] L)
-          (LocalBlockFamily d)) :=
+          (LocalBlockFamily (relativeUnrestrictedSPlaceDatum (K := K) (L := L) S))) :=
       relativeUnrestrictedLocalBlockFamilyHerbrandH0Finite
         S σ hgen
     Nat.card
         (HerbrandH0 (L ≃ₐ[K] L)
-          (LocalBlockFamily d)) =
+          (LocalBlockFamily (relativeUnrestrictedSPlaceDatum (K := K) (L := L) S))) =
       ∏ i,
         relativeUnrestrictedSPlaceLocalDegree
           (K := K) (L := L) S i := by
-  let d :=
-    relativeUnrestrictedSPlaceDatum
-      (K := K) (L := L) S
   let localAction :=
-    localBlockFamilyLocalAction d
+    localBlockFamilyLocalAction (relativeUnrestrictedSPlaceDatum (K := K) (L := L) S)
   let blockAction :=
-    localBlockFamilyBlockAction d
+    localBlockFamilyBlockAction (relativeUnrestrictedSPlaceDatum (K := K) (L := L) S)
   let familyAction :=
-    localBlockFamilyAction d
+    localBlockFamilyAction (relativeUnrestrictedSPlaceDatum (K := K) (L := L) S)
   let decompositionFintype :=
-    localBlockFamilyDecompositionFintype d
+    localBlockFamilyDecompositionFintype (relativeUnrestrictedSPlaceDatum (K := K) (L := L) S)
   let localFinite : ∀ i, Finite
       (HerbrandH0
-        (absoluteValueDecompositionGroup K (d i).extension.1)
+        (absoluteValueDecompositionGroup K ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension.1)
         (LocalizedCompletion
-          (d i).base (d i).extension)ˣ) :=
+          ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).base ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension)ˣ) :=
     fun i =>
       relativeUnrestrictedLocalHerbrandH0Finite
         S i σ hgen
   let familyFinite : Finite
       (HerbrandH0 (L ≃ₐ[K] L)
-        (LocalBlockFamily d)) :=
+        (LocalBlockFamily (relativeUnrestrictedSPlaceDatum (K := K) (L := L) S))) :=
     relativeUnrestrictedLocalBlockFamilyHerbrandH0Finite
       S σ hgen
   calc
     Nat.card
         (HerbrandH0 (L ≃ₐ[K] L)
-          (LocalBlockFamily d)) =
+          (LocalBlockFamily (relativeUnrestrictedSPlaceDatum (K := K) (L := L) S))) =
       Nat.card
         (∀ i,
           HerbrandH0
             (absoluteValueDecompositionGroup K
-              (d i).extension.1)
+              ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension.1)
             (LocalizedCompletion
-              (d i).base (d i).extension)ˣ) :=
+              ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).base ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension)ˣ) :=
       Nat.card_congr
         (localBlockFamilyHerbrandH0Equiv
-          d σ hgen).toEquiv
+          (relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) σ hgen).toEquiv
     _ = ∏ i, Nat.card
         (HerbrandH0
           (absoluteValueDecompositionGroup K
-            (d i).extension.1)
+            ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension.1)
           (LocalizedCompletion
-            (d i).base (d i).extension)ˣ) :=
+            ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).base ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension)ˣ) :=
       Nat.card_pi
     _ = ∏ i,
         relativeUnrestrictedSPlaceLocalDegree
@@ -149,96 +143,90 @@ theorem
     (σ : L ≃ₐ[K] L)
     (hgen : ∀ τ : L ≃ₐ[K] L,
       τ ∈ Subgroup.zpowers σ) :
-    let d :=
-      relativeUnrestrictedSPlaceDatum
-        (K := K) (L := L) S
     letI : ∀ i, MulDistribMulAction
-        (absoluteValueDecompositionGroup K (d i).extension.1)
+        (absoluteValueDecompositionGroup K ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension.1)
         (LocalizedCompletion
-          (d i).base (d i).extension)ˣ :=
+          ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).base ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension)ˣ :=
       fun i =>
         decompositionGroupLocalUnitsAction
-          (d i).base (d i).base_isNontrivial
-          (d i).extension
+          ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).base ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).base_isNontrivial
+          ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension
     letI : ∀ i, MulDistribMulAction
         (L ≃ₐ[K] L)
         (LocalPlaceBlock
-          (d i).base (d i).base_isNontrivial
-          (d i).extension) :=
+          ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).base ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).base_isNontrivial
+          ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension) :=
       fun i =>
         inducedMulDistribMulAction
           (absoluteValueDecompositionGroup K
-            (d i).extension.1)
+            ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension.1)
     letI : MulDistribMulAction (L ≃ₐ[K] L)
-        (LocalBlockFamily d) :=
+        (LocalBlockFamily (relativeUnrestrictedSPlaceDatum (K := K) (L := L) S)) :=
       piMulDistribMulAction (L ≃ₐ[K] L)
         (fun i =>
           LocalPlaceBlock
-            (d i).base (d i).base_isNontrivial
-            (d i).extension)
+            ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).base ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).base_isNontrivial
+            ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension)
     letI : Finite
         (HerbrandHMinusOne (L ≃ₐ[K] L)
-          (LocalBlockFamily d) σ) :=
+          (LocalBlockFamily (relativeUnrestrictedSPlaceDatum (K := K) (L := L) S)) σ) :=
       relativeUnrestrictedLocalBlockFamilyHerbrandHMinusOneFinite
         S σ hgen
     Nat.card
         (HerbrandHMinusOne (L ≃ₐ[K] L)
-          (LocalBlockFamily d) σ) = 1 := by
-  let d :=
-    relativeUnrestrictedSPlaceDatum
-      (K := K) (L := L) S
+          (LocalBlockFamily (relativeUnrestrictedSPlaceDatum (K := K) (L := L) S)) σ) = 1 := by
   let localAction :=
-    localBlockFamilyLocalAction d
+    localBlockFamilyLocalAction (relativeUnrestrictedSPlaceDatum (K := K) (L := L) S)
   let blockAction :=
-    localBlockFamilyBlockAction d
+    localBlockFamilyBlockAction (relativeUnrestrictedSPlaceDatum (K := K) (L := L) S)
   let familyAction :=
-    localBlockFamilyAction d
+    localBlockFamilyAction (relativeUnrestrictedSPlaceDatum (K := K) (L := L) S)
   let decompositionFintype :=
-    localBlockFamilyDecompositionFintype d
+    localBlockFamilyDecompositionFintype (relativeUnrestrictedSPlaceDatum (K := K) (L := L) S)
   let localFinite : ∀ i, Finite
       (HerbrandHMinusOne
-        (absoluteValueDecompositionGroup K (d i).extension.1)
+        (absoluteValueDecompositionGroup K ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension.1)
         (LocalizedCompletion
-          (d i).base (d i).extension)ˣ
+          ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).base ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension)ˣ
         (subgroupGeneratorOfGenerator
           (absoluteValueDecompositionGroup K
-            (d i).extension.1)
+            ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension.1)
           σ hgen)) :=
     fun i =>
       relativeUnrestrictedLocalHerbrandHMinusOneFinite
         S i σ hgen
   let familyFinite : Finite
       (HerbrandHMinusOne (L ≃ₐ[K] L)
-        (LocalBlockFamily d) σ) :=
+        (LocalBlockFamily (relativeUnrestrictedSPlaceDatum (K := K) (L := L) S)) σ) :=
     relativeUnrestrictedLocalBlockFamilyHerbrandHMinusOneFinite
       S σ hgen
   calc
     Nat.card
         (HerbrandHMinusOne (L ≃ₐ[K] L)
-          (LocalBlockFamily d) σ) =
+          (LocalBlockFamily (relativeUnrestrictedSPlaceDatum (K := K) (L := L) S)) σ) =
       Nat.card
         (∀ i,
           HerbrandHMinusOne
             (absoluteValueDecompositionGroup K
-              (d i).extension.1)
+              ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension.1)
             (LocalizedCompletion
-              (d i).base (d i).extension)ˣ
+              ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).base ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension)ˣ
             (subgroupGeneratorOfGenerator
               (absoluteValueDecompositionGroup K
-                (d i).extension.1)
+                ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension.1)
               σ hgen)) :=
       Nat.card_congr
         (localBlockFamilyHerbrandHMinusOneEquiv
-          d σ hgen).toEquiv
+          (relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) σ hgen).toEquiv
     _ = ∏ i, Nat.card
         (HerbrandHMinusOne
           (absoluteValueDecompositionGroup K
-            (d i).extension.1)
+            ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension.1)
           (LocalizedCompletion
-            (d i).base (d i).extension)ˣ
+            ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).base ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension)ˣ
           (subgroupGeneratorOfGenerator
             (absoluteValueDecompositionGroup K
-              (d i).extension.1)
+              ((relativeUnrestrictedSPlaceDatum (K := K) (L := L) S) i).extension.1)
             σ hgen)) :=
       Nat.card_pi
     _ = ∏ _i :

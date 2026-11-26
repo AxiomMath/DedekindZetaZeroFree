@@ -161,7 +161,7 @@ theorem sector_mass {T : ℝ} (partition : SquareEndPartition F ζ hζ U R P H T
     rw [← Finset.sum_mul, hs, one_mul]
   have hc : (∑ i, inner ℂ (M i u).val (M i u).val) = inner ℂ u.val u.val := by
     simp_rw [L2.inner_def]
-    rw [← integral_finset_sum Finset.univ (fun i _ => L2.integrable_inner _ _)]
+    rw [← integral_finsetSum Finset.univ (fun i _ => L2.integrable_inner _ _)]
     exact integral_congr_ae hp
   simp only [inner_self_eq_norm_sq_to_K] at hc
   norm_cast at hc
@@ -222,7 +222,7 @@ theorem collar_error_integrable {T : ℝ}
     apply Continuous.add
     · exact (Classical.choose_spec
         (differentialNormSquared_descends F ζ hζ U R P H partition.χ₀)).1.1
-    · apply continuous_finset_sum
+    · apply continuous_finsetSum
       intro c _
       exact (Classical.choose_spec
         (differentialNormSquared_descends F ζ hζ U R P H (partition.χ c))).1.1
@@ -592,7 +592,7 @@ theorem test_ims_scalar {T : ℝ} (partition : SquareEndPartition F ζ hζ U R P
     apply Continuous.add
     · exact (Classical.choose_spec
         (differentialNormSquared_descends F ζ hζ U R P H partition.χ₀)).1.1
-    · apply continuous_finset_sum
+    · apply continuous_finsetSum
       intro c _
       exact (Classical.choose_spec
         (differentialNormSquared_descends F ζ hζ U R P H (partition.χ c))).1.1
@@ -628,7 +628,7 @@ theorem test_ims_scalar {T : ℝ} (partition : SquareEndPartition F ζ hζ U R P
         (KPContActualCotangentMeasurableFamilies.normSquare
           (D_U (scalarMultiply (cutoff F ζ hζ U R P H partition i) f)).val x : ℝ)
         ∂KPContActualSectorCotangentL2.muU F ζ hζ U R P :=
-    integral_finset_sum _
+    integral_finsetSum _
       (fun i _ => hinte (scalarMultiply (cutoff F ζ hζ U R P H partition i) f))
   have hcongr : (fun x => (∑ i : Index F ζ hζ U R P H,
         (KPContActualCotangentMeasurableFamilies.normSquare
@@ -812,7 +812,7 @@ private theorem weighted_integral_eq {T : ℝ}
       unfold collarError
       apply Continuous.add
       · exact continuous_differentialNormSquared F ζ hζ U R P H partition.χ₀
-      · apply continuous_finset_sum
+      · apply continuous_finsetSum
         intro c _
         exact continuous_differentialNormSquared F ζ hζ U R P H (partition.χ c)
     have hm : Measurable (fun y => collarError F ζ hζ U R P H partition.χ₀ partition.χ y *
@@ -840,7 +840,7 @@ theorem ims_identity {T : ℝ} (partition : SquareEndPartition F ζ hζ U R P H 
     unfold collarError
     apply Continuous.add
     · exact continuous_differentialNormSquared F ζ hζ U R P H partition.χ₀
-    · apply continuous_finset_sum
+    · apply continuous_finsetSum
       intro c _
       exact continuous_differentialNormSquared F ζ hζ U R P H (partition.χ c)
   obtain ⟨C, hC, hb⟩ := partition.error_bounded
@@ -870,7 +870,7 @@ theorem ims_identity {T : ℝ} (partition : SquareEndPartition F ζ hζ U R P H 
         (KPContSectorCoveredQuotientVocabulary.q F ζ hζ U x))
       hEmeas C hE0 hEbd).comp hval
   have hFn : Continuous (fun w : Q => ∑ i : Index F ζ hζ U R P H, qQ (A i w)) := by
-    apply continuous_finset_sum
+    apply continuous_finsetSum
     intro i _
     show Continuous (fun w : Q => ‖∇Q (A i w)‖ ^ 2)
     exact (((closedGradient F ζ hζ U R P H μG hμG hR realization).comp

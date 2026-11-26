@@ -192,14 +192,14 @@ private theorem labeled_smooth (p : Fin (d F) ≃ Fin (KPCuspLogShape.dimension 
     ContDiff ℝ (⊤ : ℕ∞) (labeledA p) := by
   apply contDiff_pi.mpr
   intro k
-  exact ((contDiff_apply ℝ (ℂ × ℝ) (p.symm k)).comp (CotangentLogCoframe.A (d F)).contDiff)
+  exact ((contDiff_apply ℝ (fun _ => ℂ × ℝ) (p.symm k)).comp (CotangentLogCoframe.A (d F)).contDiff)
 
 private theorem inverse_smooth (p : Fin (d F) ≃ Fin (KPCuspLogShape.dimension F)) :
     ContDiff ℝ (⊤ : ℕ∞) (labeledAInv p) := by
   apply (CotangentLogCoframe.A (d F)).symm.contDiff.comp
   apply contDiff_pi.mpr
   intro k
-  exact contDiff_apply ℝ (ℂ × ℝ) (p k)
+  exact contDiff_apply ℝ (fun _ => ℂ × ℝ) (p k)
 
 private theorem inverse_pin (p : Fin (d F) ≃ Fin (KPCuspLogShape.dimension F))
     (y : KPFiniteCuspAtlas.SymmetricSpace F) : labeledA p (labeledAInv p y) = y := by

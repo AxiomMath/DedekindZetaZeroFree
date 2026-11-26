@@ -126,7 +126,7 @@ noncomputable instance cosetsDiscrete : DiscreteTopology (Cosets U) := by
 
 theorem finiteCosetSection_compact_support (f : Cosets U →₀ ℂ) :
     HasCompactSupportModH (inducingSubgroup U) (finiteCosetSection U f).val := by
-  have heq : (Quotient.mk (QuotientGroup.rightRel (inducingSubgroup U))) ''
+  have hsupp : (Quotient.mk (QuotientGroup.rightRel (inducingSubgroup U))) ''
       Function.support (finiteCosetSection U f).val = Function.support f := by
     ext c
     constructor
@@ -136,8 +136,8 @@ theorem finiteCosetSection_compact_support (f : Cosets U →₀ ℂ) :
       refine ⟨c.out, ?_, Quotient.out_eq c⟩
       simpa only [Function.mem_support, finiteCosetSection_apply, Quotient.out_eq] using hc
   unfold HasCompactSupportModH
-  rw [heq, (f.finite_support.isClosed).closure_eq]
-  exact f.finite_support.isCompact
+  rw [hsupp, (isClosed_discrete (Function.support f)).closure_eq]
+  exact (f.hasFiniteSupport : (Function.support f).Finite).isCompact
 
 theorem sectionValue_finite_coset_support (F : P U) :
     (Function.support (fun c : Cosets U => sectionValue U F c.out)).Finite := by
@@ -297,7 +297,7 @@ theorem sumLinear_intertwining (x : fixedSubmodule ρ (inducingSubgroup U))
     congr 1
     have hm : representation U h (representation U c.out⁻¹ (delta U)) =
         representation U (c.out * h⁻¹)⁻¹ (delta U) := by
-      simp [map_mul, Module.End.mul_apply]
+      rw [mul_inv_rev, inv_inv, map_mul, Module.End.mul_apply]
     rw [hm, sumLinear_translate, sumLinear_translate]
     simp [map_mul, Module.End.mul_apply]
 

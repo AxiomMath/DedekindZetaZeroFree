@@ -45,8 +45,8 @@ private theorem infinitePlaceCompletionMap_isometry
     (W : InfinitePlace L)
     [W.1.LiesOver v₀.1] :
     Isometry
-      (NumberField.LiesOver.completionMap
-        (v := v₀) (w := W)) := by
+      (AbsoluteValue.Completion.map
+        v₀.1 W.1) := by
   have hw : W.comap (algebraMap K L) = v₀ :=
     InfinitePlace.LiesOver.comap_eq W v₀
   have hwabs : AbsoluteValue.Extends v₀.1 W.1 :=
@@ -57,11 +57,14 @@ private theorem infinitePlaceCompletionMap_isometry
       (AbsoluteValue.completionMap v₀.1 W.1 hwabs).comp
           (infinitePlaceCompletionAlgEquiv v₀).toRingEquiv.toRingHom =
         (infinitePlaceCompletionAlgEquiv W).toRingEquiv.toRingHom.comp
-          (NumberField.LiesOver.completionMap (v := v₀) (w := W)) :=
-    infinitePlaceCompletionAlgEquiv_algebraMap v₀ W hw
+          (AbsoluteValue.Completion.map v₀.1 W.1) := by
+    refine RingHom.ext fun x => ?_
+    simp only [RingHom.comp_apply, RingEquiv.toRingHom_eq_coe, RingEquiv.coe_toRingHom,
+      AlgEquiv.coe_ringEquiv, infinitePlaceCompletionAlgEquiv_apply]
+    exact absoluteValue_completionMap_eq_map v₀.1 W.1 hwabs x
   have h :
       Isometry ((infinitePlaceCompletionAlgEquiv W).toRingEquiv.toRingHom.comp
-        (NumberField.LiesOver.completionMap (v := v₀) (w := W))) := by
+        (AbsoluteValue.Completion.map v₀.1 W.1)) := by
     rw [← hcomm]
     exact
       (AbsoluteValue.completionMap_isometry v₀.1 W.1 hwabs).comp
@@ -81,21 +84,21 @@ private theorem nnnormUnitHom_infinitePlaceCompletionMap
     (x : v₀.Completionˣ) :
     nnnormUnitHom W.Completion
         (Units.map
-          (NumberField.LiesOver.completionMap
-            (v := v₀) (w := W)) x) =
+          (AbsoluteValue.Completion.map
+            v₀.1 W.1) x) =
       nnnormUnitHom v₀.Completion x := by
   apply Units.ext
   change
-    ‖NumberField.LiesOver.completionMap
-        (v := v₀) (w := W) (x : v₀.Completion)‖₊ =
+    ‖AbsoluteValue.Completion.map
+        v₀.1 W.1 (x : v₀.Completion)‖₊ =
       ‖(x : v₀.Completion)‖₊
   apply NNReal.eq
   exact
     (infinitePlaceCompletionMap_isometry
       (K := K) (L := L) v₀ W).norm_map_of_map_zero
       (map_zero
-        (NumberField.LiesOver.completionMap
-          (v := v₀) (w := W)))
+        (AbsoluteValue.Completion.map
+          v₀.1 W.1))
       (x : v₀.Completion)
 
 /-- The fiber of restriction of infinite places is the set of places

@@ -302,7 +302,8 @@ private theorem plane_splitting
     change Submodule.span F (e.toLinearMap '' (M : Set (Plane F))) = ⊤
     rw [← Submodule.map_span, hM.2, Submodule.map_top]
     exact LinearMap.range_eq_top.mpr e.surjective
-  let L : DedekindZetaZeroFree.FullLattice (IntegralOrder F) F := ⟨N, ⟨hfg, hspan⟩⟩
+  let L : DedekindZetaZeroFree.FullLattice (IntegralOrder F) F :=
+    ⟨N, { toIsLattice := Submodule.IsLattice.of_fg F hfg, span_eq_top := hspan }⟩
   obtain ⟨I, J, w, _, _, _, hd, hm, _⟩ :=
     kp_cusp_line_adapted_ideal_splitting (IntegralOrder F) F L (e v)
       (fun hz => hv (e.injective (hz.trans (e.map_zero).symm)))
@@ -525,7 +526,8 @@ theorem upper_diagonal_integral
     IsIntegral (IntegralOrder F) (A 0 0) ∧
       IsIntegral (IntegralOrder F) (A 1 1) := by
   have hfg : M.FG := Module.Finite.iff_fg.mp hM.1
-  letI : Submodule.IsLattice F M := ⟨hfg, hM.2⟩
+  letI : Submodule.IsFullLattice F M :=
+    { toIsLattice := Submodule.IsLattice.of_fg F hfg, span_eq_top := hM.2 }
   let e : F →ₗ[IntegralOrder F] Plane F :=
     (LinearMap.toSpanSingleton F (Plane F) ![1, 0]).restrictScalars _
   have heinj : Function.Injective e := by

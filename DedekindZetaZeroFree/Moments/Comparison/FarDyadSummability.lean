@@ -273,7 +273,7 @@ private lemma finite_triple_eq {ι : Type*}
     comparisonFrequencyIntegral q M W E C Z 4 4 comparisonR₀ := by
   classical
   unfold comparisonFrequencyIntegral comparisonTripleVerticalIntegral
-  rw [integral_finset_sum, integral_finset_sum]
+  rw [integral_finsetSum, integral_finsetSum]
   · congr 1
     apply Finset.sum_congr rfl
     intro u hu

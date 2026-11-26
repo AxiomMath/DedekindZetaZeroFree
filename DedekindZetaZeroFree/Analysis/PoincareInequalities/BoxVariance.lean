@@ -158,7 +158,7 @@ private theorem axis_mix_eq (n : ℕ) (j : Fin n) (x y : Fin n → ℝ) (t : ℝ
     (EuclideanSpace.equiv (Fin n) ℝ).symm
       (Function.update (fun i => if i.val < j.val then y i else x i) j t) := by
   ext i
-  simp [axis, mix, EuclideanSpace.basisFun_apply, EuclideanSpace.single_apply,
+  simp [axis, mix, EuclideanSpace.basisFun_apply, PiLp.single_apply,
     Function.update]
   split_ifs <;> simp_all
 
@@ -371,7 +371,7 @@ theorem box_variance_bound_of_pair_bound (n : ℕ) (l : Fin n → ℝ) (h : ℝ)
       (f := fun (p : Space n × Space n) (t : ℝ) => G j (axis (mix p.1 p.2 j.val) j t))
       ((hG j).comp (line_continuous j)) isCompact_Icc
   have hS : Continuous (fun p : Space n × Space n => ∑ j, L j p) :=
-    continuous_finset_sum _ (fun j _ => hL j)
+    continuous_finsetSum _ (fun j _ => hL j)
   have hA : Continuous (fun x => ∫ y in B, ∑ j, L j (x, y)) :=
     box_param_cont hS
   have hif : Integrable f μ := box_integrable hf.continuous
@@ -414,10 +414,10 @@ theorem box_variance_bound_of_pair_bound (n : ℕ) (l : Fin n → ℝ) (h : ℝ)
     have inner : ∀ x, (∫ y, ∑ j, L j (x, y) ∂μ) =
         ∑ j, ∫ y, L j (x, y) ∂μ := by
       intro x
-      exact integral_finset_sum _ (fun j _ =>
+      exact integral_finsetSum _ (fun j _ =>
         box_integrable ((hL j).comp (continuous_const.prodMk continuous_id)))
     simp_rw [inner]
-    rw [integral_finset_sum _ (fun j _ => box_integrable
+    rw [integral_finsetSum _ (fun j _ => box_integrable
       (box_param_cont (hL j)))]
     have hj : ∀ j, (∫ x, ∫ y, L j (x, y) ∂μ ∂μ) =
         h * v * ∫ x, G j x ∂μ := by
@@ -425,7 +425,7 @@ theorem box_variance_bound_of_pair_bound (n : ℕ) (l : Fin n → ℝ) (h : ℝ)
       exact box_hybrid_line_integral n l h hh j (G j) (hG j)
     change (∑ j : Fin n, ∫ x, ∫ y, L j (x, y) ∂μ ∂μ) = _
     simp_rw [hj]
-    rw [← Finset.mul_sum, integral_finset_sum _ (fun j _ => box_integrable (hG j))]
+    rw [← Finset.mul_sum, integral_finsetSum _ (fun j _ => box_integrable (hG j))]
   rw [hdouble] at hbound
   change (∫ x, ‖f x - c‖ ^ 2 ∂μ) ≤ (n : ℝ) * h ^ 2 * ∫ x, ∑ j, G j x ∂μ
   apply (mul_le_mul_iff_right₀ hv).mp

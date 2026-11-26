@@ -309,7 +309,7 @@ def unitsRhoSubToNormKerLinearMap [Fintype (Gal(L / K))]
       intro x
       change unitsNormLinearMap K L
         ((Rep.ofAlgebraAutOnUnits K L).ρ g x - x) = 0
-      change (Rep.ofAlgebraAutOnUnits K L).norm.hom
+      change (Rep.ofAlgebraAutOnUnits K L).norm.asHom.hom
         ((Rep.ofAlgebraAutOnUnits K L).ρ g x - x) = 0
       rw [map_sub]
       apply sub_eq_zero.mpr

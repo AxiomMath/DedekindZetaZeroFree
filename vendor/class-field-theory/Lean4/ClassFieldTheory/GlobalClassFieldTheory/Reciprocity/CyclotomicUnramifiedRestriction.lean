@@ -67,7 +67,7 @@ theorem
     (L : FiniteAbelianSubextension H.field)
     (q : L.extensionQuotient) :
     abstractFixedFieldAbelianizedExtensionQuotientEquivGaloisGroup H L
-        (Additive.ofMul (Abelianization.of q)) =
+        (Additive.ofMul (Group.Abelianization.of q)) =
       Additive.ofMul
         ((L.extensionQuotientMulEquiv.trans
           (LocalClassFieldTheory.abstractExtensionQuotientEquivGaloisGroup
@@ -81,10 +81,10 @@ theorem
       (LocalClassFieldTheory.abstractExtensionQuotientEquivGaloisGroup
         ℚ (SeparableClosure ℚ)
         H.field L.field L.below L.normal))
-      ((Abelianization.equivOfComm :
+      ((Group.Abelianization.equivOfComm :
           L.extensionQuotient ≃*
-            Abelianization L.extensionQuotient).symm
-        (Abelianization.of q)) =
+            Group.Abelianization L.extensionQuotient).symm
+        (Group.Abelianization.of q)) =
       (L.extensionQuotientMulEquiv.trans
         (LocalClassFieldTheory.abstractExtensionQuotientEquivGaloisGroup
           ℚ (SeparableClosure ℚ)
@@ -94,9 +94,9 @@ theorem
       (LocalClassFieldTheory.abstractExtensionQuotientEquivGaloisGroup
         ℚ (SeparableClosure ℚ)
         H.field L.field L.below L.normal))
-    ((Abelianization.equivOfComm :
+    ((Group.Abelianization.equivOfComm :
       L.extensionQuotient ≃*
-        Abelianization L.extensionQuotient).symm_apply_apply q)
+        Group.Abelianization L.extensionQuotient).symm_apply_apply q)
 
 /-- Genuine restriction from the cyclotomic maximal-unramified
 extension of an abstract fixed field to a finite unramified abelian
@@ -336,7 +336,7 @@ theorem
     _ =
         Additive.toMul
           (abstractFixedFieldAbelianizedExtensionQuotientEquivGaloisGroup H L
-            (Additive.ofMul (Abelianization.of q))) :=
+            (Additive.ofMul (Group.Abelianization.of q))) :=
       congrArg
         (fun z =>
           Additive.toMul

@@ -220,7 +220,7 @@ theorem finite_polynomial_maximal :
     change _ ≤ R * (L ^ 2 * E) at hd'
     nlinarith
   have hi := intervalIntegral.integral_mono_on (by linarith : -T-1 ≤ T+1)
-    ((continuous_finset_sum _ (fun i _ => hc i)).intervalIntegrable _ _)
+    ((continuous_finsetSum _ (fun i _ => hc i)).intervalIntegrable _ _)
     (intervalIntegrable_const : IntervalIntegrable (fun _ : ℝ => R * (1+L^2) * E)
       volume (-T-1) (T+1)) (fun t _ => hpoint t)
   rw [intervalIntegral.integral_const] at hi

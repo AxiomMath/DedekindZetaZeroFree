@@ -294,7 +294,7 @@ theorem finitePlaceLocalTensorDecomposition_basis_mem_integers_of_notMem
             K w) wL) := by
   rw [mem_absoluteValueCompletionIntegers_iff]
   simpa [AbsoluteValue.toCompletion_apply,
-    WithAbs.norm_eq_apply_ofAbs] using
+    WithAbs.norm_eq_apply_ofAbs, AbsoluteValue.Completion.norm_coe] using
       relativeExtensionBasis_absoluteValue_le_one_of_notMem
         (K := K) (L := L) w hw wL i
 
@@ -436,7 +436,7 @@ theorem scaledRelativeTensorCoordinates_isIntegral_of_localTensorDecompositionIn
     rw [mem_absoluteValueCompletionIntegers_iff]
     simpa [AbsoluteValue.toCompletionAlgHom,
       AbsoluteValue.toCompletion_apply,
-      WithAbs.norm_eq_apply_ofAbs] using
+      WithAbs.norm_eq_apply_ofAbs, AbsoluteValue.Completion.norm_coe] using
         scaledRelativeExtensionBasis_absoluteValue_le_one
           (K := K) (L := L) vK hvK wL i
   have hM :
@@ -495,7 +495,7 @@ theorem scaledRelativeTensorCoordinates_isIntegral_of_localTensorDecompositionIn
               (scaledRelativeExtensionBasis (K := K) (L := L)))‖ =
             vK (Algebra.discr K
               (scaledRelativeExtensionBasis (K := K) (L := L))) := by
-              exact AbsoluteValue.completionAbsoluteValue_coe _ _
+              exact AbsoluteValue.completionAbsoluteValue_algebraMap _ _
         _ = 1 := hdabs
     change AbsoluteValue.completionAbsoluteValue vK
       ((algebraMap K vK.Completion
@@ -614,7 +614,7 @@ theorem localTensorDecompositionIntegral_imp_relativeBasisIntegralAt_of_notMem
             (K := K) (L := L))‖ =
           vK (relativeBasisIntegralScaleInK
             (K := K) (L := L)) :=
-        AbsoluteValue.completionAbsoluteValue_coe _ _
+        AbsoluteValue.completionAbsoluteValue_algebraMap _ _
       _ ≤ 1 := hscaleAbs
   let cA :
       RelativeAdeleBasisIndex (K := K) (L := L) →

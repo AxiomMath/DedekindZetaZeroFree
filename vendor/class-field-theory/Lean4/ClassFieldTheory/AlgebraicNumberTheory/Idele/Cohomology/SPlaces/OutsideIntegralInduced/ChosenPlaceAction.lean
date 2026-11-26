@@ -53,6 +53,81 @@ variable
 
 section ChosenFinitePlace
 
+/-!
+The completion, valuation and integer-ring structures at the chosen place, stated
+exactly as `LocalInductionInternal` builds them for
+`decompositionGroupLocalizedIntegerUnitsAction`.  They are used in this file as
+high-priority local instances, so that the types below are elaborated with the
+same structures as the local-induction constructions they are compared with.
+The exported instances of `ChosenLocalization` are definitionally equal, but
+since the Mathlib bump Lean can only match the two by unfolding the completions,
+which exhausts the heartbeat budget.
+-/
+
+omit [NumberField L] [IsGalois K L] in
+@[reducible] noncomputable def chosenFinitePlaceExtensionCompletionAlgebraAsBuilt
+    (w₀ : HeightOneSpectrum (𝓞 K)) :
+    Algebra K (chosenFinitePlaceExtension (L := L) w₀).1.Completion :=
+  LocalInductionInternal.extensionCompletionAlgebra (HeightOneSpectrum.adicAbv K w₀) (chosenFinitePlaceExtension (L := L) w₀)
+
+attribute [local instance high] chosenFinitePlaceExtensionCompletionAlgebraAsBuilt
+
+omit [NumberField L] [IsGalois K L] in
+@[reducible] noncomputable def chosenFinitePlaceExtensionCompletionSMulAsBuilt
+    (w₀ : HeightOneSpectrum (𝓞 K)) :
+    SMul K (chosenFinitePlaceExtension (L := L) w₀).1.Completion :=
+  LocalInductionInternal.extensionCompletionSMul (HeightOneSpectrum.adicAbv K w₀) (chosenFinitePlaceExtension (L := L) w₀)
+
+attribute [local instance high] chosenFinitePlaceExtensionCompletionSMulAsBuilt
+
+omit [NumberField L] [IsGalois K L] in
+@[reducible] noncomputable def chosenFinitePlaceCompletionAlgebraAsBuilt
+    (w₀ : HeightOneSpectrum (𝓞 K)) :
+    Algebra (HeightOneSpectrum.adicAbv K w₀).Completion (chosenFinitePlaceExtension (L := L) w₀).1.Completion :=
+  LocalInductionInternal.completionAlgebra (HeightOneSpectrum.adicAbv K w₀) (chosenFinitePlaceExtension (L := L) w₀)
+
+attribute [local instance high] chosenFinitePlaceCompletionAlgebraAsBuilt
+
+omit [NumberField L] [IsGalois K L] in
+@[reducible] noncomputable def chosenFinitePlaceBaseValuedAsBuilt
+    (w₀ : HeightOneSpectrum (𝓞 K)) :
+    Valued (HeightOneSpectrum.adicAbv K w₀).Completion ℝ≥0 :=
+  LocalInductionInternal.baseValued (HeightOneSpectrum.adicAbv K w₀) (HeightOneSpectrum.isNonarchimedean_adicAbv K w₀)
+
+attribute [local instance high] chosenFinitePlaceBaseValuedAsBuilt
+
+omit [NumberField L] [IsGalois K L] in
+@[reducible] noncomputable def chosenFinitePlaceBaseValuativeRelAsBuilt
+    (w₀ : HeightOneSpectrum (𝓞 K)) :
+    ValuativeRel (HeightOneSpectrum.adicAbv K w₀).Completion :=
+  LocalInductionInternal.baseValuativeRel (HeightOneSpectrum.adicAbv K w₀) (HeightOneSpectrum.isNonarchimedean_adicAbv K w₀)
+
+attribute [local instance high] chosenFinitePlaceBaseValuativeRelAsBuilt
+
+omit [NumberField L] [IsGalois K L] in
+@[reducible] noncomputable def chosenFinitePlaceLocalizedValuedAsBuilt
+    (w₀ : HeightOneSpectrum (𝓞 K)) :
+    Valued (LocalizedCompletion (HeightOneSpectrum.adicAbv K w₀) (chosenFinitePlaceExtension (L := L) w₀)) ℝ≥0 :=
+  LocalInductionInternal.localizedValued (HeightOneSpectrum.adicAbv K w₀) (chosenFinitePlaceExtension (L := L) w₀) (HeightOneSpectrum.isNonarchimedean_adicAbv K w₀)
+
+attribute [local instance high] chosenFinitePlaceLocalizedValuedAsBuilt
+
+omit [NumberField L] [IsGalois K L] in
+@[reducible] noncomputable def chosenFinitePlaceLocalizedValuativeRelAsBuilt
+    (w₀ : HeightOneSpectrum (𝓞 K)) :
+    ValuativeRel (LocalizedCompletion (HeightOneSpectrum.adicAbv K w₀) (chosenFinitePlaceExtension (L := L) w₀)) :=
+  LocalInductionInternal.localizedValuativeRel (HeightOneSpectrum.adicAbv K w₀) (chosenFinitePlaceExtension (L := L) w₀) (HeightOneSpectrum.isNonarchimedean_adicAbv K w₀)
+
+attribute [local instance high] chosenFinitePlaceLocalizedValuativeRelAsBuilt
+
+omit [NumberField L] [IsGalois K L] in
+@[reducible] noncomputable def chosenFinitePlaceLocalizedIntegerAlgebraAsBuilt
+    (w₀ : HeightOneSpectrum (𝓞 K)) :
+    Algebra 𝒪[(HeightOneSpectrum.adicAbv K w₀).Completion] (LocalizedCompletion (HeightOneSpectrum.adicAbv K w₀) (chosenFinitePlaceExtension (L := L) w₀)) :=
+  LocalInductionInternal.integerAlgebra (HeightOneSpectrum.adicAbv K w₀) (chosenFinitePlaceExtension (L := L) w₀) (HeightOneSpectrum.isNonarchimedean_adicAbv K w₀)
+
+attribute [local instance high] chosenFinitePlaceLocalizedIntegerAlgebraAsBuilt
+
 /-- The decomposition group at the chosen extension of a finite place. -/
 abbrev ChosenFinitePlaceDecompositionGroup
     (w₀ : HeightOneSpectrum (𝓞 K)) :=

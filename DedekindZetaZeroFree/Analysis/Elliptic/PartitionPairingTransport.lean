@@ -53,7 +53,8 @@ private theorem testScalar_sum {n : ℕ} (ψ : Fin n → Tests F ζ hζ C R P H 
       fun x => ∑ i, testScalar F ζ hζ C R P H U (ψ i) x := by
   have he (φ : Tests F ζ hζ C R P H U) : testScalar F ζ hζ C R P H U φ =
       ((KPContSectorScalarLineAlgebra.S F ζ hζ (level F ζ hζ C R P H U) R P H).symm φ.val).val := rfl
-  simp only [he, Submodule.coe_sum, map_sum]
+  simp only [he, Submodule.coe_sum,
+    map_sum (KPContSectorScalarLineAlgebra.S F ζ hζ (level F ζ hζ C R P H U) R P H).symm]
   funext x
   simp only [Submodule.coe_sum, Finset.sum_apply]
 
@@ -133,7 +134,7 @@ theorem finite_chart_pairing_transport (φ : Tests F ζ hζ C R P H U) :
           (testLaplacian F ζ hζ C R P H U (ψ i)) x := by
       funext x
       simp [coveredPair, map_sum, Finset.mul_sum]
-    rw [he, integral_finset_sum _ (fun i _ => (hp i).2.1)]
+    rw [he, integral_finsetSum _ (fun i _ => (hp i).2.1)]
     apply Finset.sum_congr rfl
     intro i _
     simpa only [L, hfields] using (hp i).2.2.2
@@ -146,7 +147,7 @@ theorem finite_chart_pairing_transport (φ : Tests F ζ hζ C R P H U) :
           (testScalar F ζ hζ C R P H U (ψ i)) x := by
       funext x
       simp [coveredPair, map_sum, Finset.mul_sum]
-    rw [he, integral_finset_sum _ (fun i _ => (hpΔ i).1)]
+    rw [he, integral_finsetSum _ (fun i _ => (hpΔ i).1)]
     apply Finset.sum_congr rfl
     intro i _
     rw [(hpΔ i).2.2.1]

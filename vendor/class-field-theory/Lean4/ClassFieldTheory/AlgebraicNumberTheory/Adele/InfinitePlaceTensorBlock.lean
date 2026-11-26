@@ -51,9 +51,49 @@ variable
 equivalence with the underlying absolute-value completion. -/
 def infinitePlaceCompletionAlgEquiv
     (w : InfinitePlace K) :
-    w.Completion ≃ₐ[K] w.1.Completion where
-  __ := InfinitePlace.Completion.equiv w
-  commutes' _ := rfl
+    w.Completion ≃ₐ[K] w.1.Completion :=
+  AlgEquiv.refl
+
+omit [NumberField K] [NumberField L] [FiniteDimensional K L] in
+@[simp]
+theorem infinitePlaceCompletionAlgEquiv_apply
+    (w : InfinitePlace K) (x : w.Completion) :
+    infinitePlaceCompletionAlgEquiv w x = x :=
+  rfl
+
+/-- The library's completion map along an exact extension of absolute values
+agrees with Mathlib's completion map. -/
+theorem absoluteValue_completionMap_eq_map
+    {K' : Type*} {L' : Type*} [Field K'] [Field L'] [Algebra K' L']
+    (vK : AbsoluteValue K' ℝ) (wL : AbsoluteValue L' ℝ) [wL.LiesOver vK]
+    (hw : AbsoluteValue.Extends vK wL) (x : vK.Completion) :
+    AbsoluteValue.completionMap vK wL hw x =
+      AbsoluteValue.Completion.map vK wL x := by
+  refine AbsoluteValue.Completion.induction_on x
+    (isClosed_eq (AbsoluteValue.completionMap_isometry vK wL hw).continuous
+      (AbsoluteValue.Completion.continuous_map vK wL)) ?_
+  intro y
+  obtain ⟨y, rfl⟩ := WithAbs.toAbs_surjective vK y
+  rw [show ((WithAbs.toAbs vK y : WithAbs vK) : vK.Completion) =
+      algebraMap K' vK.Completion y from
+    (AbsoluteValue.algebraMap_eq_coe vK y).symm,
+    AbsoluteValue.completionMap_coe, AbsoluteValue.toCompletion_eq_algebraMap,
+    AbsoluteValue.Completion.algebraMap_def, AbsoluteValue.Completion.algebraMap_def,
+    AbsoluteValue.Completion.map_coe]
+  rfl
+
+/-- The library's completion algebra along an exact extension of absolute
+values is Mathlib's `AbsoluteValue.Completion.algebraOfLiesOver`. -/
+theorem absoluteValue_completionAlgebra_eq_algebraOfLiesOver
+    {K' : Type*} {L' : Type*} [Field K'] [Field L'] [Algebra K' L']
+    (vK : AbsoluteValue K' ℝ) (wL : AbsoluteValue L' ℝ) [wL.LiesOver vK]
+    (hw : AbsoluteValue.Extends vK wL) :
+    AbsoluteValue.completionAlgebra vK wL hw =
+      AbsoluteValue.Completion.algebraOfLiesOver vK wL :=
+  Algebra.algebra_ext _ _ fun x =>
+    (absoluteValue_completionMap_eq_map vK wL hw x).trans (by
+      letI := AbsoluteValue.Completion.algebraOfLiesOver vK wL
+      exact (AbsoluteValue.Completion.algebraMap_apply_of_liesOver vK wL x).symm)
 
 omit [NumberField L] in
 /-- The canonical comparisons from concrete infinite-place completions to
@@ -67,46 +107,25 @@ theorem infinitePlaceCompletionAlgEquiv_algebraMap
     let u : AbsoluteValueExtension v.1 L :=
       ⟨w.1, fun x =>
         congrArg (fun q : InfinitePlace K => q.1 x) hw⟩
-    letI : Algebra v.1.Completion u.1.Completion :=
-      AbsoluteValue.completionAlgebra v.1 u.1 u.2
     RingHom.comp
-        (algebraMap v.1.Completion u.1.Completion)
+        (@algebraMap v.1.Completion u.1.Completion _ _
+          (AbsoluteValue.completionAlgebra v.1 u.1 u.2))
         (infinitePlaceCompletionAlgEquiv v).toRingEquiv =
       RingHom.comp
         (infinitePlaceCompletionAlgEquiv w).toRingEquiv
-        (algebraMap v.Completion w.Completion) := by
+        (@algebraMap v.Completion w.Completion _ _
+          (AbsoluteValue.Completion.algebraOfLiesOver v.1 w.1)) := by
   let : w.1.LiesOver v.1 :=
     ⟨congrArg (fun q : InfinitePlace K => q.1) hw⟩
   let u : AbsoluteValueExtension v.1 L :=
     ⟨w.1, fun x =>
       congrArg (fun q : InfinitePlace K => q.1 x) hw⟩
-  let : Algebra v.1.Completion u.1.Completion :=
-    AbsoluteValue.completionAlgebra v.1 u.1 u.2
-  ext x
-  refine InfinitePlace.Completion.induction_on v x ?_ ?_
-  · exact
-      isClosed_eq
-        ((AbsoluteValue.completionMap_isometry
-            v.1 w.1 u.2).continuous.comp
-          (InfinitePlace.Completion.continuous_toCompletion v))
-        ((InfinitePlace.Completion.continuous_toCompletion w).comp
-          (NumberField.LiesOver.continuous_completionMap v w))
-  · intro y
-    have hy :
-        (y : v.1.Completion) =
-          algebraMap K v.1.Completion
-            (WithAbs.equiv v.1 y) := by
-      rw [← AbsoluteValue.toCompletion_eq_algebraMap]
-      simp
-    change
-      AbsoluteValue.completionMap v.1 u.1 u.2
-          (y : v.1.Completion) =
-        (NumberField.LiesOver.completionMap
-          (v := v) (w := w)
-          (y : v.Completion)).toCompletion
-    rw [NumberField.LiesOver.completionMap_coe]
-    rw [hy, AbsoluteValue.completionMap_coe]
-    rfl
+  refine RingHom.ext fun x => ?_
+  simp only [RingHom.comp_apply, RingEquiv.coe_toRingHom, AlgEquiv.coe_ringEquiv,
+    infinitePlaceCompletionAlgEquiv_apply]
+  exact (absoluteValue_completionMap_eq_map v.1 w.1 u.2 x).trans (by
+    letI := AbsoluteValue.Completion.algebraOfLiesOver v.1 w.1
+    exact (AbsoluteValue.Completion.algebraMap_apply_of_liesOver v.1 w.1 x).symm)
 
 /-- Base change of the first tensor factor from the concrete
 archimedean completion to the absolute-value completion. -/

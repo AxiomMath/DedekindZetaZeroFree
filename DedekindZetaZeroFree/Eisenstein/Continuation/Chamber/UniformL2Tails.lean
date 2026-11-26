@@ -565,7 +565,7 @@ theorem smoothGradient_norm_continuous
   change Continuous (fun y => (normSquare (smoothGradient s hs)
       ((H.atlas U).components ⟨i, Quotient.mk _ y⟩) : ℝ))
   rw [he]
-  exact continuous_finset_sum _ (fun j _ => continuous_finset_sum _
+  exact continuous_finsetSum _ (fun j _ => continuous_finsetSum _
     (fun k _ => ((hd j k).comp hAi).norm.pow 2))
 
 theorem smoothGradient_cusp_coframe
@@ -664,13 +664,13 @@ theorem smoothGradient_cusp_coframe
             EuclideanSpace.basisFun_apply, KPContActualSphericalFlatStage.coordinateDirection,
             KPMeanZeroWeightedEnergy.realCoordinates, KPArch.height, eq_comm, Complex.real_smul]
         all_goals
-          simp only [Pi.single_apply, EuclideanSpace.single_apply, PiLp.single_apply]
+          simp only [Pi.single_apply, PiLp.single_apply]
           split_ifs <;> simp_all [KPArch.height, ← Complex.ofReal_exp]
       · fin_cases k <;> simp [A, CotangentLogCoframe.A_apply, CotangentLogCoframe.H, CotangentLogCoframe.C,
             EuclideanSpace.basisFun_apply, KPContActualSphericalFlatStage.coordinateDirection,
             KPMeanZeroWeightedEnergy.realCoordinates, KPArch.height, eq_comm, Complex.real_smul]
         all_goals
-          simp only [Pi.single_apply, EuclideanSpace.single_apply, PiLp.single_apply]
+          simp only [Pi.single_apply, PiLp.single_apply]
           split_ifs <;> simp_all [KPArch.height, ← Complex.ofReal_exp]
     change fderiv ℝ g z (A _) = _
     rw [hv, map_smul]
@@ -731,13 +731,13 @@ private theorem arch_coframe_norm_at (n : ℕ) (g : KPArch.Space n → ℂ)
             EuclideanSpace.basisFun_apply, KPContActualSphericalFlatStage.coordinateDirection,
             KPMeanZeroWeightedEnergy.realCoordinates, KPArch.height, eq_comm, Complex.real_smul]
         all_goals
-          simp only [Pi.single_apply, EuclideanSpace.single_apply, PiLp.single_apply]
+          simp only [Pi.single_apply, PiLp.single_apply]
           split_ifs <;> simp_all [KPArch.height, ← Complex.ofReal_exp]
       · fin_cases k <;> simp [A, CotangentLogCoframe.A_apply, CotangentLogCoframe.H, CotangentLogCoframe.C,
             EuclideanSpace.basisFun_apply, KPContActualSphericalFlatStage.coordinateDirection,
             KPMeanZeroWeightedEnergy.realCoordinates, KPArch.height, eq_comm, Complex.real_smul]
         all_goals
-          simp only [Pi.single_apply, EuclideanSpace.single_apply, PiLp.single_apply]
+          simp only [Pi.single_apply, PiLp.single_apply]
           split_ifs <;> simp_all [KPArch.height, ← Complex.ofReal_exp]
     change fderiv ℝ g z (A _) = _
     rw [hv, map_smul]
@@ -909,7 +909,7 @@ private theorem tuple_parameter_jet_joint {n m : ℕ} (A : LocalBall n)
   have hcont : ContinuousOn (fun p : ℂ × K =>
       (iteratedDerivWithin k j O p.1) α p.2) (O ×ˢ Set.univ) :=
     continuous_eval.comp_continuousOn ((hp.comp continuous_fst.continuousOn
-      (fun _ h => h.1)).prodMk continuous_snd.continuousOn)
+      (fun _ h => (Set.mem_prod.mp h).1)).prodMk continuous_snd.continuousOn)
   apply continuousOn_iff_continuous_restrict.mpr
   let a : (O ×ˢ K) → ℂ × K := fun p => (p.val.1, ⟨p.val.2,p.property.2⟩)
   have ha : Continuous a := (continuous_fst.comp continuous_subtype_val).prodMk
@@ -1182,9 +1182,9 @@ private theorem realCoordinates_inverse_smooth :
   intro k
   dsimp [KPContActualChartRestrictionDensity.coordinates, KPArchRealCoordinates.coordinates]
   split_ifs
-  · exact Complex.reCLM.contDiff.comp ((contDiff_apply ℝ (ℂ × ℝ) _).fst)
-  · exact Complex.imCLM.contDiff.comp ((contDiff_apply ℝ (ℂ × ℝ) _).fst)
-  · exact (contDiff_apply ℝ (ℂ × ℝ) _).snd
+  · exact Complex.reCLM.contDiff.comp ((contDiff_apply ℝ (fun _ => ℂ × ℝ) _).fst)
+  · exact Complex.imCLM.contDiff.comp ((contDiff_apply ℝ (fun _ => ℂ × ℝ) _).fst)
+  · exact (contDiff_apply ℝ (fun _ => ℂ × ℝ) _).snd
 
 private theorem E_holo (hι : Function.Injective ι)
     (hf : DifferentiableOn ℂ f KPContinuation.spectralDomain)
@@ -1482,7 +1482,7 @@ private theorem actualE_component_jet_joint (hι : Function.Injective ι)
   let j := KPContActualChamberNormalSeries.compactMixedJet F ζ hζ U ι f hι hf k [] A
   have hj : ContinuousOn (fun q : ℂ × A => j q.1 q.2) (V ×ˢ Set.univ) :=
     continuous_eval.comp_continuousOn ((hc.comp continuous_fst.continuousOn
-      (fun _ h => h.1)).prodMk continuous_snd.continuousOn)
+      (fun _ h => (Set.mem_prod.mp h).1)).prodMk continuous_snd.continuousOn)
   have hcont : ContinuousOn (fun q : ℂ × KPFiniteCuspAtlas.SymmetricSpace F =>
       KPContActualChamberNormalSeries.mixedJet F ζ hζ
         (KPContActualChamberNormalSeries.E F ζ hζ U ι f) k [] q.1 (rep q.2)) (V ×ˢ K) := by
@@ -2255,7 +2255,7 @@ private theorem gradient_chart_norm_joint (k : ℕ)
         ((EuclideanSpace.proj (i,2)).continuous.comp continuous_snd))).continuousOn).mul (hc i 1)
   have hj : ContinuousOn (fun p : ℂ × KPContCotangentActualOverlap.M F =>
       ∑ i : Fin d, ∑ j : Fin 3, ‖HyperbolicChart.differential d (h p.1) p.2 i j‖ ^ 2) (V ×ˢ K) :=
-    continuousOn_finset_sum _ (fun i _ => continuousOn_finset_sum _
+    continuousOn_finsetSum _ (fun i _ => continuousOn_finsetSum _
       (fun j _ => (hd i j).norm.pow 2))
   apply hj.congr
   intro p hp
@@ -3004,7 +3004,7 @@ theorem lineG_high_end_square_bound (L : Set ℂ) (hL : IsCompact L) (hLV : L �
           ((KPContActualChamberOutgoingAdapter.jetNorm F ζ hζ C R P H U a ι buffer f χ source k 0 s p) ^ 2))
           ((KPContActualChamberOutgoingAdapter.endMeasure F ζ hζ C R P H U a).restrict {p | A < p.2}) := by
         have hh := ((hbound a s hs).1.aestronglyMeasurable.mono_measure
-          (Measure.restrict_mono (fun p hp => lt_of_le_of_lt h0A hp) le_rfl)).aemeasurable
+          (Measure.restrict_mono (s := {p | A < p.2}) (fun p hp => lt_of_le_of_lt h0A hp) le_rfl)).aemeasurable
         exact (hh.pow_const 2).ennreal_ofReal
       rw [lintegral_add_left' (hmnorm.const_mul 2), lintegral_const_mul' _ _ (by norm_num),
         lintegral_const_mul' _ _ (by norm_num)]

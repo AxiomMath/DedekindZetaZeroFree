@@ -85,7 +85,7 @@ noncomputable def maximalKummerNormQuotientEquivPowerQuotient
     CommGroup.mk (fun a b => IsMulCommutative.is_comm.comm a b)
   exact
     (abelianizationEquivNormQuotient K E).symm.trans
-      (Abelianization.equivOfComm.symm.trans
+      (Group.Abelianization.equivOfComm.symm.trans
         (chosenMaximalKummerGaloisEquivPowerQuotient
           (K := K) (Omega := Omega) n hnK hmu))
 
@@ -110,10 +110,10 @@ theorem powMonoidHom_range_le_maximalKummerNormSubgroup
   let : CommGroup Gal(E/K) :=
     CommGroup.mk (fun a b => IsMulCommutative.is_comm.comm a b)
   have habExponent :
-      ∀ a : Abelianization (Gal(E / K)), a ^ (n : ℕ) = 1 := by
+      ∀ a : Group.Abelianization (Gal(E / K)), a ^ (n : ℕ) = 1 := by
     intro a
-    apply (Abelianization.equivOfComm :
-      Gal(E/K) ≃* Abelianization (Gal(E/K))).symm.injective
+    apply (Group.Abelianization.equivOfComm :
+      Gal(E/K) ≃* Group.Abelianization (Gal(E/K))).symm.injective
     rw [map_pow, map_one]
     exact kummerRadicalExtension_galois_pow_eq_one
       (K := K) (Omega := Omega) n hmu Delta.1 _

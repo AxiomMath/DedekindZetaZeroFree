@@ -48,7 +48,7 @@ theorem upper_continuous {Q : AdmissibleFlatSources R} (T : Realization R Q)
 theorem upperDigits_continuous {Q : AdmissibleFlatSources R} (T : Realization R Q)
     (v : R.A.UnitQuotient) (m : ThetaReflectionData.Row R.A) (b : Bool) :
     Continuous (upperDigits R Q T v m b) := by
-  apply continuous_finset_sum
+  apply continuous_finsetSum
   intro d _
   exact continuous_const.mul ((upper_continuous R T v).comp (signedArgument_continuous R m b d))
 

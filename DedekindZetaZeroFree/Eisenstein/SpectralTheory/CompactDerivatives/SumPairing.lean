@@ -29,10 +29,10 @@ theorem compact_pairing_sum (μ : Measure α) [IsFiniteMeasure μ]
     intro j hmemj
     ring
   simp_rw [he]
-  rw [integral_finset_sum _ (fun i _ => integrable_finset_sum _ (fun j _ => hi i j))]
+  rw [integral_finsetSum _ (fun i _ => integrable_finsetSum _ (fun j _ => hi i j))]
   apply Finset.sum_congr rfl
   intro i hmem
-  rw [integral_finset_sum _ (fun j _ => hi i j)]
+  rw [integral_finsetSum _ (fun j _ => hi i j)]
   simp only [integral_const_mul]
 end DedekindZetaZeroFree.FourierContinuation.ResidualPrincipalSlices
 

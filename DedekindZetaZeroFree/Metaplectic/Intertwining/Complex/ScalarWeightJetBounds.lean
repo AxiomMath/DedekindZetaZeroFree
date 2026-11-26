@@ -32,8 +32,8 @@ private lemma scalar_entry_contDiffOn {E : Type*} [NormedAddCommGroup E] [Normed
     {U : Set E} {g : E → ComplexGL2}
     (hg : ContDiffOn ℝ (⊤ : ℕ∞) (fun v => (g v : Matrix (Fin 2) (Fin 2) ℂ)) U)
     (i j : Fin 2) : ContDiffOn ℝ (⊤ : ℕ∞) (fun v => (g v : Matrix (Fin 2) (Fin 2) ℂ) i j) U := by
-  exact (contDiff_apply ℝ ℂ j).contDiffOn.comp
-    ((contDiff_apply ℝ (Fin 2 → ℂ) i).contDiffOn.comp hg (Set.mapsTo_univ _ _))
+  exact (contDiff_apply ℝ (fun _ : Fin 2 => ℂ) j).contDiffOn.comp
+    ((contDiff_apply ℝ (fun _ : Fin 2 => Fin 2 → ℂ) i).contDiffOn.comp hg (Set.mapsTo_univ _ _))
     (Set.mapsTo_univ _ _)
 
 lemma scalar_ratio_contDiffOn {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]

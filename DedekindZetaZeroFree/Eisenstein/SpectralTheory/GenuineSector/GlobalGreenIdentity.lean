@@ -267,8 +267,8 @@ theorem kp_cont_actual_sector_global_green_equation
     have he := congrArg (fun f : S_U F ζ hζ U R P H => f.val a y) (congrArg δ_U hsum)
     simp only [map_sum, Submodule.coe_sum, Finset.sum_apply] at he
     rw [he]
-  rw [← hleft, ← hright, integral_finset_sum _ (fun i _ => emb.cotangent_pair_integrable _ _),
-    integral_finset_sum _ (fun i _ => emb.scalar_pair_integrable _ _)]
+  rw [← hleft, ← hright, integral_finsetSum _ (fun i _ => emb.cotangent_pair_integrable _ _),
+    integral_finsetSum _ (fun i _ => emb.scalar_pair_integrable _ _)]
   exact Finset.sum_congr rfl (fun i _ => hloc i)
 
 theorem kp_cont_actual_sector_global_green

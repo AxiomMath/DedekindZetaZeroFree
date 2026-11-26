@@ -96,7 +96,7 @@ theorem weighted_coefficient_difference_bound {n : ℕ} (mid outer : LocalBall n
   have hmem (s : ℝ) (hs : s ∈ Set.Icc (0 : ℝ) 1) : x + (s * t) • e ∈ outer.carrier := by
     have hnorm : ‖(s * t) • e‖ ≤ |t| := by
       rw [norm_smul, Real.norm_eq_abs, abs_mul, abs_of_nonneg hs.1]
-      simp only [e, EuclideanSpace.norm_single, norm_one, mul_one]
+      simp only [e, PiLp.norm_single, norm_one, mul_one]
       nlinarith [abs_nonneg t, hs.2]
     have hx' : dist x outer.center < mid.radius := by
       simpa only [LocalBall.carrier, Metric.mem_ball, hcenter] using hx
@@ -142,18 +142,18 @@ private theorem flux_matrix_bound {n : ℕ} {B : LocalBall n} {cρ Cρ κ Λ : �
   classical
   have hd (k : Fin n) : 0 ≤ D.matrix x k k := by
     have h := D.ellipticity x hx (EuclideanSpace.single k 1)
-    simp [EuclideanSpace.norm_single, EuclideanSpace.single_apply] at h
+    simp [PiLp.norm_single, PiLp.single_apply] at h
     linarith
   have hu (k : Fin n) : D.matrix x k k ≤ Λ := by
     have h := D.upper_bound x hx (EuclideanSpace.single k 1)
-    simpa [EuclideanSpace.norm_single, EuclideanSpace.single_apply] using h
+    simpa [PiLp.norm_single, PiLp.single_apply] using h
   by_cases hij : i = j
   · subst j
     rw [abs_of_nonneg (hd i)]
     exact (hu i).trans (le_abs_self Λ)
   have hnorm (t : ℝ) :
       ‖(EuclideanSpace.single i 1 + EuclideanSpace.single j t : Space n)‖ ^ 2 = 1 + t ^ 2 := by
-    simp [EuclideanSpace.norm_sq_eq, PiLp.add_apply, EuclideanSpace.single_apply,
+    simp [EuclideanSpace.norm_sq_eq, PiLp.add_apply, PiLp.single_apply,
       add_sq, Finset.sum_add_distrib, hij, Ne.symm hij]
   have hquad (t : ℝ) := D.upper_bound x hx
     (EuclideanSpace.single i 1 + EuclideanSpace.single j t)
@@ -162,7 +162,7 @@ private theorem flux_matrix_bound {n : ℕ} {B : LocalBall n} {cρ Cρ κ Λ : �
       D.matrix x i i + 2 * D.matrix x i j * t + D.matrix x j j * t ^ 2 ≤ Λ * (1 + t ^ 2) := by
     have h := hquad t
     simp [PiLp.add_apply, mul_add, add_mul, Finset.sum_add_distrib,
-      EuclideanSpace.single_apply, D.symmetric x hx j i] at h
+      PiLp.single_apply, D.symmetric x hx j i] at h
     nlinarith [h]
   apply abs_le.mpr
   constructor <;> nlinarith [hq 1, hq (-1), hd i, hd j, le_abs_self Λ]
@@ -313,17 +313,17 @@ theorem difference_flux_identity_of_tested {n : ℕ} (mid outer : LocalBall n)
         filter_upwards [] with x
         simp only [Finset.mul_sum, f, a, Complex.ofReal_mul, mul_assoc]
       _ = ∑ i, ∑ j, ∫ x in outer.carrier, f i j x * star (gradient w i x) := by
-        rw [integral_finset_sum _ (fun i _ => integrable_finset_sum _ (fun j _ => hi i j))]
+        rw [integral_finsetSum _ (fun i _ => integrable_finsetSum _ (fun j _ => hi i j))]
         congr 1
         funext i
-        exact integral_finset_sum _ (fun j _ => hi i j)
+        exact integral_finsetSum _ (fun j _ => hi i j)
       _ = ∑ i, ∑ j, ∫ x in mid.carrier, E i j x := by
         simp_rw [hp]
       _ = _ := by
-        rw [integral_finset_sum _ (fun i _ => integrable_finset_sum _ (fun j _ => hE i j))]
+        rw [integral_finsetSum _ (fun i _ => integrable_finsetSum _ (fun j _ => hE i j))]
         congr 1
         funext i
-        exact (integral_finset_sum _ (fun j _ => hE i j)).symm
+        exact (integral_finsetSum _ (fun j _ => hE i j)).symm
   change (∫ x in mid.carrier, ∑ i, ∑ j, E i j x) = _
   rw [← henergy]
   exact sub_eq_iff_eq_add.mp hpde |>.trans (add_comm _ _)

@@ -103,19 +103,19 @@ theorem normQuotientToUnramifiedNormQuotient_surjective :
 
 /-- Cyclicity identifies the unramified Galois group with its abelianization. -/
 noncomputable def galoisGroupEquivAbelianizationOfUnramifiedValuation :
-    Gal(L / K) ≃* Abelianization (Gal(L / K)) := by
+    Gal(L / K) ≃* Group.Abelianization (Gal(L / K)) := by
   letI : IsCyclic (Gal(L / K)) :=
     isCyclic_galoisGroup_of_unramifiedValuation K L
   letI : CommGroup (Gal(L / K)) :=
     IsCyclic.commGroup (α := Gal(L / K))
-  exact Abelianization.equivOfComm (H := Gal(L / K))
+  exact Group.Abelianization.equivOfComm (H := Gal(L / K))
 
 /-- The cyclic Galois-group equivalence is the canonical map to the abelianization. -/
 @[simp]
 theorem galoisGroupEquivAbelianizationOfUnramifiedValuation_apply
     (σ : Gal(L / K)) :
     galoisGroupEquivAbelianizationOfUnramifiedValuation K L σ =
-      Abelianization.of σ :=
+      Group.Abelianization.of σ :=
   rfl
 
 noncomputable local instance unramifiedNormComparisonNormQuotientFinite :
@@ -126,11 +126,11 @@ noncomputable local instance unramifiedNormComparisonNormQuotientFinite :
 
 private theorem normQuotient_card_eq_finrank :
     Nat.card (NormQuotient K L) = Module.finrank K L := by
-  let : Finite (Abelianization (Gal(L / K))) :=
-    Finite.of_surjective Abelianization.of QuotientGroup.mk_surjective
+  let : Finite (Group.Abelianization (Gal(L / K))) :=
+    Finite.of_surjective Group.Abelianization.of QuotientGroup.mk_surjective
   calc
     Nat.card (NormQuotient K L) =
-        Nat.card (Abelianization (Gal(L / K))) :=
+        Nat.card (Group.Abelianization (Gal(L / K))) :=
       Nat.card_congr (abelianizationEquivNormQuotient K L).symm.toEquiv
     _ = Nat.card (Gal(L / K)) :=
       (Nat.card_congr

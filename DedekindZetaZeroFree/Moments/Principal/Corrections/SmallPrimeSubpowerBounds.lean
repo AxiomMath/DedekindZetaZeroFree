@@ -94,7 +94,7 @@ theorem fixed_small_prime_subpower
       _ ≤ K * idealNorm I.val ^ ε := by
         apply mul_le_mul_of_nonneg_left _
           (Finset.prod_nonneg (fun p _ => (le_trans zero_le_one (hf p))))
-        rw [Real.finset_prod_rpow _ _ (fun p h => le_trans zero_le_one (hq p h))]
+        rw [Real.finsetProd_rpow _ _ (fun p h => le_trans zero_le_one (hq p h))]
         exact Real.rpow_le_rpow
           (Finset.prod_nonneg (fun p h => le_trans zero_le_one (hq p h)))
           (pcSmall_support_norm_le I.val I.property.1) hε.le

@@ -146,7 +146,7 @@ theorem completionExponentialValueSubgroup_eq
     rw [absoluteValueExponentialValuation_apply_ne_zero aC haC hxC]
     rw [absoluteValueExponentialValuation_apply_ne_zero a ha hx] at hxr
     rw [show aC xC = a x by
-      exact AbsoluteValue.completionAbsoluteValue_coe a x]
+      exact AbsoluteValue.completionAbsoluteValue_algebraMap a x]
     exact hxr
 
 theorem completionRamificationIndex_eq
@@ -198,8 +198,8 @@ def completionExponentialSubringMap
           (completionNonarchimedean a ha)) :=
   (algebraMap K a.Completion).restrict _ _ fun x hx => by
     rw [mem_absoluteValueExponentialSubring_iff] at hx ⊢
-    change AbsoluteValue.completionAbsoluteValue a (x : a.Completion) ≤ 1
-    rw [AbsoluteValue.completionAbsoluteValue_coe]
+    change AbsoluteValue.completionAbsoluteValue a (algebraMap K a.Completion x) ≤ 1
+    rw [AbsoluteValue.completionAbsoluteValue_algebraMap]
     exact hx
 
 @[simp] theorem completionExponentialSubringMap_apply
@@ -227,8 +227,8 @@ theorem completionExponentialSubringMap_isLocalHom
       (AbsoluteValue.completionAbsoluteValue a)
       (completionNonarchimedean a ha))] at hx
   change AbsoluteValue.completionAbsoluteValue a
-      ((x : K) : a.Completion) = 1 at hx
-  rw [AbsoluteValue.completionAbsoluteValue_coe] at hx
+      (algebraMap K a.Completion (x : K)) = 1 at hx
+  rw [AbsoluteValue.completionAbsoluteValue_algebraMap] at hx
   exact hx
 
 theorem completionResidueMap_surjective
@@ -270,8 +270,7 @@ theorem completionResidueMap_surjective
         LubinTate.Valuations.strong_triangle_of_nonarchimedean aC haC _ _
       _ ≤ 1 := max_le hclose.le hy_le
   have hx_le : a x ≤ 1 := by
-    change aC (x : a.Completion) ≤ 1 at hx_leC
-    rwa [AbsoluteValue.completionAbsoluteValue_coe] at hx_leC
+    rwa [AbsoluteValue.completionAbsoluteValue_algebraMap] at hx_leC
   let xV : V := ⟨x, (mem_absoluteValueExponentialSubring_iff a ha x).2 hx_le⟩
   refine ⟨IsLocalRing.residue V xV, ?_⟩
   rw [IsLocalRing.ResidueField.map_residue]
@@ -364,8 +363,7 @@ theorem completionExponentialValuation_discrete
     rw [absoluteValueExponentialValuation_apply_ne_zero aC haC hpiC]
     rw [absoluteValueExponentialValuation_apply_ne_zero a ha hpi0] at hpival
     rw [show aC (algebraMap K a.Completion pi) = a pi by
-      change aC (pi : a.Completion) = a pi
-      exact AbsoluteValue.completionAbsoluteValue_coe a pi]
+      exact AbsoluteValue.completionAbsoluteValue_algebraMap a pi]
     exact hpival
 
 theorem completionExponentialSubringMap_square

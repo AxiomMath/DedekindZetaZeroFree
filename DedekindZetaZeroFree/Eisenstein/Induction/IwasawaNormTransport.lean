@@ -471,7 +471,11 @@ private theorem iwasawa_inverseHalfWeight_pos (g : IwasawaLocalGL) : 0 < iwasawa
     by_contra! hh
     exact hd (by simp [Matrix.det_fin_two, hh.1, hh.2])
   unfold iwasawa_inverseHalfWeight
-  rcases hh with hh | hh <;> positivity
+  have hdet : 0 < ‖((Matrix.GeneralLinearGroup.det g : ℂˣ) : ℂ)‖ :=
+    norm_pos_iff.mpr (Units.ne_zero _)
+  rcases hh with hh | hh
+  · exact div_pos (add_pos_of_pos_of_nonneg (pow_pos (norm_pos_iff.mpr hh) 2) (sq_nonneg _)) hdet
+  · exact div_pos (add_pos_of_nonneg_of_pos (sq_nonneg _) (pow_pos (norm_pos_iff.mpr hh) 2)) hdet
 
 private def iwasawa_matrixInverseHalfWeight (g : Matrix (Fin 2) (Fin 2) ℂ) : ℝ :=
   (‖g 1 0‖ ^ 2 + ‖g 1 1‖ ^ 2) / ‖g.det‖
@@ -480,7 +484,7 @@ private theorem iwasawa_matrixInverseHalfWeight_smooth :
     ContDiffOn ℝ (⊤ : ℕ∞) iwasawa_matrixInverseHalfWeight {g | g.det ≠ 0} := by
   have hentry (i j : Fin 2) : ContDiff ℝ (⊤ : ℕ∞)
       (fun g : Matrix (Fin 2) (Fin 2) ℂ => g i j) :=
-    (contDiff_apply ℝ ℂ j).comp (contDiff_apply ℝ (Fin 2 → ℂ) i)
+    (contDiff_apply ℝ (fun _ => ℂ) j).comp (contDiff_apply ℝ (fun _ => Fin 2 → ℂ) i)
   have hdet : ContDiff ℝ (⊤ : ℕ∞)
       (fun g : Matrix (Fin 2) (Fin 2) ℂ => g.det) := by
     simp only [Matrix.det_fin_two]

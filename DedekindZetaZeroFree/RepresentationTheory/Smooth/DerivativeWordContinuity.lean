@@ -71,7 +71,7 @@ theorem word_continuous_at_finite_level
   have hn : ∀ᶠ p : GInfinity F × KPSmoothLocalQuotientCharts.finiteSubgroup F ζ hζ in 𝓝 (a,k),
       k⁻¹ * p.2 ∈ W :=
     (continuous_const.mul continuous_snd).continuousAt.preimage_mem_nhds (by
-      simpa using W.isOpen.mem_nhds W.one_mem)
+      show (W : Set _) ∈ 𝓝 (k⁻¹ * k); rw [inv_mul_cancel]; exact W.isOpen.mem_nhds W.one_mem)
   filter_upwards [hn] with p hp
   change wordDerivative F ζ hζ w f (Quotient.mk _ (e p)) =
     wordDerivative F ζ hζ w f (Quotient.mk _ (archimedeanInsertion F ζ hζ p.1 * k))

@@ -429,15 +429,15 @@ private theorem integrated_flux_bound {X : Type*} [MeasurableSpace X] {μ : Meas
     ((show MemLp (fun x => a i j x * F j x) 2 μ from (ha i j).fun_mul (hF j)).integrable_mul (hH i).star).add
       ((show MemLp (fun x => b i j x * U j x) 2 μ from (hb i j).fun_mul (hU j)).integrable_mul (hS i).star)
   have hpi : Integrable (fun x => ∑ i, ∑ j, p i j x) μ :=
-    integrable_finset_sum _ (fun i _ => integrable_finset_sum _ (fun j _ => hp i j))
+    integrable_finsetSum _ (fun i _ => integrable_finsetSum _ (fun j _ => hp i j))
   have hei : Integrable (fun x => ∑ i, ∑ j, e i j x) μ :=
-    integrable_finset_sum _ (fun i _ => integrable_finset_sum _ (fun j _ => he i j))
+    integrable_finsetSum _ (fun i _ => integrable_finsetSum _ (fun j _ => he i j))
   have hmain : c * (∑ j, ∫ x, ‖F j x‖ ^ 2 ∂μ) ≤ (∫ x, ∑ i, ∑ j, p i j x ∂μ).re := by
     change _ ≤ RCLike.re (∫ x, ∑ i, ∑ j, p i j x ∂μ)
-    rw [← integral_re hpi, ← integral_finset_sum _ (fun j _ => by
+    rw [← integral_re hpi, ← integral_finsetSum _ (fun j _ => by
       simpa using (hF j).integrable_norm_rpow (by norm_num) (by norm_num)), ← integral_const_mul]
     apply integral_mono_ae
-    · exact (integrable_finset_sum _ (fun j _ => by
+    · exact (integrable_finsetSum _ (fun j _ => by
         simpa using (hF j).integrable_norm_rpow (by norm_num) (by norm_num))).const_mul c
     · exact hpi.re
     · exact hco
@@ -455,13 +455,13 @@ private theorem integrated_flux_bound {X : Type*} [MeasurableSpace X] {μ : Meas
     · exact (bounded_l2_pairing _ _ _ (ha i j) (hF j) (hH i) K hK (hab i j)).trans (by gcongr; exact hFn j; exact hHn i)
     · exact (bounded_l2_pairing _ _ _ (hb i j) (hU j) (hS i) L hL (hbb i j)).trans (by gcongr; exact hUn j; exact hSn i)
   have herr : ‖∫ x, ∑ i, ∑ j, e i j x ∂μ‖ ≤ (n : ℝ) ^ 2 * (K * V * W + L * T * (V + W)) := by
-    rw [integral_finset_sum _ (fun i _ => integrable_finset_sum _ (fun j _ => he i j))]
+    rw [integral_finsetSum _ (fun i _ => integrable_finsetSum _ (fun j _ => he i j))]
     apply (norm_sum_le _ _).trans
     calc
       _ ≤ ∑ i : Fin n, ∑ j : Fin n, (K * V * W + L * T * (V + W)) := by
         apply Finset.sum_le_sum
         intro i _
-        rw [integral_finset_sum _ (fun j _ => he i j)]
+        rw [integral_finsetSum _ (fun j _ => he i j)]
         exact (norm_sum_le _ _).trans (Finset.sum_le_sum (fun j _ => heb i j))
       _ = _ := by simp [pow_two, mul_assoc]; ring
   have hsplit : (∫ x, ∑ i, ∑ j, (p i j x + e i j x) ∂μ) =

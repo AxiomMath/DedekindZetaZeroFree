@@ -72,7 +72,7 @@ theorem normalSeries_compact_family_of_local {E : Type*} [TopologicalSpace E]
     letI : CompactSpace K := isCompact_iff_compactSpace.mp hK
     have hcont : ContinuousOn (fun q : ℂ × K => j q.1 q.2) (O ×ˢ Set.univ) :=
       continuous_eval.comp_continuousOn ((hj.continuousOn.comp continuous_fst.continuousOn
-        (fun _ hq => hq.1)).prodMk continuous_snd.continuousOn)
+        (fun _ hq => (Set.mem_prod.mp hq).1)).prodMk continuous_snd.continuousOn)
     have hfK : ContinuousOn (fun q : ℂ × E => f q.1 q.2) (O ×ˢ K) := by
       apply continuousOn_iff_continuous_restrict.mpr
       let a : (O ×ˢ K) → ℂ × K := fun q => (q.val.1, ⟨q.val.2,q.property.2⟩)
@@ -237,7 +237,7 @@ private theorem word_const_mul (U : Set E) (hU : IsOpen U) (fields : B → E →
   obtain ⟨j,hj,heq⟩ := hh K hK hKU
   have hc : ContinuousOn (fun p : ℂ × K => j p.1 p.2) (O ×ˢ Set.univ) :=
     continuous_eval.comp_continuousOn ((hj.continuousOn.comp continuous_fst.continuousOn
-      (fun _ hp => hp.1)).prodMk continuous_snd.continuousOn)
+      (fun _ hp => (Set.mem_prod.mp hp).1)).prodMk continuous_snd.continuousOn)
   apply continuousOn_iff_continuous_restrict.mpr
   let a : (O ×ˢ K) → ℂ × K := fun p => (p.val.1, ⟨p.val.2,p.property.2⟩)
   have ha : Continuous a := (continuous_fst.comp continuous_subtype_val).prodMk
@@ -461,7 +461,7 @@ private theorem actual_compact_jet_local
   have hA : ContDiff ℝ (⊤ : ℕ∞) A := by
     apply contDiff_pi.mpr
     intro i
-    exact (contDiff_apply ℝ (ℂ × ℝ) (q.places.symm i)).comp (CotangentLogCoframe.A (d F)).contDiff
+    exact (contDiff_apply ℝ (fun _ => ℂ × ℝ) (q.places.symm i)).comp (CotangentLogCoframe.A (d F)).contDiff
   obtain ⟨O,W,ℓ,ψ,fields,hO,hW,hxW,hℓ,hψ,hψO,hfields,hframe,hrec,hpull⟩ :=
     KPContinuation.ChamberJetGeometry.local_iwasawa_frame F ζ hζ
       ((H.atlas (level F ζ hζ C R P H U)).representative a.component) (A x)

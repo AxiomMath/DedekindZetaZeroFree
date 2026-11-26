@@ -86,7 +86,7 @@ theorem zetaSCont_regularized_holomorphic (D : FixedData S η) :
   refine ⟨PrincipalNumerator.finiteDeletionRegularization D.recipe, ?_, ?_, ?_⟩
   · unfold PrincipalNumerator.finiteDeletionRegularization
     apply D.recipe.continuation.R_holo.mul
-    apply DifferentiableOn.fun_finset_prod
+    apply DifferentiableOn.fun_finsetProd
     intro v hv
     exact ((((differentiable_id.neg).mul_const
       (Real.log (idealNorm v.asIdeal) : ℂ)).cexp).const_mul

@@ -68,7 +68,7 @@ private theorem probeDenominatorLe (F : Type) [Field F] [NumberField F]
     exact Ideal.subset_span (Set.mem_singleton s)
   have hqt : Ideal.Quotient.mk a.1.val t = 0 := by
     have hcq := congrArg (Ideal.Quotient.mk a.1.val) hc
-    simp only [map_add, map_mul, hqs, mul_zero, zero_mul, add_zero, p.lift_spec] at hcq
+    simp only [RingHom.map_add, RingHom.map_mul, hqs, mul_zero, zero_mul, add_zero, p.lift_spec] at hcq
     rw [show Ideal.Quotient.mk a.1.val d = (a.2 : (Integers F S) ⧸ a.1.val) from
       p.lift_spec _ _] at hcq
     have hcancel := congrArg (fun x => (↑a.2⁻¹ : (Integers F S) ⧸ a.1.val) * x) hcq

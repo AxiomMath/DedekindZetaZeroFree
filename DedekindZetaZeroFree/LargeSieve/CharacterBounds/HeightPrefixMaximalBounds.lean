@@ -84,7 +84,7 @@ private theorem poly_cont (F : Type) [Field F] [NumberField F]
     (b ω : Ideal (𝓞 F) → ℂ) (B : Finset (Ideal (𝓞 F)))
     (hB : ∀ J ∈ B, J ≠ ⊥) : Continuous (poly F b ω B) := by
   unfold poly
-  apply continuous_finset_sum
+  apply continuous_finsetSum
   intro J hJ
   apply Continuous.mul continuous_const
   apply Continuous.const_cpow

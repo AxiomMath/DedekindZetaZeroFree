@@ -224,7 +224,7 @@ private theorem fourier_tensor
     rfl
  def complexEuler (g : SchwartzMap ℂ ℂ) : SchwartzMap ℂ ℂ :=
   (1 / 2 : ℝ) • SchwartzMap.bilinLeftCLM
-    (ContinuousLinearMap.apply (E := ℂ) ℝ ℂ).flip
+    (ContinuousLinearMap.apply (E' := ℂ) ℝ ℂ).flip
     (Function.HasTemperateGrowth.id') (SchwartzMap.fderivCLM ℝ ℂ ℂ g)
 
 @[simp] private theorem complexEuler_apply (g : SchwartzMap ℂ ℂ) (z : ℂ) :
@@ -353,15 +353,15 @@ private theorem tensor_continuous (A : SArithmeticData F)
   apply Continuous.mul continuous_const
   apply Continuous.mul
   · apply Continuous.mul
-    · apply continuous_finset_prod
+    · apply continuous_finsetProd
       intro v hv
       exact (gr v).continuous.comp
         ((continuous_apply v).comp (continuous_fst.comp (hm.comp continuous_fst)))
-    · apply continuous_finset_prod
+    · apply continuous_finsetProd
       intro v hv
       exact (gc v).continuous.comp
         ((continuous_apply v).comp (continuous_snd.comp (hm.comp continuous_fst)))
-  · apply continuous_finset_prod
+  · apply continuous_finsetProd
     intro v hv
     exact (hgf v).comp ((continuous_apply v).comp continuous_snd)
 

@@ -35,6 +35,6 @@ theorem kummerAlgebra_finrank
     Polynomial.X ^ (n : ℕ) - Polynomial.C (a : K)
   change Module.finrank K (Polynomial K ⧸ Ideal.span {p}) = (n : ℕ)
   rw [finrank_quotient_span_eq_natDegree]
-  exact Polynomial.natDegree_X_pow_sub_C
+  exact Polynomial.natDegree_X_pow_sub_C _
 
 end ClassFieldTheory

@@ -252,7 +252,7 @@ theorem chamber_coordinate_of_characteristic_combination
       intro i hi
       exact (integral_const_mul (a i s) (b i)).symm
     _ = ∫ x, ∑ i, a i s * b i x ∂μ :=
-      (integral_finset_sum _ (fun i _ => (hint i).const_mul (a i s))).symm
+      (integral_finsetSum _ (fun i _ => (hint i).const_mul (a i s))).symm
     _ = ∫ x, U.indicator (fun _ => v.val h) x ∂μ := by rw [he]
     _ = (μ U).toReal * v.val h := by
       rw [integral_indicator hU, integral_const]

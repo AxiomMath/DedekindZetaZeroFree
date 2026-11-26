@@ -124,7 +124,10 @@ private theorem canonical_diagonal_phase (F : Type) [Field F] [NumberField F]
         (algebraMap F v.val.Completion (r : F))) : ℂ) = _
       rw [archTrace_of_isReal _ v.property]
       have hx : algebraMap F v.val.Completion (r : F) =
-        ((WithAbs.equiv v.val.1).symm (r : F) : v.val.Completion) := rfl
+        ((WithAbs.equiv v.val.1).symm (r : F) : v.val.Completion) := by
+        rw [AbsoluteValue.Completion.algebraMap_def, WithAbs.algebraMap_right_apply,
+          Algebra.algebraMap_self_apply]
+        try rfl
       rw [hx]
       simp only [Circle.coe_exp, InfinitePlace.Completion.ringEquivRealOfIsReal_apply,
         InfinitePlace.Completion.extensionEmbeddingOfIsReal_coe, RingEquiv.apply_symm_apply]
@@ -137,7 +140,8 @@ private theorem canonical_diagonal_phase (F : Type) [Field F] [NumberField F]
         Complex.exp (2 * (Real.pi : ℂ) * Complex.I * (2 * (v.val.embedding (r : F)).re : ℂ)) := by
       have hv : (he.symm v).val = v.val := rfl
       change (archTraceCharacter v.val (algebraMap F v.val.Completion (r : F)) : ℂ) = _
-      simp [archTraceCharacter_of_isComplex _ v.property, Circle.coe_exp]
+      simp [archTraceCharacter_of_isComplex _ v.property, Circle.coe_exp,
+        AbsoluteValue.Completion.algebraMap_def, WithAbs.algebraMap_right_apply]
       ring_nf
     simp_rw [hr, hc]
     rw [← Complex.exp_sum, ← Complex.exp_sum, ← Complex.exp_add]

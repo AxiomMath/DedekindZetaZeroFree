@@ -222,7 +222,7 @@ theorem metric_upper_bound (C : Chart F ζ hζ U R P H) : ∃ B : ℝ,
     have hm (v : KPCoreChartLocalizers.E C.n) : ContinuousOn
         (fun x => KPArch.metric (KPCuspLogShape.dimension F) (C.coordinates x) (fderiv ℝ C.coordinates x v)) C.extendedDomain := by
       unfold KPArch.metric KPArch.height
-      apply continuousOn_finset_sum
+      apply continuousOn_finsetSum
       intro i hi
       have hci := ((continuous_apply i).comp_continuousOn C.smooth_coordinates.continuousOn).snd
       have hfi := (continuous_apply i).comp_continuousOn (hf v)

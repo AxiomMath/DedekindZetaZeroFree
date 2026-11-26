@@ -124,8 +124,8 @@ def reciprocityAbelianizedSubgroup
     (A : Rep ℤ G) (E : FiniteGaloisSubextension K)
     (H : AddSubgroup (ambientFixedAddSubgroup A K))
     (rE : FiniteNormQuotient A K E.field E.below ≃+
-      Additive (Abelianization E.extensionQuotient)) :
-    Subgroup (Abelianization E.extensionQuotient) := by
+      Additive (Group.Abelianization E.extensionQuotient)) :
+    Subgroup (Group.Abelianization E.extensionQuotient) := by
   letI : Finite (K.toSubgroup ⧸
       extensionSubgroup K E.field E.below) := E.finite
   exact AddSubgroup.toSubgroup'
@@ -138,8 +138,8 @@ theorem mem_reciprocityAbelianizedSubgroup_iff
     (A : Rep ℤ G) (E : FiniteGaloisSubextension K)
     (H : AddSubgroup (ambientFixedAddSubgroup A K))
     (rE : FiniteNormQuotient A K E.field E.below ≃+
-      Additive (Abelianization E.extensionQuotient))
-    (q : Abelianization E.extensionQuotient) :
+      Additive (Group.Abelianization E.extensionQuotient))
+    (q : Group.Abelianization E.extensionQuotient) :
     q ∈ reciprocityAbelianizedSubgroup A E H rE ↔
       ∃ z ∈ normQuotientSubgroup A E H,
         rE z = Additive.ofMul q := by
@@ -152,9 +152,9 @@ passing to `A_K / N_E` and then applying the specified equivalence. -/
 def reciprocityAbelianizedClassHom
     (A : Rep ℤ G) (E : FiniteGaloisSubextension K)
     (rE : FiniteNormQuotient A K E.field E.below ≃+
-      Additive (Abelianization E.extensionQuotient)) :
+      Additive (Group.Abelianization E.extensionQuotient)) :
     ambientFixedAddSubgroup A K →+
-      Additive (Abelianization E.extensionQuotient) :=
+      Additive (Group.Abelianization E.extensionQuotient) :=
   rE.toAddMonoidHom.comp (finiteNormClassHom A K E.field E.below)
 
 omit [IsTopologicalGroup G] in
@@ -166,7 +166,7 @@ theorem reciprocityClass_mem_abelianizedSubgroup_iff
     (H : AddSubgroup (ambientFixedAddSubgroup A K))
     (hEH : ClassFormation.FiniteGaloisSubextension.normSubgroup A E ≤ H)
     (rE : FiniteNormQuotient A K E.field E.below ≃+
-      Additive (Abelianization E.extensionQuotient))
+      Additive (Group.Abelianization E.extensionQuotient))
     (a : ambientFixedAddSubgroup A K) :
     Additive.toMul (reciprocityAbelianizedClassHom A E rE a) ∈
         reciprocityAbelianizedSubgroup A E H rE ↔
@@ -191,20 +191,20 @@ end FiniteGaloisSubextension
 /-- Pull a subgroup of an abelianization back to the original finite
 Galois group. -/
 def abelianizationPreimageSubgroup
-    {Q : Type*} [Group Q] (T : Subgroup (Abelianization Q)) :
+    {Q : Type*} [Group Q] (T : Subgroup (Group.Abelianization Q)) :
     Subgroup Q :=
-  T.comap (Abelianization.of : Q →* Abelianization Q)
+  T.comap (Group.Abelianization.of : Q →* Group.Abelianization Q)
 
 /-- Every such pullback contains the commutator subgroup. -/
 theorem commutator_le_abelianizationPreimageSubgroup
-    {Q : Type*} [Group Q] (T : Subgroup (Abelianization Q)) :
+    {Q : Type*} [Group Q] (T : Subgroup (Group.Abelianization Q)) :
     commutator Q ≤ abelianizationPreimageSubgroup T := by
   intro q hq
-  change Abelianization.of q ∈ T
+  change Group.Abelianization.of q ∈ T
   have hk : q ∈
-      MonoidHom.ker (Abelianization.of : Q →* Abelianization Q) :=
-    Abelianization.commutator_subset_ker
-      (Abelianization.of : Q →* Abelianization Q) hq
+      MonoidHom.ker (Group.Abelianization.of : Q →* Group.Abelianization Q) :=
+    Group.Abelianization.commutator_le_ker
+      (Group.Abelianization.of : Q →* Group.Abelianization Q) hq
   rw [MonoidHom.mem_ker.mp hk]
   exact T.one_mem
 
@@ -267,7 +267,7 @@ def reciprocityPreimageSubgroup
     (A : Rep ℤ G) (E : FiniteGaloisSubextension K)
     (H : AddSubgroup (ambientFixedAddSubgroup A K))
     (rE : FiniteNormQuotient A K E.field E.below ≃+
-      Additive (Abelianization E.extensionQuotient)) :
+      Additive (Group.Abelianization E.extensionQuotient)) :
     Subgroup E.extensionQuotient :=
   abelianizationPreimageSubgroup
     (reciprocityAbelianizedSubgroup A E H rE)
@@ -279,7 +279,7 @@ theorem commutator_le_reciprocityPreimageSubgroup
     (A : Rep ℤ G) (E : FiniteGaloisSubextension K)
     (H : AddSubgroup (ambientFixedAddSubgroup A K))
     (rE : FiniteNormQuotient A K E.field E.below ≃+
-      Additive (Abelianization E.extensionQuotient)) :
+      Additive (Group.Abelianization E.extensionQuotient)) :
     commutator E.extensionQuotient ≤
       reciprocityPreimageSubgroup A E H rE :=
   commutator_le_abelianizationPreimageSubgroup _
@@ -293,16 +293,16 @@ theorem reciprocityClass_mem_preimageSubgroup_iff
     (H : AddSubgroup (ambientFixedAddSubgroup A K))
     (hEH : ClassFormation.FiniteGaloisSubextension.normSubgroup A E ≤ H)
     (rE : FiniteNormQuotient A K E.field E.below ≃+
-      Additive (Abelianization E.extensionQuotient))
+      Additive (Group.Abelianization E.extensionQuotient))
     (a : ambientFixedAddSubgroup A K) :
     Quotient.out (Additive.toMul
         (reciprocityAbelianizedClassHom A E rE a)) ∈
         reciprocityPreimageSubgroup A E H rE ↔
       a ∈ H := by
-  change Abelianization.of (Quotient.out (Additive.toMul
+  change Group.Abelianization.of (Quotient.out (Additive.toMul
       (reciprocityAbelianizedClassHom A E rE a))) ∈
         reciprocityAbelianizedSubgroup A E H rE ↔ a ∈ H
-  rw [show Abelianization.of (Quotient.out (Additive.toMul
+  rw [show Group.Abelianization.of (Quotient.out (Additive.toMul
       (reciprocityAbelianizedClassHom A E rE a))) =
         Additive.toMul (reciprocityAbelianizedClassHom A E rE a) by
       exact Quotient.out_eq' _]
@@ -317,7 +317,7 @@ theorem candidateQuotient_eq_one_iff
     (H : AddSubgroup (ambientFixedAddSubgroup A K))
     (hEH : ClassFormation.FiniteGaloisSubextension.normSubgroup A E ≤ H)
     (rE : FiniteNormQuotient A K E.field E.below ≃+
-      Additive (Abelianization E.extensionQuotient))
+      Additive (Group.Abelianization E.extensionQuotient))
     (a : ambientFixedAddSubgroup A K) :
     let S := reciprocityPreimageSubgroup A E H rE
     letI : S.Normal := Subgroup.Normal.of_commutator_le E.extensionQuotient
@@ -348,7 +348,7 @@ def classFieldCandidate
     (A : Rep ℤ G) (E : FiniteGaloisSubextension K)
     (H : AddSubgroup (ambientFixedAddSubgroup A K))
     (rE : FiniteNormQuotient A K E.field E.below ≃+
-      Additive (Abelianization E.extensionQuotient)) :
+      Additive (Group.Abelianization E.extensionQuotient)) :
     FiniteAbelianSubextension K :=
   intermediateFiniteAbelianOfCommutatorLe E
     (reciprocityPreimageSubgroup A E H rE)
@@ -361,7 +361,7 @@ theorem classFieldCandidate_field
     (A : Rep ℤ G) (E : FiniteGaloisSubextension K)
     (H : AddSubgroup (ambientFixedAddSubgroup A K))
     (rE : FiniteNormQuotient A K E.field E.below ≃+
-      Additive (Abelianization E.extensionQuotient)) :
+      Additive (Group.Abelianization E.extensionQuotient)) :
     (classFieldCandidate A E H rE).field =
       E.intermediateField
         (reciprocityPreimageSubgroup A E H rE) :=

@@ -273,7 +273,7 @@ private lemma mem_Omega_iff {x : Coordinates} :
 private lemma slice_fst {w z : ℂ} (hw : 4 < w.re) (hz : 2 < z.re) :
     {ξ : ℂ | ((ξ, w, z) : Coordinates) ∈ Omega} = {ξ : ℂ | c₁ < ξ.re} := by
   ext ξ
-  rw [Set.mem_setOf_eq, Set.mem_setOf_eq, mem_Omega_iff]
+  rw [Set.mem_setOf_eq, mem_Omega_iff, Set.mem_setOf_eq]
   constructor
   · intro h
     rcases h with ⟨h1, _, _⟩ | ⟨h1, _, _⟩
@@ -285,7 +285,7 @@ private lemma slice_fst {w z : ℂ} (hw : 4 < w.re) (hz : 2 < z.re) :
 private lemma slice_snd {ξ z : ℂ} (hξ : c₁ < ξ.re) (hz : 2 < z.re) :
     {w : ℂ | ((ξ, w, z) : Coordinates) ∈ Omega} = {w : ℂ | c₂ < w.re} := by
   ext w
-  rw [Set.mem_setOf_eq, Set.mem_setOf_eq, mem_Omega_iff]
+  rw [Set.mem_setOf_eq, mem_Omega_iff, Set.mem_setOf_eq]
   constructor
   · intro h
     rcases h with ⟨_, h1, _⟩ | ⟨_, h1, _⟩
@@ -298,7 +298,7 @@ private lemma slice_trd_first {ξ w : ℂ} (hξ : c₁ < ξ.re) (hw : c₂ < w.r
     (hw' : ¬ c₂' < w.re) :
     {z : ℂ | ((ξ, w, z) : Coordinates) ∈ Omega} = {z : ℂ | c₃ < z.re} := by
   ext z
-  rw [Set.mem_setOf_eq, Set.mem_setOf_eq, mem_Omega_iff]
+  rw [Set.mem_setOf_eq, mem_Omega_iff, Set.mem_setOf_eq]
   constructor
   · intro h
     rcases h with ⟨_, _, h1⟩ | ⟨_, h2, _⟩
@@ -310,7 +310,7 @@ private lemma slice_trd_first {ξ w : ℂ} (hξ : c₁ < ξ.re) (hw : c₂ < w.r
 private lemma slice_trd_second {ξ w : ℂ} (hξ : c₁ < ξ.re) (hw' : c₂' < w.re) :
     {z : ℂ | ((ξ, w, z) : Coordinates) ∈ Omega} = {z : ℂ | c₃' < z.re} := by
   ext z
-  rw [Set.mem_setOf_eq, Set.mem_setOf_eq, mem_Omega_iff]
+  rw [Set.mem_setOf_eq, mem_Omega_iff, Set.mem_setOf_eq]
   constructor
   · intro h
     rcases h with ⟨_, _, h1⟩ | ⟨_, _, h1⟩

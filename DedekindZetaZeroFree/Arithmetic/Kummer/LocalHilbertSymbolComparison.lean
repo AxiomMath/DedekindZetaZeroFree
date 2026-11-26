@@ -72,6 +72,7 @@ private theorem dense_units (F : Type) [Field F] [NumberField F]
 set_option maxRecDepth 4000
 set_option maxHeartbeats 1000000
 open GlobalClassFieldTheory.Reciprocity KummerTheory
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
 private theorem global_trivial (F : Type) [Field F] [NumberField F]
     (h12 : (primitiveRoots 12 F).Nonempty) (x a : Fˣ)
     (v : HeightOneSpectrum (𝓞 F)) :

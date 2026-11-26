@@ -189,7 +189,10 @@ theorem scalarDiagonal_denseRange (F : Type) [Field F] [NumberField F] :
     DenseRange (scalarDiagonal F) := by
   have hd := (localMap_denseRange F).comp (denseRange_abv_pi F) (localMap_continuous F)
   convert hd using 1
-  rfl
+  funext x
+  refine Prod.ext ?_ rfl
+  funext v
+  exact NumberField.InfiniteAdeleRing.algebraMap_apply F x v
 
 end
 end DedekindZetaZeroFree.KPRationalFlagCylinderApproximation
@@ -467,7 +470,7 @@ theorem affine_flag_cylinder
   obtain ⟨g, hg⟩ := hne
   obtain ⟨S, hS⟩ := localize_good g
   let p : Domain F S := ⟨localize g, hS⟩
-  obtain ⟨T, hT, hTe⟩ := IsInducing.subtypeVal.isOpen_iff.mp
+  obtain ⟨T, hT, hTe⟩ := isOpen_induced_iff.mp
     (hU.preimage (continuous_assemble (F := F) (S := S)))
   have hpT : p.val ∈ T := by
     change p ∈ (Subtype.val ⁻¹' T : Set (Domain F S))
@@ -571,7 +574,8 @@ theorem affine_flag_cylinder
         ext i j
         fin_cases i <;> fin_cases j <;>
           simp [ax, arch, scalarDiagonal, affineRepresentative,
-            GeneralLinearGroup.mkOfDetNeZero, GeneralLinearGroup.map_apply] <;> rfl
+            GeneralLinearGroup.mkOfDetNeZero, GeneralLinearGroup.map_apply] <;>
+          first | rfl | exact NumberField.InfiniteAdeleRing.algebraMap_apply F _ v
       rw [hax]
       change (affineRepresentative _)⁻¹ * (affineRepresentative _ * d v) = d v
       simp

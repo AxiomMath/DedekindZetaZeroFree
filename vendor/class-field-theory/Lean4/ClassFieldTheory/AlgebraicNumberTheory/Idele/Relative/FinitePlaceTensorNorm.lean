@@ -61,13 +61,11 @@ noncomputable def finitePlaceCompletionAlgEquiv
   commutes' x := by
     change
       finitePlaceCompletionRingHom v
-          (((WithAbs.equiv
-            (NumberField.HeightOneSpectrum.adicAbv K v)).symm x :
-              WithAbs
-                (NumberField.HeightOneSpectrum.adicAbv K v)) :
-            (NumberField.HeightOneSpectrum.adicAbv K v).Completion) =
+          (algebraMap K
+            (NumberField.HeightOneSpectrum.adicAbv K v).Completion x) =
         algebraMap K (v.adicCompletion K) x
-    rw [finitePlaceCompletionRingHom_coe]
+    rw [AbsoluteValue.Completion.algebraMap_def,
+      finitePlaceCompletionRingHom_coe]
     rfl
 
 /-- Base change of the first tensor factor gives the concrete tensor

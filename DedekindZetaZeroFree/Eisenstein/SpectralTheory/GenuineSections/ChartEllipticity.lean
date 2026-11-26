@@ -94,7 +94,7 @@ private lemma frame_basis (d : ℕ) (x : Space d) (i : Fin d) (k : Fin 3) :
       (if k = 2 then 1 else Real.exp (x (i,2))) • coordinateVector d i k := by
   ext j
   simp only [frame, scaleL_apply, EuclideanSpace.basisFun_apply,
-    EuclideanSpace.single_apply, coordinateVector, PiLp.smul_apply,
+    PiLp.single_apply, Pi.single_apply, coordinateVector, PiLp.smul_apply,
     WithLp.ofLp_toLp, smul_eq_mul]
   by_cases h : j = (i,k)
   · subst j; simp

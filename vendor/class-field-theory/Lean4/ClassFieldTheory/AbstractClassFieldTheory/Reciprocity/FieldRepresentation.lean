@@ -117,7 +117,7 @@ theorem extensionFixedRepresentation_norm_coe
     letI := hnormal
     letI := Fintype.ofFinite
       (K.toSubgroup ⧸ extensionSubgroup K L hLK)
-    ((extensionFixedRepresentation A K L hLK hnormal).norm.hom a).1 =
+    ((extensionFixedRepresentation A K L hLK hnormal).norm.asHom.hom a).1 =
       ((relativeNorm A K L hLK
         (extensionFixedRepresentationEquiv A K L hLK hnormal a) :
           ambientFixedAddSubgroup A K) : A.V) := by

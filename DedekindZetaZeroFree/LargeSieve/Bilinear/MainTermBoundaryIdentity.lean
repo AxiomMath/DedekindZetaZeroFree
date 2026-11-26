@@ -566,7 +566,7 @@ private lemma ideal_radical_eq (q : Ideal (𝓞 F)) (hq : q ≠ ⊥) :
   obtain ⟨hp, hprod, _, _, _, _⟩ := Vendor.CutoffDifference.squarefree_divisor_dictionary r hr hsf
   let P := (factors r).toFinset
   have heq : P.inf (fun p => p) = r := by
-    have h := IsDedekindDomain.inf_prime_pow_eq_prod P (fun p => p) (fun _ => 1)
+    have h := IsDedekindDomain.inf_pow_eq_prod_of_prime P (fun p => p) (fun _ => 1)
       hp (by intro i hi j hj hij; exact hij)
     calc
       P.inf (fun p => p) = ∏ p ∈ P, p := by simpa only [pow_one] using h

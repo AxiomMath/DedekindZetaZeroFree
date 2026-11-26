@@ -92,7 +92,7 @@ private theorem smooth_mean (d : ℕ) : ContDiff ℝ (⊤ : ℕ∞) (KPCuspLogSh
   apply ContDiff.div_const
   apply ContDiff.sum
   intro i hi
-  exact contDiff_snd.comp (contDiff_apply ℝ KPArch.H3 i)
+  exact contDiff_snd.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i)
 
 private theorem derivative_smoothAt (d : ℕ) (g : Space d → ℂ) (x : Space d)
     (hg : ContDiffAt ℝ (⊤ : ℕ∞) g x) (i : Fin d) (k : Fin 3) :
@@ -342,7 +342,7 @@ private theorem contDiff_meanHeight_for_radialCoefficient (d : ℕ) : ContDiff �
   apply ContDiff.div_const
   apply ContDiff.sum
   intro i hi
-  exact contDiff_snd.comp (contDiff_apply ℝ KPArch.H3 i)
+  exact contDiff_snd.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i)
 
 private theorem radial_eq_slice_deriv
     {F : Type} [Field F] [NumberField F] {T : ℝ}
@@ -482,10 +482,10 @@ theorem cutoff_tangentialDivergence_integrable_integral_zero
     intro ⟨i,k⟩
     fin_cases k
     · simpa [real, Function.comp_def] using Complex.reCLM.contDiff.comp
-        (contDiff_fst.comp (contDiff_apply ℝ KPArch.H3 i))
+        (contDiff_fst.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i))
     · simpa [real, Function.comp_def] using Complex.imCLM.contDiff.comp
-        (contDiff_fst.comp (contDiff_apply ℝ KPArch.H3 i))
-    · simpa [real, Function.comp_def] using contDiff_snd.comp (contDiff_apply ℝ KPArch.H3 i)
+        (contDiff_fst.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i))
+    · simpa [real, Function.comp_def] using contDiff_snd.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i)
   have hp : Continuous (fun c : KPCuspCharts.Cross F => (c,t)) :=
     continuous_id.prodMk continuous_const
   have harch := (KPCuspCharts.toArch_contDiff F).continuous.comp hp
@@ -497,7 +497,7 @@ theorem cutoff_tangentialDivergence_integrable_integral_zero
     ((hw i 0).fderiv_right (by simp)).clm_apply contDiff_const
   have hshape : Continuous (fun c => shapeDivergence F W c t) := by
     unfold shapeDivergence
-    apply continuous_finset_sum
+    apply continuous_finsetSum
     intro i hi
     exact ((Complex.reCLM.contDiff.comp (hc i i)).sub
       ((ContDiff.sum fun j _ => Complex.reCLM.contDiff.comp (hc i j)).div_const _)).continuous.comp hx
@@ -586,7 +586,7 @@ private theorem contDiff_meanHeight_for_cutoffFlux (d : ℕ) : ContDiff ℝ (⊤
   apply ContDiff.div_const
   apply ContDiff.sum
   intro i hi
-  exact contDiff_snd.comp (contDiff_apply ℝ KPArch.H3 i)
+  exact contDiff_snd.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i)
 
 private theorem smooth_real (d : ℕ) : ContDiff ℝ (⊤ : ℕ∞) (real d) := by
   apply (contDiff_piLp 2).mpr
@@ -594,10 +594,10 @@ private theorem smooth_real (d : ℕ) : ContDiff ℝ (⊤ : ℕ∞) (real d) := 
   rcases j with ⟨i, k⟩
   fin_cases k
   · simpa [real, Function.comp_def] using
-      Complex.reCLM.contDiff.comp (contDiff_fst.comp (contDiff_apply ℝ KPArch.H3 i))
+      Complex.reCLM.contDiff.comp (contDiff_fst.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i))
   · simpa [real, Function.comp_def] using
-      Complex.imCLM.contDiff.comp (contDiff_fst.comp (contDiff_apply ℝ KPArch.H3 i))
-  · simpa [real, Function.comp_def] using contDiff_snd.comp (contDiff_apply ℝ KPArch.H3 i)
+      Complex.imCLM.contDiff.comp (contDiff_fst.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i))
+  · simpa [real, Function.comp_def] using contDiff_snd.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i)
 
 private theorem coordinateDerivative_contDiffAt_for_cutoffFlux (d : ℕ) (g : Space d → ℂ) (x : Space d)
     (hg : ContDiffAt ℝ (⊤ : ℕ∞) g x) (i : Fin d) (k : Fin 3) :

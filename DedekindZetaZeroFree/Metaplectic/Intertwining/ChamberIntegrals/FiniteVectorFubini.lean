@@ -17,7 +17,7 @@ private theorem finite_coordinate_multilinear_integral
     {V : ι → Type} [∀ i, AddCommGroup (V i)] [∀ i, Module ℂ (V i)]
     {X : ι → Type} [∀ i, MeasurableSpace (X i)]
     (μ : ∀ i, Measure (X i)) [∀ i, SigmaFinite (μ i)]
-    (e : ∀ i, V i ≃ₗ[ℂ] (J i → ℂ)) (L : MultilinearMap ℂ V ℂ)
+    (e : ∀ i, V i ≃ₗ[ℂ] (J i → ℂ)) (L : MultilinearMap (RingHom.id ℂ) V ℂ)
     (f : ∀ i, X i → V i) (v : ∀ i, V i)
     (hf : ∀ i j, Integrable (fun x => e i (f i x) j) (μ i))
     (hv : ∀ i j, e i (v i) j = ∫ x, e i (f i x) j ∂μ i) :
@@ -40,7 +40,7 @@ private theorem finite_coordinate_multilinear_integral
         rw [L.map_sum_finset]
         apply Finset.sum_congr rfl
         intro r _
-        simpa only [smul_eq_mul] using
+        simpa only [smul_eq_mul, RingHom.id_apply] using
           L.map_smul_univ (fun i => e i (y i) (r i)) (fun i => w i (r i))
   have hi (r : ∀ i, J i) : Integrable
       (fun x : ∀ i, X i => (∏ i, e i (f i (x i)) (r i)) * L (fun i => w i (r i)))

@@ -1109,7 +1109,7 @@ theorem henselianRing_of_monicResidualCoprimeFactorLifting
     (hlift : MonicResidualCoprimeFactorLifting V) :
     HenselianRing V (IsLocalRing.maximalIdeal V) where
   jac := by
-    rw [Ideal.jacobson, le_sInf_iff]
+    rw [← Ideal.jacobson_bot, Ideal.jacobson, le_sInf_iff]
     rintro I ⟨-, hI⟩
     exact (IsLocalRing.eq_maximalIdeal hI).ge
   is_henselian := by

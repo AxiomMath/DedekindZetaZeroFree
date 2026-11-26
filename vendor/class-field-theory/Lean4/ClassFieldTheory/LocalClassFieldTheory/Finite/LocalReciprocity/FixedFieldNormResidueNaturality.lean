@@ -86,7 +86,7 @@ noncomputable def abstractFixedFieldNormResidueSymbol
         extensionSubgroup (baseField (Gal(Ω / k))) K
           (le_baseField K))] :
     Additive (abstractFixedField k Ω K)ˣ →+
-      Additive (Abelianization
+      Additive (Group.Abelianization
         Gal(abstractRelativeFixedField k Ω hLK /
           abstractFixedField k Ω K)) := by
   let KF : FiniteAbstractField (Gal(Ω / k)) :=
@@ -125,10 +125,10 @@ noncomputable def abstractFixedFieldAbelianizedRestriction
     (hL'L : L'.toSubgroup ≤ L.toSubgroup)
     [hLnormal : (extensionSubgroup K L hLK).Normal]
     [hL'normal : (extensionSubgroup K' L' hL'K').Normal] :
-    Additive (Abelianization
+    Additive (Group.Abelianization
         Gal(abstractRelativeFixedField k Ω hL'K' /
           abstractFixedField k Ω K')) →+
-      Additive (Abelianization
+      Additive (Group.Abelianization
         Gal(abstractRelativeFixedField k Ω hLK /
           abstractFixedField k Ω K)) :=
   MonoidHom.toAdditive
@@ -159,10 +159,10 @@ theorem abstractFixedFieldAbelianizedRestriction_on_representative
         k Ω K K' L L' hLK hL'K' hK'K hL'L
         (Additive.ofMul
           (q'.abelianizationCongr
-            (Abelianization.of (QuotientGroup.mk σ)))) =
+            (Group.Abelianization.of (QuotientGroup.mk σ)))) =
       Additive.ofMul
         (q.abelianizationCongr
-          (Abelianization.of
+          (Group.Abelianization.of
             (QuotientGroup.mk (Subgroup.inclusion hK'K σ)))) := by
   dsimp only
   let q := abstractExtensionQuotientEquivGaloisGroup
@@ -175,7 +175,7 @@ theorem abstractFixedFieldAbelianizedRestriction_on_representative
           hLK hL'K' hK'K hL'L
           (q'.abelianizationCongr.symm
             (q'.abelianizationCongr
-              (Abelianization.of (QuotientGroup.mk σ)))))) = _
+              (Group.Abelianization.of (QuotientGroup.mk σ)))))) = _
   rw [q'.abelianizationCongr.symm_apply_apply]
   rw [normResidueNaturalityAbelianizedRestriction_of_mk]
 
@@ -312,10 +312,10 @@ noncomputable def abstractFixedFieldAbelianizedTransfer
         (K'.toSubgroup ⧸ extensionSubgroup K' L hLK') :=
       FiniteGaloisSubextension.finite_extension_over_intermediate
         (hLK'.trans hK'K) hK'K hLK'
-    Additive (Abelianization
+    Additive (Group.Abelianization
         Gal(abstractRelativeFixedField k Ω (hLK'.trans hK'K) /
           abstractFixedField k Ω K)) →+
-      Additive (Abelianization
+      Additive (Group.Abelianization
         Gal(abstractRelativeFixedField k Ω hLK' /
           abstractFixedField k Ω K')) := by
   letI : (extensionSubgroup K' L hLK').Normal :=

@@ -81,7 +81,7 @@ theorem coprimeIdealResidue_dual_common_averages :
     affineResidueDualAverage m hm I (lift q) u) = _
   unfold affineResidueDualAverage
   simp_rw [← integral_const_mul]
-  rw [← integral_finset_sum Finset.univ (fun q _ =>
+  rw [← integral_finsetSum Finset.univ (fun q _ =>
     (affineResidueDualTheta_integrableOn m hm I (lift q) u hu).const_mul
       (coprimeIdealResidueCoefficient hF m a hm ha hcop hmt η E q))]
   apply integral_congr_ae

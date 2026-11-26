@@ -250,6 +250,7 @@ after transport through a prime-field embedding whose norm is `|·|^s`, for
       (K := K) v s hs hnorm (0 : CauSeq ℚ (abs : ℚ → ℚ)) = 0 := by
   ext n
   simp [ostrowski_ratCauSeqMapWithAbs_of_real_rpow]
+  rfl
 
 @[simp]
  theorem ostrowski_ratCauSeqMapWithAbs_one_of_real_rpow
@@ -262,6 +263,7 @@ after transport through a prime-field embedding whose norm is `|·|^s`, for
       (K := K) v s hs hnorm (1 : CauSeq ℚ (abs : ℚ → ℚ)) = 1 := by
   ext n
   simp [ostrowski_ratCauSeqMapWithAbs_of_real_rpow]
+  rfl
 
 @[simp]
  theorem ostrowski_ratCauSeqMapWithAbs_add_of_real_rpow

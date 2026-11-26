@@ -264,8 +264,8 @@ theorem convolution_jet_integral
           ((L.precompR (ι → ℂ)) (f y) (fderiv ℝ (iteratedFDeriv ℝ n (k : (ι → ℂ) → ℂ)) (x-y))) :=
         by
           convert ((continuousMultilinearCurryLeftEquiv ℝ (n := n)
-            (fun _ : Fin (n+1) => ι → ℂ) ℂ).symm.toLinearIsometry.integral_comp_comm
-            (μ := volume) (fun y : ι → ℂ => (L.precompR (ι → ℂ)) (f y)
+            (fun _ : Fin (n+1) => ι → ℂ) ℂ).symm.toContinuousLinearEquiv.integral_comp_comm
+            (𝕜 := ℝ) (μ := volume) (fun y : ι → ℂ => (L.precompR (ι → ℂ)) (f y)
               (fderiv ℝ (iteratedFDeriv ℝ n (k : (ι → ℂ) → ℂ)) (x-y)))).symm <;> rfl
       _ = _ := by
         apply integral_congr_ae
@@ -509,7 +509,7 @@ theorem product_mollification_uniform_derivative_approximation
     rfl
   let K : E → ℝ := fun x => ∏ i, q (x i)
   have hKs : ContDiff ℝ (⊤ : ℕ∞) K :=
-    contDiff_prod (fun i _ => hqs.comp (contDiff_apply ℝ ℂ i))
+    contDiff_prod (fun i _ => hqs.comp (contDiff_apply ℝ (fun _ => ℂ) i))
   have hKR : Function.support K ⊆ Metric.closedBall 0 a := by
     intro x hx
     rw [Metric.mem_closedBall, dist_zero_right]
@@ -643,7 +643,7 @@ def translatedProduct (ι : Type*) [Fintype ι]
     have hi : x i - y i ∈ Function.support (g i : ℂ → ℂ) :=
       (Finset.prod_ne_zero_iff.mp h) i (Finset.mem_univ i)
     simpa [Metric.mem_closedBall, dist_zero_right] using hgR i hi)).toSchwartzMap
-    (contDiff_prod fun i _ => (g i).smooth'.comp ((contDiff_apply ℝ ℂ i).sub contDiff_const))
+    (contDiff_prod fun i _ => (g i).smooth'.comp ((contDiff_apply ℝ (fun _ => ℂ) i).sub contDiff_const))
 
 theorem translatedProduct_apply (ι : Type*) [Fintype ι]
     (g : ι → SchwartzMap ℂ ℂ)

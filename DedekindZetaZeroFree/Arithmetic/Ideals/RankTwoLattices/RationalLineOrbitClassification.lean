@@ -128,7 +128,7 @@ theorem kp_cusp_lineEquivalent_iff_lineClass_eq
     obtain ⟨eJ⟩ := (kp_cusp_fractional_ideal_equiv_iff R K J J' hJ hJ').mpr
       ((kp_cusp_class_eq_iff_scalar R K J J' hJ hJ').mp hCJ)
     let f := (e.symm.trans (eI.prodCongr eJ)).trans e'
-    letI : Submodule.IsLattice K M.val := M.property
+    letI : Submodule.IsFullLattice K M.val := M.property
     obtain ⟨g, ⟨hg, hgM⟩, _⟩ :=
       kp_cusp_full_lattice_equiv_extension R K (K × K) (K × K) M.val M.val f
     refine ⟨g, hgM, ?_⟩
@@ -167,7 +167,7 @@ private theorem cusp_coordinate_isLattice
     (R : Type*) [CommRing R] [IsDedekindDomain R]
     (K : Type*) [Field K] [Algebra R K] [IsFractionRing R K]
     (I J : FractionalIdeal R⁰ K) (hI : I ≠ 0) (hJ : J ≠ 0) :
-    Submodule.IsLattice K (coordinateLattice R K I J) := by
+    Submodule.IsFullLattice K (coordinateLattice R K I J) := by
   have hn : ∀ L : FractionalIdeal R⁰ K, L ≠ 0 → ∃ t ∈ L, t ≠ (0 : K) := by
     intro L hL
     apply (Submodule.ne_bot_iff L.val).mp
@@ -175,8 +175,10 @@ private theorem cusp_coordinate_isLattice
     exact hL (Subtype.ext (h.trans FractionalIdeal.coe_zero.symm))
   obtain ⟨s, hs, hs0⟩ := hn I hI
   obtain ⟨t, ht, ht0⟩ := hn J hJ
-  refine ⟨(FractionalIdeal.fg_of_isNoetherianRing le_rfl I).prod
-    (FractionalIdeal.fg_of_isNoetherianRing le_rfl J), ?_⟩
+  have hlat : Submodule.IsLattice K (coordinateLattice R K I J) :=
+    Submodule.IsLattice.of_fg K ((FractionalIdeal.fg_of_isNoetherianRing le_rfl I).prod
+      (FractionalIdeal.fg_of_isNoetherianRing le_rfl J))
+  refine { toIsLattice := hlat, span_eq_top := ?_ }
   apply top_unique
   intro x _
   have h₁ : ((s, 0) : K × K) ∈ coordinateLattice R K I J :=

@@ -377,10 +377,10 @@ theorem finiteAbelianNormSubgroup_finiteIndex
     apply Nat.finite_of_card_ne_zero
     rw [IsGalois.card_aut_eq_finrank K E]
     exact Nat.ne_of_gt Module.finrank_pos
-  let : Finite (Abelianization (Gal(E / K))) :=
-    Finite.of_surjective Abelianization.of QuotientGroup.mk_surjective
+  let : Finite (Group.Abelianization (Gal(E / K))) :=
+    Finite.of_surjective Group.Abelianization.of QuotientGroup.mk_surjective
   let : Finite (NormQuotient K E) :=
-    Finite.of_equiv (Abelianization (Gal(E / K)))
+    Finite.of_equiv (Group.Abelianization (Gal(E / K)))
       (abelianizationEquivNormQuotient K E).toEquiv
   let : Finite (Kˣ ⧸ localNormSubgroup K E) := by
     change Finite (NormQuotient K E)

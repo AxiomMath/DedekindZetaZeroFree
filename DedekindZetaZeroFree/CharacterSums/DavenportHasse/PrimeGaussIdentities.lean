@@ -155,7 +155,7 @@ private theorem primeIdentities
   have hQ : Fintype.card (DHCubic.Residue F v) % 12 = 1 := by
     have hcard : Fintype.card (DHCubic.Residue F v) = Ideal.absNorm v.asIdeal := by
       rw [← Nat.card_eq_fintype_card]
-      exact (Submodule.cardQuot_apply v.asIdeal).symm
+      exact (Ideal.absNorm_eq_natCard v.asIdeal).symm
     rw [hcard]
     exact A.exterior_norm_mod_twelve v hv
   have hdup := FiniteGauss.normalizedGaussPower_sextic_duplication

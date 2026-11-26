@@ -86,7 +86,7 @@ theorem fourier_log_radial_contDiff
   have hc : Continuous c := by
     dsimp [c]
     apply continuous_const.mul
-    apply continuous_finset_sum
+    apply continuous_finsetSum
     intro w _
     apply continuous_const.mul
     apply Complex.continuous_re.comp
@@ -94,7 +94,7 @@ theorem fourier_log_radial_contDiff
     fun_prop
   have hd : Continuous d := by
     dsimp [d]
-    apply continuous_finset_prod
+    apply continuous_finsetProd
     intro v _
     exact continuous_subtype_val.comp ((he v).comp (by fun_prop))
   have hr : ContDiff ℝ 1 r := by
@@ -299,11 +299,11 @@ private theorem prof_fourier_deriv (A : SArithmeticData F)
     apply Continuous.mul
     · apply Continuous.cexp
       apply Continuous.const_mul
-      apply continuous_finset_sum
+      apply continuous_finsetSum
       intro w _
       exact ((Complex.continuous_ofReal.comp ((hcoord w).comp continuous_fst)).const_mul 2).mul
         (Complex.continuous_ofReal.comp (hcont w))
-    · apply continuous_finset_prod
+    · apply continuous_finsetProd
       intro v _
       exact continuous_subtype_val.comp ((he v).comp
         ((((continuous_apply v).comp (continuous_snd.comp continuous_snd)).neg).mul continuous_const))
@@ -311,7 +311,7 @@ private theorem prof_fourier_deriv (A : SArithmeticData F)
     unfold coeff
     push_cast
     apply Continuous.const_mul
-    apply continuous_finset_sum
+    apply continuous_finsetSum
     intro w _
     exact ((Complex.continuous_ofReal.comp ((hdcoord w).comp continuous_fst)).const_mul 2).mul
       (Complex.continuous_ofReal.comp (hcont w))
@@ -442,7 +442,7 @@ theorem fourier_log_radial_deriv
   change (∫ x, W0 x * ProbeAdditive.phase F A.Sf e (-x * y) * coeff (da u) x y ∂μ) =
     (InfinitePlace.nrComplexPlaces F : ℂ)⁻¹ * ∑ w, logDerivativeRaw A w 1 (ProbeWeight.fourier F A.Sf e μ W0) y
   simp_rw [(hsingle _).2]
-  rw [← integral_finset_sum _ (fun w _ => (hsingle w).1), ← integral_const_mul]
+  rw [← integral_finsetSum _ (fun w _ => (hsingle w).1), ← integral_const_mul]
   apply integral_congr_ae
   apply Eventually.of_forall
   intro x
@@ -705,13 +705,13 @@ private theorem raw_annular_continuous (A : SArithmeticData F)
   rw [he]
   apply Continuous.mul
   · apply Continuous.mul
-    · apply continuous_finset_prod
+    · apply continuous_finsetProd
       intro v hv
       exact (hr v).1.continuous.comp ((continuous_apply v).comp (continuous_fst.comp (hm.comp continuous_fst)))
-    · apply continuous_finset_prod
+    · apply continuous_finsetProd
       intro v hv
       exact (hc v).1.continuous.comp ((continuous_apply v).comp (continuous_snd.comp (hm.comp continuous_fst)))
-  · apply continuous_finset_prod
+  · apply continuous_finsetProd
     intro v hv
     exact (hf v).1.continuous.comp ((continuous_apply v).comp continuous_snd)
 theorem raw_fourier_continuous (A : SArithmeticData F)
@@ -878,7 +878,7 @@ theorem positive_sheet_continuous
       exact SheetContinuityAtoms.Derivative.fourier_log_radial_deriv A e he μ hμ W0
         (raw_annular_continuous A W0 hW0) hcompact T₀.val T₀.property p.2 p.1
     rw [heq]
-    exact (integrable_finset_sum Finset.univ (fun w _ => h1 w)).const_mul _
+    exact (integrable_finsetSum Finset.univ (fun w _ => h1 w)).const_mul _
   obtain ⟨B, hB, hb⟩ := radial_derivative_integrable_majorant f hf hf0 hderiv
   refine ⟨B, hB, ?_⟩
   have hg : Continuous (fun T : {T : ℝ // 0 < T} => Real.log (T.val / T₀.val)) :=

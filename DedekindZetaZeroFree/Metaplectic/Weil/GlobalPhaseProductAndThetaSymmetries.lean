@@ -30,6 +30,8 @@ private theorem localProductToSpace_sLocalDiagonal
         algebraMap F (NumberField.InfiniteAdeleRing F) r := by
       funext v
       simp only [sLocalDiagonal_infinite]
+      rw [AbsoluteValue.Completion.algebraMap_def, WithAbs.algebraMap_right_apply,
+        Algebra.algebraMap_self_apply]
       exact (NumberField.InfiniteAdeleRing.algebraMap_apply F r v).symm
     rw [h1]
     apply (NumberField.mixedEmbedding.euclidean.toMixed F).injective

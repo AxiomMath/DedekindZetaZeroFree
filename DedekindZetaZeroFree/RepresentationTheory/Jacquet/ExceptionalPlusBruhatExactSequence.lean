@@ -404,6 +404,9 @@ theorem independent_plus_jacquet_short_exact (P : Polarization S.heisenberg) : b
   have hs := raw_smooth F ζ hζ q m hm S P
   let μ : Measure (LocalField F q) := Measure.addHaar
   obtain ⟨e⟩ := raw_principal_series_equiv_core F ζ hζ q m hm S P .plus
+  letI : AddCommGroup (KPLocalSmoothRepresentation.PrincipalSeries F ζ hζ q m
+      (KPLocalInductionJacquetReciprocity.borelRetraction F ζ hζ q) (tau P)) :=
+    Submodule.addCommGroup _
   let E := raw_jacquet_equiv F ζ hζ q S
     (V := sectionSpace S.borel P .plus 0)
     (W := KPLocalSmoothRepresentation.PrincipalSeries F ζ hζ q m

@@ -29,7 +29,7 @@ def finiteValues (a : Raw R) : ∀ j : s.val, Fiber R P C j.val := fun j =>
   | ⟨.inr q,hq⟩ => (x ⟨.inr q,hq⟩).val.val
       (KPPGLLocalCover.coverQuotient F ζ hζ (.inr q) (a (.inr q)))
 
-def observation : MultilinearMap ℂ (fun j : s.val => Fiber R P C j.val) ℂ :=
+def observation : MultilinearMap (RingHom.id ℂ) (fun j : s.val => Fiber R P C j.val) ℂ :=
   (({ toFun := fun f : smoothRationalFiber F ζ hζ => f.val.val 1
       map_add' := by intros; rfl
       map_smul' := by intros; rfl } : smoothRationalFiber F ζ hζ →ₗ[ℂ] ℂ).comp

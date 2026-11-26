@@ -937,8 +937,8 @@ private theorem
       infinitePlaceBelow_self (K := K) W
     let : W.1.LiesOver V.1 := ⟨rfl⟩
     change
-      NumberField.LiesOver.completionMap
-          (v := V) (w := W) (a.1 V) =
+      AbsoluteValue.Completion.map
+          V.1 W.1 (a.1 V) =
         a.1 W
     subst V
     exact

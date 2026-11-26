@@ -226,10 +226,10 @@ private theorem maximal_mem {G : Type*} [Group G] (H : Subgroup G)
     · have : y = g := hy; subst y; exact (hc x hx).symm
     · have : x = g := hx; subst x; exact hc y hy
     · have : x = g := hx; have : y = g := hy; subst x; subst y; exact Commute.refl _
-  letI := Subgroup.closureCommGroupOfComm hcomm
+  have hAc := Subgroup.isMulCommutative_closure hcomm
   have he : A = H := hH.2 A hA (by
     intro x hx y hy
-    exact (congrArg Subtype.val (mul_comm (⟨x,hx⟩ : A) ⟨y,hy⟩)))
+    exact (congrArg Subtype.val (hAc.is_comm.comm (⟨x,hx⟩ : A) ⟨y,hy⟩)))
   rw [← he]
   exact Subgroup.subset_closure (Or.inr rfl)
 
@@ -258,17 +258,15 @@ theorem finite_raw_restored_covariance
     rw [map_mul, map_inv, map_mul, map_inv, (R t').global_lift, (R t).global_lift]
   have hxinf : ∀ w, x (Sum.inl w) = 1 := by
     intro w
-    change (R t').raw (Sum.inl w) * ((R t).raw (Sum.inl w))⁻¹ = 1
+    simp only [x, RestrictedProduct.mul_apply, RestrictedProduct.inv_apply]
     rw [(R t').infinite_one, (R t).infinite_one]; simp
   have hxq : KPPGLLocalCover.coverQuotient F ζ hζ (Sum.inr q.val) (x (Sum.inr q.val)) = b.val.val := by
-    change KPPGLLocalCover.coverQuotient F ζ hζ (Sum.inr q.val)
-      ((R t').raw (Sum.inr q.val) * ((R t).raw (Sum.inr q.val))⁻¹) = _
+    simp only [x, RestrictedProduct.mul_apply, RestrictedProduct.inv_apply]
     rw [map_mul, map_inv, ← (R t').local_lift, ← (R t).local_lift, (hR t').1 q, (hR t).1 q]
     simp [t']
   have hxne : ∀ r, r ≠ q.val → KPPGLLocalCover.coverQuotient F ζ hζ (Sum.inr r) (x (Sum.inr r)) = 1 := by
     intro r hr
-    change KPPGLLocalCover.coverQuotient F ζ hζ (Sum.inr r)
-      ((R t').raw (Sum.inr r) * ((R t).raw (Sum.inr r))⁻¹) = _
+    simp only [x, RestrictedProduct.mul_apply, RestrictedProduct.inv_apply]
     by_cases h : r ∈ S
     · let r' : S := ⟨r,h⟩
       have hr' : r' ≠ q := fun hh => hr (congrArg Subtype.val hh)

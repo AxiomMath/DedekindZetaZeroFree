@@ -143,7 +143,7 @@ private theorem actual_finite_output_rational_nonzero
 private theorem finite_laurent_multilinear_regular
     {ι : Type*} [Fintype ι] [DecidableEq ι]
     {V : ι → Type*} [∀ i, AddCommGroup (V i)] [∀ i, Module ℂ (V i)]
-    (L : MultilinearMap ℂ V ℂ)
+    (L : MultilinearMap (RingHom.id ℂ) V ℂ)
     (N : ι → Finset ℤ) (v : ∀ i, ℤ → V i)
     (a : ∀ _i, ℤ → ℂ → ℂ) (ha : ∀ i n, Differentiable ℂ (a i n))
     (d : ι → ℂ → ℂ) (hd : ∀ i, Differentiable ℂ (d i))
@@ -205,7 +205,7 @@ def rationalStageEval
     (C₀ : KPGlobalTorusFiniteStages.LocalFiberData F ζ hζ P₀)
     (E : Finset (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers F)))
     (hE : C₀.exceptional ⊆ E) (t : KPGlobalTorusFunctionData.E F ζ hζ) :
-    MultilinearMap ℂ (fun q : E => KPGlobalTorusFiniteStages.LocalFiber F ζ hζ P₀ C₀ q.val) ℂ :=
+    MultilinearMap (RingHom.id ℂ) (fun q : E => KPGlobalTorusFiniteStages.LocalFiber F ζ hζ P₀ C₀ q.val) ℂ :=
   let ev : smoothRationalFiber F ζ hζ →ₗ[ℂ] ℂ :=
     { toFun := fun v => v.val.val t
       map_add' := fun _ _ => rfl

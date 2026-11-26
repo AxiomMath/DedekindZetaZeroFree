@@ -363,7 +363,7 @@ theorem adjoinRoot_factor_norm_is_chosenSimpleKummerNorm
     h f.natDegree f rfl hfmonic hfp y
   intro d
   induction d using Nat.strong_induction_on with
-  | h d ih =>
+  | ind d ih =>
     intro g hgd hgmonic hgp u
     by_cases hd : d = 0
     · have hg1 : g = 1 :=

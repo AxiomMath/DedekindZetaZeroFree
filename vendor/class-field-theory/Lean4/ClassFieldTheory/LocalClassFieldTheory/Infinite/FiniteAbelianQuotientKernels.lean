@@ -51,7 +51,7 @@ noncomputable def absoluteAbelianRestriction
   let r : intrinsicAbsoluteGalois K →* Gal(E / K) :=
     AlgEquiv.restrictNormalHom E
   have hcomm : commutator (intrinsicAbsoluteGalois K) ≤ r.ker :=
-    Abelianization.commutator_subset_ker r
+    Group.Abelianization.commutator_le_ker r
   have hkerClosed : IsClosed (r.ker : Set (intrinsicAbsoluteGalois K)) := by
     rw [IntermediateField.restrictNormalHom_ker]
     exact IntermediateField.fixingSubgroup_isClosed E

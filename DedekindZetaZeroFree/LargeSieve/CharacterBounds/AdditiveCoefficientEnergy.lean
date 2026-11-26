@@ -523,7 +523,7 @@ theorem additiveCoefficient_square_summable (A : SArithmeticData F)
     Summable (fun m : A.R => ‖additiveCoefficient A D W0 W1 X Y t m‖ ^ 2) := by
   obtain ⟨K, _, hrows⟩ := additiveCoefficient_uniform_support A Ω hΩ W0 hW0 hUnits W1
   obtain ⟨hfinite, hsupport⟩ := hrows X Y hX hY
-  apply summable_of_finite_support
+  apply summable_of_hasFiniteSupport
   apply hfinite.subset
   intro m hm
   apply (hsupport t ht).2 D

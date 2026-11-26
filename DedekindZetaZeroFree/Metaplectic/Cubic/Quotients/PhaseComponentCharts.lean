@@ -632,10 +632,9 @@ instance instMulActionChartProduct (i : Fin (H.atlas U).componentCount) (x : Sym
             rw [complexProjectiveEmbedding_smul]
             exact σ.property⟩
         have he := O.invariant τ
-        have hy := Set.mem_image_of_mem (fun y : SymmetricSpace F => τ • y) p.2.property
-        rw [he] at hy
-        change complexProjectiveEmbedding F σ.val.val • p.2.val ∈ O.neighborhood at hy
-        simpa only [complexProjectiveEmbedding_smul] using hy⟩)
+        refine (Set.ext_iff.mp he _).mp ⟨p.2.val, p.2.property, ?_⟩
+        change complexProjectiveEmbedding F σ.val.val • p.2.val = _
+        simp only [complexProjectiveEmbedding_smul]⟩)
   one_smul := by
     intro p
     apply Prod.ext

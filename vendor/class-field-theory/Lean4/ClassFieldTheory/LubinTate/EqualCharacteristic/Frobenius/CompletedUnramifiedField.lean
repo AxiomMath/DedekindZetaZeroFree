@@ -145,7 +145,7 @@ theorem equalCharacteristicCoefficientFrobenius_fixed_iff
     have hpolyne :
         (Polynomial.X ^ Nat.card k - Polynomial.X : k[X]) ≠ 0 := by
       rw [Nat.card_eq_fintype_card]
-      exact FiniteField.X_pow_card_sub_X_ne_zero k Fintype.one_lt_card
+      exact Polynomial.X_pow_sub_X_ne_zero Fintype.one_lt_card
     have hminsplit : (minpoly k x).Splits :=
       hsplit.of_dvd hpolyne hdiv
     exact hxint.mem_range_algebraMap_of_minpoly_splits (K := k) (by

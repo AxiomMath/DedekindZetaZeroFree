@@ -35,7 +35,7 @@ universe u
 /-- The group-cohomological norm endomorphism on the actual unit representation. -/
 def unitsNormLinearMap (K L : Type) [Field K] [Field L] [Algebra K L]
     [Fintype Gal(L/K)] : Additive Lˣ →ₗ[ℤ] Additive Lˣ :=
-  (Rep.ofAlgebraAutOnUnits K L).norm.hom.toLinearMap
+  (Rep.ofAlgebraAutOnUnits K L).norm.asHom.hom.toLinearMap
 
 /-- The additive unit norm is fixed by the Galois action. -/
 lemma unitsNorm_mem_invariants (K L : Type) [Field K] [Field L] [Algebra K L]
@@ -64,7 +64,7 @@ def tateUnitsH0IsoInvariantsQuotient (K L : Type)
         (unitsInvariantSubmodule K L ⧸ unitsTateH0NormSubmodule K L) := by
   let A := Rep.ofAlgebraAutOnUnits K L
   let S : ShortComplex (ModuleCat ℤ) :=
-    .mk A.norm.toModuleCatHom (groupCohomology.d₀₁ A)
+    .mk A.norm.asHom.toModuleCatHom (groupCohomology.d₀₁ A)
       (Rep.norm_comp_d_eq_zero A)
   have hker :
       LinearMap.ker S.g.hom = unitsInvariantSubmodule K L := by
@@ -101,7 +101,7 @@ theorem unitsNormLinearMap_apply_val (K L : Type) [Field K] [Field L] [Algebra K
   let := AlgEquiv.fintype K L
   dsimp only [unitsNormLinearMap]
   change ((Additive.toMul
-    ((Rep.ofAlgebraAutOnUnits K L).norm.hom (Additive.ofMul x)) : Lˣ).1) =
+    ((Rep.ofAlgebraAutOnUnits K L).norm.asHom.hom (Additive.ofMul x)) : Lˣ).1) =
       algebraMap K L (Algebra.norm K (x : L))
   rw [← groupCohomology.norm_ofAlgebraAutOnUnits_eq (K := K) (L := L) x]
   rfl

@@ -33,13 +33,13 @@ def backward (e : Branch a b) (he : e.Properties) : e.targetDomain → e.domain 
 
 structure NullEquivalence (e : Branch a b) (he : e.Properties) : Prop where
   forward_quasiMeasurePreserving :
-    Measure.QuasiMeasurePreserving (forward e)
+    QuasiMeasurePreserving (forward e)
       (Measure.comap (Subtype.val : e.domain → M F)
         ((liftedMeasure a).restrict e.domain))
       (Measure.comap (Subtype.val : e.targetDomain → M F)
         ((liftedMeasure b).restrict e.targetDomain))
   backward_quasiMeasurePreserving :
-    Measure.QuasiMeasurePreserving (backward e he)
+    QuasiMeasurePreserving (backward e he)
       (Measure.comap (Subtype.val : e.targetDomain → M F)
         ((liftedMeasure b).restrict e.targetDomain))
       (Measure.comap (Subtype.val : e.domain → M F)
@@ -123,14 +123,14 @@ private theorem target_chart_fields (a b : ShrunkChart F ζ hζ U R P H)
   exact cast_fields h.symm (KPContCotangentActualGenuineTwistIsotropy.isotropyChart b)
 
 private theorem branch_quasi (e : Branch a b) :
-    Measure.QuasiMeasurePreserving e.psi
+    QuasiMeasurePreserving e.psi
       (coordinateMeasure (F := F) (ζ := ζ) (hζ := hζ))
       (coordinateMeasure (F := F) (ζ := ζ) (hζ := hζ)) ∧
-    Measure.QuasiMeasurePreserving e.inverse
+    QuasiMeasurePreserving e.inverse
       (coordinateMeasure (F := F) (ζ := ζ) (hζ := hζ))
       (coordinateMeasure (F := F) (ζ := ζ) (hζ := hζ)) := by
   cases e with
-  | none => exact ⟨Measure.QuasiMeasurePreserving.id _, Measure.QuasiMeasurePreserving.id _⟩
+  | none => exact ⟨QuasiMeasurePreserving.id _, QuasiMeasurePreserving.id _⟩
   | some e =>
     have ht := target_chart_fields a b e.component_eq
     constructor
@@ -154,9 +154,9 @@ private theorem branch_quasi (e : Branch a b) :
       simp only [inv_one, one_mul, mul_one, Subgroup.coe_inv]
 
 private theorem ambient_quasi (e : Branch a b) (he : e.Properties) :
-    Measure.QuasiMeasurePreserving e.psi
+    QuasiMeasurePreserving e.psi
       ((liftedMeasure a).restrict e.domain) ((liftedMeasure b).restrict e.targetDomain) ∧
-    Measure.QuasiMeasurePreserving e.inverse
+    QuasiMeasurePreserving e.inverse
       ((liftedMeasure b).restrict e.targetDomain) ((liftedMeasure a).restrict e.domain) := by
   have ha := lifted_equivalent a
   have hb := lifted_equivalent b
@@ -166,22 +166,29 @@ private theorem ambient_quasi (e : Branch a b) (he : e.Properties) :
   have hb'r := hb.2.restrict e.targetDomain
   rw [Measure.restrict_restrict_of_subset he.source_subset] at har ha'r
   rw [Measure.restrict_restrict_of_subset he.target_subset] at hbr hb'r
-  have hf := (branch_quasi e).1.restrict (Set.mapsTo_image e.psi e.domain)
-  have hg := (branch_quasi e).2.restrict he.inverse_target
+  have hf := QuasiMeasurePreserving.restrict (branch_quasi e).1
+    (Set.mapsTo_image e.psi e.domain)
+  have hg := QuasiMeasurePreserving.restrict (branch_quasi e).2 he.inverse_target
   exact ⟨(hf.mono_left har).mono_right hb'r, (hg.mono_left hbr).mono_right ha'r⟩
 
 private theorem subtype_quasi (s t : Set (M F)) (hs : MeasurableSet s)
     (ht : MeasurableSet t) (μ ν : Measure (M F)) (f : M F → M F)
-    (hq : Measure.QuasiMeasurePreserving f μ ν) (hf : Set.MapsTo f s t) :
-    Measure.QuasiMeasurePreserving (fun x : s => (⟨f x.val, hf x.property⟩ : t))
+    (hq : QuasiMeasurePreserving f μ ν) (hf : Set.MapsTo f s t) :
+    QuasiMeasurePreserving (fun x : s => (⟨f x.val, hf x.property⟩ : t))
       (Measure.comap (Subtype.val : s → M F) μ)
       (Measure.comap (Subtype.val : t → M F) ν) := by
   let g := fun x : s => (⟨f x.val, hf x.property⟩ : t)
-  have hg : Measurable g := (hq.measurable.comp measurable_subtype_coe).subtype_mk
+  have hval : QuasiMeasurePreserving (Subtype.val : s → M F)
+      (Measure.comap (Subtype.val : s → M F) μ) μ := by
+    refine (measurable_subtype_coe.quasiMeasurePreserving _).mono_right ?_
+    rw [(MeasurableEmbedding.subtype_coe hs).map_comap]
+    exact Measure.absolutelyContinuous_of_le Measure.restrict_le_self
+  have hg : AEMeasurable g (Measure.comap (Subtype.val : s → M F) μ) :=
+    (hq.aemeasurable.comp_quasiMeasurePreserving hval).subtype_mk
   refine ⟨hg, Measure.AbsolutelyContinuous.mk ?_⟩
   intro Z hZ hnull
   rw [(MeasurableEmbedding.subtype_coe ht).comap_apply] at hnull
-  rw [Measure.map_apply hg hZ, (MeasurableEmbedding.subtype_coe hs).comap_apply]
+  rw [Measure.map_apply_of_aemeasurable hg hZ, (MeasurableEmbedding.subtype_coe hs).comap_apply]
   apply measure_mono_null _ (hq.preimage_null hnull)
   rintro _ ⟨x, hx, rfl⟩
   exact ⟨g x, hx, rfl⟩
@@ -212,10 +219,10 @@ private theorem preimage_null (e : Branch a b) (he : e.Properties)
     simpa only [Set.mem_preimage, he.right_inverse x (hZ hx)] using hx
 
 theorem actual_nonsingularity (e : Branch a b) (he : e.Properties) :
-    Measure.QuasiMeasurePreserving (forward e)
+    QuasiMeasurePreserving (forward e)
       (Measure.comap (Subtype.val : e.domain → M F) ((liftedMeasure a).restrict e.domain))
       (Measure.comap (Subtype.val : e.targetDomain → M F) ((liftedMeasure b).restrict e.targetDomain)) ∧
-    Measure.QuasiMeasurePreserving (backward e he)
+    QuasiMeasurePreserving (backward e he)
       (Measure.comap (Subtype.val : e.targetDomain → M F) ((liftedMeasure b).restrict e.targetDomain))
       (Measure.comap (Subtype.val : e.domain → M F) ((liftedMeasure a).restrict e.domain)) ∧
     (∀ S : Set (M F), S ⊆ e.domain →

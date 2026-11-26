@@ -729,7 +729,7 @@ theorem lambdaF_exterior_norm (E F : Type) [Field E] [NumberField E]
         exact sup_le hIp hc
       exact hpp.ne_top (top_le_iff.mp ht)
     exact lambdaF_prime_unitary E F A ι v hv
-  rw [← prod_normalizedFactors_eq_self I.property.1]
+  rw [← Ideal.prod_normalizedFactors_eq_self I.property.1]
   generalize normalizedFactors I.val = ps at hfac ⊢
   induction ps using Multiset.induction_on with
   | empty =>

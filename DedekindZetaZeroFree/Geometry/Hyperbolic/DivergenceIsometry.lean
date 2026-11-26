@@ -197,7 +197,7 @@ private theorem basis_coord_square (d : ℕ) (q : Space d ≃ₗᵢ[ℝ] Space d
   have h := b.sum_sq_inner_right (EuclideanSpace.single j 1)
   have hi (k : Fin d × Fin 3) : inner ℝ (b k) (EuclideanSpace.single j 1) = q (EuclideanSpace.basisFun _ ℝ k) j := by
     simp [b, EuclideanSpace.inner_single_right]
-  simpa only [hi, EuclideanSpace.norm_single, Real.norm_eq_abs, abs_one, one_pow] using h
+  simpa only [hi, PiLp.norm_single, Real.norm_eq_abs, abs_one, one_pow] using h
 private theorem sum_metric_variation (d : ℕ) (p a : Space d) (q : Space d ≃ₗᵢ[ℝ] Space d) :
     (∑ k : Fin d × Fin 3, ∑ i : Fin d, -2 * a (i,2) * Real.exp (-2 * p (i,2)) *
       ((CotangentLogCoframe.H d p (q (EuclideanSpace.basisFun _ ℝ k))) (i,0)^2 +

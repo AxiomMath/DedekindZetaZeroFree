@@ -106,7 +106,7 @@ private lemma base_kernel_integrable
     apply Continuous.mul
     · unfold PoissonArch.tracePairing
       fun_prop
-    · apply continuous_finset_prod
+    · apply continuous_finsetProd
       intro v hv
       exact continuous_subtype_val.comp ((continuous_localFiniteCharacter F v.val).comp
         ((continuous_apply v).comp continuous_snd |>.neg.mul continuous_const))
@@ -168,7 +168,7 @@ theorem poisson_sum_tensorFunction
       simpa only [mul_assoc] using
         (base_kernel_integrable F S μ (G j)
           (elementaryTensorFunction_integrable F S μ fArch k (t j)) y).const_mul (c j)
-    rw [integral_finset_sum _ (fun j _ => hi j)]
+    rw [integral_finsetSum _ (fun j _ => hi j)]
     apply Finset.sum_congr rfl
     intro j hj
     simp only [mul_assoc, integral_const_mul]

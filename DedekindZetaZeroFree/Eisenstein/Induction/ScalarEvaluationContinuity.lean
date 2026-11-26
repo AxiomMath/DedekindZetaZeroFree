@@ -57,7 +57,7 @@ theorem archValue_continuous (w : InfinitePlace F) (f : Plus R N P C (Sum.inl w)
 
 theorem pureArchProduct_continuous (s : RestrictedTensorSimple.Level (bad R P C))
     (f : ∀ p : s.val, Plus R N P C p) : Continuous (pureArchProduct R N P C s f) := by
-  apply continuous_finset_prod
+  apply continuous_finsetProd
   intro w _
   exact (archValue_continuous R N P C w _).comp (RestrictedProduct.continuous_eval _)
 

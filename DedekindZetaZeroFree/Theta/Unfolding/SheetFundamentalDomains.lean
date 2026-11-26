@@ -17,6 +17,10 @@ open ThetaProfileHaarSheets
 
 variable {F : Type} [Field F] [NumberField F]
 
+local instance instContinuousDivG (A : SArithmeticData F) : ContinuousDiv A.G :=
+  IsTopologicalGroup.to_continuousDiv
+
+
  theorem norm_mul' (A : SArithmeticData F) (y z : A.G) :
     A.norm (y * z) = A.norm y * A.norm z := by
   simp only [SArithmeticData.norm, Prod.fst_mul, Prod.snd_mul, Pi.mul_apply,
@@ -100,6 +104,7 @@ def sheetProjection (A : SArithmeticData F) (x : PositiveAxis) :
     apply Continuous.subtype_mk
     exact continuous_const.mul continuous_subtype_val
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
  instance sheetInvariant (A : SArithmeticData F) (v₀ : InfinitePlace F)
     (μG : Measure A.G) [μG.IsHaarMeasure] (x : PositiveAxis) :
     SMulInvariantMeasure A.Gamma1 (Sheet A x) (sheetHaar A v₀ μG x) := by
@@ -112,6 +117,7 @@ def sheetProjection (A : SArithmeticData F) (x : PositiveAxis) :
   exact smulInvariantMeasure_map (kernelHaar A v₀ μG) (sheetTranslation A v₀ x)
     he (sheetTranslation A v₀ x).measurable
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
 theorem exists_unique_sheetQuotientHaar (A : SArithmeticData F)
     (v₀ : InfinitePlace F) (μG : Measure A.G) [μG.IsHaarMeasure]
     (x : PositiveAxis) :
@@ -227,6 +233,7 @@ theorem sheetMul_measurePreserving (A : SArithmeticData F)
     ← Measure.map_map e'.measurable (continuous_const_mul c).measurable,
     (measurePreserving_mul_left (kernelHaar A v₀ μG) c).map_eq]
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
 theorem sheetDiv_measurePreserving (A : SArithmeticData F)
     (v₀ : InfinitePlace F) (μG : Measure A.G) [μG.IsHaarMeasure]
     (a : Fˣ) (x : PositiveAxis) :
@@ -257,6 +264,7 @@ theorem sheetDiv_measurePreserving (A : SArithmeticData F)
   rw [Measure.map_map (sheetDiv A a x).measurable e.measurable, he,
     ← Measure.map_map e'.measurable hp.measurable, hp.map_eq]
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
 private theorem integral_sheet_unfold (A : SArithmeticData F) (v₀ : InfinitePlace F)
     (μG : Measure A.G) [μG.IsHaarMeasure] (x : PositiveAxis)
     (Ω : Set (Sheet A x))

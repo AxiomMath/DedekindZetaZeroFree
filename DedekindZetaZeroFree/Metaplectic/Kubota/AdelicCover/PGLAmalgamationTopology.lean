@@ -177,7 +177,13 @@ private theorem principalQuotient_quotientMap (S : Set (KPHilbert.Place F)) :
     (⟨Q v x.val, fun hv => ⟨x.val, x.property hv, rfl⟩⟩ :
       {g : KPPGLLocalCover.CubicPGL2 F ζ hζ v // v ∈ S → g ∈ pglCompact F ζ hζ v})
   have ho (v : KPHilbert.Place F) : IsOpenMap (f v) := by
-    apply IsOpenMap.subtype_map QuotientGroup.isOpenMap_coe
+    have hfv : f v = Subtype.map (QuotientGroup.mk : _ → KPPGLLocalCover.CubicPGL2 F ζ hζ v)
+        (fun x hx hv => ⟨x, hx hv, rfl⟩) := rfl
+    rw [hfv]
+    apply IsOpenMap.subtype_map
+      (s := {g : KPLocalCover.CubicGL2Raw F ζ hζ v | v ∈ S → g ∈ compact F ζ hζ v})
+      (t := {g : KPPGLLocalCover.CubicPGL2 F ζ hζ v | v ∈ S → g ∈ pglCompact F ζ hζ v})
+      QuotientGroup.isOpenMap_coe
     · change IsOpen {g : KPLocalCover.CubicGL2Raw F ζ hζ v | v ∈ S → g ∈ compact F ζ hζ v}
       by_cases hv : v ∈ S
       · have he : {g : KPLocalCover.CubicGL2Raw F ζ hζ v | v ∈ S → g ∈ compact F ζ hζ v} =
@@ -188,8 +194,6 @@ private theorem principalQuotient_quotientMap (S : Set (KPHilbert.Place F)) :
             Set.univ := by ext g; simp only [Set.mem_setOf_eq, hv, false_implies, Set.mem_univ]
         rw [he]
         exact isOpen_univ
-    · intro x hx hv
-      exact ⟨x, hx hv, rfl⟩
   have hc (v : KPHilbert.Place F) : Continuous (f v) :=
     (QuotientGroup.continuous_mk.comp continuous_subtype_val).subtype_mk _
   have hs (v : KPHilbert.Place F) : Function.Surjective (f v) := by
@@ -317,7 +321,9 @@ private theorem eval_single_same (v : KPHilbert.Place F) (z : (KPHilbert.Complet
     Units.map (adeleEval F v).toMonoidHom (singleIdele F v z) = z := by
   apply Units.ext
   cases v with
-  | inl v => change Pi.mulSingle v z.val v = z.val; exact Pi.mulSingle_eq_same v _
+  | inl v =>
+    change Pi.mulSingle (M := fun w => KPHilbert.Completion F (Sum.inl w)) v z.val v = z.val
+    exact Pi.mulSingle_eq_same v _
   | inr v => change RestrictedProduct.mulSingle (fun q => q.adicCompletionIntegers F) v z.val v = z.val
              exact RestrictedProduct.mulSingle_eq_same _ _ _
 private theorem eval_single_ne (v w : KPHilbert.Place F) (z : (KPHilbert.Completion F v)ˣ)
@@ -325,7 +331,9 @@ private theorem eval_single_ne (v w : KPHilbert.Place F) (z : (KPHilbert.Complet
   apply Units.ext
   cases v with
   | inl v => cases w with
-    | inl w => change Pi.mulSingle v z.val w = 1; exact Pi.mulSingle_eq_of_ne (fun h => hw (congrArg Sum.inl h)) _
+    | inl w =>
+      change Pi.mulSingle (M := fun w => KPHilbert.Completion F (Sum.inl w)) v z.val w = 1
+      exact Pi.mulSingle_eq_of_ne (fun h => hw (congrArg Sum.inl h)) _
     | inr w => rfl
   | inr v => cases w with
     | inl w => rfl

@@ -943,7 +943,7 @@ theorem comparison_good_dyad_analytic
     simpa only [Complex.add_im, Complex.ofReal_im, Complex.mul_im, Complex.ofReal_re,
       Complex.I_im, Complex.I_re, mul_one, mul_zero, add_zero, zero_add, mul_assoc] using hb
   have hb : Integrable (fun p : ℝ × ℝ × ℝ => F ((comparisonSigma₁:ℂ)+(p.1:ℂ)*I) p.2) := by
-    apply integrable_finset_sum C
+    apply integrable_finsetSum C
     intro u hu
     exact ord.line_integrable Z hZ u (hdy.1 u hu).1
       (by linarith [(hdy.1 u hu).2.1]) comparisonSigma₁ (3/1000) (2/5)

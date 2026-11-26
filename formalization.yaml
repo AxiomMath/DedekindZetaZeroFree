@@ -76,7 +76,7 @@ related_formalizations:
       The compact-group representative-density development is adapted from
       revision 66f3330c1cbabafd0f5b3ea4a646c43e23105ee2. Original Apache-2.0
       copyright and author notices are retained in the source files. Tau Ceti is
-      also a pinned dependency at c197d7bdbae257e85d23443c89aa7cd34c13410b,
+      also a pinned dependency at d91980bdc255e6e50506be147ad9bcb88eb9fcc0,
       supplying power-class quotients, the Borel subgroup, the diagonal torus,
       and the finite-completion local-field construction.
   - id: "https://github.com/LeanPool/lean-pool"

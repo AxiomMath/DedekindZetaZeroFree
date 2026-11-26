@@ -94,7 +94,7 @@ private theorem kernel_integrable (T : Finset (HeightOneSpectrum (𝓞 F)))
     apply Continuous.mul
     · unfold PoissonArch.tracePairing
       fun_prop
-    · apply continuous_finset_prod
+    · apply continuous_finsetProd
       intro v hv
       exact continuous_subtype_val.comp ((continuous_localFiniteCharacter F v.val).comp
         ((continuous_apply v).comp continuous_snd |>.neg.mul continuous_const))

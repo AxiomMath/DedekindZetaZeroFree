@@ -158,7 +158,7 @@ theorem smooth_compactForcing_memLp_of_finiteOrbit
     MemLp (compactForcing u.val) 2 R.quotientHaar := by
   have ht (w : NumberField.InfinitePlace F) :
       MemLp (fun x => compactTensor (fun i j => WD [(w,i),(w,j)] u.val x)) 2 R.quotientHaar := by
-    have hh := (memLp_finset_sum Finset.univ (fun c _ =>
+    have hh := (memLp_finsetSum Finset.univ (fun c _ =>
       smooth_compact_curve_second_memLp u hu w c)).neg
     have he : (fun x : X F ζ hζ => compactTensor (fun i j => WD [(w,i),(w,j)] u.val x)) =
         (fun x => -(∑ c : Fin 3, deriv (fun t => deriv (fun r => u.val
@@ -185,7 +185,7 @@ theorem smooth_compactForcing_memLp_of_finiteOrbit
     exact MemLp.ae_eq (Filter.Eventually.of_forall (fun x => (congrFun he x).symm)) hh
   have hs : MemLp (fun x => ∑ w : NumberField.InfinitePlace F,
       compactTensor (fun i j => WD [(w,i),(w,j)] u.val x)) 2 R.quotientHaar :=
-    memLp_finset_sum Finset.univ (fun w _ => ht w)
+    memLp_finsetSum Finset.univ (fun w _ => ht w)
   change MemLp (fun x : X F ζ hζ =>
     (∑ w, compactTensor (fun i j => WD [(w,i),(w,j)] u.val x)) / (2 : ℂ)) 2 R.quotientHaar
   exact MemLp.ae_eq

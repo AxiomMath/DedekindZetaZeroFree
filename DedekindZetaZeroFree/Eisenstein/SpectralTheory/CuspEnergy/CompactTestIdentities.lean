@@ -114,7 +114,7 @@ private theorem ims_upstairs (d : ℕ) (hd : 0 < d) (η : ℝ → ℝ)
   field_simp
 private theorem continuous_height (d : ℕ) : Continuous (KPCuspLogShape.meanHeight d) := by
   unfold KPCuspLogShape.meanHeight
-  exact (continuous_finset_sum _ (fun i _ => (continuous_apply i).snd)).div_const _
+  exact (continuous_finsetSum _ (fun i _ => (continuous_apply i).snd)).div_const _
 private theorem cutoff_zero (d : ℕ) (η : ℝ → ℝ) (f : HyperbolicChart.Space d → ℂ)
     (x : HyperbolicChart.Space d) (hx : heightCLM d x ∉ tsupport η) :
     HyperbolicChart.differential d (fun q => (η (heightCLM d q) : ℂ) * f q) x = 0 := by
@@ -457,6 +457,7 @@ theorem kernel_torus_haar_specialization
     rw [he]
     apply v.smooth.continuousOn.comp_continuous
     · unfold KPCuspCharts.toArch
+      dsimp only
       fun_prop
     · intro y
       change T < KPCuspLogShape.meanHeight _ _

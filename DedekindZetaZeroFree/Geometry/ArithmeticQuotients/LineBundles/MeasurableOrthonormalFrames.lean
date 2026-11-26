@@ -32,6 +32,9 @@ theorem measurable_exact_transversal {G Y : Type*} [Group G] [Countable G]
     (∀ g : G, g • x ∈ K n → e x ≤ e (g • x))
   let S := {x | ∃ n, P n x}
   have hP (n) : MeasurableSet {x | P n x} := by
+    have hsplit : {x | P n x} = K n ∩ ({x | ∀ j < n, ∀ g : G, g • x ∉ K j} ∩
+        {x | ∀ g : G, g • x ∈ K n → e x ≤ e (g • x)}) := Set.ext fun _ => Iff.rfl
+    rw [hsplit]
     apply (hK n).inter
     apply MeasurableSet.inter
     · change MeasurableSet {x | ∀ j < n, ∀ g : G, g • x ∉ K j}
@@ -453,7 +456,7 @@ theorem quotientMeasure_finiteOnCompacts (A : KPFiniteCuspAtlas.Atlas F ζ hζ h
   letI : T2Space (X F ζ hζ U) := A.components.symm.isEmbedding.t2Space
   refine ⟨fun K hK => ?_⟩
   unfold quotientMeasure
-  rw [Measure.finset_sum_apply]
+  rw [Measure.finsetSum_apply]
   apply ENNReal.sum_lt_top.mpr
   intro i hi
   have he : Topology.IsClosedEmbedding (KPFiniteCuspAtlas.componentMap F ζ hζ U (A.representative i)) := by

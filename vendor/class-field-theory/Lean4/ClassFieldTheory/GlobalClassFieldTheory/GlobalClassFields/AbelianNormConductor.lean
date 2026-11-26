@@ -250,8 +250,7 @@ theorem
           vK.Completion E :=
       (LocalClassFieldTheory.isUnramifiedValuedExtension_iff_localConductorExponent_eq_zero
         vK.Completion E).2 hlocalConductor
-    simpa [_root_.ChosenFinitePlaceIsUnramified] using
-      hunramified
+    exact hunramified
   · intro hunramified
     exact
       ideleClassNormLocalHigherUnitExponent_eq_zero_of_chosenUnramified

@@ -39,7 +39,7 @@ variable (K L : Type) [Field K] [Field L] [Algebra K L]
 the abelianization of the actual relative Galois group. -/
 noncomputable def abelianizedGaloisConjugationOfEmbeddings
     (i j : L →ₐ[K] SeparableClosure K) :
-    Abelianization (Gal(L / K)) ≃* Abelianization (Gal(L / K)) :=
+    Group.Abelianization (Gal(L / K)) ≃* Group.Abelianization (Gal(L / K)) :=
   (finiteGaloisAbstractQuotientEquivGaloisGroupOfEmbedding K L i).abelianizationCongr.symm.trans
     ((finiteGaloisConjugationOfEmbeddings K L i j).abelianizationCongr.trans
       (finiteGaloisAbstractQuotientEquivGaloisGroupOfEmbedding K L j).abelianizationCongr)
@@ -49,7 +49,7 @@ transported conjugation is the identity on the abelianization. -/
 theorem abelianizedGaloisConjugationOfEmbeddings_eq_refl
     (i j : L →ₐ[K] SeparableClosure K) :
     abelianizedGaloisConjugationOfEmbeddings K L i j =
-      MulEquiv.refl (Abelianization (Gal(L / K))) := by
+      MulEquiv.refl (Group.Abelianization (Gal(L / K))) := by
   apply MulEquiv.ext
   intro z
   change

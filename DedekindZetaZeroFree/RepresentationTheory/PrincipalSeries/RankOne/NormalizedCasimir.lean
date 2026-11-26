@@ -541,7 +541,7 @@ theorem upper_unipotent_hessian_covariance (s : ℝ)
   have hv := congrArg (fun A : Mat →L[ℝ] ℂ => A V) (hh.fderiv.symm.trans hzero)
   have hsum : fderiv ℝ F m (L V) + fderiv ℝ (fderiv ℝ F) m V (L m) = 0 := by
     convert hv using 1 <;> rfl
-  have hsym := hsm.isSymmSndFDerivAt (by simp [minSmoothness]) (L m) V
+  have hsym := hsm.isSymmSndFDerivAt (by simp) (L m) V
   change fderiv ℝ (fderiv ℝ F) m (L m) V +
     fderiv ℝ (fderiv ℝ F) m V (L m) = -(2 : ℂ) * fderiv ℝ F m (L V)
   have hsym' : fderiv ℝ (fderiv ℝ F) m (L m) V =

@@ -178,7 +178,7 @@ theorem frameCoefficient_overlap (f : GenuineCoveredScalars F ζ hζ U)
 
 theorem overlapCoordinate_quasiMeasurePreserving (i : Fin (H.atlas U).componentCount)
     (γ : Component F ζ hζ U R P H i) :
-    Measure.QuasiMeasurePreserving (overlapCoordinate F ζ hζ U R P H i γ) volume volume := by
+    QuasiMeasurePreserving (overlapCoordinate F ζ hζ U R P H i γ) volume volume := by
   let ν : Measure (Space (KPCuspLogShape.dimension F * 3)) :=
     volume.withDensity (fun p => ENNReal.ofReal (density F p))
   let μ := KPArch.hyperbolicVolume (KPCuspLogShape.dimension F)
@@ -188,7 +188,7 @@ theorem overlapCoordinate_quasiMeasurePreserving (i : Fin (H.atlas U).componentC
     hc.symm (coordinates F).toMeasurableEquiv
   have hg := KPFiniteAdelicCuspEnds.arch_smul_measurePreserving F
     (γ : KPCuspArithmetic.PGL2 F)
-  have hτ : Measure.QuasiMeasurePreserving (overlapCoordinate F ζ hζ U R P H i γ) ν ν :=
+  have hτ : QuasiMeasurePreserving (overlapCoordinate F ζ hζ U R P H i γ) ν ν :=
     (hs.quasiMeasurePreserving.comp hg.quasiMeasurePreserving).comp hc.quasiMeasurePreserving
   have hvν : volume ≪ ν :=
     withDensity_absolutelyContinuous'
@@ -489,10 +489,10 @@ theorem frameCoefficient_ae_eq (f g : BorelL2Scalars F ζ hζ U R)
   change squaredNorm F ζ hζ U R P H (S F ζ hζ U R P H f.val - S F ζ hζ U R P H g.val) =ᵐ[
     KPMsFixedHaarDisintegration.sphericalMeasure F ζ hζ R P U] 0 at hn
   rw [← map_sub] at hn
-  have ht : Measure.QuasiMeasurePreserving (basePoint F ζ hζ U R P H i)
+  have ht : QuasiMeasurePreserving (basePoint F ζ hζ U R P H i)
       (chartMeasure F ζ hζ U R P H i x O)
       (KPMsFixedHaarDisintegration.sphericalMeasure F ζ hζ R P U) := by
-    refine ⟨basePoint_measurable F ζ hζ U R P H i, ?_⟩
+    refine ⟨(basePoint_measurable F ζ hζ U R P H i).aemeasurable, ?_⟩
     rw [quotient_measure]
     exact Measure.absolutelyContinuous_of_le Measure.restrict_le_self
   have hz := ht.ae hn
@@ -763,9 +763,12 @@ theorem restriction_overlap (i : Fin (H.atlas U).componentCount) (x y : Symmetri
       Set.inter_subset_left le_rfl)).ae_le
   have hτS := hτ.filter_mono (Measure.absolutelyContinuous_of_le
     (Measure.restrict_le_self (s := A.carrier ∩ overlapCoordinate F ζ hζ U R P H i γ ⁻¹' B.carrier))).ae_le
+  have hmeas : Measurable (overlapCoordinate F ζ hζ U R P H i γ) :=
+    (coordinates F).symm.continuous.measurable.comp
+      ((KPFiniteAdelicCuspEnds.arch_smul_measurePreserving F
+        (γ : KPCuspArithmetic.PGL2 F)).measurable.comp (coordinates F).continuous.measurable)
   have hS : MeasurableSet (A.carrier ∩ overlapCoordinate F ζ hζ U R P H i γ ⁻¹' B.carrier) :=
-    Metric.isOpen_ball.measurableSet.inter
-      ((overlapCoordinate_quasiMeasurePreserving F ζ hζ U R P H i γ).measurable Metric.isOpen_ball.measurableSet)
+    Metric.isOpen_ball.measurableSet.inter (hmeas Metric.isOpen_ball.measurableSet)
   filter_upwards [haS, hτS, ae_restrict_mem hS] with p hp htp hmem
   rw [hp, htp hmem.2]
   exact frameCoefficient_overlap F ζ hζ U R P H f.val i m m' ε γ hm p

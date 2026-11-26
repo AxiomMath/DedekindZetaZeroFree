@@ -23,7 +23,7 @@ theorem sheet_digit_majorant_integrable {N : TraceHaarTransport R} (C : JointUpp
           (signedArgument R m b z.val d)‖)
       (pregroupingSheetHaar R.A C.packet.v₀ C.transport.groupHaar l) := by
   letI := C.transport.groupHaar_isHaar
-  exact integrable_finset_sum Finset.univ
+  exact integrable_finsetSum Finset.univ
     (fun d _ => C.absolute.orbit_sheet_integrable v m b i d l)
 
 theorem orbitSheet_hasFiniteIntegral {N : TraceHaarTransport R} (C : JointUpperVanishingSources R N)

@@ -79,7 +79,7 @@ theorem framePullback_smooth (q : Chart F ζ hζ C R P H U i)
       (fun x : Space (dimension F) => KPContCotangentActualOverlap.labeledA q.places (coordinates F x)) := by
     apply contDiff_pi.mpr
     intro k
-    exact ((contDiff_apply ℝ (ℂ × ℝ) (q.places.symm k)).comp
+    exact ((contDiff_apply ℝ (fun _ => ℂ × ℝ) (q.places.symm k)).comp
       (CotangentLogCoframe.A (KPContCotangentActualOverlap.d F)).contDiff).comp
         (coordinates_contDiff F)
   have hact : ContDiff ℝ (⊤ : ℕ∞)

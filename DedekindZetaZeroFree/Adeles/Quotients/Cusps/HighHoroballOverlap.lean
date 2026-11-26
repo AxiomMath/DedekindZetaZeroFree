@@ -30,7 +30,7 @@ theorem arithmetic_dense_free (Γ : Subgroup (KPCuspArithmetic.PGL2 F)) [Countab
       ENNReal.ofReal (KPArch.volumeDensity _ x)) := by
     apply ENNReal.continuous_ofReal.comp
     unfold KPArch.volumeDensity KPArch.height
-    apply continuous_finset_prod
+    apply continuous_finsetProd
     intro i hi
     apply Continuous.pow
     apply Continuous.inv₀ _ (fun x => Real.exp_ne_zero _)

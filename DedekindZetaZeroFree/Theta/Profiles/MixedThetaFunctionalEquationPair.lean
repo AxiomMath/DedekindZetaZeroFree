@@ -20,7 +20,7 @@ theorem mixedThetaPair_primal_integrable (K : Type) [Field K] [NumberField K] :
   apply (MeasureTheory.locallyIntegrableOn_iff isOpen_Ioi.isLocallyClosed).mpr
   intro s hs hsc
   apply MeasureTheory.Integrable.const_mul
-  apply MeasureTheory.integrable_finset_sum
+  apply MeasureTheory.integrable_finsetSum
   intro C _
   exact (locallyIntegrableOn_mixedAngularAverage K
     (FractionalIdeal.mk0 K (inverseClassIdealRepresentative K C))).integrableOn_compact_subset
@@ -34,7 +34,7 @@ theorem mixedThetaPair_dual_integrable (K : Type) [Field K] [NumberField K] :
   apply (MeasureTheory.locallyIntegrableOn_iff isOpen_Ioi.isLocallyClosed).mpr
   intro s hs hsc
   apply MeasureTheory.Integrable.const_mul
-  apply MeasureTheory.integrable_finset_sum
+  apply MeasureTheory.integrable_finsetSum
   intro C _
   exact (locallyIntegrableOn_mixedNegAngularAverage K
     (traceDualIdealUnit K

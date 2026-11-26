@@ -174,7 +174,7 @@ theorem translate_derivative (k : GInfinity F) (f : G → ℂ) (hf : NativeSmoot
   exact h.deriv
 
 def scalarSpace : Submodule ℂ (G → ℂ) where
-  carrier := NativeSmooth
+  carrier := {f | NativeSmooth (F := F) (ζ := ζ) (hζ := hζ) f}
   zero_mem' := by intro g; exact contDiffOn_const
   add_mem' := by intro f h hf hh g; exact (hf g).add (hh g)
   smul_mem' := by

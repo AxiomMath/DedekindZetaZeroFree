@@ -81,7 +81,7 @@ private theorem measurable_nonnegativePeriod (h : A F → ℝ≥0∞) (hh : Meas
     (QuotientAddGroup.mk'_surjective _)).mp
   change Measurable (fun x : A F => nonnegativePeriod F h (QuotientAddGroup.mk x))
   simp_rw [nonnegativePeriod_eq_sum]
-  exact Measurable.ennreal_tsum fun t => hh.comp (measurable_const.add measurable_id)
+  exact Measurable.tsum fun t => hh.comp (measurable_const.add measurable_id)
 
 private theorem measurable_complexPeriod (h : A F → ℂ) (hh : Measurable h) :
     Measurable (complexPeriod F h) := by

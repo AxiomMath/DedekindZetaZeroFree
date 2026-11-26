@@ -28,7 +28,7 @@ variable {𝕜 ι : Type*} {M : ι → Type*} {N : Type*} [NontriviallyNormedFie
   [∀ i, FiniteDimensional 𝕜 (M i)] [AddCommMonoid N] [Module 𝕜 N] [TopologicalSpace N]
   [ContinuousAdd N] [ContinuousSMul 𝕜 N]
 
-theorem continuous_of_finiteDimensional (f : MultilinearMap 𝕜 M N) : Continuous f := by
+theorem continuous_of_finiteDimensional (f : MultilinearMap (RingHom.id 𝕜) M N) : Continuous f := by
   classical
   cases nonempty_fintype ι
   set b : ∀ i, Module.Basis (Fin (Module.finrank 𝕜 (M i))) 𝕜 (M i) :=

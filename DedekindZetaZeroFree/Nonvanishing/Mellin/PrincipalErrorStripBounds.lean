@@ -339,7 +339,7 @@ theorem error_factor_inputs
     intro v hv
     have hq : 1 < idealNorm v.asIdeal := by
       dsimp [idealNorm]
-      exact_mod_cast NumberField.RingOfIntegers.HeightOneSpectrum.one_lt_absNorm v
+      exact_mod_cast NumberField.HeightOneSpectrum.one_lt_absNorm v
     have hp : ‖comparisonRealPower (idealNorm v.asIdeal) (-s)‖ ≤ 1 := by
       rw [comparisonRealPower, Complex.norm_exp]
       simp only [Complex.mul_re, Complex.neg_re, Complex.ofReal_re,

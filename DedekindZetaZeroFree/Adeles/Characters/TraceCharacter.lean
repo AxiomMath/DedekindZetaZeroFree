@@ -41,7 +41,7 @@ theorem continuous_adelicTraceCharacter :
     Continuous (adelicTraceCharacter F : AdeleRing (𝓞 F) F → Circle) := by
   change Continuous (fun x : InfiniteAdeleRing F × FiniteAdeleRing (𝓞 F) F => _)
   apply Continuous.mul
-  · apply continuous_finset_prod
+  · apply continuous_finsetProd
     intro v hv
     exact (continuous_archTraceCharacter v).comp
       ((continuous_apply v).comp continuous_fst)

@@ -480,7 +480,7 @@ theorem principalResidue_separation
   let g := fun (o : (v : HeightOneSpectrum (𝓞 F)) → v.adicCompletionIntegers F) =>
     ∏ v ∈ P, traceFactor v (ι v) (algebraMap F (v.adicCompletion F) z * o v)
   have hg : Continuous g := by
-    apply continuous_finset_prod
+    apply continuous_finsetProd
     intro v hv
     exact (continuous_traceFactor v (ι v) (hι v) (hℚ v)).comp
       (continuous_const.mul (continuous_subtype_val.comp (continuous_apply v)))

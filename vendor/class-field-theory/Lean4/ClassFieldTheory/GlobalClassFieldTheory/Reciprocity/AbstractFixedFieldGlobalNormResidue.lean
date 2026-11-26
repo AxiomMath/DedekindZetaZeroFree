@@ -845,15 +845,15 @@ noncomputable def
     numberFieldEmbeddedAbelianizedExtensionQuotientEquivGaloisGroup
     (j : L →ₐ[ℚ] SeparableClosure ℚ) :
     Additive
-      (Abelianization
+      (Group.Abelianization
         (numberFieldEmbeddedFiniteGaloisSubextension K L j).extensionQuotient) ≃+
       Additive Gal(L / K) :=
   MulEquiv.toAdditive
     ((MulEquiv.abelianizationCongr
       (numberFieldEmbeddedExtensionQuotientEquivGaloisGroup K L j)).trans
-        (Abelianization.equivOfComm :
+        (Group.Abelianization.equivOfComm :
           Gal(L / K) ≃*
-            Abelianization Gal(L / K)).symm)
+            Group.Abelianization Gal(L / K)).symm)
 
 /-- The actual global norm-residue equivalence constructed from an
 explicit compatible embedding of a finite abelian number-field
@@ -870,7 +870,7 @@ noncomputable def globalNormResidueEquivOfEmbedding
           (numberFieldEmbeddedTopSubgroup K L j)
           (numberFieldEmbeddedTopSubgroup_le_baseSubgroup K L j) ≃+
         Additive
-          (Abelianization
+          (Group.Abelianization
             (numberFieldEmbeddedFiniteGaloisSubextension K L j).extensionQuotient) :=
     rationalCyclotomicDegreeData.normResidueSymbol
       rationalIdeleClassRepresentation
@@ -1292,7 +1292,7 @@ noncomputable def
       abstractRelativeFixedField
         ℚ (SeparableClosure ℚ) L.below
     Additive
-        (Abelianization
+        (Group.Abelianization
           (FiniteGaloisSubextension.extensionQuotient
             L.toFiniteGaloisExtension)) ≃+
       Additive (Gal(E / F)) := by
@@ -1311,9 +1311,9 @@ noncomputable def
         K.field L.field L.below L.normal)
   exact
     MulEquiv.toAdditive
-      ((Abelianization.equivOfComm :
+      ((Group.Abelianization.equivOfComm :
           L.extensionQuotient ≃*
-            Abelianization L.extensionQuotient).symm.trans e)
+            Group.Abelianization L.extensionQuotient).symm.trans e)
 
 /-- The actual fixed-field global norm-residue equivalence
 
@@ -1341,7 +1341,7 @@ noncomputable def abstractFixedFieldGlobalNormResidueEquiv :
       FiniteNormQuotient rationalIdeleClassRepresentation
           K.field L.field L.below ≃+
         Additive
-          (Abelianization L.toFiniteGaloisExtension.extensionQuotient) :=
+          (Group.Abelianization L.toFiniteGaloisExtension.extensionQuotient) :=
     rationalCyclotomicDegreeData.normResidueSymbol
       rationalIdeleClassRepresentation
       rationalCyclotomicIdeleClassValuationData
@@ -1374,7 +1374,7 @@ instance fixed to the public finite norm quotient. -/
       (FiniteNormQuotient rationalIdeleClassRepresentation
         K.field L.field L.below)
       (Additive
-        (Abelianization
+        (Group.Abelianization
           L.toFiniteGaloisExtension.extensionQuotient))
       (Additive
         (Gal(

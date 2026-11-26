@@ -44,7 +44,7 @@ theorem RS_spec :
   have hE : ContinuousAt (fun s : ℂ => ∏ v ∈ D.recipe.A.Sf,
       (1 - D.recipe.target v.asIdeal * comparisonRealPower (idealNorm v.asIdeal) (-s))) 1 := by
     apply Continuous.continuousAt
-    apply continuous_finset_prod
+    apply continuous_finsetProd
     intro v _
     apply Continuous.sub continuous_const
     apply Continuous.mul continuous_const

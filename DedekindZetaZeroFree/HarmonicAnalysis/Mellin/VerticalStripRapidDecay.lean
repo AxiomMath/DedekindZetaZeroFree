@@ -270,7 +270,7 @@ theorem exponential_family_derivative_envelope
   have hC (i : ℕ) : 0 ≤ C i :=
     mul_nonneg (Nat.cast_nonneg _) (pow_nonneg (sub_nonneg.mpr hab) i)
   refine ⟨M, ?_, ?_, ?_⟩
-  · exact integrable_finset_sum _ fun i hi =>
+  · exact integrable_finsetSum _ fun i hi =>
       ((ha (n - i) (Nat.sub_le _ _)).norm.add
         (hb (n - i) (Nat.sub_le _ _)).norm).const_mul (C i)
   · intro t

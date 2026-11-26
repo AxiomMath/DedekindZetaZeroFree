@@ -262,7 +262,7 @@ theorem raw_lie_exponential_data (F : Type) [Field F] [NumberField F] :
     apply PGLComplex.product_contMDiff
     intro i
     exact (PGLComplex.exponential_contMDiff hC₀).comp
-      (((contDiff_apply ℝ PGLComplex.Coordinates i).comp
+      (((contDiff_apply ℝ (fun _ => PGLComplex.Coordinates) i).comp
         (PGLComplex.productCoordinatesFlatten ι).symm.contDiff).contMDiff)
   have ha (a b : ι × Fin 6) :
       ContMDiff (𝓘(ℝ, PGLComplex.ProductCoordinates ι)) (𝓘(ℝ, ℝ)) (⊤ : ℕ∞)

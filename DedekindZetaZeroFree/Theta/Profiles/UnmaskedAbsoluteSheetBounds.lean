@@ -42,7 +42,7 @@ theorem unmasked_full_sheet_integrable (N : TraceHaarTransport R)
       (diagonal R y.val * KPRationalAdelicSplitting.pglW F R.A.zeta12 R.A.primitive_zeta12)) :=
     (SheetRescaling.fourier_continuous T v).comp
       (((DigitMasks.diagonal_selected_continuous R).comp continuous_subtype_val).mul continuous_const)
-  have hi := integrable_finset_sum Finset.univ (fun κ _ =>
+  have hi := integrable_finsetSum Finset.univ (fun κ _ =>
     (selected_full_sheet_integrable R N T P H v κ x).norm)
   apply hi.mono' hc.aestronglyMeasurable
   filter_upwards [] with y
@@ -65,7 +65,7 @@ theorem unmasked_full_sheet_norm_bound (N : TraceHaarTransport R)
   refine ⟨Fintype.card R.A.V * K, mul_nonneg (Nat.cast_nonneg _) hK, ?_⟩
   intro v x
   letI := N.groupHaar_isHaar
-  have hs := integrable_finset_sum Finset.univ (fun κ _ =>
+  have hs := integrable_finsetSum Finset.univ (fun κ _ =>
     (selected_full_sheet_integrable R N T P H v κ x).norm)
   calc
     _ ≤ ∫ y : Sheet R.A x, ∑ κ : R.A.V, ‖T.sheetIntegrand P v κ y.val‖
@@ -78,7 +78,7 @@ theorem unmasked_full_sheet_norm_bound (N : TraceHaarTransport R)
         (Finset.mem_univ _)
     _ = ∑ κ : R.A.V, ∫ y : Sheet R.A x, ‖T.sheetIntegrand P v κ y.val‖
         ∂sheetHaar R.A P.v₀ N.groupHaar x :=
-      integral_finset_sum _ (fun κ _ => (selected_full_sheet_integrable R N T P H v κ x).norm)
+      integral_finsetSum _ (fun κ _ => (selected_full_sheet_integrable R N T P H v κ x).norm)
     _ ≤ ∑ κ : R.A.V, K * min (Real.rpow x.val (1 / 8)) (Real.rpow x.val (-B)) :=
       Finset.sum_le_sum (fun κ _ => hb v κ x)
     _ = _ := by simp [mul_assoc]

@@ -40,7 +40,7 @@ private lemma w_regularization (R : PrincipalMellin.ActualRecipe S η)
 private lemma reg_holo (R : PrincipalMellin.ActualRecipe S η) :
     DifferentiableOn ℂ (regularization R) {s : ℂ | 0 < s.re} := by
   apply R.continuation.R_holo.mul
-  apply DifferentiableOn.fun_finset_prod
+  apply DifferentiableOn.fun_finsetProd
   intro v hv
   exact ((((differentiable_id.neg).mul_const
     (Real.log (idealNorm v.asIdeal) : ℂ)).cexp).const_mul
@@ -281,7 +281,7 @@ private lemma tail_decay
 private lemma L_holo_off (R : PrincipalMellin.ActualRecipe S η) :
     DifferentiableOn ℂ R.L {s : ℂ | 0 < s.re ∧ s ≠ 1} := by
   apply R.continuation.L_holo.mul
-  apply DifferentiableOn.fun_finset_prod
+  apply DifferentiableOn.fun_finsetProd
   intro v hv
   exact ((((differentiable_id.neg).mul_const
     (Real.log (idealNorm v.asIdeal) : ℂ)).cexp).const_mul

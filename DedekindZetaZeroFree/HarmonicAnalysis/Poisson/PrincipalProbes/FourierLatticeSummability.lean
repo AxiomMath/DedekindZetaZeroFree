@@ -27,10 +27,10 @@ private theorem annular_tensor (A : SArithmeticData F) (W : SLocalProduct F A.Sf
     apply ContDiff.mul
     · apply contDiff_prod
       intro v hv
-      exact (hr v).1.comp ((contDiff_apply ℝ ℝ v).comp (contDiff_fst.comp E.contDiff))
+      exact (hr v).1.comp ((contDiff_apply ℝ (fun _ => ℝ) v).comp (contDiff_fst.comp E.contDiff))
     · apply contDiff_prod
       intro v hv
-      exact (hc v).1.comp ((contDiff_apply ℝ ℂ v).comp (contDiff_snd.comp E.contDiff))
+      exact (hc v).1.comp ((contDiff_apply ℝ (fun _ => ℂ) v).comp (contDiff_snd.comp E.contDiff))
   let K := E ⁻¹' ((Set.pi Set.univ fun v => tsupport (r v)) ×ˢ (Set.pi Set.univ fun v => tsupport (c v)))
   have hK : IsCompact K := E.toHomeomorph.isCompact_preimage.mpr
     ((isCompact_univ_pi fun v => (hr v).2.1).prod (isCompact_univ_pi fun v => (hc v).2.1))

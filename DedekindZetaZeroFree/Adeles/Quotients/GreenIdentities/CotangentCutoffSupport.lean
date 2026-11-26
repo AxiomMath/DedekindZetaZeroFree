@@ -34,7 +34,7 @@ theorem contDiff_labeledA :
         z ((placeEquiv F ζ hζ).symm k)) := by
     apply contDiff_pi.mpr
     intro k
-    exact contDiff_apply ℝ KPArch.H3 ((placeEquiv F ζ hζ).symm k)
+    exact contDiff_apply ℝ (fun _ => KPArch.H3) ((placeEquiv F ζ hζ).symm k)
   exact h2.comp h1
 
 theorem q_eq_mk (a : ShrunkChart F ζ hζ U R P H) (x : M F) :

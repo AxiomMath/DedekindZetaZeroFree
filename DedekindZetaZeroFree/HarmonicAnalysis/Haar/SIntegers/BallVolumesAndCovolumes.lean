@@ -311,7 +311,7 @@ theorem completion_sigmaFinite (F : Type) [Field F] [NumberField F]
 theorem integerVolume_pos (F : Type) [Field F] [NumberField F]
     (v : HeightOneSpectrum (RingOfIntegers F)) : 0 < integerVolume F v := by
   have hqv : (0 : ℝ) < (v.asIdeal.absNorm : ℝ) := by
-    have := NumberField.RingOfIntegers.HeightOneSpectrum.one_lt_absNorm v
+    have := NumberField.HeightOneSpectrum.one_lt_absNorm v
     exact_mod_cast (lt_trans Nat.zero_lt_one this)
   unfold integerVolume
   exact inv_pos.mpr (Real.sqrt_pos.mpr (zpow_pos hqv _))
@@ -350,7 +350,7 @@ theorem ball_measure_balance (F : Type) [Field F] [NumberField F]
     finiteBallVolume F S k μ = (ballArchCovolume F S k)⁻¹ := by
   have hqv : ∀ v : S, (0 : ℝ) < (v.val.asIdeal.absNorm : ℝ) := by
     intro v
-    have := NumberField.RingOfIntegers.HeightOneSpectrum.one_lt_absNorm v.val
+    have := NumberField.HeightOneSpectrum.one_lt_absNorm v.val
     exact_mod_cast (lt_trans Nat.zero_lt_one this)
 
   have hvol : finiteBallVolume F S k μ =

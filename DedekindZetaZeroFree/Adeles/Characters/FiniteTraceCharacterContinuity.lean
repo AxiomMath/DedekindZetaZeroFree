@@ -33,7 +33,7 @@ theorem finiteCharacter_product_continuous :
     exact hv (localFiniteCharacter_eq_one_of_mem_integers F v (a v) hav)
   change Continuous (fun a => ∏ᶠ v, localFiniteCharacter F v (RestrictedProduct.inclusion _ _ hS a v))
   rw [heq]
-  apply continuous_finset_prod
+  apply continuous_finsetProd
   intro v hv
   exact (continuous_localFiniteCharacter F v).comp (RestrictedProduct.continuous_eval v)
 

@@ -251,9 +251,8 @@ private lemma localSize_diagonal (F : Type) [Field F] [NumberField F]
   · apply Finset.prod_congr rfl
     intro v hv
     rw [sLocalDiagonal_infinite]
-    change ‖((WithAbs.equiv v.1).symm m : v.Completion)‖ ^ v.mult = _
-    rw [InfinitePlace.Completion.norm_coe]
-    rfl
+    simp [AbsoluteValue.Completion.algebraMap_def, WithAbs.algebraMap_right_apply,
+      AbsoluteValue.Completion.norm_coe, InfinitePlace.coe_apply]
   · simp only [sLocalDiagonal_finite, FinitePlace.mk_apply]
     exact Finset.prod_coe_sort S (fun v => ‖algebraMap F (v.adicCompletion F) m‖)
 private lemma localSize_zero (F : Type) [Field F] [NumberField F]

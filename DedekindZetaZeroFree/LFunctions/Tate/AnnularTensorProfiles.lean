@@ -252,7 +252,7 @@ theorem coordinateTensor_fourier
       ∏ v : S, (TateFiniteShell.annularTest F v.val (x.2 v) *
         (localFiniteCharacter F v.val (-(x.2 v * y.2 v)) : ℂ)) := by
     rw [sLocalTraceCharacter_apply]
-    simp only [Circle.coe_mul, SubmonoidClass.coe_finset_prod, coordinateTensor,
+    simp only [Circle.coe_mul, SubmonoidClass.coe_finsetProd, coordinateTensor,
       Prod.fst_neg, Prod.fst_mul, Prod.snd_neg, Prod.snd_mul, Pi.neg_apply, Pi.mul_apply,
       Finset.prod_mul_distrib]
     simp only [hcoe]
@@ -434,7 +434,7 @@ theorem modulus_rpow (x : SLocalProduct F S) (r : ℝ) :
     (by rw [InfiniteAdeleRing.norm_def]; positivity)
     (Finset.prod_nonneg (fun _ _ => norm_nonneg _))]
   congr 1
-  exact (Real.finset_prod_rpow Finset.univ (fun v : S => ‖x.2 v‖)
+  exact (Real.finsetProd_rpow Finset.univ (fun v : S => ‖x.2 v‖)
     (fun _ _ => norm_nonneg _) r).symm
 
 theorem weighted_tensor_integral
@@ -530,7 +530,7 @@ theorem arch_weighted_integral
       ∏ v, complexNormMellinIntegrand (g v) s
         ((InfiniteAdeleRing.ringEquiv_mixedSpace F a).2 v) := by
     rw [arch_norm_coordinates,
-      ← Real.finset_prod_rpow Finset.univ _ (fun _ _ => sq_nonneg _) (s - 1)]
+      ← Real.finsetProd_rpow Finset.univ _ (fun _ _ => sq_nonneg _) (s - 1)]
     push_cast
     rw [← Finset.prod_mul_distrib]
     apply Finset.prod_congr rfl

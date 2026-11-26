@@ -167,10 +167,9 @@ theorem infiniteTensorNormSubgroup_eq_localNormSubgroup
     have hWrapperCompletionSymm :=
       ringEquiv_compat_symm
         eVField eWField (by
-          simpa [u, infinitePlaceAbsoluteValueExtension,
-            eVField, eWField] using
-            (infinitePlaceCompletionAlgEquiv_algebraMap
-              (K := K) (L := L) v w hw))
+          refine RingHom.ext fun x => ?_
+          simp only [RingHom.comp_apply, RingEquiv.coe_toRingHom, AlgEquiv.coe_ringEquiv,
+            eVField, eWField, infinitePlaceCompletionAlgEquiv_apply])
     apply RingHom.ext
     intro x
     change
@@ -216,6 +215,10 @@ theorem infiniteTensorNormSubgroup_eq_localNormSubgroup
   rw [hTensorTransport,
     localTensorNormSubgroup_eq_localNormSubgroup
       (K := K) (L := L) v.1 u v.isNontrivial]
-  exact hNormTransport
+  convert hNormTransport using 3 <;>
+    first
+    | rfl
+    | exact (absoluteValue_completionAlgebra_eq_algebraOfLiesOver v.1 w.1 _).symm
+    | exact absoluteValue_completionAlgebra_eq_algebraOfLiesOver v.1 w.1 _
 
 end

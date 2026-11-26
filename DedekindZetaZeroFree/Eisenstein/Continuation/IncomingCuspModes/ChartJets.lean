@@ -340,7 +340,7 @@ private theorem compact_family_of_local {E : Type*} [TopologicalSpace E]
     letI : CompactSpace K := isCompact_iff_compactSpace.mp hK
     have hcont : ContinuousOn (fun q : ℂ × K => j q.1 q.2) (O ×ˢ Set.univ) :=
       continuous_eval.comp_continuousOn ((hj.continuousOn.comp continuous_fst.continuousOn
-        (fun _ hq => hq.1)).prodMk continuous_snd.continuousOn)
+        (fun _ hq => (Set.mem_prod.mp hq).1)).prodMk continuous_snd.continuousOn)
     have hfK : ContinuousOn (fun q : ℂ × E => f q.1 q.2) (O ×ˢ K) := by
       apply continuousOn_iff_continuous_restrict.mpr
       let a : (O ×ˢ K) → ℂ × K := fun q => (q.val.1, ⟨q.val.2,q.property.2⟩)
@@ -677,7 +677,7 @@ theorem actual_incoming_cutoff_chart_jets
       (fun x => KPContCotangentActualOverlap.labeledA q.places (c x)) := by
     apply contDiff_pi.mpr
     intro k
-    exact ((contDiff_apply ℝ (ℂ × ℝ) (q.places.symm k)).comp
+    exact ((contDiff_apply ℝ (fun _ => ℂ × ℝ) (q.places.symm k)).comp
       (CotangentLogCoframe.A (KPContCotangentActualOverlap.d F)).contDiff).comp hc
   have hact : ContDiff ℝ (⊤ : ℕ∞)
       (fun y : KPCuspGenuineMonodromy.SymmetricSpace F => q.kind.representative • y) := by

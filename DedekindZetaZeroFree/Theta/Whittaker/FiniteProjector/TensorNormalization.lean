@@ -56,7 +56,7 @@ theorem tensorFunction_update_smul (D : SourceFactorization R Q T)
     _root_.DedekindZetaZeroFree.FiniteWhittakerProjectors.tensorFunction R D s (Function.update x p (c • x p)) = c • _root_.DedekindZetaZeroFree.FiniteWhittakerProjectors.tensorFunction R D s x := by
   unfold _root_.DedekindZetaZeroFree.FiniteWhittakerProjectors.tensorFunction
   rw [(PiTensorProduct.tprod ℂ).map_update_smul, Function.update_eq_self,
-    map_smul, map_smul]
+    map_smul, map_smul, RingHom.id_apply]
 
 def integrablePeriods : Submodule ℂ (Functions R) where
   carrier := {f | ∀ g, Integrable (fun q => f

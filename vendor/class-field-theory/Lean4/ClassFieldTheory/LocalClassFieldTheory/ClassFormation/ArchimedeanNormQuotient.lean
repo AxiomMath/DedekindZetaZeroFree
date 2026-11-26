@@ -378,8 +378,7 @@ def absoluteCompletionNormQuotientEquivRealComplex
             ((InfinitePlace.Completion.equiv v).symm x) := by
     intro x
     refine
-      UniformSpace.Completion.induction_on
-        (α := WithAbs v.1) x ?_ ?_
+      AbsoluteValue.Completion.induction_on x ?_ ?_
     · exact
         isClosed_eq
           ((InfinitePlace.Completion.isometry_extensionEmbedding
@@ -417,8 +416,9 @@ def absoluteCompletionNormQuotientEquivRealComplex
               ((InfinitePlace.Completion.equiv w).symm
                 (AbsoluteValue.toCompletion w.1
                   (algebraMap K L (WithAbs.equiv v.1 y)))) =
-            w.embedding (algebraMap K L (WithAbs.equiv v.1 y)) :=
-        (InfinitePlace.Completion.extensionEmbedding_coe w
+            w.embedding (algebraMap K L (WithAbs.equiv v.1 y)) := by
+        rw [AbsoluteValue.toCompletion_apply]
+        exact (InfinitePlace.Completion.extensionEmbedding_coe w
           ((WithAbs.equiv w.1).symm
             (algebraMap K L (WithAbs.equiv v.1 y)))).trans
           (congrArg w.embedding

@@ -186,6 +186,82 @@ theorem
     finitePlaceConjugateLocalizedCompletionAlgEquiv_toAlgebraicLocalization,
     g.apply_symm_apply]
 
+/-- The canonical embedding of `L` intertwines a decomposition-group element
+with the local automorphism it corresponds to. -/
+private theorem finitePlaceDecompositionEquiv_symm_toAlgebraicLocalization
+    (v : HeightOneSpectrum (𝓞 K))
+    (w : AbsoluteValueExtension
+      (NumberField.HeightOneSpectrum.adicAbv K v) L)
+    (tau :
+      letI : Algebra (NumberField.HeightOneSpectrum.adicAbv K v).Completion
+          (AlgebraicNumberTheory.Valuations.LocalizedCompletion
+            (NumberField.HeightOneSpectrum.adicAbv K v) w) :=
+        finitePlaceLocalArtinLocalizedAlgebra v w
+      AlgebraicNumberTheory.Valuations.LocalizedCompletion
+          (NumberField.HeightOneSpectrum.adicAbv K v) w ≃ₐ[
+        (NumberField.HeightOneSpectrum.adicAbv K v).Completion]
+        AlgebraicNumberTheory.Valuations.LocalizedCompletion
+          (NumberField.HeightOneSpectrum.adicAbv K v) w)
+    (y : L) :
+    letI : Algebra (NumberField.HeightOneSpectrum.adicAbv K v).Completion
+        (AlgebraicNumberTheory.Valuations.LocalizedCompletion
+          (NumberField.HeightOneSpectrum.adicAbv K v) w) :=
+      finitePlaceLocalArtinLocalizedAlgebra v w
+    AbsoluteValue.toAlgebraicLocalization
+        (NumberField.HeightOneSpectrum.adicAbv K v) w.1 w.2
+        ((((decompositionGroupEquivAlgebraicLocalizationAut
+            (NumberField.HeightOneSpectrum.adicAbv K v)
+            (RayClass.adicAbv_isNontrivial v) w :
+              absoluteValueDecompositionGroup K w.1 ≃*
+                (AlgebraicNumberTheory.Valuations.LocalizedCompletion
+                    (NumberField.HeightOneSpectrum.adicAbv K v) w ≃ₐ[
+                  (NumberField.HeightOneSpectrum.adicAbv K v).Completion]
+                  AlgebraicNumberTheory.Valuations.LocalizedCompletion
+                    (NumberField.HeightOneSpectrum.adicAbv K v) w)).symm tau :
+            absoluteValueDecompositionGroup K w.1) : L ≃ₐ[K] L) y) =
+      tau (AbsoluteValue.toAlgebraicLocalization
+        (NumberField.HeightOneSpectrum.adicAbv K v) w.1 w.2 y) := by
+  rw [← localizationRamificationGroups_decompositionGroupEquiv_toLocalization]
+  exact DFunLike.congr_fun (MulEquiv.apply_symm_apply _ tau) _
+
+/-- A global automorphism acting on the conjugate localization through `tauC`
+acts on the original localization through the transported automorphism. -/
+private theorem finitePlaceConjugate_toAlgebraicLocalization_of_action
+    (v : HeightOneSpectrum (𝓞 K))
+    (w : AbsoluteValueExtension
+      (NumberField.HeightOneSpectrum.adicAbv K v) L)
+    (g σ : L ≃ₐ[K] L) :
+    let vK := NumberField.HeightOneSpectrum.adicAbv K v
+    let wc := absoluteValueExtensionConjugate vK w g
+    let Ew := AlgebraicNumberTheory.Valuations.LocalizedCompletion vK w
+    let Ewc := AlgebraicNumberTheory.Valuations.LocalizedCompletion vK wc
+    letI : Algebra vK.Completion Ew :=
+      finitePlaceLocalArtinLocalizedAlgebra v w
+    letI : Algebra vK.Completion Ewc :=
+      finitePlaceLocalArtinLocalizedAlgebra v wc
+    ∀ (tauC : Ewc ≃ₐ[vK.Completion] Ewc),
+      (∀ y : L, AbsoluteValue.toAlgebraicLocalization vK wc.1 wc.2 (σ y) =
+        tauC (AbsoluteValue.toAlgebraicLocalization vK wc.1 wc.2 y)) →
+      ∀ z : L, AbsoluteValue.toAlgebraicLocalization vK w.1 w.2 (σ z) =
+        AlgEquiv.autCongr
+          (finitePlaceConjugateLocalizedCompletionAlgEquiv (K := K) (L := L) v w g)
+          tauC (AbsoluteValue.toAlgebraicLocalization vK w.1 w.2 z) := by
+  intro vK wc Ew Ewc
+  letI : Algebra vK.Completion Ew := finitePlaceLocalArtinLocalizedAlgebra v w
+  letI : Algebra vK.Completion Ewc := finitePlaceLocalArtinLocalizedAlgebra v wc
+  intro tauC hσ z
+  have hg := (inferInstance : IsMulCommutative (L ≃ₐ[K] L)).is_comm.comm g σ
+  have hcomm : g (σ (g.symm z)) = σ z :=
+    calc
+      g (σ (g.symm z)) = (g * σ) (g.symm z) := rfl
+      _ = (σ * g) (g.symm z) := DFunLike.congr_fun hg (g.symm z)
+      _ = σ (g (g.symm z)) := rfl
+      _ = σ z := by rw [g.apply_symm_apply]
+  rw [← hcomm,
+    ← finitePlaceConjugateLocalizedCompletionAlgEquiv_toAlgebraicLocalization,
+    hσ, ← finitePlaceConjugateLocalizedCompletionAlgEquiv_symm_toAlgebraicLocalization]
+  rfl
+
 /-- Conjugation of a place intertwines the two localization
 decomposition-group identifications on each local automorphism. -/
 theorem finitePlaceDecompositionTransport_conjugate_apply
@@ -221,119 +297,28 @@ theorem finitePlaceDecompositionTransport_conjugate_apply
           (eDwc.symm tauC) =
         (absoluteValueDecompositionGroup K w.1).subtype
           (eDw.symm (AlgEquiv.autCongr e tauC)) := by
-  let vK := NumberField.HeightOneSpectrum.adicAbv K v
-  let wc := absoluteValueExtensionConjugate vK w g
-  let hvK : vK.IsNontrivial :=
-    RayClass.adicAbv_isNontrivial v
-  let hwK :=
-    AbsoluteValue.extensionCompletionAlgebra
-      (K := K) w.1
-  let : SMul K w.1.Completion := hwK.toSMul
-  let : Algebra vK.Completion w.1.Completion :=
-    AbsoluteValue.completionAlgebra vK w.1 w.2
-  let hwcK :=
-    AbsoluteValue.extensionCompletionAlgebra
-      (K := K) wc.1
-  let : SMul K wc.1.Completion := hwcK.toSMul
-  let : Algebra vK.Completion wc.1.Completion :=
-    AbsoluteValue.completionAlgebra vK wc.1 wc.2
-  let Ew := AlgebraicNumberTheory.Valuations.LocalizedCompletion vK w
-  let Ewc := AlgebraicNumberTheory.Valuations.LocalizedCompletion vK wc
-  let e :=
-    finitePlaceConjugateLocalizedCompletionAlgEquiv
-      (K := K) (L := L) v w g
-  let eDw :
-      absoluteValueDecompositionGroup K w.1 ≃*
-        (Ew ≃ₐ[vK.Completion] Ew) :=
-    decompositionGroupEquivAlgebraicLocalizationAut
-      vK hvK w
-  let eDwc :
-      absoluteValueDecompositionGroup K wc.1 ≃*
-        (Ewc ≃ₐ[vK.Completion] Ewc) :=
-    decompositionGroupEquivAlgebraicLocalizationAut
-      vK hvK wc
-  change
-    ∀ tauC : Ewc ≃ₐ[vK.Completion] Ewc,
-      (absoluteValueDecompositionGroup K wc.1).subtype
-          (eDwc.symm tauC) =
-        (absoluteValueDecompositionGroup K w.1).subtype
-          (eDw.symm (AlgEquiv.autCongr e tauC))
-  intro tauC
-  let tau := AlgEquiv.autCongr e tauC
-  let rhoC : absoluteValueDecompositionGroup K wc.1 :=
-    eDwc.symm tauC
-  let rho : absoluteValueDecompositionGroup K w.1 :=
-    eDw.symm tau
-  change (rhoC.1 : L ≃ₐ[K] L) =
-    (rho.1 : L ≃ₐ[K] L)
+  intro vK wc hvK Ew Ewc e eDw eDwc tauC
+  letI : Algebra vK.Completion Ew := finitePlaceLocalArtinLocalizedAlgebra v w
+  letI : Algebra vK.Completion Ewc := finitePlaceLocalArtinLocalizedAlgebra v wc
+  have hC (y : L) :
+      AbsoluteValue.toAlgebraicLocalization vK wc.1 wc.2
+          (((eDwc.symm tauC : absoluteValueDecompositionGroup K wc.1) :
+            L ≃ₐ[K] L) y) =
+        tauC (AbsoluteValue.toAlgebraicLocalization vK wc.1 wc.2 y) :=
+    finitePlaceDecompositionEquiv_symm_toAlgebraicLocalization v wc tauC y
+  have hW (tau : Ew ≃ₐ[vK.Completion] Ew) (y : L) :
+      AbsoluteValue.toAlgebraicLocalization vK w.1 w.2
+          (((eDw.symm tau : absoluteValueDecompositionGroup K w.1) :
+            L ≃ₐ[K] L) y) =
+        tau (AbsoluteValue.toAlgebraicLocalization vK w.1 w.2 y) :=
+    finitePlaceDecompositionEquiv_symm_toAlgebraicLocalization v w tau y
   apply AlgEquiv.ext
   intro z
-  apply
-    (AbsoluteValue.toAlgebraicLocalization
-      vK w.1 w.2).injective
-  have hcomm :
-      g ((rhoC.1 : L ≃ₐ[K] L) (g.symm z)) =
-        (rhoC.1 : L ≃ₐ[K] L) z := by
-    have hg :
-        g * (rhoC.1 : L ≃ₐ[K] L) =
-          (rhoC.1 : L ≃ₐ[K] L) * g :=
-      (inferInstance :
-        IsMulCommutative (L ≃ₐ[K] L)).is_comm.comm _ _
-    calc
-      g ((rhoC.1 : L ≃ₐ[K] L) (g.symm z)) =
-          (g * (rhoC.1 : L ≃ₐ[K] L)) (g.symm z) := rfl
-      _ = ((rhoC.1 : L ≃ₐ[K] L) * g) (g.symm z) :=
-        DFunLike.congr_fun hg (g.symm z)
-      _ = (rhoC.1 : L ≃ₐ[K] L) (g (g.symm z)) := rfl
-      _ = (rhoC.1 : L ≃ₐ[K] L) z := by
-        rw [g.apply_symm_apply]
-  calc
-    AbsoluteValue.toAlgebraicLocalization vK w.1 w.2
-        ((rhoC.1 : L ≃ₐ[K] L) z) =
-      AbsoluteValue.toAlgebraicLocalization vK w.1 w.2
-        (g ((rhoC.1 : L ≃ₐ[K] L) (g.symm z))) := by
-          rw [hcomm]
-    _ = e
-        (AbsoluteValue.toAlgebraicLocalization vK wc.1 wc.2
-          ((rhoC.1 : L ≃ₐ[K] L) (g.symm z))) := by
-          rw [
-            finitePlaceConjugateLocalizedCompletionAlgEquiv_toAlgebraicLocalization]
-    _ = e
-        (eDwc rhoC
-          (AbsoluteValue.toAlgebraicLocalization
-            vK wc.1 wc.2 (g.symm z))) := by
-          rw [localizationRamificationGroups_decompositionGroupEquiv_toLocalization]
-    _ = e
-        (tauC
-          (AbsoluteValue.toAlgebraicLocalization
-            vK wc.1 wc.2 (g.symm z))) := by
-          rw [eDwc.apply_symm_apply]
-    _ = (AlgEquiv.autCongr e tauC)
-        (AbsoluteValue.toAlgebraicLocalization
-          vK w.1 w.2 z) := by
-          change
-            e
-                (tauC
-                  (AbsoluteValue.toAlgebraicLocalization
-                    vK wc.1 wc.2 (g.symm z))) =
-              e
-                (tauC
-                  (e.symm
-                    (AbsoluteValue.toAlgebraicLocalization
-                      vK w.1 w.2 z)))
-          rw [
-            finitePlaceConjugateLocalizedCompletionAlgEquiv_symm_toAlgebraicLocalization]
-    _ = tau
-        (AbsoluteValue.toAlgebraicLocalization
-          vK w.1 w.2 z) := by
-          rfl
-    _ = eDw rho
-        (AbsoluteValue.toAlgebraicLocalization
-          vK w.1 w.2 z) := by
-          rw [eDw.apply_symm_apply]
-    _ = AbsoluteValue.toAlgebraicLocalization vK w.1 w.2
-        ((rho.1 : L ≃ₐ[K] L) z) := by
-          rw [localizationRamificationGroups_decompositionGroupEquiv_toLocalization]
+  apply (AbsoluteValue.toAlgebraicLocalization vK w.1 w.2).injective
+  rw [Subgroup.coe_subtype, Subgroup.coe_subtype, hW]
+  exact finitePlaceConjugate_toAlgebraicLocalization_of_action v w g
+    ((eDwc.symm tauC : absoluteValueDecompositionGroup K wc.1) : L ≃ₐ[K] L)
+    tauC hC z
 
 /-- Conjugation of a place intertwines the two localization
 decomposition-group identifications after inclusion in the global
@@ -377,6 +362,100 @@ theorem finitePlaceDecompositionTransport_conjugate
     finitePlaceDecompositionTransport_conjugate_apply
       (K := K) (L := L) v w g tauC
 
+/-- The localized local Artin map is the abelian local Artin map of the
+localized completion, precomposed with the canonical completion input. -/
+private theorem finitePlaceLocalArtinMonoidHom_eq_comp
+    (v : HeightOneSpectrum (𝓞 K))
+    (w : AbsoluteValueExtension
+      (NumberField.HeightOneSpectrum.adicAbv K v) L) :
+    let vK := NumberField.HeightOneSpectrum.adicAbv K v
+    let E := AlgebraicNumberTheory.Valuations.LocalizedCompletion vK w
+    letI : Algebra vK.Completion E :=
+      finitePlaceLocalArtinLocalizedAlgebra v w
+    letI : FiniteDimensional vK.Completion E :=
+      finitePlaceLocalArtinFiniteDimensional v w
+    letI : IsAbelianGalois vK.Completion E :=
+      finitePlaceLocalArtinIsAbelianGalois v w
+        (inferInstance : FiniteDimensional K L)
+    letI : ValuativeRel vK.Completion :=
+      finitePlaceLocalArtinCompletionValuativeRel v
+    letI : IsNonarchimedeanLocalField vK.Completion :=
+      finitePlaceLocalArtinCompletionIsNonarchimedeanLocalField v
+    finitePlaceLocalArtinMonoidHom (K := K) (L := L) v w =
+      (LocalClassFieldTheory.abelianLocalArtinMonoidHom
+        vK.Completion E).comp
+          (finitePlaceLocalArtinInputMonoidHom v) := by
+  intro vK E
+  rfl
+
+/-- Naturality of the abelian local Artin map under the conjugate
+localization equivalence, in the instance form used by
+`finitePlaceLocalArtinMonoidHom`. -/
+private theorem finitePlaceConjugate_abelianLocalArtinMonoidHom_autCongr
+    (v : HeightOneSpectrum (𝓞 K))
+    (w : AbsoluteValueExtension
+      (NumberField.HeightOneSpectrum.adicAbv K v) L)
+    (g : L ≃ₐ[K] L) :
+    letI : Algebra (NumberField.HeightOneSpectrum.adicAbv K v).Completion
+        (AlgebraicNumberTheory.Valuations.LocalizedCompletion (NumberField.HeightOneSpectrum.adicAbv K v) w) :=
+      finitePlaceLocalArtinLocalizedAlgebra v w
+    letI : Algebra (NumberField.HeightOneSpectrum.adicAbv K v).Completion
+        (AlgebraicNumberTheory.Valuations.LocalizedCompletion (NumberField.HeightOneSpectrum.adicAbv K v)
+          (absoluteValueExtensionConjugate (NumberField.HeightOneSpectrum.adicAbv K v) w g)) :=
+      finitePlaceLocalArtinLocalizedAlgebra v
+        (absoluteValueExtensionConjugate (NumberField.HeightOneSpectrum.adicAbv K v) w g)
+    letI : FiniteDimensional (NumberField.HeightOneSpectrum.adicAbv K v).Completion
+        (AlgebraicNumberTheory.Valuations.LocalizedCompletion (NumberField.HeightOneSpectrum.adicAbv K v) w) :=
+      finitePlaceLocalArtinFiniteDimensional v w
+    letI : FiniteDimensional (NumberField.HeightOneSpectrum.adicAbv K v).Completion
+        (AlgebraicNumberTheory.Valuations.LocalizedCompletion (NumberField.HeightOneSpectrum.adicAbv K v)
+          (absoluteValueExtensionConjugate (NumberField.HeightOneSpectrum.adicAbv K v) w g)) :=
+      finitePlaceLocalArtinFiniteDimensional v
+        (absoluteValueExtensionConjugate (NumberField.HeightOneSpectrum.adicAbv K v) w g)
+    letI : IsAbelianGalois (NumberField.HeightOneSpectrum.adicAbv K v).Completion
+        (AlgebraicNumberTheory.Valuations.LocalizedCompletion (NumberField.HeightOneSpectrum.adicAbv K v) w) :=
+      finitePlaceLocalArtinIsAbelianGalois v w
+        (inferInstance : FiniteDimensional K L)
+    letI : IsAbelianGalois (NumberField.HeightOneSpectrum.adicAbv K v).Completion
+        (AlgebraicNumberTheory.Valuations.LocalizedCompletion (NumberField.HeightOneSpectrum.adicAbv K v)
+          (absoluteValueExtensionConjugate (NumberField.HeightOneSpectrum.adicAbv K v) w g)) :=
+      finitePlaceLocalArtinIsAbelianGalois v
+        (absoluteValueExtensionConjugate (NumberField.HeightOneSpectrum.adicAbv K v) w g)
+        (inferInstance : FiniteDimensional K L)
+    letI : ValuativeRel (NumberField.HeightOneSpectrum.adicAbv K v).Completion :=
+      finitePlaceLocalArtinCompletionValuativeRel v
+    letI : IsNonarchimedeanLocalField (NumberField.HeightOneSpectrum.adicAbv K v).Completion :=
+      finitePlaceLocalArtinCompletionIsNonarchimedeanLocalField v
+    (AlgEquiv.autCongr
+        (finitePlaceConjugateLocalizedCompletionAlgEquiv
+          (K := K) (L := L) v w g)).toMonoidHom.comp
+        (LocalClassFieldTheory.abelianLocalArtinMonoidHom (NumberField.HeightOneSpectrum.adicAbv K v).Completion
+          (AlgebraicNumberTheory.Valuations.LocalizedCompletion (NumberField.HeightOneSpectrum.adicAbv K v)
+            (absoluteValueExtensionConjugate (NumberField.HeightOneSpectrum.adicAbv K v) w g))) =
+      LocalClassFieldTheory.abelianLocalArtinMonoidHom (NumberField.HeightOneSpectrum.adicAbv K v).Completion
+        (AlgebraicNumberTheory.Valuations.LocalizedCompletion (NumberField.HeightOneSpectrum.adicAbv K v) w) := by
+  exact
+    @LocalClassFieldTheory.abelianLocalArtinMonoidHom_autCongr
+      (NumberField.HeightOneSpectrum.adicAbv K v).Completion
+      (AlgebraicNumberTheory.Valuations.LocalizedCompletion (NumberField.HeightOneSpectrum.adicAbv K v)
+        (absoluteValueExtensionConjugate (NumberField.HeightOneSpectrum.adicAbv K v) w g))
+      (AlgebraicNumberTheory.Valuations.LocalizedCompletion (NumberField.HeightOneSpectrum.adicAbv K v) w) _ _ _
+      (finitePlaceLocalArtinLocalizedAlgebra v
+        (absoluteValueExtensionConjugate (NumberField.HeightOneSpectrum.adicAbv K v) w g))
+      (finitePlaceLocalArtinLocalizedAlgebra v w)
+      (finitePlaceLocalArtinCompletionValuativeRel v) _
+      (finitePlaceLocalArtinCompletionIsNonarchimedeanLocalField v)
+      (finitePlaceLocalArtinFiniteDimensional v
+        (absoluteValueExtensionConjugate (NumberField.HeightOneSpectrum.adicAbv K v) w g))
+      (finitePlaceLocalArtinFiniteDimensional v w)
+      (finitePlaceLocalArtinIsAbelianGalois v
+        (absoluteValueExtensionConjugate (NumberField.HeightOneSpectrum.adicAbv K v) w g)
+        (inferInstance : FiniteDimensional K L))
+      (finitePlaceLocalArtinIsAbelianGalois v w
+        (inferInstance : FiniteDimensional K L))
+      (finitePlaceConjugateLocalizedCompletionAlgEquiv
+        (K := K) (L := L) v w g)
+
 /-- Local Artin maps are natural under the localized-completion
 equivalence induced by conjugating a finite-place extension. -/
 theorem finitePlaceLocalArtinMonoidHom_conjugate
@@ -400,44 +479,38 @@ theorem finitePlaceLocalArtinMonoidHom_conjugate
           (K := K) (L := L) v wc) =
       finitePlaceLocalArtinMonoidHom
         (K := K) (L := L) v w := by
-  let vK := NumberField.HeightOneSpectrum.adicAbv K v
-  let wc := absoluteValueExtensionConjugate vK w g
-  let Ew := AlgebraicNumberTheory.Valuations.LocalizedCompletion vK w
-  let Ewc := AlgebraicNumberTheory.Valuations.LocalizedCompletion vK wc
-  let : Algebra vK.Completion Ew :=
-    finitePlaceLocalArtinLocalizedAlgebra v w
-  let : Algebra vK.Completion Ewc :=
-    finitePlaceLocalArtinLocalizedAlgebra v wc
-  let : FiniteDimensional vK.Completion Ew :=
-    finitePlaceLocalArtinFiniteDimensional v w
-  let : FiniteDimensional vK.Completion Ewc :=
-    finitePlaceLocalArtinFiniteDimensional v wc
-  let : IsAbelianGalois vK.Completion Ew :=
-    finitePlaceLocalArtinIsAbelianGalois v w
-      (inferInstance : FiniteDimensional K L)
-  let : IsAbelianGalois vK.Completion Ewc :=
-    finitePlaceLocalArtinIsAbelianGalois v wc
-      (inferInstance : FiniteDimensional K L)
-  let : ValuativeRel vK.Completion :=
-    finitePlaceLocalArtinCompletionValuativeRel v
-  let : IsNonarchimedeanLocalField vK.Completion :=
-    finitePlaceLocalArtinCompletionIsNonarchimedeanLocalField v
-  let e :=
-    finitePlaceConjugateLocalizedCompletionAlgEquiv
-      (K := K) (L := L) v w g
-  let eK :
-      vK.Completionˣ ≃* (v.adicCompletion K)ˣ :=
-    finitePlaceCompletionUnitsContinuousMulEquiv v
-  change
-    (AlgEquiv.autCongr e).toMonoidHom.comp
-        ((LocalClassFieldTheory.abelianLocalArtinMonoidHom
-          vK.Completion Ewc).comp eK.symm.toMonoidHom) =
-      (LocalClassFieldTheory.abelianLocalArtinMonoidHom
-        vK.Completion Ew).comp eK.symm.toMonoidHom
+  intro vK wc Ew Ewc e
+  rw [finitePlaceLocalArtinMonoidHom_eq_comp v wc,
+    finitePlaceLocalArtinMonoidHom_eq_comp v w, ← MonoidHom.comp_assoc]
+  exact congrArg (fun f => f.comp (finitePlaceLocalArtinInputMonoidHom v))
+    (finitePlaceConjugate_abelianLocalArtinMonoidHom_autCongr v w g)
+
+/-- The decomposition-group inclusions at conjugate extensions differ by the
+conjugate localization equivalence. -/
+private theorem finitePlaceLocalToGlobalMonoidHom_conjugate
+    (v : HeightOneSpectrum (𝓞 K))
+    (w : AbsoluteValueExtension
+      (NumberField.HeightOneSpectrum.adicAbv K v) L)
+    (g : L ≃ₐ[K] L) :
+    let vK := NumberField.HeightOneSpectrum.adicAbv K v
+    let wc := absoluteValueExtensionConjugate vK w g
+    let Ew := AlgebraicNumberTheory.Valuations.LocalizedCompletion vK w
+    let Ewc := AlgebraicNumberTheory.Valuations.LocalizedCompletion vK wc
+    letI : Algebra vK.Completion Ew :=
+      finitePlaceLocalArtinLocalizedAlgebra v w
+    letI : Algebra vK.Completion Ewc :=
+      finitePlaceLocalArtinLocalizedAlgebra v wc
+    finitePlaceLocalToGlobalMonoidHom (K := K) (L := L) v wc =
+      (finitePlaceLocalToGlobalMonoidHom (K := K) (L := L) v w).comp
+        (AlgEquiv.autCongr
+          (finitePlaceConjugateLocalizedCompletionAlgEquiv
+            (K := K) (L := L) v w g)).toMonoidHom := by
+  intro vK wc Ew Ewc
+  apply MonoidHom.ext
+  intro tauC
   exact
-    congrArg (fun f => f.comp eK.symm.toMonoidHom)
-      (LocalClassFieldTheory.abelianLocalArtinMonoidHom_autCongr
-        vK.Completion Ewc Ew e)
+    finitePlaceDecompositionTransport_conjugate_apply
+      (K := K) (L := L) v w g tauC
 
 /-- Conjugating the chosen extension of a finite place does not change
 its Artin homomorphism when the global extension is abelian. -/
@@ -452,72 +525,12 @@ theorem finitePlaceArtinMonoidHomOfExtension_conjugate
           (NumberField.HeightOneSpectrum.adicAbv K v) w g) =
       finitePlaceArtinMonoidHomOfExtension
         (K := K) (L := L) v w := by
-  let vK := NumberField.HeightOneSpectrum.adicAbv K v
-  let wc := absoluteValueExtensionConjugate vK w g
-  let hvK : vK.IsNontrivial :=
-    RayClass.adicAbv_isNontrivial v
-  let hwK :=
-    AbsoluteValue.extensionCompletionAlgebra
-      (K := K) w.1
-  let : SMul K w.1.Completion := hwK.toSMul
-  let : Algebra vK.Completion w.1.Completion :=
-    AbsoluteValue.completionAlgebra vK w.1 w.2
-  let hwcK :=
-    AbsoluteValue.extensionCompletionAlgebra
-      (K := K) wc.1
-  let : SMul K wc.1.Completion := hwcK.toSMul
-  let : Algebra vK.Completion wc.1.Completion :=
-    AbsoluteValue.completionAlgebra vK wc.1 wc.2
-  let Ew := AlgebraicNumberTheory.Valuations.LocalizedCompletion vK w
-  let Ewc := AlgebraicNumberTheory.Valuations.LocalizedCompletion vK wc
-  let e :=
-    finitePlaceConjugateLocalizedCompletionAlgEquiv
-      (K := K) (L := L) v w g
-  let eDw :
-      absoluteValueDecompositionGroup K w.1 ≃*
-        (Ew ≃ₐ[vK.Completion] Ew) :=
-    decompositionGroupEquivAlgebraicLocalizationAut
-      vK hvK w
-  let eDwc :
-      absoluteValueDecompositionGroup K wc.1 ≃*
-        (Ewc ≃ₐ[vK.Completion] Ewc) :=
-    decompositionGroupEquivAlgebraicLocalizationAut
-      vK hvK wc
-  have htransport :=
-    finitePlaceDecompositionTransport_conjugate
-      (K := K) (L := L) v w g
-  have hlocal :=
-    finitePlaceLocalArtinMonoidHom_conjugate
-      (K := K) (L := L) v w g
-  change
-    ((absoluteValueDecompositionGroup K wc.1).subtype.comp
-        eDwc.symm.toMonoidHom).comp
-        (finitePlaceLocalArtinMonoidHom
-          (K := K) (L := L) v wc) =
-      ((absoluteValueDecompositionGroup K w.1).subtype.comp
-        eDw.symm.toMonoidHom).comp
-        (finitePlaceLocalArtinMonoidHom
-          (K := K) (L := L) v w)
-  calc
-    _ =
-        (((absoluteValueDecompositionGroup K w.1).subtype.comp
-            eDw.symm.toMonoidHom).comp
-          (AlgEquiv.autCongr e).toMonoidHom).comp
-            (finitePlaceLocalArtinMonoidHom
-              (K := K) (L := L) v wc) :=
-      congrArg
-        (fun f => f.comp
-          (finitePlaceLocalArtinMonoidHom
-            (K := K) (L := L) v wc))
-        htransport
-    _ =
-        ((absoluteValueDecompositionGroup K w.1).subtype.comp
-          eDw.symm.toMonoidHom).comp
-            ((AlgEquiv.autCongr e).toMonoidHom.comp
-              (finitePlaceLocalArtinMonoidHom
-                (K := K) (L := L) v wc)) := by
-      rfl
-    _ = _ := by rw [hlocal]
+  rw [finitePlaceArtinMonoidHomOfExtension_factor,
+    finitePlaceArtinMonoidHomOfExtension_factor,
+    finitePlaceLocalToGlobalMonoidHom_conjugate v w g, MonoidHom.comp_assoc]
+  exact congrArg (fun f => (finitePlaceLocalToGlobalMonoidHom
+    (K := K) (L := L) v w).comp f)
+    (finitePlaceLocalArtinMonoidHom_conjugate v w g)
 
 /-- The finite-place Artin homomorphism is independent of the chosen
 extension of the base place in an abelian extension. -/

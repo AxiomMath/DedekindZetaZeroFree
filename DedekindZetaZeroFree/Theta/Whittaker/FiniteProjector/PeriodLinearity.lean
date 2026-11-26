@@ -46,7 +46,7 @@ theorem fourier_rightTranslateSum (dq : Measure (KPAdditiveQuotient F))
       ∑ i ∈ s, c i * fourier R dq f (g * a i) := by
   unfold MomentSources.fourier
   simp_rw [rightTranslateSum_apply, Finset.sum_mul, mul_assoc]
-  refine (integral_finset_sum s (fun i hi => (h i hi).const_mul (c i))).trans ?_
+  refine (integral_finsetSum s (fun i hi => (h i hi).const_mul (c i))).trans ?_
   apply Finset.sum_congr rfl
   intro i hi
   exact integral_const_mul _ _

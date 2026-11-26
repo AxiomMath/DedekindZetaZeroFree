@@ -64,7 +64,7 @@ theorem source_word_compact_continuous
       (KPMsGreenFlux.compactInsertion F ζ hζ k*c.val)) := by
   obtain ⟨n,d,f,he⟩ := source_compact_word_expansion F ζ hζ t c
   simp_rw [he]
-  exact continuous_finset_sum _ (fun j _=>continuous_const.mul (pureCompact_continuous _ _))
+  exact continuous_finsetSum _ (fun j _=>continuous_const.mul (pureCompact_continuous _ _))
 end DedekindZetaZeroFree.FourierContinuation.ResidualPrincipalSlices
 
 end

@@ -171,7 +171,7 @@ private theorem scalarLaurent_coeff {V : Type*} [AddCommMonoid V] [Module ℂ V]
     (scalarLaurent p l).coeff n = l (p n) := by
   classical
   simp only [scalarLaurent, ← LaurentPolynomial.single_eq_C_mul_T,
-    Finsupp.sum, AddMonoidAlgebra.coeff_sum, Finsupp.finset_sum_apply,
+    Finsupp.sum, AddMonoidAlgebra.coeff_sum, Finsupp.finsetSum_apply,
     AddMonoidAlgebra.coeff_single]
   rw [Finset.sum_eq_single n]
   · simp

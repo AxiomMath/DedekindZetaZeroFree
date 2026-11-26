@@ -85,7 +85,7 @@ theorem exists_index_prime_supergroup_of_card_prime_power
     exact
       pow_dvd_pow p (Nat.sub_le v 1)
   obtain ⟨P, hPcard, hDP⟩ :=
-    Sylow.exists_subgroup_card_pow_prime_le
+    Sylow.exists_subgroup_card_pow_prime_ge
       p hpowDvd D hDcard hmPred
   refine ⟨P, hDP, ?_⟩
   have hmul :

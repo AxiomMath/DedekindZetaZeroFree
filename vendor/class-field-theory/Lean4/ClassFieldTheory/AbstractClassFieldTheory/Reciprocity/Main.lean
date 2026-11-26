@@ -845,26 +845,26 @@ theorem abstractReciprocity_abelianizedReciprocity_bijective
     have hrq : r (Additive.ofMul q) = 0 := by
       calc
         r (Additive.ofMul q) =
-            factor (Additive.ofMul (Abelianization.of q)) :=
+            factor (Additive.ofMul (Group.Abelianization.of q)) :=
           (D.transferNormNaturalityAbelianizedReciprocity_of
             A v hAxiom K L.field L.below q).symm
         _ = 0 := by
-          change factor (Additive.ofMul (Abelianization.of q)) = 0 at hz
+          change factor (Additive.ofMul (Group.Abelianization.of q)) = 0 at hz
           exact hz
     have hcommutator : q ∈ commutator Q :=
       (abstractReciprocity_abelianReduction_kernel
         L p r rAb hright hrAb q).1 hrq
-    have hof : Abelianization.of q = 1 :=
+    have hof : Group.Abelianization.of q = 1 :=
       (QuotientGroup.eq_one_iff q).2 hcommutator
-    change Additive.ofMul (Abelianization.of q) = Additive.ofMul 1
+    change Additive.ofMul (Group.Abelianization.of q) = Additive.ofMul 1
     exact congrArg Additive.ofMul hof
   · intro b
     obtain ⟨q, hq⟩ :=
       v.abstractReciprocity_finiteReciprocityHom_surjective
         hcf hAxiom K L b
-    refine ⟨Additive.ofMul (Abelianization.of q.toMul), ?_⟩
+    refine ⟨Additive.ofMul (Group.Abelianization.of q.toMul), ?_⟩
     calc
-      factor (Additive.ofMul (Abelianization.of q.toMul)) =
+      factor (Additive.ofMul (Group.Abelianization.of q.toMul)) =
           r (Additive.ofMul q.toMul) :=
         D.transferNormNaturalityAbelianizedReciprocity_of
           A v hAxiom K L.field L.below q.toMul
@@ -887,7 +887,7 @@ noncomputable def abstractReciprocityEquiv
     letI : Finite
         (K.field.toSubgroup ⧸
           extensionSubgroup K.field L.field L.below) := L.finite
-    Additive (Abelianization L.extensionQuotient) ≃+
+    Additive (Group.Abelianization L.extensionQuotient) ≃+
       FiniteNormQuotient A K.field L.field L.below := by
   letI : Finite
       (K.field.toSubgroup ⧸
@@ -913,7 +913,7 @@ theorem abstractReciprocityEquiv_apply_of
         (K.field.toSubgroup ⧸
           extensionSubgroup K.field L.field L.below) := L.finite
     D.abstractReciprocityEquiv A v hcf K L
-        (Additive.ofMul (Abelianization.of q)) =
+        (Additive.ofMul (Group.Abelianization.of q)) =
       D.finiteReciprocityHom A v (v.classFieldAxiom_implies_unramifiedUnitCohomology hcf)
         K L.field L.below
         (Additive.ofMul q) := by
@@ -936,7 +936,7 @@ noncomputable def normResidueSymbol
         (K.field.toSubgroup ⧸
           extensionSubgroup K.field L.field L.below) := L.finite
     FiniteNormQuotient A K.field L.field L.below ≃+
-      Additive (Abelianization L.extensionQuotient) := by
+      Additive (Group.Abelianization L.extensionQuotient) := by
   letI : Finite
       (K.field.toSubgroup ⧸
         extensionSubgroup K.field L.field L.below) := L.finite
@@ -959,7 +959,7 @@ theorem normResidueSymbol_finiteReciprocityHom
         (D.finiteReciprocityHom A v (v.classFieldAxiom_implies_unramifiedUnitCohomology hcf)
           K L.field L.below
           (Additive.ofMul q)) =
-      Additive.ofMul (Abelianization.of q) := by
+      Additive.ofMul (Group.Abelianization.of q) := by
   let : Finite
       (K.field.toSubgroup ⧸
         extensionSubgroup K.field L.field L.below) := L.finite
@@ -1048,10 +1048,10 @@ def normResidueNaturalityAbelianizedRestriction
     (hL'L : L'.toSubgroup ≤ L.toSubgroup)
     [hLnormal : (extensionSubgroup K L hLK).Normal]
     [hL'normal : (extensionSubgroup K' L' hL'K').Normal] :
-    Abelianization
+    Group.Abelianization
         (K'.toSubgroup ⧸ extensionSubgroup K' L' hL'K') →*
-      Abelianization (K.toSubgroup ⧸ extensionSubgroup K L hLK) :=
-  Abelianization.map
+      Group.Abelianization (K.toSubgroup ⧸ extensionSubgroup K L hLK) :=
+  Group.Abelianization.map
     (finiteReciprocityNaturalityRestriction K K' L L' hLK hL'K' hK'K hL'L)
 
 /--
@@ -1072,16 +1072,16 @@ theorem normResidueNaturalityAbelianizedRestriction_of_mk
     (k' : K'.toSubgroup) :
     normResidueNaturalityAbelianizedRestriction K K' L L'
         hLK hL'K' hK'K hL'L
-        (Abelianization.of (QuotientGroup.mk k')) =
-      Abelianization.of
+        (Group.Abelianization.of (QuotientGroup.mk k')) =
+      Group.Abelianization.of
         (QuotientGroup.mk (Subgroup.inclusion hK'K k')) := by
   change
-    (Abelianization.lift
-      (Abelianization.of.comp
+    (Group.Abelianization.lift
+      (Group.Abelianization.of.comp
         (finiteReciprocityNaturalityRestriction K K' L L'
           hLK hL'K' hK'K hL'L)))
-        (Abelianization.of (QuotientGroup.mk k')) = _
-  rw [Abelianization.lift_apply_of]
+        (Group.Abelianization.of (QuotientGroup.mk k')) = _
+  rw [Group.Abelianization.lift_apply_of]
   rfl
 
 /-- The two vertical arrows of the first diagram, assembled into one actual
@@ -1102,10 +1102,10 @@ def normResidueNaturalityNormRestrictionPairMap
       (K'.toSubgroup ⧸ extensionSubgroup K' L' hL'K')]
     [hK'Kfinite : Finite
       (K.toSubgroup ⧸ extensionSubgroup K K' hK'K)] :
-    Additive (Abelianization
+    Additive (Group.Abelianization
         (K'.toSubgroup ⧸ extensionSubgroup K' L' hL'K')) ×
         FiniteNormQuotient A K' L' hL'K' →+
-      Additive (Abelianization
+      Additive (Group.Abelianization
         (K.toSubgroup ⧸ extensionSubgroup K L hLK)) ×
         FiniteNormQuotient A K L hLK :=
   AddMonoidHom.prodMap
@@ -1138,10 +1138,10 @@ theorem normResidueNaturalityNormRestrictionPairMap_on_representatives
     (k' : K'.toSubgroup) (a : ambientFixedAddSubgroup A K') :
     normResidueNaturalityNormRestrictionPairMap A K K' L L'
         hLK hL'K' hK'K hL'L
-        (Additive.ofMul (Abelianization.of (QuotientGroup.mk k')),
+        (Additive.ofMul (Group.Abelianization.of (QuotientGroup.mk k')),
           finiteNormClass A K' L' hL'K' a) =
       (Additive.ofMul
-          (Abelianization.of
+          (Group.Abelianization.of
             (QuotientGroup.mk (Subgroup.inclusion hK'K k'))),
         finiteNormClass A K L hLK (relativeNorm A K K' hK'K a)) := by
   ext
@@ -1160,8 +1160,8 @@ noncomputable def normResidueNaturalityAbelianizedConjugation
     (K L : ClosedSubgroup G)
     (hLK : L.toSubgroup ≤ K.toSubgroup) (s : G)
     [hLnormal : (extensionSubgroup K L hLK).Normal] :
-    Abelianization (K.toSubgroup ⧸ extensionSubgroup K L hLK) ≃*
-      Abelianization
+    Group.Abelianization (K.toSubgroup ⧸ extensionSubgroup K L hLK) ≃*
+      Group.Abelianization
         ((conjugateClosedSubgroup K s).toSubgroup ⧸
           extensionSubgroup (conjugateClosedSubgroup K s)
             (conjugateClosedSubgroup L s)
@@ -1180,17 +1180,17 @@ theorem normResidueNaturalityAbelianizedConjugation_of_mk
     [hLnormal : (extensionSubgroup K L hLK).Normal]
     (k : K.toSubgroup) :
     normResidueNaturalityAbelianizedConjugation K L hLK s
-        (Abelianization.of (QuotientGroup.mk k)) =
-      Abelianization.of
+        (Group.Abelianization.of (QuotientGroup.mk k)) =
+      Group.Abelianization.of
         (QuotientGroup.mk (conjugateSubgroupEquiv K s k)) := by
   calc
     normResidueNaturalityAbelianizedConjugation K L hLK s
-        (Abelianization.of (QuotientGroup.mk k)) =
-      Abelianization.of
+        (Group.Abelianization.of (QuotientGroup.mk k)) =
+      Group.Abelianization.of
         (finiteReciprocityNaturalityConjugation K L hLK s (QuotientGroup.mk k)) :=
-      abelianizationCongr_of (finiteReciprocityNaturalityConjugation K L hLK s)
+      Group.abelianizationCongr_of (finiteReciprocityNaturalityConjugation K L hLK s)
         (QuotientGroup.mk k)
-    _ = Abelianization.of
+    _ = Group.Abelianization.of
         (QuotientGroup.mk (conjugateSubgroupEquiv K s k)) := by
       rw [finiteReciprocityNaturalityConjugation_mk]
 
@@ -1209,10 +1209,10 @@ def normResidueNaturalityConjugationPairMap
         extensionSubgroup (conjugateClosedSubgroup K s)
           (conjugateClosedSubgroup L s) hConjLK) :=
       finite_conjugateExtension K L hLK s
-    Additive (Abelianization
+    Additive (Group.Abelianization
         (K.toSubgroup ⧸ extensionSubgroup K L hLK)) ×
         FiniteNormQuotient A K L hLK →+
-      Additive (Abelianization
+      Additive (Group.Abelianization
         ((conjugateClosedSubgroup K s).toSubgroup ⧸
           extensionSubgroup (conjugateClosedSubgroup K s)
             (conjugateClosedSubgroup L s) hConjLK)) ×
@@ -1248,10 +1248,10 @@ theorem normResidueNaturalityConjugationPairMap_on_representatives
           (conjugateClosedSubgroup L s) hConjLK) :=
       finite_conjugateExtension K L hLK s
     normResidueNaturalityConjugationPairMap A K L hLK s
-        (Additive.ofMul (Abelianization.of (QuotientGroup.mk k)),
+        (Additive.ofMul (Group.Abelianization.of (QuotientGroup.mk k)),
           finiteNormClass A K L hLK a) =
       (Additive.ofMul
-          (Abelianization.of
+          (Group.Abelianization.of
             (QuotientGroup.mk (conjugateSubgroupEquiv K s k))),
         finiteNormClass A (conjugateClosedSubgroup K s)
           (conjugateClosedSubgroup L s) hConjLK
@@ -1290,11 +1290,11 @@ def normResidueNaturalityTransferInclusionPairMap
         (transferNormNaturalityIntermediateInclusion K K' L hLK' hK'K)
         (transferNormNaturalityIntermediateInclusion_injective
           K K' L hLK' hK'K)
-    Additive (Abelianization
+    Additive (Group.Abelianization
         (K.toSubgroup ⧸
           extensionSubgroup K L (hLK'.trans hK'K))) ×
         FiniteNormQuotient A K L (hLK'.trans hK'K) →+
-      Additive (Abelianization
+      Additive (Group.Abelianization
         (K'.toSubgroup ⧸ extensionSubgroup K' L hLK')) ×
         FiniteNormQuotient A K' L hLK' := by
   letI : (extensionSubgroup K' L hLK').Normal :=
@@ -1336,11 +1336,11 @@ theorem normResidueNaturalityTransferInclusionPairMap_on_representatives
         (transferNormNaturalityIntermediateInclusion_injective
           K K' L hLK' hK'K)
     normResidueNaturalityTransferInclusionPairMap A K K' L hLK' hK'K
-        (Additive.ofMul (Abelianization.of σ),
+        (Additive.ofMul (Group.Abelianization.of σ),
           finiteNormClass A K L (hLK'.trans hK'K) a) =
       (Additive.ofMul
           (transferNormNaturalityTransfer K K' L hLK' hK'K
-            (Abelianization.of σ)),
+            (Group.Abelianization.of σ)),
         finiteNormClass A K' L hLK'
           (fixedFieldInclusion A K K' hK'K a)) := by
   let : (extensionSubgroup K' L hLK').Normal :=
@@ -1415,9 +1415,9 @@ theorem normResidueNaturality_norm_restriction
     refine QuotientGroup.induction_on x.toMul ?_
     intro z
     change b (D.abstractReciprocityEquiv A v hcf T.field E'
-        (Additive.ofMul (Abelianization.of z))) =
+        (Additive.ofMul (Group.Abelianization.of z))) =
       D.abstractReciprocityEquiv A v hcf T.base E
-        (Additive.ofMul (Abelianization.of
+        (Additive.ofMul (Group.Abelianization.of
           (finiteReciprocityNaturalityRestriction
             T.base.field T.field.field L L'
             hLK hL'K' T.below hL'L z)))
@@ -1490,9 +1490,9 @@ theorem normResidueNaturality_conjugation
     refine QuotientGroup.induction_on x.toMul ?_
     intro z
     change b (D.abstractReciprocityEquiv A v hcf K E
-        (Additive.ofMul (Abelianization.of z))) =
+        (Additive.ofMul (Group.Abelianization.of z))) =
       D.abstractReciprocityEquiv A v hcf Ks Es
-        (Additive.ofMul (Abelianization.of
+        (Additive.ofMul (Group.Abelianization.of
           (finiteReciprocityNaturalityConjugation K.field L hLK s z)))
     rw [D.abstractReciprocityEquiv_apply_of A v hcf K E z]
     rw [D.abstractReciprocityEquiv_apply_of A v hcf

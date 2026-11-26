@@ -254,9 +254,9 @@ def tensorEvaluation {ι X : Type*} [Fintype ι] (S : ι → Submodule ℂ (X �
   PiTensorProduct.lift
     ((MultilinearMap.mkPiAlgebra ℂ ι ((ι → X) → ℂ)).compLinearMap
       (fun i =>
-        { toFun := fun f a => f.val (a i)
-          map_add' := fun _ _ => rfl
-          map_smul' := fun _ _ => rfl }))
+        ({ toFun := fun f a => f.val (a i)
+           map_add' := fun _ _ => rfl
+           map_smul' := fun _ _ => rfl } : S i →ₗ[ℂ] ((ι → X) → ℂ))))
 
 @[simp] theorem tensorEvaluation_pure {ι X : Type*} [Fintype ι]
     (S : ι → Submodule ℂ (X → ℂ)) (f : ∀ i, S i) (a : ι → X) :

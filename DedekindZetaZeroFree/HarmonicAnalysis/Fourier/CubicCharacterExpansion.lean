@@ -266,8 +266,8 @@ theorem integrate_cube_resolution
     exact_mod_cast (Subgroup.FiniteIndex.index_ne_zero (H := H))) (by norm_num)
   simp only [finsum_eq_sum_of_fintype] at hresolution ⊢
   have hcont : Continuous (fun v : Kˣ => a * ∑ i : I, ∑ j : J, (χ i j v : ℂ)) := by
-    exact continuous_const.mul (continuous_finset_sum _ fun i _ =>
-      continuous_finset_sum _ fun j _ => Units.continuous_val.comp (χ i j).continuous)
+    exact continuous_const.mul (continuous_finsetSum _ fun i _ =>
+      continuous_finsetSum _ fun j _ => Units.continuous_val.comp (χ i j).continuous)
   have hH : MeasurableSet (H : Set Kˣ) := by
     have he : (H : Set Kˣ) = {v : Kˣ | a * ∑ i : I, ∑ j : J, (χ i j v : ℂ) ≠ 0} := by
       ext v

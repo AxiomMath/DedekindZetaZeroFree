@@ -94,9 +94,10 @@ private theorem theta_sum_split (D : RayCoset.Data K)
   · let z : RayCoset.C D := ⟨0, hz⟩
     have hn : (∑' α : {α : RayCoset.C D // α.val ≠ 0}, f α.val) =
         ∑' α : {α : RayCoset.C D // α ∉ ({z} : Finset _)}, f α.val := by
-      apply tsum_congr_set_coe
-      ext α
-      simp [z, Subtype.ext_iff]
+      exact (Equiv.subtypeEquivRight (p := fun α : RayCoset.C D => α.val ≠ 0)
+        (q := fun α => α ∉ ({z} : Finset _))
+        (fun α => by simp [z, Subtype.ext_iff])).tsum_eq
+        (fun α => f α.val)
     rw [hn, ← hf.sum_add_tsum_subtype_compl {z}]
     have hfz : f z = if δ = ∅ then 1 else 0 := by
       change gδ K δ (Q K (RayTheta.q K t h) (RayCoset.normalizedEmbedding D 0)) = _

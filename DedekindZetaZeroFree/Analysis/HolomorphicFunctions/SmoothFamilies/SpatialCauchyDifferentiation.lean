@@ -20,9 +20,9 @@ private lemma assemble_deriv {n : ℕ} (u : Space n → ℂ) (x : Space n) :
   intro y
   have he : y = ∑ i : Fin n, y i • EuclideanSpace.single i (1 : ℝ) := by
     ext j
-    simp [EuclideanSpace.single_apply, Pi.single_apply]
+    simp [PiLp.single_apply, Pi.single_apply]
   rw [he]
-  simp [assemble, coordinateDerivativeList, map_sum, EuclideanSpace.single_apply]
+  simp [assemble, coordinateDerivativeList, map_sum, PiLp.single_apply]
 
 private lemma list_index {n : ℕ} (l : List (Fin n)) :
     ∃ m, ∃ α : MultiIndex n m, l.Perm α.directions := by
@@ -114,7 +114,7 @@ private lemma compact_integral_deriv {n : ℕ} (B : LocalBall n)
   have hxK : x ∈ K := Metric.mem_closedBall_self (by positivity)
   let g' : Space n → ℝ → Space n →L[ℝ] ℂ := fun y t => assemble (fun i => g (i :: l) y t)
   have hc' : Continuous (fun p : K × ℝ => g' p.1 p.2) := by
-    apply continuous_finset_sum
+    apply continuous_finsetSum
     intro i _
     exact (ContinuousLinearMap.smulRightL ℝ (Space n) ℂ (EuclideanSpace.proj i)).continuous.comp
       (hj K hK hKB (i :: l))
@@ -146,7 +146,7 @@ private lemma compact_integral_deriv {n : ℕ} (B : LocalBall n)
       exact (hd l i y t (hKB hy)).symm)
   have he : (∫ t, g' x t ∂μ) = assemble (fun i => ∫ t, g (i :: l) x t ∂μ) := by
     simp only [g', assemble]
-    rw [integral_finset_sum]
+    rw [integral_finsetSum]
     · apply Finset.sum_congr rfl
       intro i _
       exact (ContinuousLinearMap.smulRightL ℝ (Space n) ℂ (EuclideanSpace.proj i)).integral_comp_comm
@@ -230,7 +230,7 @@ theorem coefficient_smooth_and_derivatives {n : ℕ} (B : LocalBall n)
       have he := (eventuallyEq_of_mem (Metric.isOpen_ball.mem_nhds hx) ih).fderiv_eq (𝕜 := ℝ)
       simp only [coordinateDerivativeList]
       rw [he, (hJd l x hx).fderiv]
-      simp [assemble, EuclideanSpace.single_apply, Pi.single_apply]
+      simp [assemble, PiLp.single_apply, Pi.single_apply]
   have hformula (l : List (Fin n)) (x : Space n) :
       (cauchyPowerSeries (fun z => coordinateDerivativeList l (f z) x) c ρ j) (fun _ => (1 : ℂ)) = J l x := by
     rw [cauchyPowerSeries_apply, circleIntegral_def_Icc]

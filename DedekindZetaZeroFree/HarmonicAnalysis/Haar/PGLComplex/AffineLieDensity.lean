@@ -206,8 +206,8 @@ private theorem smooth_complex_pair (i j : Fin 6) :
     ContDiff ℝ (⊤ : ℕ∞) (fun x : Coordinates => (⟨x i, x j⟩ : ℂ)) := by
   have h : ContDiff ℝ (⊤ : ℕ∞)
       (fun x : Coordinates => (x i : ℂ) + (x j : ℂ) * Complex.I) := by
-    exact (Complex.ofRealCLM.contDiff.comp (contDiff_apply ℝ ℝ i)).add
-      ((Complex.ofRealCLM.contDiff.comp (contDiff_apply ℝ ℝ j)).mul contDiff_const)
+    exact (Complex.ofRealCLM.contDiff.comp (contDiff_apply ℝ (fun _ : Fin 6 => ℝ) i)).add
+      ((Complex.ofRealCLM.contDiff.comp (contDiff_apply ℝ (fun _ : Fin 6 => ℝ) j)).mul contDiff_const)
   convert h using 1
   funext x
   apply Complex.ext <;> simp
@@ -299,7 +299,7 @@ theorem contDiffAt_matrixRatios (a : Matrix (Fin 2) (Fin 2) ℂ)
       (fun x : Matrix (Fin 2) (Fin 2) ℂ => x i j / x 0 0) a := by
     have he (i j : Fin 2) : ContDiff ℝ (⊤ : ℕ∞)
         (fun x : Matrix (Fin 2) (Fin 2) ℂ => x i j) :=
-      (contDiff_apply ℝ ℂ j).comp (contDiff_apply ℝ (Fin 2 → ℂ) i)
+      (contDiff_apply ℝ (fun _ : Fin 2 => ℂ) j).comp (contDiff_apply ℝ (fun _ : Fin 2 => Fin 2 → ℂ) i)
     simpa only [div_eq_mul_inv] using!
       (he i j).contDiffAt.mul ((he 0 0).contDiffAt.inv ha)
   apply contDiffAt_pi.mpr

@@ -47,7 +47,7 @@ private lemma norm_integer_le_one (x : O F v) : ‖(x : K F v)‖ ≤ 1 := by
 private lemma norm_of_integer_unit (x : (O F v)ˣ) :
     ‖(unitInclusion F v x : K F v)‖ = 1 := by
   have h1 := norm_integer_le_one F v (x : O F v)
-  have h2 := norm_integer_le_one F v (x⁻¹ : (O F v)ˣ)
+  have h2 := norm_integer_le_one F v ((x⁻¹ : (O F v)ˣ) : O F v)
   change ‖(unitInclusion F v x : K F v)‖ ≤ 1 at h1
   change ‖(unitInclusion F v (x⁻¹) : K F v)‖ ≤ 1 at h2
   have hi : ‖(unitInclusion F v x : K F v)⁻¹‖ ≤ 1 := by simpa using h2

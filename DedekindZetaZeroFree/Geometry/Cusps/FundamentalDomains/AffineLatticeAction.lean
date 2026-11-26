@@ -197,8 +197,7 @@ theorem actual_ratio_kernel_properly_discontinuous
   have hd : ProperlyDiscontinuousVAdd N (Horizontal F) :=
     N.properlyDiscontinuousVAdd_of_tendsto_cofinite
       (N.tendsto_coe_cofinite_of_isDiscrete (isDiscrete_iff_discreteTopology.mpr inferInstance))
-  constructor
-  intro K L hK hL
+  refine ⟨fun {K L} hK hL => ?_⟩
   have hx : ∀ g : D.ratio.ker, ∃ x : D.L, D.inclusion (Multiplicative.ofAdd x) = g.val := by
     intro g
     have hm : g.val ∈ D.inclusion.range := by rw [D.exact]; exact g.property

@@ -17,10 +17,10 @@ variable {P : KPMsFixedHaarDisintegration.SphericalTransport F ζ hζ}
 variable {H : KPMsFixedHaarDisintegration.AllLevels F ζ hζ R P}
 variable {a b : ShrunkChart F ζ hζ U R P H}
 structure NullEquivalence2 (e : Branch a b) (he : e.Properties) : Prop where
-  forward_quasiMeasurePreserving : Measure.QuasiMeasurePreserving (forward e)
+  forward_quasiMeasurePreserving : QuasiMeasurePreserving (forward e)
     (Measure.comap (Subtype.val : e.domain → M F) ((liftedMeasure a).restrict e.domain))
     (Measure.comap (Subtype.val : e.targetDomain → M F) ((liftedMeasure b).restrict e.targetDomain))
-  backward_quasiMeasurePreserving : Measure.QuasiMeasurePreserving (backward e he)
+  backward_quasiMeasurePreserving : QuasiMeasurePreserving (backward e he)
     (Measure.comap (Subtype.val : e.targetDomain → M F) ((liftedMeasure b).restrict e.targetDomain))
     (Measure.comap (Subtype.val : e.domain → M F) ((liftedMeasure a).restrict e.domain))
   image_null_iff : ∀ S : Set (M F), S ⊆ e.domain →

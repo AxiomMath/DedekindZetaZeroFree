@@ -611,13 +611,12 @@ theorem reference_tail_factorization_of_quotient_mem
   have hkval (q) : (k q).val = a.t q * (b.t q)⁻¹ := by
     apply Subtype.ext
     rw [hk]
-    change KPPGLLocalCover.coverQuotient F ζ hζ (Sum.inr q)
-      (a.raw (Sum.inr q) * (b.raw (Sum.inr q))⁻¹) = _
+    simp only [x, d, RestrictedProduct.mul_apply, RestrictedProduct.inv_apply]
     rw [map_mul, map_inv, ← a.local_lift, ← b.local_lift]
     rfl
   have hi : ∀ w : InfinitePlace F, x.val (Sum.inl w) = 1 := by
     intro w
-    change a.raw (Sum.inl w) * (b.raw (Sum.inl w))⁻¹ = 1
+    simp only [x, d, RestrictedProduct.mul_apply, RestrictedProduct.inv_apply]
     rw [a.infinite_one, b.infinite_one, inv_one, mul_one]
   have hchar := raw_reference_product_character F ζ hζ P T C Q hQ x h k hk hi hd
   have href (q : HeightOneSpectrum (𝓞 F)) :

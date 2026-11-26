@@ -474,13 +474,13 @@ private lemma covered_pairing_holomorphy
     · intro s hs
       change Integrable (coveredPair F ζ hζ C R P H U (v s) (p φ)) _
       rw [hpair]
-      exact integrable_finset_sum _ (fun i _ => hint i s)
+      exact integrable_finsetSum _ (fun i _ => hint i s)
     · change DifferentiableOn ℂ
         (fun s => ∫ x, coveredPair F ζ hζ C R P H U (v s) (p φ) x
           ∂KPContSectorFixedPushforwardSupport.coveredMeasure F ζ hζ R (level F ζ hζ C R P H U)) Ω
       apply (DifferentiableOn.fun_sum (fun i _ => hhol i)).congr
       intro s hs
-      rw [hpair, integral_finset_sum _ (fun i _ => hint i s)]
+      rw [hpair, integral_finsetSum _ (fun i _ => hint i s)]
 
 theorem kp_cont_actual_cutoff_test_pairing_holomorphy
     (F : Type) [Field F] [NumberField F] (ζ : F) (hζ : IsPrimitiveRoot ζ 12)

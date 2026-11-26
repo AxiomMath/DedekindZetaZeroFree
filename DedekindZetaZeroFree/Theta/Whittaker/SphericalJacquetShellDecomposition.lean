@@ -1155,6 +1155,7 @@ def bCoordinate (π : (LocalField F v)ˣ) (φ : Sections F ζ hζ v inducingData
   QPower F v (-(j : ℝ) / 6) •
     Action F ζ hζ v inducingData P (Lift F ζ hζ v (π ^ j)) (bZero F ζ hζ v inducingData P φ)
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
 theorem bZero_ne_zero
     (ht : ringChar (KPTameCompact.O F v ⧸ KPTameCompact.p F v) ≠ 3)
     (φ : Sections F ζ hζ v inducingData P)
@@ -1165,7 +1166,7 @@ theorem bZero_ne_zero
   have he : E ⟨φ, hφ⟩ = 0 := by
     apply Subtype.ext
     exact (hE ⟨φ, hφ⟩).trans hz
-  exact hne (congrArg Subtype.val (E.injective (he.trans (map_zero E).symm)))
+  exact hne (congrArg Subtype.val (E.injective (he.trans E.map_zero.symm)))
 
 theorem exists_unique_coordinateEquiv
     (ht : ringChar (KPTameCompact.O F v ⧸ KPTameCompact.p F v) ≠ 3)

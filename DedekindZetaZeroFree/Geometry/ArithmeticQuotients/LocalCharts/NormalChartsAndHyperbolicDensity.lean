@@ -634,7 +634,7 @@ lemma volumeDensity_smooth (d : ℕ) :
   unfold KPArch.volumeDensity KPArch.height
   apply contDiff_prod
   intro i hi
-  exact ((((contDiff_apply ℝ KPArch.H3 i).snd).exp).inv (fun _ => Real.exp_ne_zero _)).pow 2
+  exact ((((contDiff_apply ℝ (fun _ : Fin d => KPArch.H3) i).snd).exp).inv (fun _ => Real.exp_ne_zero _)).pow 2
 
 lemma volumeDensity_positive (d : ℕ) (p : KPArch.Space d) :
     0 < KPArch.volumeDensity d p := by
@@ -917,7 +917,7 @@ lemma orthogonal_density_invariant {n : ℕ} {β : Type*}
       (withDensity_absolutelyContinuous _ _).ae_le
   have hAμ : ∀ᵐ x ∂Measure.map A μ, x ∈ c.source := by
     exact (ae_map_iff A.continuous.measurable.aemeasurable c.open_source.measurableSet).mpr
-      (hμ.mono fun x hx => hAD ▸ Set.mem_image_of_mem A hx)
+      (hμ.mono fun x hx => hAD.subset (Set.mem_image_of_mem A hx))
   have hcm : AEMeasurable c μ := by
     have hh : AEMeasurable c (μ.restrict c.source) :=
       c.continuousOn.aemeasurable c.open_source.measurableSet

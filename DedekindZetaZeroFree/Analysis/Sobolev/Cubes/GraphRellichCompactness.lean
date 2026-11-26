@@ -142,7 +142,7 @@ theorem smoothJet_gradient_norm_sq (n : ℕ) (a : ℝ) (f : Space n → ℂ)
     (coordinateDerivative n f j)‖ ^ 2) = _
   simp_rw [norm_toLp_sq]
   unfold gradientEnergy
-  rw [MeasureTheory.integral_finset_sum]
+  rw [MeasureTheory.integral_finsetSum]
   intro j hj
   exact ((smooth_coordinate_memLp n a f hf j).norm).integrable_sq
 

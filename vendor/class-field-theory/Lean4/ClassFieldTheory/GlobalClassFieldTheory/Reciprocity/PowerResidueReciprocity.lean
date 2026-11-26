@@ -209,7 +209,7 @@ noncomputable def finitePlaceIntegralCompletionElement
     calc
       ‖algebraMap K C (x : K)‖ =
           HeightOneSpectrum.adicAbv K v (x : K) :=
-        AbsoluteValue.completionAbsoluteValue_coe
+        AbsoluteValue.completionAbsoluteValue_algebraMap
           (HeightOneSpectrum.adicAbv K v) (x : K)
       _ ≤ 1 :=
         v.adicAbv_coe_le_one
@@ -323,7 +323,7 @@ noncomputable def finitePlaceIntegralCompletionUnit
   have hyNorm : ‖y‖ = 1 := by
     calc
       ‖y‖ = a (x : K) :=
-        AbsoluteValue.completionAbsoluteValue_coe a (x : K)
+        AbsoluteValue.completionAbsoluteValue_algebraMap a (x : K)
       _ = ‖NumberField.FinitePlace.embedding v (x : K)‖ :=
         (NumberField.FinitePlace.norm_embedding v (x : K)).symm
       _ = 1 :=
@@ -579,7 +579,7 @@ theorem finitePlace_natCast_valuation_eq_one_of_not_mem_exponent
       ‖((n : ℕ) : C)‖ =
           ‖algebraMap K C (((n : ℕ) : K))‖ := by rw [map_natCast]
       _ = HeightOneSpectrum.adicAbv K v (((n : ℕ) : K)) :=
-        AbsoluteValue.completionAbsoluteValue_coe
+        AbsoluteValue.completionAbsoluteValue_algebraMap
           (HeightOneSpectrum.adicAbv K v) (((n : ℕ) : K))
       _ = ‖NumberField.FinitePlace.embedding v (((n : ℕ) : K))‖ :=
         (NumberField.FinitePlace.norm_embedding v (((n : ℕ) : K))).symm
@@ -956,7 +956,7 @@ theorem finitePlaceNormalizedValuation_nonzeroIntegralFieldUnit
     calc
       ‖algebraMap K C (x : K)‖ =
           HeightOneSpectrum.adicAbv K v (x : K) :=
-        AbsoluteValue.completionAbsoluteValue_coe
+        AbsoluteValue.completionAbsoluteValue_algebraMap
           (HeightOneSpectrum.adicAbv K v) (x : K)
       _ = _ := by
         rw [HeightOneSpectrum.adicAbv_def,
@@ -983,7 +983,7 @@ theorem finitePlaceNormalizedValuation_nonzeroIntegralFieldUnit
         congrArg norm hπCPow
       _ = HeightOneSpectrum.adicAbv K v
           ((πData.integer ^ m : 𝓞 K) : K) :=
-        AbsoluteValue.completionAbsoluteValue_coe
+        AbsoluteValue.completionAbsoluteValue_algebraMap
           (HeightOneSpectrum.adicAbv K v)
           ((πData.integer ^ m : 𝓞 K) : K)
       _ =

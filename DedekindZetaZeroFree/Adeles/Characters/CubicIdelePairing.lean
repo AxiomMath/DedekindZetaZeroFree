@@ -407,7 +407,7 @@ theorem beta3_continuous :
         · exact (Filter.mem_principal.mp xy.2.property) hvS
     change Continuous (fun xy : RestrictedProduct (LocalD F) (fun v => (U F v : Set _)) (Filter.principal S) × RestrictedProduct (LocalD F) (fun v => (U F v : Set _)) (Filter.principal S) => restrictedBeta F ζ hζ (RestrictedProduct.inclusion (LocalD F) (fun v => (U F v : Set _)) hS xy.1) (RestrictedProduct.inclusion (LocalD F) (fun v => (U F v : Set _)) hS xy.2))
     simp_rw [heq]
-    apply continuous_finset_prod
+    apply continuous_finsetProd
     intro v hv
     exact (continuous_of_discreteTopology : Continuous (fun ab : LocalD F v × LocalD F v => localPairing F ζ hζ v ab.1 ab.2)).comp
       (((RestrictedProduct.continuous_eval v).comp continuous_fst).prodMk ((RestrictedProduct.continuous_eval v).comp continuous_snd))

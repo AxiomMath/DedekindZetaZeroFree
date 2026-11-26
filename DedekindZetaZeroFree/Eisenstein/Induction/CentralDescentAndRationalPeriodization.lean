@@ -183,7 +183,9 @@ theorem rawCoreVector_centralTuple (x : PlusCore R N P C)
           R.A.primitive_zeta12 (e p) : ℂ) • localValue R N P C p (g p) (z p)) := by
       funext p
       exact localValue_central R N P C p (z p) (e p) (g p)
-    rw [hv, MultilinearMap.map_smul_univ, hp, map_smul]
+    rw [hv, MultilinearMap.map_smul_univ]
+    simp only [RingHom.id_apply]
+    rw [hp, map_smul]
     exact smul_comm _ _ _
   | add z w hz hw => simp only [map_add, hz, hw, smul_add]
 

@@ -148,7 +148,8 @@ theorem local_power_of_valuation_residue (n : ℕ+)
   let ν : Valuation C ℝ≥0 := Valued.v
   letI : ν.Compatible := Valuation.Compatible.ofValuation ν
   have hnorm (x : F) : ‖algebraMap F C x‖ = a x := by
-    exact AbsoluteValue.completionAbsoluteValue_coe a x
+    rw [AbsoluteValue.Completion.algebraMap_def, AbsoluteValue.Completion.norm_coe,
+      WithAbs.algebraMap_right_apply, WithAbs.ofAbs_toAbs, Algebra.algebraMap_self_apply]
   have hbnorm : ‖algebraMap F C (b : F)‖ = 1 := by
     rw [hnorm, HeightOneSpectrum.adicAbv_def, hb]
     simp
@@ -176,6 +177,7 @@ theorem local_power_of_valuation_residue (n : ℕ+)
     exact ⟨algebraMap F C ζ, (mem_primitiveRoots n.pos).mpr
       (((mem_primitiveRoots n.pos).mp hζ).map_of_injective (algebraMap F C).injective)⟩
   have hcard : Nat.card 𝓀[C] = Ideal.absNorm v.asIdeal := by
+    rw [Ideal.absNorm_eq_natCard]
     exact finitePlaceCompletion_residueField_card v
   let k := (Ideal.absNorm v.asIdeal - 1) / (n : ℕ)
   have hu : integerUnitsToResidueUnits C u ^ k = 1 := by

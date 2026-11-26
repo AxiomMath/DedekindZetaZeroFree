@@ -292,7 +292,7 @@ private lemma frame_basis (d : ℕ) (x : Space d) (i : Fin d) (k : Fin 3) :
       (if k = 2 then 1 else Real.exp (x (i,2))) • coordinateVector d i k := by
   ext j
   simp only [frame, scaleL_apply, EuclideanSpace.basisFun_apply,
-    EuclideanSpace.single_apply, coordinateVector, PiLp.smul_apply,
+    PiLp.single_apply, Pi.single_apply, coordinateVector, PiLp.smul_apply,
     WithLp.ofLp_toLp, smul_eq_mul]
   by_cases h : j = (i,k)
   · subst j; simp
@@ -823,7 +823,7 @@ theorem actual_smoothJet_norm_sq (n : ℕ) (a : ℝ) (g : KPCoreChartLocalizers.
   rw [hv, integral_add]
   · rfl
   · exact ((KPCubeAverage.smooth_memLp n a g hg).norm).integrable_sq
-  · exact integrable_finset_sum _ (fun r _ =>
+  · exact integrable_finsetSum _ (fun r _ =>
       ((KPCubeGraphRellich.smooth_coordinate_memLp n a g hg r).norm).integrable_sq)
 
 set_option maxHeartbeats 2000000 in
@@ -860,7 +860,7 @@ theorem actual_smooth_jet_bound (A : Localizers F ζ hζ U R P H K hK) :
   have hEnon (x) : 0 ≤ E x := add_nonneg (sq_nonneg _) (Finset.sum_nonneg fun _ _ => sq_nonneg _)
   have hEsmooth := actualLocalCoefficient_smooth F ζ hζ U R P H μG hμG hR realization K hK A i f
   have hEcont : Continuous E := hEsmooth.continuous.norm.pow 2 |>.add
-    (continuous_finset_sum _ fun r _ =>
+    (continuous_finsetSum _ fun r _ =>
       ((hEsmooth.continuous_fderiv (by simp)).clm_apply continuous_const).norm.pow 2)
   have hzero (x) (hx : x ∉ B) : E x = 0 := by
     have hcut : x ∉ tsupport (A.cutoff i) := fun h => hx (A.support_cutoff i h)

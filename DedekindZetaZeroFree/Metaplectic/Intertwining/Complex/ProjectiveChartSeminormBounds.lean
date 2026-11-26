@@ -91,9 +91,9 @@ lemma compact_coefficient_sum_bound {n j : ℕ}
   classical
   have hcont : ContinuousOn
       (fun u => ∑ q : Fin (j + 1), ∑ a : Fin q.val → Fin n, ‖c q a u‖) K := by
-    apply continuousOn_finset_sum
+    apply continuousOn_finsetSum
     intro q _
-    apply continuousOn_finset_sum
+    apply continuousOn_finsetSum
     intro a _
     exact ((hc q a).continuousOn.mono hKU).norm
   obtain ⟨A, hA⟩ := hK.bddAbove_image hcont

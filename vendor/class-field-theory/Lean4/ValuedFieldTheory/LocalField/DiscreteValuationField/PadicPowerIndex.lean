@@ -74,7 +74,7 @@ theorem padicInt_valuation_natCast (n : ℕ) :
     (n : ℤ_[p]).valuation = padicValNat p n := by
   have h : (((n : ℤ_[p]) : ℚ_[p])).valuation =
       (padicValNat p n : ℤ) := by
-    simpa only [PadicInt.coe_natCast] using
+    simpa only [PadicInt.coe_natCast, Nat.padicValNat_def] using
       Padic.valuation_natCast (p := p) n
   rw [PadicInt.valuation_coe] at h
   exact_mod_cast h
@@ -224,7 +224,7 @@ noncomputable instance finite_padicInt_pi_nsmulQuotient_of_coprime
     (Fact.out : Nat.Prime p).coprime_iff_not_dvd.mp
       (Fact.out : Nat.Coprime n p).symm
   have hv : padicValNat p n = 0 :=
-    padicValNat.eq_zero_of_not_dvd hpnd
+    Nat.padicValNat_def.trans (multiplicity_eq_zero_of_not_dvd hpnd)
   let target := ι → ZMod (p ^ padicValNat p n)
   let toUnit : target → PUnit := fun _ => PUnit.unit
   have hsub : Subsingleton target := by
@@ -249,7 +249,7 @@ theorem card_padicInt_pi_nsmulQuotient_of_coprime
     (Fact.out : Nat.Prime p).coprime_iff_not_dvd.mp
       (Fact.out : Nat.Coprime n p).symm
   have hv : padicValNat p n = 0 :=
-    padicValNat.eq_zero_of_not_dvd hpnd
+    Nat.padicValNat_def.trans (multiplicity_eq_zero_of_not_dvd hpnd)
   rw [hv, pow_zero]
   exact Nat.card_unique
 

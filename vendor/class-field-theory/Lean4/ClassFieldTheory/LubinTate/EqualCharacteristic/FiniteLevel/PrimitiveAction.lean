@@ -156,7 +156,7 @@ theorem equalCharacteristicLubinTateAmbientPrimitive_bracket_eq_coeff
     ∀ i ≤ n, PowerSeries.coeff i a = PowerSeries.coeff i b := by
   intro i hi
   induction i using Nat.strong_induction_on with
-  | h i ih =>
+  | ind i ih =>
       let d := a - b
       have hdx :
           equalCharacteristicLubinTateAmbientBracket F ι t (n + 1) d x = 0 := by

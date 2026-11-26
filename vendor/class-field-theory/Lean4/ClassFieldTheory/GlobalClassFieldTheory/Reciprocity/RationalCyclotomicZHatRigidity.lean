@@ -83,11 +83,7 @@ theorem
       rationalCyclotomicZHatIdeleValue a ^ 2 = 1 := by
     rw [rationalCyclotomicZHatIdeleValue_apply,
       ← map_pow, hArtin, map_one]
-  exact
-    (pow_left_injective
-      (M := Multiplicative ZHat)
-      (n := 2) (by norm_num))
-        (by simpa using hValue)
+  exact sq_eq_one.mp hValue
 
 end Reciprocity
 end GlobalClassFieldTheory

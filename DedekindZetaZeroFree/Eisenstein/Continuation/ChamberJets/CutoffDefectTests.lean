@@ -399,7 +399,7 @@ private theorem joint_of_compact_family
   obtain ⟨j,hj,heq⟩ := hh K hK hKU
   have hc : ContinuousOn (fun p : ℂ × K => j p.1 p.2) (O ×ˢ Set.univ) :=
     continuous_eval.comp_continuousOn ((hj.continuousOn.comp continuous_fst.continuousOn
-      (fun _ hp => hp.1)).prodMk continuous_snd.continuousOn)
+      (fun _ hp => (Set.mem_prod.mp hp).1)).prodMk continuous_snd.continuousOn)
   apply continuousOn_iff_continuous_restrict.mpr
   let a : (O ×ˢ K) → ℂ × K := fun p => (p.val.1, ⟨p.val.2,p.property.2⟩)
   have ha : Continuous a := (continuous_fst.comp continuous_subtype_val).prodMk

@@ -63,7 +63,7 @@ variable (P : CompatibleModelData F ζ hζ) (C : LocalFiberData F ζ hζ P)
 
  theorem archProduct_continuous : Continuous (RawSource.archProduct F ζ hζ) := by
   unfold RawSource.archProduct
-  apply continuous_finset_prod
+  apply continuous_finsetProd
   intro w _
   exact (arch_continuous F ζ hζ w).comp (RestrictedProduct.continuous_eval _)
 

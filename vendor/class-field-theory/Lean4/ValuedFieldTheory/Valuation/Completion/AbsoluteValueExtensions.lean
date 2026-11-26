@@ -219,7 +219,8 @@ theorem absoluteValueExtension_pullback_extends
   rw [tau.commutes,
     IsScalarTower.algebraMap_apply K vK.Completion
       (absoluteValueExtension_algebraicCompletionClosure vK),
-    absoluteValueExtension_algebraicClosureAbsoluteValue_algebraMap]
+    absoluteValueExtension_algebraicClosureAbsoluteValue_algebraMap,
+    AbsoluteValue.algebraMap_eq_coe]
   exact AbsoluteValue.completionAbsoluteValue_coe vK x
 
 /-- Extend an exact nontrivial absolute value through an algebraic
@@ -416,9 +417,7 @@ noncomputable def absoluteValueExtension_algebraicClosureToCompletionRingHom
     (hvK : vK.IsNontrivial) :
     absoluteValueExtension_algebraicCompletionClosure vK →+*
       (absoluteValueExtension_algebraicClosureAbsoluteValue vK hvK).Completion :=
-  UniformSpace.Completion.coeRingHom.comp
-    (WithAbs.equiv
-      (absoluteValueExtension_algebraicClosureAbsoluteValue vK hvK)).symm.toRingHom
+  AbsoluteValue.toCompletion (absoluteValueExtension_algebraicClosureAbsoluteValue vK hvK)
 
 @[simp]
 theorem absoluteValueExtension_algebraicClosureToCompletionRingHom_apply
@@ -429,7 +428,7 @@ theorem absoluteValueExtension_algebraicClosureToCompletionRingHom_apply
       ((WithAbs.equiv
         (absoluteValueExtension_algebraicClosureAbsoluteValue vK hvK)).symm x :
           (absoluteValueExtension_algebraicClosureAbsoluteValue vK hvK).Completion) :=
-  rfl
+  AbsoluteValue.toCompletion_apply _ x
 
 /-- The `K_v`-algebra structure on the completion of `\bar K_v` induced by
 the dense algebraic closure. -/
@@ -479,8 +478,7 @@ theorem absoluteValueExtension_embeddingToAlgebraicClosureCompletion_norm
   change ‖absoluteValueExtension_algebraicClosureToCompletionRingHom vK hvK
     (tau (WithAbs.equiv w.1 x))‖ = ‖x‖
   rw [absoluteValueExtension_algebraicClosureToCompletionRingHom_apply,
-    UniformSpace.Completion.norm_coe, WithAbs.norm_eq_apply_ofAbs,
-    WithAbs.norm_eq_apply_ofAbs]
+    AbsoluteValue.Completion.norm_coe, WithAbs.norm_eq_apply_ofAbs]
   have h := congrArg (fun a : AbsoluteValue L ℝ =>
     a (WithAbs.equiv w.1 x)) htau
   exact h.symm
@@ -508,11 +506,11 @@ noncomputable def absoluteValueExtension_embeddingCompletionMap
     (htau : w.1 = absoluteValueExtension_pullback vK hvK tau) :
     w.1.Completion →+*
       (absoluteValueExtension_algebraicClosureAbsoluteValue vK hvK).Completion :=
-  UniformSpace.Completion.extensionHom
+  (UniformSpace.Completion.extensionHom
     (absoluteValueExtension_embeddingToAlgebraicClosureCompletionRingHom
       vK hvK w tau)
     (absoluteValueExtension_embeddingToAlgebraicClosureCompletion_isometry
-      vK hvK w tau htau).continuous
+      vK hvK w tau htau).continuous).comp AbsoluteValue.Completion.toCompletion
 
 @[simp]
 theorem absoluteValueExtension_embeddingCompletionMap_coe
@@ -525,8 +523,10 @@ theorem absoluteValueExtension_embeddingCompletionMap_coe
     absoluteValueExtension_embeddingCompletionMap vK hvK w tau htau
         (x : w.1.Completion) =
       absoluteValueExtension_embeddingToAlgebraicClosureCompletionRingHom
-        vK hvK w tau x :=
-  UniformSpace.Completion.extensionHom_coe
+        vK hvK w tau x := by
+  rw [absoluteValueExtension_embeddingCompletionMap, RingHom.comp_apply,
+    AbsoluteValue.Completion.toCompletion_coe]
+  exact UniformSpace.Completion.extensionHom_coe
     (absoluteValueExtension_embeddingToAlgebraicClosureCompletionRingHom
       vK hvK w tau)
     (absoluteValueExtension_embeddingToAlgebraicClosureCompletion_isometry
@@ -541,7 +541,8 @@ theorem absoluteValueExtension_embeddingCompletionMap_isometry
     (htau : w.1 = absoluteValueExtension_pullback vK hvK tau) :
     Isometry (absoluteValueExtension_embeddingCompletionMap vK hvK w tau htau) :=
   (absoluteValueExtension_embeddingToAlgebraicClosureCompletion_isometry
-    vK hvK w tau htau).completion_extension
+    vK hvK w tau htau).completion_extension.comp
+    (AbsoluteValue.Completion.isometry_toCompletion _)
 
 /-- The map `K_v → \widehat{\bar K_v}` through the dense algebraic closure
 is an isometry. -/
@@ -557,7 +558,7 @@ theorem absoluteValueExtension_completionToAlgebraicClosureCompletion_isometry
     (algebraMap vK.Completion
       (absoluteValueExtension_algebraicCompletionClosure vK) x)‖ = ‖x‖
   rw [absoluteValueExtension_algebraicClosureToCompletionRingHom_apply,
-    UniformSpace.Completion.norm_coe, WithAbs.norm_eq_apply_ofAbs]
+    AbsoluteValue.Completion.norm_coe]
   change absoluteValueExtension_algebraicClosureAbsoluteValue vK hvK
     (algebraMap vK.Completion
       (absoluteValueExtension_algebraicCompletionClosure vK) x) = ‖x‖
@@ -585,7 +586,7 @@ theorem absoluteValueExtension_embeddingCompletionMap_completionMap
     (algebraMap vK.Completion
       (absoluteValueExtension_algebraicCompletionClosure vK))
   change f x = g x
-  refine UniformSpace.Completion.induction_on (α := WithAbs vK) x ?_ ?_
+  refine AbsoluteValue.Completion.induction_on x ?_ ?_
   · exact isClosed_eq
       ((absoluteValueExtension_embeddingCompletionMap_isometry
           vK hvK w tau htau).continuous.comp
@@ -593,29 +594,14 @@ theorem absoluteValueExtension_embeddingCompletionMap_completionMap
       (absoluteValueExtension_completionToAlgebraicClosureCompletion_isometry
         vK hvK).continuous
   · intro a
-    dsimp [f, g]
-    change absoluteValueExtension_embeddingCompletionMap vK hvK w tau htau
-        (AbsoluteValue.completionMap vK w.1 w.2
-          (algebraMap K vK.Completion (WithAbs.equiv vK a))) =
-      absoluteValueExtension_algebraicClosureToCompletionRingHom vK hvK
-        (algebraMap vK.Completion
-          (absoluteValueExtension_algebraicCompletionClosure vK)
-          (algebraMap K vK.Completion (WithAbs.equiv vK a)))
-    rw [AbsoluteValue.completionMap_coe]
-    change absoluteValueExtension_embeddingCompletionMap vK hvK w tau htau
-        (((algebraMap (WithAbs vK) (WithAbs w.1)) a : WithAbs w.1) :
-          w.1.Completion) =
-      absoluteValueExtension_algebraicClosureToCompletionRingHom vK hvK
-        (algebraMap vK.Completion
-          (absoluteValueExtension_algebraicCompletionClosure vK)
-            (a : vK.Completion))
-    rw [absoluteValueExtension_embeddingCompletionMap_coe]
+    have ha : (a : vK.Completion) = algebraMap K vK.Completion (WithAbs.equiv vK a) := by
+      rw [AbsoluteValue.algebraMap_eq_coe]
+      rfl
+    simp only [f, g, RingHom.comp_apply]
+    rw [ha, AbsoluteValue.completionMap_coe, AbsoluteValue.toCompletion_apply,
+      absoluteValueExtension_embeddingCompletionMap_coe]
     change absoluteValueExtension_algebraicClosureToCompletionRingHom vK hvK
-        (tau (algebraMap K L (WithAbs.equiv vK a))) =
-      absoluteValueExtension_algebraicClosureToCompletionRingHom vK hvK
-        (algebraMap vK.Completion
-          (absoluteValueExtension_algebraicCompletionClosure vK)
-            (algebraMap K vK.Completion (WithAbs.equiv vK a)))
+        (tau (algebraMap K L (WithAbs.equiv vK a))) = _
     congr 1
     rw [tau.commutes,
       IsScalarTower.algebraMap_apply K vK.Completion
@@ -663,7 +649,7 @@ theorem absoluteValueExtension_embeddingCompletionAlgHom_mem_range
   apply IntermediateField.adjoin_induction
       (F := vK.Completion)
       (s := Set.range (AbsoluteValue.toCompletion w.1))
-      (p := fun x _ => F x ∈ j.range)
+      (motive := fun x _ => F x ∈ j.range)
       (x := (z : w.1.Completion))
   · intro x hx
     rcases hx with ⟨y, rfl⟩
@@ -672,8 +658,7 @@ theorem absoluteValueExtension_embeddingCompletionAlgHom_mem_range
     change absoluteValueExtension_embeddingCompletionMap vK hvK w tau htau
       (AbsoluteValue.toCompletion w.1 y) =
         absoluteValueExtension_algebraicClosureToCompletionRingHom vK hvK (tau y)
-    change absoluteValueExtension_embeddingCompletionMap vK hvK w tau htau
-      (((WithAbs.equiv w.1).symm y : WithAbs w.1) : w.1.Completion) = _
+    rw [AbsoluteValue.toCompletion_apply]
     rw [absoluteValueExtension_embeddingCompletionMap_coe]
     rfl
   · intro x
@@ -755,8 +740,7 @@ theorem absoluteValueExtension_localizationEmbeddingOfPullback_toLocalization
   change absoluteValueExtension_embeddingCompletionMap vK hvK w tau htau
       (AbsoluteValue.toCompletion w.1 x) =
     absoluteValueExtension_algebraicClosureToCompletionRingHom vK hvK (tau x)
-  change absoluteValueExtension_embeddingCompletionMap vK hvK w tau htau
-      (((WithAbs.equiv w.1).symm x : WithAbs w.1) : w.1.Completion) = _
+  rw [AbsoluteValue.toCompletion_apply]
   rw [absoluteValueExtension_embeddingCompletionMap_coe]
   rfl
 

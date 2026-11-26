@@ -63,7 +63,7 @@ theorem ofWithZeroValuation_val_pow_div_natCast_factorial_pos_of_one_lt
     mul_le_mul_of_nonneg_left hxge hnnonneg
   have hden :
       (padicValNat p n.factorial : ℤ) ≤ (n : ℤ) := by
-    exact_mod_cast padicValNat_factorial_le (p := p) n
+    exact_mod_cast Nat.padicValNat_def (p := p) ▸ multiplicity_factorial_le (p := p) n
   have hnpos : (0 : ℤ) < (n : ℤ) := by
     exact_mod_cast Nat.pos_of_ne_zero hn
   rw [hterm]

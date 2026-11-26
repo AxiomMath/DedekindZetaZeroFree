@@ -254,21 +254,21 @@ def deltaMonoidHom :
 
 /-- The augmentation class factors canonically through `Gᵃᵇ`. -/
 def deltaAbelianization :
-    Abelianization G →* Multiplicative (Quotient G) :=
-  Abelianization.lift (deltaMonoidHom G)
+    Group.Abelianization G →* Multiplicative (Quotient G) :=
+  Group.Abelianization.lift (deltaMonoidHom G)
 
 @[simp]
 theorem deltaAbelianization_of (g : G) :
-    deltaAbelianization G (Abelianization.of g) =
+    deltaAbelianization G (Group.Abelianization.of g) =
       Multiplicative.ofAdd (deltaClass G g) :=
   rfl
 
 /-- A finite preimage in `Gᵃᵇ` for the coefficient combination attached
 to a group-ring element. -/
 def deltaPreimage (x : IntegralGroupRing G) :
-    Abelianization G :=
+    Group.Abelianization G :=
   ∏ g ∈ x.coeff.support,
-    Abelianization.of g ^ x.coeff g
+    Group.Abelianization.of g ^ x.coeff g
 
 theorem deltaAbelianization_deltaPreimage
     (x : IntegralGroupRing G) (hx : x ∈ ideal G) :
@@ -305,7 +305,7 @@ theorem deltaAbelianization_surjective :
     Function.Surjective (deltaAbelianization G) := by
   intro q
   change
-    ∃ a : Abelianization G,
+    ∃ a : Group.Abelianization G,
       deltaAbelianization G a =
         Multiplicative.ofAdd (Multiplicative.toAdd q)
   refine
@@ -320,30 +320,30 @@ theorem deltaAbelianization_surjective :
 /-- A coefficient at `g` contributes that many copies of the class of
 `g` in the abelianization. -/
 def coefficientToAbelianization (g : G) :
-    ℤ →+ Additive (Abelianization G) where
-  toFun n := n • Additive.ofMul (Abelianization.of g)
+    ℤ →+ Additive (Group.Abelianization G) where
+  toFun n := n • Additive.ofMul (Group.Abelianization.of g)
   map_zero' := zero_zsmul _
   map_add' m n := add_zsmul _ m n
 
 /-- Linearization of the integral group ring in the abelianization. -/
 def linearization :
-    IntegralGroupRing G →+ Additive (Abelianization G) :=
+    IntegralGroupRing G →+ Additive (Group.Abelianization G) :=
   ((Finsupp.liftAddHom
       (α := G) (M := ℤ)
-      (N := Additive (Abelianization G)))
+      (N := Additive (Group.Abelianization G)))
       (coefficientToAbelianization G)).comp
     MonoidAlgebra.coeffAddEquiv.toAddMonoidHom
 
 @[simp]
 theorem linearization_single (g : G) (n : ℤ) :
     linearization G (MonoidAlgebra.single g n) =
-      n • Additive.ofMul (Abelianization.of g) := by
+      n • Additive.ofMul (Group.Abelianization.of g) := by
   simp [linearization, coefficientToAbelianization]
 
 @[simp]
 theorem linearization_deltaElement (g : G) :
     linearization G (deltaElement G g) =
-      Additive.ofMul (Abelianization.of g) := by
+      Additive.ofMul (Group.Abelianization.of g) := by
   simp [deltaElement, linearization_single]
 
 /-- Products of two basic augmentation differences vanish after
@@ -415,14 +415,14 @@ theorem linearization_eq_zero_of_mem_square
 
 /-- Linearization restricted to the augmentation ideal. -/
 def linearizationOnIdeal :
-    ideal G →+ Additive (Abelianization G) where
+    ideal G →+ Additive (Group.Abelianization G) where
   toFun x := linearization G (x : IntegralGroupRing G)
   map_zero' := (linearization G).map_zero
   map_add' x y := (linearization G).map_add x y
 
 /-- The inverse linearization map on `I_G/I_G²`. -/
 def quotientLinearization :
-    Quotient G →+ Additive (Abelianization G) :=
+    Quotient G →+ Additive (Group.Abelianization G) :=
   QuotientAddGroup.lift
     (squareInIdeal G) (linearizationOnIdeal G) (by
       intro x hx
@@ -432,26 +432,26 @@ def quotientLinearization :
 @[simp]
 theorem quotientLinearization_deltaClass (g : G) :
     quotientLinearization G (deltaClass G g) =
-      Additive.ofMul (Abelianization.of g) := by
+      Additive.ofMul (Group.Abelianization.of g) := by
   exact linearization_deltaElement G g
 
 /-- Multiplicative spelling of inverse linearization. -/
 def quotientLinearizationMonoidHom :
-    Multiplicative (Quotient G) →* Abelianization G :=
+    Multiplicative (Quotient G) →* Group.Abelianization G :=
   (quotientLinearization G).toMultiplicativeLeft
 
 @[simp]
 theorem quotientLinearizationMonoidHom_deltaClass (g : G) :
     quotientLinearizationMonoidHom G
         (Multiplicative.ofAdd (deltaClass G g)) =
-      Abelianization.of g := by
+      Group.Abelianization.of g := by
   exact congrArg Additive.toMul
     (quotientLinearization_deltaClass G g)
 
 /-- Inverse linearization is a left inverse to the augmentation-class
 map. -/
 theorem quotientLinearizationMonoidHom_deltaAbelianization
-    (a : Abelianization G) :
+    (a : Group.Abelianization G) :
     quotientLinearizationMonoidHom G
         (deltaAbelianization G a) =
       a := by
@@ -471,20 +471,20 @@ theorem deltaAbelianization_injective :
 /-- The classical canonical isomorphism
 `Gᵃᵇ ≃ I_G/I_G²`, in multiplicative notation on the target. -/
 noncomputable def deltaAbelianizationEquiv :
-    Abelianization G ≃* Multiplicative (Quotient G) :=
+    Group.Abelianization G ≃* Multiplicative (Quotient G) :=
   MulEquiv.ofBijective (deltaAbelianization G)
     ⟨deltaAbelianization_injective G,
       deltaAbelianization_surjective G⟩
 
 @[simp]
-theorem deltaAbelianizationEquiv_apply (a : Abelianization G) :
+theorem deltaAbelianizationEquiv_apply (a : Group.Abelianization G) :
     deltaAbelianizationEquiv G a =
       deltaAbelianization G a :=
   rfl
 
 @[simp]
 theorem deltaAbelianizationEquiv_of (g : G) :
-    deltaAbelianizationEquiv G (Abelianization.of g) =
+    deltaAbelianizationEquiv G (Group.Abelianization.of g) =
       Multiplicative.ofAdd (deltaClass G g) :=
   rfl
 
@@ -494,7 +494,7 @@ theorem deltaClass_eq_zero_of_mem_commutator
     deltaClass G g = 0 := by
   have hker :
       g ∈ (deltaMonoidHom G).ker :=
-    Abelianization.commutator_subset_ker
+    Group.Abelianization.commutator_le_ker
       (deltaMonoidHom G) hg
   have hone : deltaMonoidHom G g = 1 :=
     MonoidHom.mem_ker.mp hker

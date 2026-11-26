@@ -48,7 +48,7 @@ theorem prod_sqrt_absNorm_pow_differentExponent (F : Type) [Field F] [NumberFiel
   · exact congrArg Real.sqrt hnorm
   · intro v hv
     exact le_of_lt (zpow_pos (by exact_mod_cast
-      (lt_trans Nat.zero_lt_one (NumberField.RingOfIntegers.HeightOneSpectrum.one_lt_absNorm v.val))) _)
+      (lt_trans Nat.zero_lt_one (NumberField.HeightOneSpectrum.one_lt_absNorm v.val))) _)
 
 end DedekindZetaZeroFree.PoissonS.BallMeasureBalance
 

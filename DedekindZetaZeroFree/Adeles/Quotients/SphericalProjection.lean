@@ -170,9 +170,9 @@ private theorem rationalLift_mk (m : Matrix.GeneralLinearGroup (Fin 2) F) :
     ext x
     change NumberField.InfinitePlace.Completion.extensionEmbedding w
       (algebraMap F w.Completion x) = w.embedding x
-    change NumberField.InfinitePlace.Completion.extensionEmbedding w
-      ((WithAbs.equiv w.1).symm x : w.Completion) = _
-    simp
+    rw [AbsoluteValue.Completion.algebraMap_def, WithAbs.algebraMap_right_apply,
+      Algebra.algebraMap_self_apply, NumberField.InfinitePlace.Completion.extensionEmbedding_coe]
+    rfl
   change Matrix.ProjGenLinGroup.mk
     (Matrix.GeneralLinearGroup.map _ (Matrix.GeneralLinearGroup.map _ m)) = _
   simp only [← MonoidHom.comp_apply, ← Matrix.GeneralLinearGroup.map_comp]

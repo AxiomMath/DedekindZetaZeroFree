@@ -410,7 +410,7 @@ theorem finite_smooth_chart_partition (A : KPFiniteCuspAtlas.Atlas F ζ hζ hF U
   let e : Fin (Fintype.card s) ≃ s := (Fintype.equivFin s).symm
   let bs : Fin (Fintype.card s) → X F ζ hζ U → ℝ := fun i => b (e i)
   let S : X F ζ hζ U → ℝ := fun x => ∑ i, bs i x
-  have hS : Continuous S := continuous_finset_sum _ (fun i _ => hb (e i))
+  have hS : Continuous S := continuous_finsetSum _ (fun i _ => hb (e i))
   have hS0 : ∀ x, 0 ≤ S x := fun x => Finset.sum_nonneg (fun i _ => hn (e i) x)
   have hSK : ∀ x ∈ K, 0 < S x := by
     intro x hx

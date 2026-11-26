@@ -453,7 +453,7 @@ private theorem compact_energy_iff {n r : ℕ} (Ω : Opens (E n))
   · intro hdLp
     have hi : Integrable (fun x => ∑ j, ‖d j x‖ ^ 2)
         (volume.restrict (Ω : Set (E n))) :=
-      integrable_finset_sum _ (fun j _ => (hdLp j).integrable_norm_pow (by norm_num))
+      integrable_finsetSum _ (fun j _ => (hdLp j).integrable_norm_pow (by norm_num))
     apply (hi.const_mul (b * Λ)).mono' (energy_meas Ω w hw Q d hd)
     filter_upwards [hpoint, hnonneg] with x hx hn
     simpa only [Real.norm_eq_abs, abs_of_nonneg hn] using hx.2
@@ -722,7 +722,7 @@ theorem kp_cont_compact_h1_metric_bounds {n r : ℕ} (Ω : Opens (E n))
   have hgI : ∀ j, Integrable (fun x => ‖g j x‖ ^ 2) μ := fun j =>
     (h0.2 j).integrable_norm_pow (by norm_num)
   have hGI : Integrable (fun x => ∑ j, ‖g j x‖ ^ 2) μ :=
-    integrable_finset_sum _ (fun j _ => hgI j)
+    integrable_finsetSum _ (fun j _ => hgI j)
   have hUI : Integrable (fun x => w x * ‖f x‖ ^ 2) μ :=
     weighted_sq_integrable Ω w hw hwpos f hW.1
   have hTI : Integrable (fun x => w x * Q.quadratic x (fun j => covariantFirst A f g j x)) μ := hW.2
@@ -745,7 +745,7 @@ theorem kp_cont_compact_h1_metric_bounds {n r : ℕ} (Ω : Opens (E n))
   have h0eq : H0 (Ω : Set (E n)) f g h0 = Real.sqrt F + Real.sqrt G := by
     unfold H0 l2Norm
     congr 1
-    rw [show G = ∑ j, ∫ x, ‖g j x‖ ^ 2 ∂μ from integral_finset_sum _ (fun j _ => hgI j)]
+    rw [show G = ∑ j, ∫ x, ‖g j x‖ ^ 2 ∂μ from integral_finsetSum _ (fun j _ => hgI j)]
     apply congrArg Real.sqrt
     apply Finset.sum_congr rfl
     intro j hj

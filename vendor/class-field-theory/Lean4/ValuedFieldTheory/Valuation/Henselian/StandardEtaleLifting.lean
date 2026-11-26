@@ -52,7 +52,7 @@ theorem exists_standardEtale_lift
     exact (Ideal.Quotient.eq.mpr hacongr).trans ha₀
   have hdenom : IsUnit (Polynomial.aeval a P.g) := by
     let : IsLocalHom (Ideal.Quotient.mk I) :=
-      isLocalHom_of_le_jacobson_bot I HenselianRing.jac
+      isLocalHom_of_le_jacobson HenselianRing.jac
     apply IsUnit.of_map (Ideal.Quotient.mk I)
     change IsUnit (q (Polynomial.aeval a P.g))
     rw [← Polynomial.aeval_algHom_apply, hqa]

@@ -25,7 +25,7 @@ theorem differentIdeal_ne_bot (F : Type*) [Field F] [NumberField F] :
 theorem one_lt_absNorm (F : Type*) [Field F] [NumberField F]
     (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers F)) :
     1 < Ideal.absNorm v.asIdeal := by
-  exact NumberField.RingOfIntegers.HeightOneSpectrum.one_lt_absNorm v
+  exact NumberField.HeightOneSpectrum.one_lt_absNorm v
 
 theorem exponent_finite_support (F : Type*) [Field F] [NumberField F] :
     Set.Finite {v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers F) |

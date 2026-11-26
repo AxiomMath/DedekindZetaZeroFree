@@ -15,10 +15,10 @@ private theorem smooth_real (d : ℕ) : ContDiff ℝ (⊤ : ℕ∞) (real d) := 
   intro ⟨i,k⟩
   fin_cases k
   · simpa [real, Function.comp_def] using Complex.reCLM.contDiff.comp
-      (contDiff_fst.comp (contDiff_apply ℝ KPArch.H3 i))
+      (contDiff_fst.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i))
   · simpa [real, Function.comp_def] using Complex.imCLM.contDiff.comp
-      (contDiff_fst.comp (contDiff_apply ℝ KPArch.H3 i))
-  · simpa [real, Function.comp_def] using contDiff_snd.comp (contDiff_apply ℝ KPArch.H3 i)
+      (contDiff_fst.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i))
+  · simpa [real, Function.comp_def] using contDiff_snd.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i)
 
 private theorem smooth_arch (d : ℕ) : ContDiff ℝ (⊤ : ℕ∞) (arch d) := by
   apply contDiff_pi.mpr
@@ -33,7 +33,7 @@ private theorem smooth_mean (d : ℕ) : ContDiff ℝ (⊤ : ℕ∞) (KPCuspLogSh
   apply ContDiff.div_const
   apply ContDiff.sum
   intro i hi
-  exact contDiff_snd.comp (contDiff_apply ℝ KPArch.H3 i)
+  exact contDiff_snd.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i)
 private theorem differential_smoothAt (d : ℕ) (g : Space d → ℂ) (x : Space d)
     (hg : ContDiffAt ℝ (⊤ : ℕ∞) g x) (i : Fin d) (k : Fin 3) :
     ContDiffAt ℝ (⊤ : ℕ∞) (fun q => differential d g q i k) x := by
@@ -135,7 +135,7 @@ theorem cutoff_tangentialDivergence_eq_zero_of_notMem_tsupport
   have hh : Continuous (fun q : Space d => KPCuspLogShape.meanHeight d (arch d q)) := by
     unfold KPCuspLogShape.meanHeight
     apply Continuous.div_const
-    apply continuous_finset_sum
+    apply continuous_finsetSum
     intro i hi
     exact (EuclideanSpace.proj (𝕜 := ℝ) (i, (2 : Fin 3))).continuous
   have he : (fun q : Space d => a (KPCuspLogShape.meanHeight d (arch d q)))

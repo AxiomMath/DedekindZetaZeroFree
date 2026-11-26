@@ -108,6 +108,7 @@ theorem actual_finite_euler_enlargement
   congr 1
   unfold c KPGlobalFiniteSIntertwiner.enlargementFactor
   rw [Finset.prod_coe_sort_eq_attach]
+  simp only [RingHom.id_apply]
   rw [Finset.prod_attach T (fun q : HeightOneSpectrum (𝓞 F) => if q ∈ E then (1 : ℂ) else KPGlobalFiniteSIntertwiner.goodFactor F q s)]
   calc
     (∏ q ∈ T, if q ∈ E then (1 : ℂ) else KPGlobalFiniteSIntertwiner.goodFactor F q s) =

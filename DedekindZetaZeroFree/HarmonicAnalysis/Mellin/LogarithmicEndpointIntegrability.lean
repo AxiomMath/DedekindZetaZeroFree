@@ -337,13 +337,13 @@ theorem high_euler_uniform_mellin_norm (h : LogMellinPhysical f δ P) (j : ℕ)
         rw [integral_add hintG₁ hintG₂]
         congr 1
         · rw [integral_indicator measurableSet_Ioc, hh₁,
-              Measure.restrict_restrict_of_subset (fun x hx => hx.1),
+              Measure.restrict_restrict_of_subset (fun x (hx : x ∈ Set.Ioc (0 : ℝ) 1) => hx.1),
               integral_const_mul, ← intervalIntegral.integral_of_le zero_le_one,
               integral_rpow (Or.inl (by linarith : -1 < u - 1 + δ))]
           rw [Real.one_rpow, Real.zero_rpow (by linarith : u - 1 + δ + 1 ≠ 0), sub_zero]
           ring
         · rw [integral_indicator measurableSet_Ioi, hh₂,
-              Measure.restrict_restrict_of_subset (fun x hx => by
+              Measure.restrict_restrict_of_subset (fun x (hx : x ∈ Set.Ioi (1 : ℝ)) => by
                 simp only [Set.mem_Ioi] at hx ⊢; linarith),
               integral_const_mul,
               integral_Ioi_rpow_of_lt (by linarith : v - 1 - (n : ℝ) < -1) one_pos,

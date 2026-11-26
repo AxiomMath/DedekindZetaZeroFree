@@ -37,10 +37,10 @@ short complex `A --N--> A --d₀₁--> C¹(G, A)` for every finite group. -/
 def isoZeroBoundary {R G : Type u} [CommRing R] [Group G] [Fintype G]
     (A : Rep R G) :
     tateCohomology A 0 ≅
-      (ShortComplex.mk A.norm.toModuleCatHom (groupCohomology.d₀₁ A)
+      (ShortComplex.mk A.norm.asHom.toModuleCatHom (groupCohomology.d₀₁ A)
         (Rep.norm_comp_d_eq_zero A)).homology := by
   let S : ShortComplex (ModuleCat R) :=
-    .mk A.norm.toModuleCatHom (groupCohomology.d₀₁ A)
+    .mk A.norm.asHom.toModuleCatHom (groupCohomology.d₀₁ A)
       (Rep.norm_comp_d_eq_zero A)
   let eS : (tateComplex A).sc 0 ≅ S :=
     (tateComplex A).isoSc' (-1) 0 1 (by simp) (by simp) ≪≫
@@ -50,7 +50,7 @@ def isoZeroBoundary {R G : Type u} [CommRing R] [Group G] [Fintype G]
         (groupCohomology.cochainsIso₁ A)
         (by
           change
-            (groupHomology.chainsIso₀ A).hom ≫ A.norm.toModuleCatHom =
+            (groupHomology.chainsIso₀ A).hom ≫ A.norm.asHom.toModuleCatHom =
               A.tateNorm ≫ (groupCohomology.cochainsIso₀ A).hom
           rw [Rep.tateNorm]
           simp)
@@ -64,7 +64,7 @@ def isoFiniteCyclicZero {R G : Type u} [CommRing R] [CommGroup G] [Fintype G]
     tateCohomology A 0 ≅
       (Rep.FiniteCyclicGroup.normHomCompSub A g).homology := by
   let S : ShortComplex (ModuleCat R) :=
-    .mk A.norm.toModuleCatHom (groupCohomology.d₀₁ A)
+    .mk A.norm.asHom.toModuleCatHom (groupCohomology.d₀₁ A)
       (Rep.norm_comp_d_eq_zero A)
   let T := Rep.FiniteCyclicGroup.normHomCompSub A g
   have hker : LinearMap.ker S.g.hom = LinearMap.ker T.g.hom := by
@@ -100,7 +100,7 @@ def isoFiniteCyclicNegOne {R G : Type u} [CommRing R] [CommGroup G] [Fintype G]
     tateCohomology A (-1) ≅
       (Rep.FiniteCyclicGroup.subCompNormHom A g).homology := by
   let S : ShortComplex (ModuleCat R) :=
-    .mk (groupHomology.d₁₀ A) A.norm.toModuleCatHom (Rep.comp_eq_zero A)
+    .mk (groupHomology.d₁₀ A) A.norm.asHom.toModuleCatHom (Rep.comp_eq_zero A)
   let eS : (tateComplex A).sc (-1) ≅ S :=
     (tateComplex A).isoSc' (-2) (-1) 0 (by simp) (by simp) ≪≫
       ShortComplex.isoMk

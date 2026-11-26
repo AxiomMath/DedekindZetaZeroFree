@@ -90,8 +90,8 @@ theorem finiteBase_arch_integral_separation (K : Subgroup (G F ζ hζ))
       star (adelicTraceCharacter F ((a,t) : KPAdeles F) : ℂ)) =
       (fun a => ∑ i, d i * k i a) := funext (fun a => he s a t c g)
   rw [hident]
-  refine ⟨integrable_finset_sum _ (fun i _ => hi i), ?_⟩
-  rw [integral_finset_sum _ (fun i _ => hi i)]
+  refine ⟨integrable_finsetSum _ (fun i _ => hi i), ?_⟩
+  rw [integral_finsetSum _ (fun i _ => hi i)]
   apply Finset.sum_congr rfl
   intro i _
   rw [integral_const_mul]

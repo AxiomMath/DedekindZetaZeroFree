@@ -1598,9 +1598,9 @@ noncomputable def transferNormNaturalityFrobeniusTransfer
     [hLnormal :
       (extensionSubgroup E.base.field L (hL.trans E.below)).Normal]
     [hL'normal : (extensionSubgroup E.field.field L hL).Normal] :
-    Abelianization (E.base.field.toSubgroup ⧸
+    Group.Abelianization (E.base.field.toSubgroup ⧸
         D.extensionInertiaWithin E.base.field L (hL.trans E.below)) →*
-      Abelianization (E.field.field.toSubgroup ⧸
+      Group.Abelianization (E.field.field.toSubgroup ⧸
         D.extensionInertiaWithin E.field.field L hL) := by
   let H := D.transferNormNaturalityFrobeniusIntermediateSubgroup
     E L hL
@@ -1609,8 +1609,8 @@ noncomputable def transferNormNaturalityFrobeniusTransfer
   let e := D.transferNormNaturalityFrobeniusIntermediateEquiv
     E L hL
   exact e.symm.abelianizationCongr.toMonoidHom.comp
-    (Abelianization.lift
-      (MonoidHom.transfer (Abelianization.of : H →* Abelianization H)))
+    (Group.Abelianization.lift
+      (MonoidHom.transfer (Group.Abelianization.of : H →* Group.Abelianization H)))
 
 /-- The double-coset formula for the preceding Frobenius-level transfer.
 Every factor is the positive Frobenius lift constructed above. -/
@@ -1632,11 +1632,11 @@ theorem transferNormNaturalityFrobeniusTransfer_doubleCoset_formula
           (hL.trans E.below)) ⧸ H))) :=
       Fintype.ofFinite _
     D.transferNormNaturalityFrobeniusTransfer E L hL
-        (Abelianization.of σ) =
+        (Group.Abelianization.of σ) =
       ∏ q : Quotient (orbitRel (Subgroup.zpowers σ)
           ((E.base.field.toSubgroup ⧸ D.extensionInertiaWithin E.base.field L
             (hL.trans E.below)) ⧸ H)),
-        Abelianization.of
+        Group.Abelianization.of
           ((D.transferNormNaturalityFrobeniusIntermediateEquiv
             E L hL).symm
               ⟨q.out.out⁻¹ * σ ^ Function.minimalPeriod (σ • ·) q.out *
@@ -1653,12 +1653,12 @@ theorem transferNormNaturalityFrobeniusTransfer_doubleCoset_formula
       ((E.base.field.toSubgroup ⧸ D.extensionInertiaWithin E.base.field L
         (hL.trans E.below)) ⧸ H)))
   unfold transferNormNaturalityFrobeniusTransfer
-  simp only [MonoidHom.comp_apply, Abelianization.lift_apply_of]
+  simp only [MonoidHom.comp_apply, Group.Abelianization.lift_apply_of]
   rw [MonoidHom.transfer_eq_prod_quotient_orbitRel_zpowers_quot]
   rw [map_prod]
   apply Finset.prod_congr rfl
   intro q _
-  exact abelianizationCongr_of
+  exact Group.abelianizationCongr_of
     (D.transferNormNaturalityFrobeniusIntermediateEquiv
       E L hL).symm _
 

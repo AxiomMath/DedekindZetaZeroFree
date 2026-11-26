@@ -344,7 +344,8 @@ variable (F : Type) [Field F] [NumberField F] (ζ : F) (hζ : IsPrimitiveRoot ζ
       ∃ a ∈ KPGlobalTorusFunctionData.globalLevel F ζ hζ U,
         g⁻¹*y = archChart F ζ hζ x * a :=
     (show ContinuousAt (fun y : KPGlobalTorusFunctionData.G F ζ hζ => g⁻¹*y) g from
-      continuousAt_const.mul continuousAt_id).eventually (by simpa using hT)
+      continuousAt_const.mul continuousAt_id).eventually
+        (by simp only [inv_mul_cancel]; exact hT)
   filter_upwards [hg] with y hy
   obtain ⟨x, hx, a, ha, he⟩ := hy
   have hy' : y = (g * archChart F ζ hζ x)*a := by

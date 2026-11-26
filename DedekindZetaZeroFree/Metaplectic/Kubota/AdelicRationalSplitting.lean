@@ -153,7 +153,8 @@ theorem eval_localAdele (v w : KPHilbert.Place F) (x : KPHilbert.Completion F v)
   | inl v =>
     cases w with
     | inl w =>
-      change Pi.single v x w = Pi.single (Sum.inl v) x (Sum.inl w)
+      change Pi.single (M := fun w => KPHilbert.Completion F (Sum.inl w)) v x w =
+        Pi.single (Sum.inl v) x (Sum.inl w)
       by_cases h : w = v
       · subst w; simp
       · simp [Pi.single_eq_of_ne h, Pi.single_eq_of_ne (Sum.inl_injective.ne h)]
@@ -162,7 +163,8 @@ theorem eval_localAdele (v w : KPHilbert.Place F) (x : KPHilbert.Completion F v)
     cases w with
     | inl w => change 0 = _; simp
     | inr w =>
-      change Pi.single v x w = Pi.single (Sum.inr v) x (Sum.inr w)
+      change Pi.single (M := fun w => KPHilbert.Completion F (Sum.inr w)) v x w =
+        Pi.single (Sum.inr v) x (Sum.inr w)
       by_cases h : w = v
       · subst w; simp
       · simp [Pi.single_eq_of_ne h, Pi.single_eq_of_ne (Sum.inr_injective.ne h)]
@@ -175,7 +177,8 @@ theorem eval_localIdele (v w : KPHilbert.Place F) (y : (KPHilbert.Completion F v
   | inl v =>
     cases w with
     | inl w =>
-      change Pi.mulSingle v (↑y : KPHilbert.Completion F (Sum.inl v)) w =
+      change Pi.mulSingle (M := fun w => KPHilbert.Completion F (Sum.inl w)) v
+          (↑y : KPHilbert.Completion F (Sum.inl v)) w =
         ↑(Pi.mulSingle (M := fun v => (KPHilbert.Completion F v)ˣ) (Sum.inl v) y (Sum.inl w))
       by_cases h : w = v
       · subst w; simp
@@ -185,7 +188,8 @@ theorem eval_localIdele (v w : KPHilbert.Place F) (y : (KPHilbert.Completion F v
     cases w with
     | inl w => change (1 : KPHilbert.Completion F (Sum.inl w)) = _; simp
     | inr w =>
-      change Pi.mulSingle v (↑y : KPHilbert.Completion F (Sum.inr v)) w =
+      change Pi.mulSingle (M := fun w => KPHilbert.Completion F (Sum.inr w)) v
+          (↑y : KPHilbert.Completion F (Sum.inr v)) w =
         ↑(Pi.mulSingle (M := fun v => (KPHilbert.Completion F v)ˣ) (Sum.inr v) y (Sum.inr w))
       by_cases h : w = v
       · subst w; simp

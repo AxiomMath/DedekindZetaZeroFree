@@ -428,7 +428,7 @@ theorem isCompact_phase_annihilator
     simp only [Set.setOf_forall]
     refine isClosed_iInter fun u => isClosed_iInter fun _ => ?_
     apply isClosed_eq _ continuous_const
-    exact continuous_finset_prod _ fun v _ =>
+    exact continuous_finsetProd _ fun v _ =>
       (continuous_subtype_val.comp (he v)).comp
         (continuous_const.mul (continuous_apply v))
   have hcompact : IsCompact {y : ((v : S) → v.val.adicCompletion F) |

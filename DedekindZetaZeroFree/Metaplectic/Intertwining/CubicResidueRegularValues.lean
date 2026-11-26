@@ -147,7 +147,7 @@ private lemma cubicResidueDenomRegular_inv_of_value_ne_zero {F : Type*} [Field F
     (_hr : CubicResidueDenomRegular u r) (hv : RatFunc.eval (RingHom.id F) u r ≠ 0) : CubicResidueDenomRegular u r⁻¹ := by
   have hr0 : r ≠ 0 := by intro h; simp [h] at hv
   intro h
-  have hn := Polynomial.eval_eq_zero_of_dvd_of_eval_eq_zero (RatFunc.denom_inv_dvd hr0) h
+  have hn := Polynomial.eval_eq_zero_of_dvd_of_eval_eq_zero (RatFunc.denom_inv_dvd _) h
   apply hv
   simp [RatFunc.eval, hn]
 private lemma cubicResidue_eval_inv_of_denom_regular_of_value_ne_zero {F : Type*} [Field F] {u : F} {r : RatFunc F}
@@ -349,7 +349,7 @@ private lemma cubicResidueDenominatorRegular_inv_of_value_ne_zero {F : Type*} [F
     (_hr : CubicResidueDenominatorRegular u r) (hv : RatFunc.eval (RingHom.id F) u r ≠ 0) : CubicResidueDenominatorRegular u r⁻¹ := by
   have hr0 : r ≠ 0 := by intro h; simp [h] at hv
   intro h
-  have hn := Polynomial.eval_eq_zero_of_dvd_of_eval_eq_zero (RatFunc.denom_inv_dvd hr0) h
+  have hn := Polynomial.eval_eq_zero_of_dvd_of_eval_eq_zero (RatFunc.denom_inv_dvd _) h
   apply hv
   simp [RatFunc.eval, hn]
 private lemma cubicResidue_eval_inv_of_regular_nonzero {F : Type*} [Field F] {u : F} {r : RatFunc F}

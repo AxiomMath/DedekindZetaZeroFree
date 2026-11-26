@@ -33,7 +33,7 @@ namespace ClassFormation
 
 /-- The additive group of `ℤ̂` is torsion-free. -/
 instance : IsAddTorsionFree ZHat :=
-  ⟨fun {_} hn => zHatMulNat_injective (Nat.pos_of_ne_zero hn)⟩
+  ⟨fun {_} hn _ _ _ h => zHatMulNat_injective (Nat.pos_of_ne_zero hn) h⟩
 
 /-- The multiplicative presentation of additive `ℤ̂` is torsion-free. -/
 instance : IsMulTorsionFree (Multiplicative ZHat) :=

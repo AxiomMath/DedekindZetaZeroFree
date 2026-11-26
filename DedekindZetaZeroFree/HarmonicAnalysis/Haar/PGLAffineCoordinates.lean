@@ -757,7 +757,7 @@ theorem contDiffAt_rawRatios (a : Matrix (Fin 2) (Fin 2) ℂ)
       (fun x : Matrix (Fin 2) (Fin 2) ℂ => x i j / x 0 0) a := by
     have he (i j : Fin 2) : ContDiff ℝ (⊤ : ℕ∞)
         (fun x : Matrix (Fin 2) (Fin 2) ℂ => x i j) :=
-      (contDiff_apply ℝ ℂ j).comp (contDiff_apply ℝ (Fin 2 → ℂ) i)
+      (contDiff_apply ℝ (fun _ : Fin 2 => ℂ) j).comp (contDiff_apply ℝ (fun _ : Fin 2 => Fin 2 → ℂ) i)
     simpa only [div_eq_mul_inv] using!
       (he i j).contDiffAt.mul ((he 0 0).contDiffAt.inv ha)
   apply contDiffAt_pi.mpr
@@ -777,8 +777,8 @@ theorem contDiff_rawComplexCoordinates : ContDiff ℝ (⊤ : ℕ∞) rawComplexC
   intro i
   have hc (j k : Fin 6) : ContDiff ℝ (⊤ : ℕ∞)
       (fun x : RawCoordinates => (x j : ℂ) + (x k : ℂ) * Complex.I) :=
-    ((Complex.ofRealCLM.contDiff.comp (contDiff_apply ℝ ℝ j)).add
-      ((Complex.ofRealCLM.contDiff.comp (contDiff_apply ℝ ℝ k)).mul contDiff_const))
+    ((Complex.ofRealCLM.contDiff.comp (contDiff_apply ℝ (fun _ : Fin 6 => ℝ) j)).add
+      ((Complex.ofRealCLM.contDiff.comp (contDiff_apply ℝ (fun _ : Fin 6 => ℝ) k)).mul contDiff_const))
   fin_cases i <;> simp [rawComplexCoordinates, Complex.mk_eq_add_mul_I] <;> exact hc _ _
 
 theorem contDiff_rawMatrix : ContDiff ℝ (⊤ : ℕ∞) rawMatrix := by

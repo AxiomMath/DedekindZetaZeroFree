@@ -45,7 +45,7 @@ private theorem finite_translate_orbit {G : Type*} [Group G] [TopologicalSpace G
       simp only [map_add, hxe, hye]
     · intro c x hx hxe
       simp only [map_smul, hxe]
-  let b : K → N := fun k => ⟨k.val * a.val * k.val⁻¹, Subgroup.Normal.conj_mem inferInstance a.val a.property k.val⟩
+  let b : K → N := fun k => ⟨k.val * a.val * k.val⁻¹, Subgroup.Normal.conj_mem a.val a.property k.val⟩
   have hb : Continuous b := by
     exact ((continuous_subtype_val.mul continuous_const).mul continuous_subtype_val.inv).subtype_mk _
   let c : K → N ⧸ U.toSubgroup := fun k => QuotientGroup.mk (b k)

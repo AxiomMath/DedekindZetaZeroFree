@@ -442,7 +442,7 @@ theorem generic_fixed_vector_small_norm
     have hh : 0 < ‖((π ^ 3 : (v.adicCompletion F)ˣ) : v.adicCompletion F)‖ :=
       norm_pos_iff.mpr (π ^ 3).ne_zero
     dsimp [l]
-    positivity
+    exact mul_pos (lt_min (by linarith) one_pos) (pow_pos hh 2)
   obtain ⟨H, hH, hbound⟩ := whittakerValue_compact_bound ρ hsmooth a ha ell φ
     {y | l ≤ ‖(y : v.adicCompletion F)‖ ∧ ‖(y : v.adicCompletion F)‖ ≤ 1}
     (norm_annulus_isCompact l 1 hl)

@@ -36,7 +36,7 @@ theorem local_character (x : Fˣ) (v : HeightOneSpectrum (𝓞 F)) :
     RMKummerLocalNormCharacter.lambda_ker_eq_norm_range F h12 x v⟩
 
 theorem local_conductor (x : Fˣ) (v : HeightOneSpectrum (𝓞 F)) :
-    IsLeast (fun n : ℕ => ClassFieldTheory.rayLocalHigherUnitGroup v n ≤
+    IsLeast (setOf fun n : ℕ => ClassFieldTheory.rayLocalHigherUnitGroup v n ≤
       (lambda F h12 x v).ker) (idealPrimeExponent v.asIdeal (m F h12 x)) := by
   simpa only [RMKummerLeastLocalExponent.finiteExponent_eq_ord] using
     RMKummerLeastLocalExponent.finiteExponent_isLeast F h12 x v

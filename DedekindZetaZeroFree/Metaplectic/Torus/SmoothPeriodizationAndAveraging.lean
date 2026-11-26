@@ -651,7 +651,7 @@ open KPGlobalTorusFunctionData
       ((delta F ζ hζ (torusArchChart F ζ hζ z) : ℝ≥0) : ℝ)) (torusArchDomain F) := by
     have hp : ContDiff ℝ (⊤ : ℕ∞)
         (fun z : TorusArch F => ∏ w : NumberField.InfinitePlace F, ‖z w‖ ^ 2) :=
-      contDiff_prod (fun w _ => (contDiff_apply ℝ ℂ w).norm_sq ℝ)
+      contDiff_prod (fun w _ => (contDiff_apply ℝ (fun _ => ℂ) w).norm_sq ℝ)
     exact hp.contDiffOn.congr (fun z hz =>
       KPGlobalTorusBorelNormTwistTransport.AnalyticInputs.delta_chart_formula F ζ hζ z hz)
   have ht : ContDiffOn ℝ (⊤ : ℕ∞) (fun z =>

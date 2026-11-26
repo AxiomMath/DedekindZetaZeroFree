@@ -38,7 +38,7 @@ theorem parameter_box_integrable_and_integral
     { toFun f := f.val.val t
       map_add' _ _ := rfl
       map_smul' _ _ := rfl }
-  let L : MultilinearMap ℂ (fun j : (fullLevel R P C Q hQ).val => Fiber R P C j) ℂ :=
+  let L : MultilinearMap (RingHom.id ℂ) (fun j : (fullLevel R P C Q hQ).val => Fiber R P C j) ℂ :=
     ((ev.comp (comparisonSmooth R P C)).comp
       (RestrictedTensorSimple.stageInclusion (Fiber R P C) (reference R P C) (bad R P C) (fullLevel R P C Q hQ))).compMultilinearMap
       (PiTensorProduct.tprod ℂ)

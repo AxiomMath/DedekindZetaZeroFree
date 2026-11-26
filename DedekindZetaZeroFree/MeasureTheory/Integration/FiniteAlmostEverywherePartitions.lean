@@ -17,7 +17,7 @@ theorem integral_finite_ae_partition {α I : Type*} [MeasurableSpace α] [Fintyp
     ∑ i, ∫ x in C i, g x ∂μ = ∫ x in Q, g x ∂μ := by
   classical
   have hUC : (⋃ i, C i) =ᵐ[μ] Q := by
-    filter_upwards [hcover] with x hx using propext hx.symm
+    filter_upwards [hcover] with x hx using hx.symm
   have hunion := integral_iUnion_fintype (μ := μ) (s := C) (f := g) hC hdisj
     (fun i => IntegrableOn.mono_set (f := g) hg (hsub i))
   rw [← hunion, setIntegral_congr_set hUC]

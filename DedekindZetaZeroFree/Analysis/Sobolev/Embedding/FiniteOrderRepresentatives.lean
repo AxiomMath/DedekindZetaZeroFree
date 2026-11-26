@@ -169,7 +169,7 @@ theorem mollifiedValue_jets_uniformCauchy {n : ℕ} (m : ℕ)
       have h' := ((regularizedJet_tendsto g β).comp tendsto_fst).sub
         ((regularizedJet_tendsto g β).comp tendsto_snd)
       simpa only [Function.comp_apply, sub_self, norm_zero, zero_pow (by norm_num : 2 ≠ 0)] using h'.norm.pow 2
-    simpa using tendsto_finset_sum Finset.univ (fun β _ => hβ β)
+    simpa using tendsto_finsetSum Finset.univ (fun β _ => hβ β)
   apply Metric.uniformCauchySeqOn_iff.mpr
   intro ε hε
   have he : (0 : ℝ) < (ε / C) ^ 2 := sq_pos_of_pos (div_pos hε hC)

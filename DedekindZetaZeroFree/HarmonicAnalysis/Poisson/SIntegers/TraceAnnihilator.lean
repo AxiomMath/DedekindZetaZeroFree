@@ -134,7 +134,7 @@ private theorem sAnnihilator_arch_rational (F : Type) [Field F] [NumberField F]
 
 end Helpers
 
-attribute [-instance] IsAffineAddMonoid.toIsAddTorsionFree
+attribute [-instance] IsAffineAddMonoid.toHasUniqueDiv
 
 theorem sInteger_trace_annihilator (F : Type) [Field F] [NumberField F]
     (S : Finset (HeightOneSpectrum (RingOfIntegers F)))

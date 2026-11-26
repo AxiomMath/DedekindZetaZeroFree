@@ -32,16 +32,16 @@ private theorem smooth_real (d : ℕ) : ContDiff ℝ (⊤ : ℕ∞) (real d) := 
   intro j
   rcases j with ⟨i, k⟩
   fin_cases k
-  · simpa [real, Function.comp_def] using Complex.reCLM.contDiff.comp (contDiff_fst.comp (contDiff_apply ℝ KPArch.H3 i))
-  · simpa [real, Function.comp_def] using Complex.imCLM.contDiff.comp (contDiff_fst.comp (contDiff_apply ℝ KPArch.H3 i))
-  · simpa [real, Function.comp_def] using contDiff_snd.comp (contDiff_apply ℝ KPArch.H3 i)
+  · simpa [real, Function.comp_def] using Complex.reCLM.contDiff.comp (contDiff_fst.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i))
+  · simpa [real, Function.comp_def] using Complex.imCLM.contDiff.comp (contDiff_fst.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i))
+  · simpa [real, Function.comp_def] using contDiff_snd.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i)
 
 private theorem smooth_mean (d : ℕ) : ContDiff ℝ (⊤ : ℕ∞) (KPCuspLogShape.meanHeight d) := by
   unfold KPCuspLogShape.meanHeight
   apply ContDiff.div_const
   apply ContDiff.sum
   intro i hi
-  exact contDiff_snd.comp (contDiff_apply ℝ KPArch.H3 i)
+  exact contDiff_snd.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i)
 
 private theorem derivative_smoothAt (d : ℕ) (g : Space d → ℂ) (x : Space d)
     (hg : ContDiffAt ℝ (⊤ : ℕ∞) g x) (i : Fin d) (k : Fin 3) :
@@ -618,7 +618,7 @@ private theorem smooth_real (d : ℕ) : ContDiff ℝ (⊤ : ℕ∞) (real d) := 
   · exact contDiff_snd.comp (contDiff_apply ℝ _ i)
 private theorem continuous_height (d : ℕ) : Continuous (KPCuspLogShape.meanHeight d) := by
   unfold KPCuspLogShape.meanHeight
-  exact (continuous_finset_sum _ (fun i _ => (continuous_apply i).snd)).div_const _
+  exact (continuous_finsetSum _ (fun i _ => (continuous_apply i).snd)).div_const _
 private theorem derivative_smoothAt (d : ℕ) (g : Space d → ℂ) (x : Space d)
     (hg : ContDiffAt ℝ (⊤ : ℕ∞) g x) (i : Fin d) (k : Fin 3) :
     ContDiffAt ℝ (⊤ : ℕ∞) (coordinateDerivative d i k g) x :=
@@ -668,9 +668,9 @@ theorem gradientSq_continuousOn_high (G : KPCuspCharts.ChartOutput F hF S D)
     rw [arch_real, KPCuspCharts.toArch_meanHeight F G.positive_dimension]
     exact hp)
   apply ContinuousAt.continuousWithinAt
-  apply tendsto_finset_sum
+  apply tendsto_finsetSum
   intro i hi
-  apply tendsto_finset_sum
+  apply tendsto_finsetSum
   intro k hk
   have hc := ((differential_smoothAt _ _ _ hv i k).continuousAt.comp
     (smooth_real _).continuous.continuousAt).comp (KPCuspCharts.toArch_contDiff F).continuous.continuousAt
@@ -710,9 +710,9 @@ theorem cutoffGradientSq_continuousOn_high (G : KPCuspCharts.ChartOutput F hF S 
     rw [arch_real, KPCuspCharts.toArch_meanHeight F G.positive_dimension]
     exact hp)
   apply ContinuousAt.continuousWithinAt
-  apply tendsto_finset_sum
+  apply tendsto_finsetSum
   intro i hi
-  apply tendsto_finset_sum
+  apply tendsto_finsetSum
   intro k hk
   have hc := ((differential_smoothAt _ _ _ hv i k).continuousAt.comp
     (smooth_real _).continuous.continuousAt).comp (KPCuspCharts.toArch_contDiff F).continuous.continuousAt
@@ -731,9 +731,9 @@ theorem weightedGreenDensity_continuousOn_high (G : KPCuspCharts.ChartOutput F h
   apply ContinuousAt.continuousWithinAt
   apply Complex.continuous_re.continuousAt.comp
   unfold pairing
-  apply tendsto_finset_sum
+  apply tendsto_finsetSum
   intro i hi
-  apply tendsto_finset_sum
+  apply tendsto_finsetSum
   intro k hk
   have hc := ((differential_smoothAt _ _ _ hcut i k).continuousAt.comp
     (smooth_real _).continuous.continuousAt).comp (KPCuspCharts.toArch_contDiff F).continuous.continuousAt

@@ -215,7 +215,7 @@ theorem closedForm_tests (f g : S_U F ζ hζ U R P H) :
     (j (D_U f)) (j (D_U g)) (cotangentSquareFamily (D_U f))
     (cotangentSquareFamily (D_U g)) rfl rfl
   rw [hinner]
-  rw [← integral_finset_sum Finset.univ
+  rw [← integral_finsetSum Finset.univ
     (fun i _ => gradient_placePair_integrable F ζ hζ U R P H f g i)]
   apply integral_congr_ae
   apply Filter.Eventually.of_forall

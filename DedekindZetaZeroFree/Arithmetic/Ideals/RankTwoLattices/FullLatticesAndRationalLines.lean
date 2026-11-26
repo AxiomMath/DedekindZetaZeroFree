@@ -11,7 +11,7 @@ namespace DedekindZetaZeroFree
 
 def FullLattice (R : Type*) [CommRing R] [IsDedekindDomain R]
     (K : Type*) [Field K] [Algebra R K] [IsFractionRing R K] :=
-  {M : Submodule R (K × K) // Submodule.IsLattice K M}
+  {M : Submodule R (K × K) // Submodule.IsFullLattice K M}
 
 abbrev RationalLine (K : Type*) [Field K] := Projectivization K (K × K)
 

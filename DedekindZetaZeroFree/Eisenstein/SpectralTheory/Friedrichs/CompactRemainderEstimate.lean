@@ -422,7 +422,8 @@ theorem construction_nonempty (ε : ℝ) (hε : 0 < ε) :
       intro v
       have hv : v ∈ closure {b | 0 ≤ qU (ims.A (some c) b) -
           (dF - min (ε / 2) (dF / 2)) * ‖jU (ims.A (some c) b)‖ ^ 2} :=
-        closure_mono hnonneg
+        closure_mono (s := Set.range (KPContActualFormIMSIdentity.coreLift
+            F ζ hζ U R P H μG hμG hR realization)) (fun v hv => hnonneg v hv)
           (by rw [Dense.closure_eq (KPContActualFormIMSIdentity.coreLift_dense
               F ζ hζ U R P H μG hμG hR realization)]; exact Set.mem_univ v)
       exact le_of_sub_nonneg ((isClosed_le continuous_const hcont).closure_subset hv)

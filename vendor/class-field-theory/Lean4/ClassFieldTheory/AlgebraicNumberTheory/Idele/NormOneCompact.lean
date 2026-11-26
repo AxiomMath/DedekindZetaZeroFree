@@ -236,10 +236,9 @@ theorem norm_infiniteComponent_principalIdele (x : Kˣ)
     ‖((component w (IdeleGroup.principalIdele K x).1 :
         w.Completionˣ) : w.Completion)‖ =
       w (x : K) := by
-  change ‖(((WithAbs.equiv w.1).symm (x : K) :
-    WithAbs w.1) : w.Completion)‖ = w (x : K)
-  rw [NumberField.InfinitePlace.Completion.norm_coe,
-    (WithAbs.equiv w.1).apply_symm_apply]
+  change ‖algebraMap K w.Completion (x : K)‖ = w (x : K)
+  rw [AbsoluteValue.Completion.algebraMap_def, AbsoluteValue.Completion.norm_coe]
+  rfl
 
 /-- On an algebraic integer unit, the archimedean idele log is exactly
 Dirichlet's logarithmic embedding. -/

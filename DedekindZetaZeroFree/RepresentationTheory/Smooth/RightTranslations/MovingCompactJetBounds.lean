@@ -474,7 +474,7 @@ theorem continuousOn_taylorComp {A : Type*} [TopologicalSpace A]
     (hp : ∀ n, ContinuousOn (fun a => p a n) W) (n : ℕ) :
     ContinuousOn (fun a => (q a).taylorComp (p a) n) W := by
   unfold FormalMultilinearSeries.taylorComp
-  apply continuousOn_finset_sum
+  apply continuousOn_finsetSum
   intro c _
   let L := c.compAlongOrderedFinpartitionL ℝ E F V
   have hL : ContinuousOn (fun a => L (q a c.length)) W :=
@@ -549,7 +549,7 @@ theorem compact_weighted_coordinate_jet_bound {d : ℕ}
   have hjc : ContinuousOn (fun p : A × E =>
       ∑ i ∈ Finset.range (n+1), (‖iteratedFDeriv ℝ i (fun y => c (p.1,y)) p.2‖ +
         ‖iteratedFDeriv ℝ i (fun y => ψ (p.1,y)) p.2‖)) K :=
-    continuousOn_finset_sum _ fun i _ => ((hcj i).mono hKW).norm.add (((hψj i).mono hKW).norm)
+    continuousOn_finsetSum _ fun i _ => ((hcj i).mono hKW).norm.add (((hψj i).mono hKW).norm)
   obtain ⟨b,hb⟩ := hK.exists_bound_of_continuousOn hjc
   let D : ℝ := max 0 b + 1
   have hD : 1 ≤ D := by dsimp [D]; exact le_add_of_nonneg_left (le_max_left _ _)
@@ -675,7 +675,7 @@ theorem compact_list_coordinate_jet_bound {d : ℕ}
   | nil =>
     refine ⟨1,zero_lt_one,?_⟩
     intro u hu p hp
-    simp only [List.map_nil,List.sum_nil,iteratedFDeriv_zero_fun]
+    simp only [List.map_nil,List.sum_nil,iteratedFDeriv_fun_zero]
     have hJ : 0 ≤ compactJetSeminorm m B (ψ '' K)
         (hK.image_of_continuousOn (hψ.mono hKW)) (fun z hz => by
           obtain ⟨p,hp,rfl⟩ := hz; exact hψB (hKW hp)) u hu := by

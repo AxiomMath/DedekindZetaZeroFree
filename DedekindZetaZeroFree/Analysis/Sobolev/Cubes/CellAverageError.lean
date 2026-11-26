@@ -125,7 +125,7 @@ theorem cell_partition (n : ℕ) (hn : 1 ≤ n) (a : ℝ) (ha : 0 < a)
     filter_upwards [he] with x hx
     have hx' : (∀ j, -a ≤ x j ∧ x j < a) ↔ x ∈ cube n a := by
       simpa only [Set.mem_pi, Set.mem_univ, forall_const, Set.mem_Ico, Set.mem_Icc,
-        Pi.le_def, cube, Set.mem_setOf_eq, forall_and] using (iff_of_eq hx)
+        Pi.le_def, cube, Set.mem_setOf_eq, forall_and] using hx
     constructor
     · intro hxc
       have hc := hx'.2 hxc
@@ -258,7 +258,7 @@ theorem smooth_gradient_integrable (n : ℕ) (a : ℝ) (f : Space n → ℂ)
   apply ContinuousOn.integrableOn_compact (cube_isCompact n a)
   apply Continuous.continuousOn
   unfold gradientEnergy coordinateDerivative
-  apply continuous_finset_sum
+  apply continuous_finsetSum
   intro j hj
   exact ((hf.continuous_fderiv (by simp)).clm_apply continuous_const).norm.pow 2
 
@@ -355,7 +355,7 @@ theorem coordinateLine_apply {n : ℕ} (x : Space n) (j k : Fin n) (t : ℝ) :
     coordinateLine x j t k = if k = j then t else x k := by
   classical
   simp only [coordinateLine, PiLp.add_apply, PiLp.smul_apply,
-    EuclideanSpace.basisFun_apply, EuclideanSpace.single_apply, smul_eq_mul]
+    EuclideanSpace.basisFun_apply, PiLp.single_apply, smul_eq_mul]
   split_ifs with h
   · subst k; simp
   · simp [h, Ne.symm h]
@@ -456,7 +456,7 @@ theorem average_error_eq_cell_sum (n : ℕ) (hn : 1 ≤ n) (a : ℝ) (ha : 0 < a
   obtain ⟨_, _, hdisj, hcover, _⟩ := cell_partition n hn a ha m hm
   change ∫ x in cube n a, ‖G x‖ ^ 2 = _
   have hsets : cube n a =ᵐ[volume] ⋃ i, cell n a m i :=
-    hcover.mono (fun _ h => propext h)
+    hcover
   rw [Measure.restrict_congr_set hsets]
   rw [integral_iUnion_fintype (fun i => cell_measurable n a m i) hdisj
     (fun i => hi.mono_measure (Measure.restrict_mono (cell_subset_cube n a ha m hm i) le_rfl))]

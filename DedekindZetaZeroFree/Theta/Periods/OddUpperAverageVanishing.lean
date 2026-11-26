@@ -17,6 +17,7 @@ variable (R : PrincipalMellin.ActualRecipe S η)
     ContinuousConstSMul A.Gamma1 (Sheet A l) where
   continuous_const_smul γ := (continuous_const.mul continuous_subtype_val).subtype_mk _
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
  instance sheetInvariant (A : SArithmeticData F) (w : InfinitePlace F)
     (μG : Measure A.G) [μG.IsHaarMeasure] (l : PositiveAxis) :
     SMulInvariantMeasure A.Gamma1 (Sheet A l) (sheetHaar A w μG l) := by
@@ -42,6 +43,7 @@ lemma norm_insertion_one (w : InfinitePlace F) (z : w.Completionˣ)
   simp only [hi, one_pow, Finset.prod_const_one, Pi.one_apply, Units.val_one, norm_one,
     one_mul]
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
 theorem quotient_integral_zero_of_odd (A : SArithmeticData F) (w : InfinitePlace F)
     (μG : Measure A.G) [μG.IsHaarMeasure] (l : PositiveAxis)
     (t : A.G1) (f : SheetQuotient A l → ℂ)

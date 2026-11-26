@@ -303,7 +303,10 @@ private lemma wn_ratio_continuous (g : ComplexGL2) :
     fun_prop
   have hb : Continuous (fun x : ℂ => bottomRowNormSq (weyl * upperUnipotent x * g)) := by
     unfold bottomRowNormSq
-    fun_prop
+    have he : ∀ i j : Fin 2, Continuous (fun x : ℂ =>
+        (weyl * upperUnipotent x * g : Matrix (Fin 2) (Fin 2) ℂ) i j) := fun i j =>
+      (continuous_apply j).comp ((continuous_apply i).comp hm)
+    exact ((he 1 0).norm.pow 2).add ((he 1 1).norm.pow 2)
   exact hd.div hb (fun x h => by
     have hp := rowRatio_pos (weyl * upperUnipotent x * g)
     simp [rowRatio, h] at hp)

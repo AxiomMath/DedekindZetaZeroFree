@@ -10,7 +10,7 @@ open MeasureTheory KPContLocalNorm
 
 theorem continuous_covariance_of_ae {n : ℕ} (A : LocalBall n)
     (τ : Space n → Space n) (hτ : Continuous τ)
-    (hτμ : Measure.QuasiMeasurePreserving τ volume volume)
+    (hτμ : MeasureTheory.QuasiMeasurePreserving τ volume volume)
     (q f : Space n → ℂ) (hf : ContinuousOn f A.carrier)
     (hrep : f =ᵐ[volume.restrict A.carrier] q) (χ : ℂ)
     (hcov : ∀ᵐ p ∂volume.restrict (A.carrier ∩ τ ⁻¹' A.carrier),
@@ -22,7 +22,7 @@ theorem continuous_covariance_of_ae {n : ℕ} (A : LocalBall n)
 
   have h1 : f =ᵐ[volume.restrict (A.carrier ∩ τ ⁻¹' A.carrier)] q :=
     ae_restrict_of_ae_restrict_of_subset Set.inter_subset_left hrep
-  have hqmp : Measure.QuasiMeasurePreserving τ
+  have hqmp : MeasureTheory.QuasiMeasurePreserving τ
       (volume.restrict (A.carrier ∩ τ ⁻¹' A.carrier)) (volume.restrict A.carrier) :=
     hτμ.restrict hmaps
   have h3 : f ∘ τ =ᵐ[volume.restrict (A.carrier ∩ τ ⁻¹' A.carrier)] q ∘ τ :=

@@ -175,7 +175,7 @@ private theorem normalize {n : ℕ} (C : Fin n → ShrunkChart F ζ hζ U R P H)
     (K O : Set (KPFiniteCuspAtlas.rawXU F ζ hζ U)) (hK : IsCompact K) (hne : K.Nonempty)
     (B : KPContActualSectorPositiveBumps.PositiveBumps C K O) : Nonempty (FinitePartition F ζ hζ U R P H C K O) := by
   let S : KPFiniteCuspAtlas.rawXU F ζ hζ U → ℝ := fun x => ∑ i, B.bump i x
-  have hS : Continuous S := continuous_finset_sum _ (fun i _ => B.continuous i)
+  have hS : Continuous S := continuous_finsetSum _ (fun i _ => B.continuous i)
   have hS0 : ∀ x, 0 ≤ S x := fun x => Finset.sum_nonneg (fun i _ => B.nonnegative i x)
   obtain ⟨a,ha,haK⟩ := hK.exists_forall_le' hS.continuousOn B.positive_sum
   let δ := a / 2

@@ -46,7 +46,7 @@ private theorem tensorSlot_smul_id {ι : Type*} [Fintype ι] [DecidableEq ι]
   intro x
   simp only [LinearMap.compMultilinearMap_apply, LinearMap.smul_apply,
     LinearMap.id_apply, tensorSlot_tprod]
-  simpa only [Function.update_eq_self] using
+  simpa only [Function.update_eq_self, RingHom.id_apply] using
     (PiTensorProduct.tprod ℂ).map_update_smul x i c (x i)
 
 theorem actualCoreResidue_generator_zero (N : TraceHaarTransport R)

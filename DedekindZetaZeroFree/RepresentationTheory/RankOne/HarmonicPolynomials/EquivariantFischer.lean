@@ -113,7 +113,7 @@ theorem homogeneous_fischer {p : MvPolynomial (Fin 3) ℂ} {degree : ℕ}
       p = ∑ k ∈ Finset.range (degree / 2 + 1), radiusQuadratic ^ k * h k := by
   classical
   induction degree using Nat.strong_induction_on generalizing p with
-  | h d ih =>
+  | ind d ih =>
     by_cases hd : d ≤ 1
     · refine ⟨fun _ => p, ?_, ?_⟩
       · intro k hk

@@ -46,8 +46,8 @@ theorem norm_mul (A : SArithmeticData F) (y z : A.G) :
 
 theorem norm_inv (A : SArithmeticData F) (y : A.G) :
     A.norm y⁻¹ = (A.norm y)⁻¹ := by
-  simp [SArithmeticData.norm, _root_.norm_inv, inv_pow, Finset.prod_inv_distrib,
-    mul_inv, mul_comm]
+  simp only [SArithmeticData.norm, Prod.fst_inv, Prod.snd_inv, Pi.inv_apply,
+    Units.val_inv_eq_inv_val, _root_.norm_inv, inv_pow, Finset.prod_inv_distrib, mul_inv]
 
 theorem norm_positive (A : SArithmeticData F) (y : A.G) : 0 < A.norm y := by
   unfold SArithmeticData.norm

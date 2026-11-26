@@ -302,7 +302,7 @@ theorem cyclicNormClassHom_ker
     refine ⟨b, ?_⟩
     apply Subtype.ext
     calc
-      (relativeNorm A K L hLK b).1 = (M.norm.hom y).1 :=
+      (relativeNorm A K L hLK b).1 = (M.norm.asHom.hom y).1 :=
         (extensionFixedRepresentation_norm_coe
           A K L hLK hnormal y).symm
       _ = ea.1.1 :=

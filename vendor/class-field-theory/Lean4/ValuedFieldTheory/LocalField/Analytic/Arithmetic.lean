@@ -55,15 +55,16 @@ This is the arithmetic input for the logarithm-series convergence estimate
 theorem pow_padicValNat_le_self
     [Fact p.Prime] (hn : n ≠ 0) :
     p ^ padicValNat p n ≤ n :=
-  Nat.le_of_dvd (Nat.pos_iff_ne_zero.mpr hn) pow_padicValNat_dvd
+  Nat.padicValNat_def (p := p) (n := n) ▸ Nat.le_of_dvd (Nat.pos_iff_ne_zero.mpr hn) (pow_multiplicity_dvd _ _)
 
 /-- Arithmetic estimate for the field-unit logarithm in real logarithmic
 form: `v_p(n) <= log_p(n)`. -/
 theorem padicValNat_le_real_logb
     [Fact p.Prime] (n : ℕ) :
     (padicValNat p n : ℝ) ≤ Real.logb p n := by
+  rw [Nat.padicValNat_def]
   exact
-    (Nat.cast_le.mpr (padicValNat_le_nat_log (p := p) n)).trans
+    (Nat.cast_le.mpr (multiplicity_le_nat_log (p := p) n)).trans
       (Real.natLog_le_logb n p)
 
 /-- Asymptotic estimate for the field-unit logarithm:
@@ -199,7 +200,7 @@ theorem tendsto_nat_mul_const_sub_padicValNat_factorial_atTop
           (n : ℝ) * c - (padicValNat p n.factorial : ℝ)) := by
     exact Eventually.of_forall fun n => by
       have hdenNat : padicValNat p n.factorial ≤ n :=
-        padicValNat_factorial_le (p := p) n
+        Nat.padicValNat_def (p := p) ▸ multiplicity_factorial_le (p := p) n
       have hden : (padicValNat p n.factorial : ℝ) ≤ (n : ℝ) :=
         Nat.cast_le.mpr hdenNat
       nlinarith
@@ -212,8 +213,8 @@ theorem padicValNat_factorial_digits
     [Fact p.Prime] (n : ℕ) :
     (p - 1) * padicValNat p n.factorial =
       Nat.ofDigits p (p.digits n) - (p.digits n).sum := by
-  simpa [Nat.ofDigits_digits] using
-    (sub_one_mul_padicValNat_factorial (p := p) n)
+  simpa [Nat.ofDigits_digits, Nat.padicValNat_def] using
+    Nat.Prime.sub_one_mul_multiplicity_factorial (n := n) (Fact.out : p.Prime)
 
 /-- Legendre's factorial-valuation formula with the digit expansion written out as an
 indexed sum. -/
@@ -382,7 +383,7 @@ theorem exp_higher_term_integer_valuation_gt
   have hdenNat :
       padicValNat p n.factorial + 1 ≤ n :=
     Nat.succ_le_of_lt
-      (padicValNat_factorial_lt_of_ne_zero (p := p) hn0)
+      (Nat.padicValNat_def (p := p) ▸ multiplicity_factorial_lt_of_ne_zero (p := p) hn0)
   have hden : (padicValNat p n.factorial : ℤ) ≤ (n : ℤ) - 1 := by
     omega
   have hnsub : (1 : ℤ) ≤ (n : ℤ) - 1 := by
@@ -474,7 +475,8 @@ theorem padicValNat_div_sub_one_le_inv_sub_one
       exact_mod_cast hn
     linarith
   have hpowNat : p ^ a ≤ n :=
-    Nat.le_of_dvd (lt_trans Nat.zero_lt_one hn) pow_padicValNat_dvd
+    Nat.le_of_dvd (lt_trans Nat.zero_lt_one hn) (by
+      rw [show a = multiplicity p n from Nat.padicValNat_def]; exact pow_multiplicity_dvd _ _)
   have hpow : (p : ℚ) ^ a ≤ (n : ℚ) := by
     exact_mod_cast hpowNat
   have hbern :

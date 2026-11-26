@@ -161,7 +161,7 @@ theorem polynomialZonalApproximant_eq_integral (N : ℕ) (F : Sphere → ℂ) (h
     simp_rw [mul_assoc]
     rw [integral_const_mul, mul_comm]
   · intro w hw
-    exact ((continuous_const.mul (continuous_finset_prod _ (fun k hk => zonalCoord_continuous (w k)))).mul hF).integrable_of_hasCompactSupport (HasCompactSupport.of_compactSpace _)
+    exact ((continuous_const.mul (continuous_finsetProd _ (fun k hk => zonalCoord_continuous (w k)))).mul hF).integrable_of_hasCompactSupport (HasCompactSupport.of_compactSpace _)
 
 theorem polynomialZonal_affine_bounds (x y : Sphere) :
     0 ≤ (1 + inner ℝ (x : Ambient) (y : Ambient)) / 2 ∧

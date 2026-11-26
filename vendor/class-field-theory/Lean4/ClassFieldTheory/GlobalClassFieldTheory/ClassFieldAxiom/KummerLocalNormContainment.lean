@@ -149,12 +149,12 @@ private theorem
     apply Subtype.ext
     exact hGlobal (eLocal.symm tau).1
   have hAbelianized :
-      ∀ a : Abelianization (E ≃ₐ[vK.Completion] E),
+      ∀ a : Group.Abelianization (E ≃ₐ[vK.Completion] E),
         a ^ (n : ℕ) = 1 := by
     intro a
     refine QuotientGroup.induction_on a ?_
     intro tau
-    change (Abelianization.of tau) ^ (n : ℕ) = 1
+    change (Group.Abelianization.of tau) ^ (n : ℕ) = 1
     rw [← map_pow, hLocal tau, map_one]
   intro x hx
   obtain ⟨y, hy⟩ :=
@@ -227,17 +227,13 @@ theorem chosenSimpleKummerNthPowerSubgroup_le_chosenFinitePlaceLocalNormSubgroup
           (v.adicCompletion K)ˣ).range ≤
       _root_.chosenFinitePlaceLocalNormSubgroup
         (K := K) (L := E) v := by
-  let E :=
-    KummerTheory.chosenSimpleKummerExtension K n hnK b
-  let : FiniteDimensional K E :=
-    KummerTheory.chosenSimpleKummerExtension_finiteDimensional
-      K n hnK b
-  let : IsAbelianGalois K E :=
-    KummerTheory.chosenSimpleKummerExtension_isAbelianGalois
-      K n hnK hmu b
+  intro E
   exact
-    nthPowerSubgroup_le_chosenFinitePlaceLocalNormSubgroup_of_galois_pow_eq_one
-      (K := K) (L := E) n
+    @nthPowerSubgroup_le_chosenFinitePlaceLocalNormSubgroup_of_galois_pow_eq_one
+      K E _ _ _ _
+      (KummerTheory.chosenSimpleKummerExtension_finiteDimensional K n hnK b)
+      (KummerTheory.chosenSimpleKummerExtension_isAbelianGalois
+        K n hnK hmu b).toIsGalois n
       (KummerTheory.chosenSimpleKummerExtension_galois_pow_eq_one
         K n hnK hmu b) v
 

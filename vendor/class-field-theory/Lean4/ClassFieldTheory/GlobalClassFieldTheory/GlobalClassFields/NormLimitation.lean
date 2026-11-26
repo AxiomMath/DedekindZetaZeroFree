@@ -55,27 +55,27 @@ abelianization of the normal-closure Galois group. -/
 theorem
     finiteNormalClosureMaximalAbelianSubfield_fixingSubgroup_image_eq_originalFixingSubgroup_image :
     (finiteNormalClosureMaximalAbelianSubfield K L).fixingSubgroup.map
-        (Abelianization.of :
+        (Group.Abelianization.of :
           Gal(finiteNormalClosure K L / K) →*
-            Abelianization Gal(finiteNormalClosure K L / K)) =
+            Group.Abelianization Gal(finiteNormalClosure K L / K)) =
       (finiteNormalClosureOriginalFixingSubgroup K L).map
-        (Abelianization.of :
+        (Group.Abelianization.of :
           Gal(finiteNormalClosure K L / K) →*
-            Abelianization Gal(finiteNormalClosure K L / K)) := by
+            Group.Abelianization Gal(finiteNormalClosure K L / K)) := by
   let N := finiteNormalClosure K L
   let G := Gal(N / K)
   let H : Subgroup G := finiteNormalClosureOriginalFixingSubgroup K L
   change
     (IntermediateField.fixedField
         (H ⊔ _root_.commutator G)).fixingSubgroup.map
-        (Abelianization.of : G →* Abelianization G) =
-      H.map (Abelianization.of : G →* Abelianization G)
+        (Group.Abelianization.of : G →* Group.Abelianization G) =
+      H.map (Group.Abelianization.of : G →* Group.Abelianization G)
   rw [IntermediateField.fixingSubgroup_fixedField]
   apply le_antisymm
   · rintro z ⟨sigma, hsigma, rfl⟩
     change sigma ∈
-      (H.map (Abelianization.of : G →* Abelianization G)).comap
-        (Abelianization.of : G →* Abelianization G)
+      (H.map (Group.Abelianization.of : G →* Group.Abelianization G)).comap
+        (Group.Abelianization.of : G →* Group.Abelianization G)
     rw [H.comap_map_abelianization_eq_sup_commutator]
     exact hsigma
   · exact Subgroup.map_mono le_sup_left
@@ -92,9 +92,9 @@ theorem
     (_root_.ideleClassNorm K
         (finiteNormalClosureOriginalField K L)).range =
       ((finiteNormalClosureOriginalField K L).fixingSubgroup.map
-          (Abelianization.of :
+          (Group.Abelianization.of :
             Gal(finiteNormalClosure K L / K) →*
-              Abelianization Gal(finiteNormalClosure K L / K))).comap
+              Group.Abelianization Gal(finiteNormalClosure K L / K))).comap
         (Reciprocity.globalNormResidueAbelianizationMonoidHom K
           (finiteNormalClosure K L)) :=
       Reciprocity.ideleClassNorm_range_eq_artin_preimage_abelianizedFixingSubgroup
@@ -102,16 +102,16 @@ theorem
         (finiteNormalClosureOriginalField K L)
     _ =
       ((finiteNormalClosureMaximalAbelianSubfield K L).fixingSubgroup.map
-          (Abelianization.of :
+          (Group.Abelianization.of :
             Gal(finiteNormalClosure K L / K) →*
-              Abelianization Gal(finiteNormalClosure K L / K))).comap
+              Group.Abelianization Gal(finiteNormalClosure K L / K))).comap
         (Reciprocity.globalNormResidueAbelianizationMonoidHom K
           (finiteNormalClosure K L)) := by
       change
         ((finiteNormalClosureOriginalFixingSubgroup K L).map
-            (Abelianization.of :
+            (Group.Abelianization.of :
               Gal(finiteNormalClosure K L / K) →*
-                Abelianization Gal(finiteNormalClosure K L / K))).comap
+                Group.Abelianization Gal(finiteNormalClosure K L / K))).comap
           (Reciprocity.globalNormResidueAbelianizationMonoidHom K
             (finiteNormalClosure K L)) = _
       rw [

@@ -598,13 +598,7 @@ theorem
     exact
       globalArtinMonoidHom_rationalIdeleArchimedeanPart_sq
         (L := E.unop) a
-  exact
-    (pow_left_injective
-      (M :=
-        rationalCyclotomicZHatField ≃ₐ[ℚ]
-          rationalCyclotomicZHatField)
-      (n := 2) (by norm_num))
-        (by simpa using hsq)
+  exact sq_eq_one.mp hsq
 
 /-- The rational cyclotomic value kills the archimedean part of every
 rational idele. -/

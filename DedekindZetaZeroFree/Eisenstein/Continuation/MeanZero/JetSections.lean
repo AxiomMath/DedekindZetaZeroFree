@@ -571,7 +571,7 @@ private theorem shiftedMean_spatial_jets :
     apply contDiff_fst.add
     apply contDiff_pi.mpr
     intro i
-    exact (((contDiff_apply ℝ ℂ i).comp contDiff_snd).prodMk contDiff_const)
+    exact (((contDiff_apply ℝ (fun _ => ℂ) i).comp contDiff_snd).prodMk contDiff_const)
   · intro z x y hxy
     have hh := wholeJet_horizontal_representative F ζ hζ C R P H U ι f a hι hf k s hs z
       (x := (fun i => (z i).1) + x) (y := (fun i => (z i).1) + y)
@@ -605,7 +605,7 @@ private theorem shiftedMean_jet_integrable (n : ℕ) (z : KPArch.Space (KPCuspLo
     apply contDiff_fst.add
     apply contDiff_pi.mpr
     intro i
-    exact (((contDiff_apply ℝ ℂ i).comp contDiff_snd).prodMk contDiff_const)
+    exact (((contDiff_apply ℝ (fun _ => ℂ) i).comp contDiff_snd).prodMk contDiff_const)
   · intro z x y hxy
     have hh := wholeJet_horizontal_representative F ζ hζ C R P H U ι f a hι hf k s hs z
       (x := (fun i => (z i).1) + x) (y := (fun i => (z i).1) + y)

@@ -57,6 +57,8 @@ theorem supported_norm (A : SArithmeticData F) (a : IdeleGroup F)
   change (∏ w : InfinitePlace F, ‖(ContinuousMulEquiv.piUnits a.1 w : w.Completion)‖ ^ 2) *
     (∏ v : {v // v ∈ A.Sf}, ‖(a.2 v.val : v.val.adicCompletion F)‖) = _
   rw [archimedean_norm A, finite_norm A.Sf a.2 ha, IdeleGroup.absoluteNorm_apply]
-  simp [mul_comm]
+  simp only [Units.val_mul, Units.val_inv_eq_inv_val, NNReal.coe_mul, NNReal.coe_inv, mul_inv,
+    inv_inv]
+  ring
 end
 end DedekindZetaZeroFree.SupportedChartNorm

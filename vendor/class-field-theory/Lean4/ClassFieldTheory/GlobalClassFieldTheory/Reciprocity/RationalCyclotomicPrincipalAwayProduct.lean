@@ -115,7 +115,7 @@ private theorem rationalCyclotomicPrincipalHeightOneArtinInput_spec
         v
         (IdeleGroup.finiteComponent v
           (IdeleGroup.principalIdele ℚ x)) := by
-  rfl
+  rw [rationalCyclotomicPrincipalHeightOneArtinInput]
 
  noncomputable def rationalCyclotomicPrincipalHeightOneCharacter
     (p : Nat.Primes) (k : ℕ) (x : ℚˣ)
@@ -202,6 +202,7 @@ theorem
       ((Rat.HeightOneSpectrum.primesEquiv
         (R := 𝓞 ℚ)).symm q)
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
 /-- At every positive `p`-power level, the finite-place character at `p`
 is the direct reduction of the rational `p`-adic unit. -/
 theorem rationalCyclotomicPrincipalFinitePlaceCharacter_at_prime_succ_formula

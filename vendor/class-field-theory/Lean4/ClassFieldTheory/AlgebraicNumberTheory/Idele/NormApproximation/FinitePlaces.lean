@@ -111,9 +111,10 @@ noncomputable def finitePlaceCompletionRingHom
     (v : HeightOneSpectrum (𝓞 K)) :
     (NumberField.HeightOneSpectrum.adicAbv K v).Completion →+*
       v.adicCompletion K :=
-  UniformSpace.Completion.extensionHom
+  (UniformSpace.Completion.extensionHom
     (finitePlaceCompletionBaseMap v)
-    (finitePlaceCompletionBaseMap_isometry v).continuous
+    (finitePlaceCompletionBaseMap_isometry v).continuous).comp
+    AbsoluteValue.Completion.toCompletion
 
 @[simp]
 theorem finitePlaceCompletionRingHom_coe
@@ -123,15 +124,18 @@ theorem finitePlaceCompletionRingHom_coe
     finitePlaceCompletionRingHom v
         (x :
           (NumberField.HeightOneSpectrum.adicAbv K v).Completion) =
-      finitePlaceCompletionBaseMap v x :=
-  UniformSpace.Completion.extensionHom_coe
+      finitePlaceCompletionBaseMap v x := by
+  rw [finitePlaceCompletionRingHom, RingHom.comp_apply,
+    AbsoluteValue.Completion.toCompletion_coe]
+  exact UniformSpace.Completion.extensionHom_coe
     (finitePlaceCompletionBaseMap v)
     (finitePlaceCompletionBaseMap_isometry v).continuous x
 
 theorem finitePlaceCompletionRingHom_isometry
     (v : HeightOneSpectrum (𝓞 K)) :
     Isometry (finitePlaceCompletionRingHom v) :=
-  (finitePlaceCompletionBaseMap_isometry v).completion_extension
+  (finitePlaceCompletionBaseMap_isometry v).completion_extension.comp
+    (AbsoluteValue.Completion.isometry_toCompletion _)
 
 /-- The completed comparison map is onto the concrete adic
 completion. -/

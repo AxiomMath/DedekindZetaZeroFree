@@ -38,7 +38,7 @@ namespace ValuationSubring
 /-- A valuation subring has the characteristic of its ambient field. -/
 instance charP {K : Type u} [Field K] (R : ValuationSubring K) (p : ℕ) [CharP K p] :
     CharP R p :=
-  CharP.subring K p R.toSubring
+  SubsemiringClass.charP_iff.2 inferInstance
 
 end ValuationSubring
 

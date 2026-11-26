@@ -57,7 +57,7 @@ private lemma good_inv {x : RatFunc K} {b : L} (hx : Good f a x b) (hb : b ≠ 0
     intro h; subst x; simpa using hnum
   have hi : Polynomial.eval₂ f a x⁻¹.denom ≠ 0 := by
     intro h
-    exact hnum (Polynomial.eval₂_eq_zero_of_dvd_of_eval₂_eq_zero f a (RatFunc.denom_inv_dvd hxn) h)
+    exact hnum (Polynomial.eval₂_eq_zero_of_dvd_of_eval₂_eq_zero f a (RatFunc.denom_inv_dvd _) h)
   refine ⟨hi, ?_⟩
   have hm := good_mul hx (show Good f a x⁻¹ (RatFunc.eval f a x⁻¹) from ⟨hi, rfl⟩)
   have he : b * RatFunc.eval f a x⁻¹ = 1 := by

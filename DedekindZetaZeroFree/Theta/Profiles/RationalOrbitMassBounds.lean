@@ -14,6 +14,10 @@ namespace DedekindZetaZeroFree.OrbitFrequencies
 open MomentSources NumberField MeasureTheory ThetaProfileHaarSheets
 open scoped NumberField Classical
 variable {F : Type} [Field F] [NumberField F]
+
+local instance instContinuousDivG (A : SArithmeticData F) : ContinuousDiv A.G :=
+  IsTopologicalGroup.to_continuousDiv
+
 variable {S : SArithmeticData F} {η : RayClassCharacter F S.modulus}
 variable (R : PrincipalMellin.ActualRecipe S η)
 

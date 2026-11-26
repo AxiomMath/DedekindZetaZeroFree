@@ -120,8 +120,8 @@ theorem recipe_zero_free_of_moment
   have hL : AnalyticOnNhd ℂ R.L {s : ℂ | (5999 / 6000 : ℝ) < s.re ∧ s ≠ 1} := by
     apply DifferentiableOn.analyticOnNhd _ (mellin_punctured_halfplane_isOpen (5999 / 6000) (by norm_num))
     unfold PrincipalMellin.ActualRecipe.L comparisonPrincipalIncompleteL
-    apply (R.continuation.L_holo.mono (fun s hs => ⟨by linarith [hs.1], hs.2⟩)).mul
-    apply DifferentiableOn.fun_finset_prod
+    apply (R.continuation.L_holo.mono (fun s (hs : s ∈ {s : ℂ | (5999 / 6000 : ℝ) < s.re ∧ s ≠ 1}) => ⟨by linarith [hs.1], hs.2⟩)).mul
+    apply DifferentiableOn.fun_finsetProd
     intro v hv
     unfold comparisonRealPower
     fun_prop

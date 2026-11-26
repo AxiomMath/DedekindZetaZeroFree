@@ -34,7 +34,11 @@ theorem euler_insertion (s t : Finset I) (hst : s ⊆ t)
     apply Finset.prod_congr rfl
     intro i hi
     split_ifs <;> simp_all
-  rw [← hp, ← MultilinearMap.map_smul_univ]
+  have hsmul : ∀ (c : t → ℂ) (m : ∀ i : t, W (i : I)),
+      PiTensorProduct.tprod ℂ (fun i => c i • m i) = (∏ i, c i) • PiTensorProduct.tprod ℂ m := by
+    intro c m
+    simpa only [RingHom.id_apply] using (PiTensorProduct.tprod ℂ).map_smul_univ c m
+  rw [← hp, ← hsmul]
   congr 1
   funext i
   by_cases hi : (i : I) ∈ s

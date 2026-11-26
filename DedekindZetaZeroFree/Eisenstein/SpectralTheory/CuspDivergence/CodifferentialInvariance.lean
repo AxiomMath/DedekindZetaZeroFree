@@ -26,7 +26,7 @@ private theorem smooth_mean (d : ℕ) : ContDiff ℝ (⊤ : ℕ∞) (KPCuspLogSh
   apply ContDiff.div_const
   apply ContDiff.sum
   intro i hi
-  exact contDiff_snd.comp (contDiff_apply ℝ KPArch.H3 i)
+  exact contDiff_snd.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i)
 
 private theorem arch_real (d : ℕ) (z : KPArch.Space d) : arch d (real d z) = z := by
   ext i <;> simp [arch, real]

@@ -143,7 +143,7 @@ theorem raw_affine_haar_density (F : Type) [Field F] [NumberField F]
     intro i _
     have hd : ContDiffOn ℝ (⊤ : ℕ∞) (fun x => PGLComplex.delta (R x i))
         (rawAffineChart F g).source :=
-      (PGLComplex.contDiff_delta.comp ((contDiff_apply ℝ PGLComplex.Coordinates i).comp R.contDiff)).contDiffOn
+      (PGLComplex.contDiff_delta.comp ((contDiff_apply ℝ (fun _ => PGLComplex.Coordinates) i).comp R.contDiff)).contDiffOn
     have hz : ∀ x ∈ (rawAffineChart F g).source, PGLComplex.delta (R x i) ≠ 0 := by
       intro x hx
       rw [hsource] at hx
@@ -216,7 +216,7 @@ private theorem smooth_det_pi {ι : Type*} [Fintype ι] [DecidableEq ι]
       (fun x => LinearMap.toMatrix (Pi.basisFun ℝ ι) (Pi.basisFun ℝ ι)
         (F x).toLinearMap i j) U := by
     simp only [LinearMap.toMatrix_apply, Pi.basisFun_repr]
-    exact (contDiff_apply ℝ ℝ i).contDiffOn.comp (hF.clm_apply contDiffOn_const)
+    exact (contDiff_apply ℝ (fun _ => ℝ) i).contDiffOn.comp (hF.clm_apply contDiffOn_const)
       (fun _ _ => Set.mem_univ _)
   have hd (x : ι → ℝ) : (F x).det =
       ∑ σ : Equiv.Perm ι, Equiv.Perm.sign σ •

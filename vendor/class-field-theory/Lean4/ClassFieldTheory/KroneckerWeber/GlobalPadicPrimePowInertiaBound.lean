@@ -142,8 +142,11 @@ theorem globalPadicInertia_natCard_le_coprimeCyclotomicPrimePowTotient
           (RamificationTheory.HilbertRamification.ValuationSubring.inertiaGroup ℚ_[p]
             (absoluteValueValuationSubring
               (padicFiniteExtensionAbsoluteValue p E)
-              (padicFiniteExtensionAbsoluteValue_nonarchimedean p E))) := by
-      rw [hA]
+              (padicFiniteExtensionAbsoluteValue_nonarchimedean p E))) :=
+      congrArg
+        (fun B => Nat.card
+          (RamificationTheory.HilbertRamification.ValuationSubring.inertiaGroup ℚ_[p] B))
+        hA
     _ ≤ Nat.totient (p ^ n) := hCanonical
 
 end KroneckerWeber

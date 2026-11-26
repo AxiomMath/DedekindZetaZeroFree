@@ -52,6 +52,18 @@ theorem quotient_subgroup_measurePreserving
     (KPAdelicCoverRestrictedProduct.adelic_pgl_topological_cover F ζ hζ).2.2.1
   letI : BorelSpace (KPSmoothLocalQuotientCharts.ActualCover F ζ hζ) := ⟨rfl⟩
   letI := R.adelic_isHaar
+  haveI : RegularSpace (KPSmoothLocalQuotientCharts.ActualCover F ζ hζ) := IsTopologicalGroup.regularSpace _
+  haveI : TopologicalSpace.PseudoMetrizableSpace (KPSmoothLocalQuotientCharts.ActualCover F ζ hζ) :=
+    TopologicalSpace.PseudoMetrizableSpace.of_regularSpace_secondCountableTopology _
+  haveI : SigmaCompactSpace (KPSmoothLocalQuotientCharts.ActualCover F ζ hζ) := sigmaCompactSpace_of_locallyCompact_secondCountable
+  haveI : IsLocallyFiniteMeasure R.adelicHaar := inferInstance
+  haveI hReg : R.adelicHaar.Regular :=
+    Measure.Regular.of_sigmaCompactSpace_of_isLocallyFiniteMeasure _
+  haveI hσ : SigmaFinite R.adelicHaar := inferInstance
+  haveI hLT : R.adelicHaar.InnerRegularCompactLTTop :=
+    ⟨hReg.innerRegular.measurableSet_of_isOpen (fun _ _ hs hU ↦ hs.diff hU)⟩
+  haveI : R.adelicHaar.InnerRegular :=
+    ⟨hLT.innerRegular.trans (Measure.InnerRegularWRT.of_sigmaFinite (μ := R.adelicHaar))⟩
   let c := (k : KPSmoothLocalQuotientCharts.ActualCover F ζ hζ)
   have hmulc_meas : Measurable (fun g : KPSmoothLocalQuotientCharts.ActualCover F ζ hζ => g * c) :=
     (continuous_id.mul continuous_const).measurable

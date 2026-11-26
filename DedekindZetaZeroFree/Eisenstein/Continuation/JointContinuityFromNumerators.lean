@@ -63,7 +63,7 @@ variable {B : JointRootAlignedSources R N} {v : R.A.UnitQuotient}
   have hVj : ContinuousOn (fun p : ℂ × Group R => V p.1 p.2)
       ((Metric.ball c ρ \ {c}) ×ˢ Set.univ) := by
     apply (hTj.mono (Set.prod_mono
-      (Set.inter_subset_left.trans (Metric.ball_subset_ball hρr)) (Set.Subset.refl Set.univ))).div
+      (Set.diff_subset.trans (Metric.ball_subset_ball hρr)) (Set.Subset.refl Set.univ))).div
     · exact (((continuous_fst.sub continuous_const).continuousOn).mul
         ((hQ.continuousOn.comp continuous_fst.continuousOn
           (fun p hp => (hreg hp.1.1).1))))

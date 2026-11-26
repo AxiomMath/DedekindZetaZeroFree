@@ -144,7 +144,7 @@ theorem mem_range_algebraMap_iff_frobenius_fixed
       simpa only [FiniteField.coe_frobeniusAlgEquivOfAlgebraic] using hx
     let p : k[X] := X ^ Fintype.card k - X
     have hpne : p ≠ 0 := by
-      exact FiniteField.X_pow_card_sub_X_ne_zero k Fintype.one_lt_card
+      exact Polynomial.X_pow_sub_X_ne_zero Fintype.one_lt_card
     have hxroot : x ∈ p.rootSet (AlgebraicClosure k) := by
       rw [Polynomial.mem_rootSet_of_ne hpne]
       simp [p, hxpow]

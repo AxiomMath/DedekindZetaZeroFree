@@ -267,7 +267,7 @@ theorem inducedStageContinuous (P : Polarization F ζ hζ)
       inducedJet F ζ hζ P J i.1 i.2.1 i.2.2) := ⟨rfl⟩
   letI := hp.isTopologicalAddGroup
   have hq : WithSeminorms (fun q : inducedFinalSeminorms F ζ hζ P => q.val) := ⟨rfl⟩
-  apply Seminorm.continuous_of_continuous_comp
+  apply WithSeminorms.continuous_of_continuous_comp
     (𝕝 := ℂ) (𝕝₂ := ℂ) (τ₁₂ := RingHom.id ℂ) hq
     (inducedStageInclusion F ζ hζ P J)
   intro q
@@ -285,7 +285,7 @@ theorem inducedMapOfLevels_continuous (P Q : Polarization F ζ hζ)
   letI := hp.isTopologicalAddGroup
   have hq : WithSeminorms (fun q : inducedFinalSeminorms F ζ hζ Q => q.val) := ⟨rfl⟩
   let m := inducedMapOfLevels F ζ hζ P Q L hL
-  apply Seminorm.continuous_of_continuous_comp
+  apply WithSeminorms.continuous_of_continuous_comp
     (𝕝 := ℂ) (𝕝₂ := ℂ) (τ₁₂ := RingHom.id ℂ) hq m
   intro q
   let r : Seminorm ℂ (Induced F ζ hζ P) := q.val.comp m

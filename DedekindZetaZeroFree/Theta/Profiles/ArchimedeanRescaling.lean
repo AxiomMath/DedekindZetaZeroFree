@@ -45,7 +45,7 @@ def rescaleCost (A : SArithmeticData F) (B u t : ℝ) : ℝ :=
 
 lemma continuous_rescaleCost (A : SArithmeticData F) (B u : ℝ) :
     Continuous (rescaleCost A B u) := by
-  apply continuous_finset_prod
+  apply continuous_finsetProd
   intro w hw
   have hc : Continuous (fun t => (‖((radial A t).1 w : w.Completion)‖ ^ 2) /
       (‖((radial A u).1 w : w.Completion)‖ ^ 2)) := by

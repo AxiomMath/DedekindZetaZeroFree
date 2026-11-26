@@ -36,7 +36,11 @@ theorem spectralJacquet_integrable (f : PrincipalSeries positiveParameter)
       star (character (standardComplexParameter : ℂ) x : ℂ))
       (characterHaar standardComplexParameter) := by
   exact (chamber_integrable standardComplexParameter s hs f g).mul_bdd
-    (by fun_prop : Continuous (fun x : ℂ =>
+    (by
+      have hc : Continuous (fun x : ℂ => ((character (standardComplexParameter : ℂ) x : Circle) : ℂ)) :=
+        continuous_subtype_val.comp (Circle.exp.continuous.comp
+          (Complex.continuous_re.comp (continuous_const.mul continuous_id)))
+      exact hc.star : Continuous (fun x : ℂ =>
       star (character (standardComplexParameter : ℂ) x : ℂ))).aestronglyMeasurable
     (c := 1) (Filter.Eventually.of_forall (fun x => by simp))
 

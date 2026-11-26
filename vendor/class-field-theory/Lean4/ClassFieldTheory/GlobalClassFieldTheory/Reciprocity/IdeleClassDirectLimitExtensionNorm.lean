@@ -178,7 +178,7 @@ private theorem eq_of_common_ofMul_image
       K L hLK hnormal
   let e :=
     rationalAbstractExtensionIdeleClassEquiv K L hLK hnormal
-  (e (M.norm.hom x),
+  (e (M.norm.asHom.hom x),
     includedRelativeIdeleClassNormAdditiveValue F E (e x))
 
  noncomputable def rationalRelativeNormComparison
@@ -568,7 +568,7 @@ theorem rationalAbstractExtensionIdeleClassEquiv_norm
       ℚ (SeparableClosure ℚ) K L hLK hnormal
   let c : RelativeIdeleGroup.ClassGroup F E :=
     Additive.toMul (e x)
-  change e (M.norm.hom x) =
+  change e (M.norm.asHom.hom x) =
     includedRelativeIdeleClassNormAdditiveValue F E (e x)
   apply Additive.toMul.injective
   simp only [Rep.norm, Representation.norm]
@@ -613,7 +613,7 @@ private theorem rationalRelativeNorm_representation_norm
     let eAmbient :=
       extensionFixedRepresentationEquiv
         rationalIdeleClassRepresentation K L hLK hnormal
-    M.norm.hom (eAmbient.symm a) =
+    M.norm.asHom.hom (eAmbient.symm a) =
       eAmbient.symm
         (fixedFieldInclusion rationalIdeleClassRepresentation
           K L hLK
@@ -629,18 +629,18 @@ private theorem rationalRelativeNorm_representation_norm
   let n :=
     relativeNorm rationalIdeleClassRepresentation K L hLK a
   change
-    M.norm.hom x =
+    M.norm.asHom.hom x =
       eAmbient.symm
         (fixedFieldInclusion rationalIdeleClassRepresentation
           K L hLK n)
   apply Subtype.ext
-  change (M.norm.hom x).1 = n.1
+  change (M.norm.asHom.hom x).1 = n.1
   have hNormCoe :=
     extensionFixedRepresentation_norm_coe
       rationalIdeleClassRepresentation
       K L hLK hnormal x
   change
-    (M.norm.hom x).1 =
+    (M.norm.asHom.hom x).1 =
       (relativeNorm rationalIdeleClassRepresentation
         K L hLK (eAmbient x)).1 at hNormCoe
   have hxa : eAmbient x = a :=
@@ -728,7 +728,7 @@ private theorem rationalRelativeNormClassNorm_eq
     change eK (eK.symm n) = n
     exact eK.apply_symm_apply n
   have hMnorm :
-      M.norm.hom x =
+      M.norm.asHom.hom x =
         eAmbient.symm
           (fixedFieldInclusion rationalIdeleClassRepresentation
             K L hLK n) := by
@@ -741,7 +741,7 @@ private theorem rationalRelativeNormClassNorm_eq
     rationalAbstractExtensionIdeleClassEquiv_fixedFieldInclusion
       K L hLK hnormal cK
   change
-    e (M.norm.hom x) =
+    e (M.norm.asHom.hom x) =
       Additive.ofMul
         (RelativeIdeleGroup.classInclusion F E q) at hNorm
   change

@@ -177,6 +177,7 @@ def normalizedMatrixSet : Set (Matrix (Fin 2) (Fin 2) ℂ) :=
 private theorem normalizedMatrixSet_compact : IsCompact normalizedMatrixSet := by
   have hc : IsClosed normalizedMatrixSet := by
     unfold normalizedMatrixSet
+    rw [Set.setOf_and]
     apply IsClosed.inter
     · exact isClosed_eq continuous_id.matrix_det.norm continuous_const
     · have he : {A : Matrix (Fin 2) (Fin 2) ℂ | ∀ i j, ‖A i j‖ ≤ 1} =

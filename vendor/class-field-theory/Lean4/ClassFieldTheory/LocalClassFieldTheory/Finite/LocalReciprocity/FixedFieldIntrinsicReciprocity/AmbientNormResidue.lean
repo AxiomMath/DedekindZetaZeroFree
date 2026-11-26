@@ -154,11 +154,11 @@ noncomputable def abelianizedTransport
     {j : E →ₐ[K] SeparableClosure K}
     (P : AmbientEmbeddedFixedFieldPresentation K F E j) :
     Additive
-      (Abelianization
+      (Group.Abelianization
         Gal(abstractRelativeFixedField K (SeparableClosure K)
           P.extension.below /
           abstractFixedField K (SeparableClosure K) P.base.field)) ≃+
-      Additive (Abelianization Gal(E / F)) :=
+      Additive (Group.Abelianization Gal(E / F)) :=
   (P.fixedFieldQuotientEquiv.abelianizationCongr.toAdditive.symm).trans
     P.quotientEquiv.abelianizationCongr.toAdditive
 
@@ -178,7 +178,7 @@ noncomputable def normResidueAbelianElement
     [FiniteDimensional F E] [IsGalois F E]
     {j : E →ₐ[K] SeparableClosure K}
     (P : AmbientEmbeddedFixedFieldPresentation K F E j)
-    (a : Fˣ) : Abelianization Gal(E / F) := by
+    (a : Fˣ) : Group.Abelianization Gal(E / F) := by
   letI : (extensionSubgroup
       P.base.field P.extension.field P.extension.below).Normal :=
     P.extension.normal
@@ -362,7 +362,7 @@ noncomputable def ambientEmbeddedNormResidueAbelianElement
     [FiniteDimensional F E] [IsGalois F E]
     (j : E →ₐ[K] SeparableClosure K)
     (e : ambientEmbeddedSeparableClosureEquiv K F E j)
-    (a : Fˣ) : Abelianization Gal(E / F) :=
+    (a : Fˣ) : Group.Abelianization Gal(E / F) :=
   (ambientEmbeddedFixedFieldPresentation K F E j e).normResidueAbelianElement a
 
 /-- The ambient fixed-field norm-residue value in `Gal(E/F)`, obtained
@@ -382,7 +382,7 @@ noncomputable def ambientEmbeddedNormResidueElement
     (j : E →ₐ[K] SeparableClosure K)
     (e : ambientEmbeddedSeparableClosureEquiv K F E j)
     (a : Fˣ) : Gal(E / F) :=
-  (Abelianization.equivOfComm (H := Gal(E / F))).symm
+  (Group.Abelianization.equivOfComm (H := Gal(E / F))).symm
     (ambientEmbeddedNormResidueAbelianElement K F E j e a)
 
 end LocalClassFieldTheory

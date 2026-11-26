@@ -202,6 +202,8 @@ theorem
           (LocalPlaceBlock v.1 v.isNontrivial u) :=
         inducedMulDistribMulAction
           (absoluteValueDecompositionGroup K u.1)
+      dsimp only [relativeUnrestrictedSPlaceFactorsEquivLocalBlockFamily,
+        relativeUnrestrictedSPlaceDatum, MulEquiv.piCongrRight_apply]
       change
         infinitePlaceTensorUnitsEquivLocalPlaceBlock
             (K := K) (L := L) v v.isNontrivial u
@@ -229,6 +231,8 @@ theorem
             (RayClass.adicAbv_isNontrivial v.1) u) :=
         inducedMulDistribMulAction
           (absoluteValueDecompositionGroup K u.1)
+      dsimp only [relativeUnrestrictedSPlaceFactorsEquivLocalBlockFamily,
+        relativeUnrestrictedSPlaceDatum, MulEquiv.piCongrRight_apply]
       change
         finitePlaceTensorUnitsEquivLocalPlaceBlock
             (K := K) (L := L) v.1 u

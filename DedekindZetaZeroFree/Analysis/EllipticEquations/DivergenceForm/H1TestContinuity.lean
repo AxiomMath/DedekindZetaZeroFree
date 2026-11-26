@@ -97,18 +97,18 @@ private theorem matrix_bound {n : ℕ} {B : LocalBall n} {cρ Cρ κ Λ : ℝ} (
   classical
   have hd (k : Fin n) : 0 ≤ D.matrix x k k := by
     have h := D.ellipticity x hx (EuclideanSpace.single k 1)
-    simp [EuclideanSpace.norm_single, EuclideanSpace.single_apply] at h
+    simp [PiLp.norm_single, PiLp.single_apply] at h
     linarith
   have hu (k : Fin n) : D.matrix x k k ≤ Λ := by
     have h := D.upper_bound x hx (EuclideanSpace.single k 1)
-    simpa [EuclideanSpace.norm_single, EuclideanSpace.single_apply] using h
+    simpa [PiLp.norm_single, PiLp.single_apply] using h
   by_cases hij : i = j
   · subst j
     rw [abs_of_nonneg (hd i)]
     exact (hu i).trans (le_abs_self Λ)
   have hnorm (t : ℝ) :
       ‖(EuclideanSpace.single i 1 + EuclideanSpace.single j t : Space n)‖ ^ 2 = 1 + t ^ 2 := by
-    simp [EuclideanSpace.norm_sq_eq, PiLp.add_apply, EuclideanSpace.single_apply,
+    simp [EuclideanSpace.norm_sq_eq, PiLp.add_apply, PiLp.single_apply,
       add_sq, Finset.sum_add_distrib, hij, Ne.symm hij]
   have hquad (t : ℝ) := D.upper_bound x hx
     (EuclideanSpace.single i 1 + EuclideanSpace.single j t)
@@ -117,7 +117,7 @@ private theorem matrix_bound {n : ℕ} {B : LocalBall n} {cρ Cρ κ Λ : ℝ} (
       D.matrix x i i + 2 * D.matrix x i j * t + D.matrix x j j * t ^ 2 ≤ Λ * (1 + t ^ 2) := by
     have h := hquad t
     simp [PiLp.add_apply, mul_add, add_mul, Finset.sum_add_distrib,
-      EuclideanSpace.single_apply, D.symmetric x hx j i] at h
+      PiLp.single_apply, D.symmetric x hx j i] at h
     nlinarith [h]
   apply abs_le.mpr
   constructor <;> nlinarith [hq 1, hq (-1), hd i, hd j, le_abs_self Λ]
@@ -197,14 +197,14 @@ theorem weakEquation_of_test_limit {n : ℕ} (B : LocalBall n)
         (D.matrix x i j : ℂ) * gradient u j x * star (v i x)) =
       ∑ i, ∑ j, ∫ x in B.carrier, g i j x * star (v i x) := by
     simp only [Finset.mul_sum, ← mul_assoc]
-    rw [integral_finset_sum]
+    rw [integral_finsetSum]
     · apply Finset.sum_congr rfl
       intro i hi
-      rw [integral_finset_sum]
+      rw [integral_finsetSum]
       intro j hj
       exact (hg i j).integrable_mul (hv i).star
     · intro i hi
-      exact integrable_finset_sum _ (fun j hj => (hg i j).integrable_mul (hv i).star)
+      exact integrable_finsetSum _ (fun j hj => (hg i j).integrable_mul (hv i).star)
   have hE : Tendsto (fun m => ∫ x in B.carrier, (D.density x : ℂ) * ∑ i, ∑ j,
       (D.matrix x i j : ℂ) * gradient u j x *
         star (coordinateDerivativeList [i] (fun y => φ m y) x)) atTop
@@ -212,7 +212,7 @@ theorem weakEquation_of_test_limit {n : ℕ} (B : LocalBall n)
         (D.matrix x i j : ℂ) * gradient u j x * star (gradient w i x))) := by
     simp only [hsum _ (fun i => Lp.memLp (gradient w i)),
       hsum _ (fun i => hder i _)]
-    exact tendsto_finset_sum _ (fun i hi => tendsto_finset_sum _ (fun j hj => hG i j))
+    exact tendsto_finsetSum _ (fun i hi => tendsto_finsetSum _ (fun j hj => hG i j))
   exact tendsto_nhds_unique (hE.sub (tendsto_const_nhds.mul hV))
     (hH.congr (fun m => (heq (φ m)).symm))
 

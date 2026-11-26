@@ -53,7 +53,7 @@ theorem safe_segment_mem {n : ℕ} (inner outer : LocalBall n)
     (hx : x ∈ inner.carrier) {s : ℝ} (hs : |s| ≤ |t|) :
     x + s • EuclideanSpace.single k 1 ∈ outer.carrier := by
   have hnorm : ‖s • EuclideanSpace.single k (1 : ℝ)‖ = |s| := by
-    simp [norm_smul, EuclideanSpace.norm_single, Real.norm_eq_abs]
+    simp [norm_smul, PiLp.norm_single, Real.norm_eq_abs]
   have hdist : dist x outer.center < inner.radius := by
     simpa only [LocalBall.carrier, Metric.mem_ball, hcenter] using hx
   change dist (x + s • EuclideanSpace.single k 1) outer.center < outer.radius

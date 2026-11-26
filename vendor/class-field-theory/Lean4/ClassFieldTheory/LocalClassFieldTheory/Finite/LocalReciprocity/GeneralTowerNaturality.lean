@@ -164,13 +164,13 @@ private theorem towerRestrict_abstractAbelianization
     [FiniteDimensional K E] [FiniteDimensional K L]
     [IsAbelianGalois K E] [IsAbelianGalois K L]
     (iL : L →ₐ[K] SeparableClosure K)
-    (z : Abelianization
+    (z : Group.Abelianization
       (finiteGaloisAbstractExtensionOfEmbedding K L iL).extensionQuotient) :
     AlgEquiv.restrictNormalHom E
-        ((Abelianization.equivOfComm (H := Gal(L / K))).symm
+        ((Group.Abelianization.equivOfComm (H := Gal(L / K))).symm
           ((finiteGaloisAbstractQuotientEquivGaloisGroupOfEmbedding
             K L iL).abelianizationCongr z)) =
-      (Abelianization.equivOfComm (H := Gal(E / K))).symm
+      (Group.Abelianization.equivOfComm (H := Gal(E / K))).symm
         ((finiteGaloisAbstractQuotientEquivGaloisGroupOfEmbedding
           K E (towerLowerEmbedding K E L iL)).abelianizationCongr
           (normResidueNaturalityAbelianizedRestriction
@@ -198,34 +198,34 @@ private theorem towerRestrict_abstractAbelianization
   obtain ⟨sigma, rfl⟩ := QuotientGroup.mk_surjective q
   change
     AlgEquiv.restrictNormalHom E
-        ((Abelianization.equivOfComm (H := Gal(L / K))).symm
+        ((Group.Abelianization.equivOfComm (H := Gal(L / K))).symm
           (qL.abelianizationCongr
-            (Abelianization.of (QuotientGroup.mk sigma)))) =
-      (Abelianization.equivOfComm (H := Gal(E / K))).symm
+            (Group.Abelianization.of (QuotientGroup.mk sigma)))) =
+      (Group.Abelianization.equivOfComm (H := Gal(E / K))).symm
         (qE.abelianizationCongr
           (normResidueNaturalityAbelianizedRestriction
             B B EE.field EL.field EE.below EL.below le_rfl
             (towerEmbeddedAbstractExtension_field_le K E L iL)
-            (Abelianization.of (QuotientGroup.mk sigma))))
-  rw [abelianizationCongr_of]
+            (Group.Abelianization.of (QuotientGroup.mk sigma))))
+  rw [Group.abelianizationCongr_of]
   change
     AlgEquiv.restrictNormalHom E
         (qL (QuotientGroup.mk sigma)) =
-      (Abelianization.equivOfComm (H := Gal(E / K))).symm
+      (Group.Abelianization.equivOfComm (H := Gal(E / K))).symm
         (qE.abelianizationCongr
           (normResidueNaturalityAbelianizedRestriction
             B B EE.field EL.field EE.below EL.below le_rfl
             (towerEmbeddedAbstractExtension_field_le K E L iL)
-            (Abelianization.of (QuotientGroup.mk sigma))))
+            (Group.Abelianization.of (QuotientGroup.mk sigma))))
   rw [normResidueNaturalityAbelianizedRestriction_of_mk]
   change
     AlgEquiv.restrictNormalHom E
         (qL (QuotientGroup.mk sigma)) =
-      (Abelianization.equivOfComm (H := Gal(E / K))).symm
+      (Group.Abelianization.equivOfComm (H := Gal(E / K))).symm
         (qE.abelianizationCongr
-          (Abelianization.of
+          (Group.Abelianization.of
             (QuotientGroup.mk (Subgroup.inclusion le_rfl sigma))))
-  rw [abelianizationCongr_of]
+  rw [Group.abelianizationCongr_of]
   change
     AlgEquiv.restrictNormalHom E
         (qL (QuotientGroup.mk sigma)) =
@@ -248,10 +248,10 @@ theorem concreteNormResidueAutomorphism_restrict_tower
     (hcf : SatisfiesClassFieldAxiom (towerAbsoluteUnits K))
     (a : Kˣ) :
     AlgEquiv.restrictNormalHom E
-        ((Abelianization.equivOfComm (H := Gal(L / K))).symm
+        ((Group.Abelianization.equivOfComm (H := Gal(L / K))).symm
           (concreteNormResidueSymbolOfEmbedding
             K L iL D v hcf a)) =
-      (Abelianization.equivOfComm (H := Gal(E / K))).symm
+      (Group.Abelianization.equivOfComm (H := Gal(E / K))).symm
         (concreteNormResidueSymbolOfEmbedding
           K E (towerLowerEmbedding K E L iL) D v hcf a) := by
   let B := towerAbstractBase K
@@ -341,25 +341,25 @@ theorem concreteNormResidueAutomorphism_restrict_tower
       K E (towerLowerEmbedding K E L iL) D v hcf a]
   change
     AlgEquiv.restrictNormalHom E
-        ((Abelianization.equivOfComm (H := Gal(L / K))).symm
+        ((Group.Abelianization.equivOfComm (H := Gal(L / K))).symm
           (qL.abelianizationCongr (Additive.toMul zL))) =
-      (Abelianization.equivOfComm (H := Gal(E / K))).symm
+      (Group.Abelianization.equivOfComm (H := Gal(E / K))).symm
         (qE.abelianizationCongr (Additive.toMul zE))
   calc
     AlgEquiv.restrictNormalHom E
-        ((Abelianization.equivOfComm (H := Gal(L / K))).symm
+        ((Group.Abelianization.equivOfComm (H := Gal(L / K))).symm
           (qL.abelianizationCongr (Additive.toMul zL))) =
-      (Abelianization.equivOfComm (H := Gal(E / K))).symm
+      (Group.Abelianization.equivOfComm (H := Gal(E / K))).symm
         (qE.abelianizationCongr
           (normResidueNaturalityAbelianizedRestriction
             B B EE.field EL.field EE.below EL.below le_rfl hLE
             (Additive.toMul zL))) :=
       towerRestrict_abstractAbelianization
         K E L iL (Additive.toMul zL)
-    _ = (Abelianization.equivOfComm (H := Gal(E / K))).symm
+    _ = (Group.Abelianization.equivOfComm (H := Gal(E / K))).symm
         (qE.abelianizationCongr (Additive.toMul zE)) :=
       congrArg
-        (fun w => (Abelianization.equivOfComm (H := Gal(E / K))).symm
+        (fun w => (Group.Abelianization.equivOfComm (H := Gal(E / K))).symm
           (qE.abelianizationCongr w)) hz
 
 /-- Pointwise restriction naturality for the canonical local Artin
@@ -375,9 +375,9 @@ theorem localArtinAutomorphism_restrict_tower
     [IsAbelianGalois K E] [IsAbelianGalois K L]
     (a : Kˣ) :
     AlgEquiv.restrictNormalHom E
-        ((Abelianization.equivOfComm (H := Gal(L / K))).symm
+        ((Group.Abelianization.equivOfComm (H := Gal(L / K))).symm
           (localArtinMonoidHom K L a)) =
-      (Abelianization.equivOfComm (H := Gal(E / K))).symm
+      (Group.Abelianization.equivOfComm (H := Gal(E / K))).symm
         (localArtinMonoidHom K E a) := by
   let iL := AlgebraicNumberTheory.separableEmbeddingIntoSeparableClosure K L
   rw [localArtinMonoidHom_eq_of_embedding K L iL,

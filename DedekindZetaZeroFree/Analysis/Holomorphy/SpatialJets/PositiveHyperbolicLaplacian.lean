@@ -170,7 +170,7 @@ theorem parameter_jets_positive_laplacian (d : ℕ) (W : Set (HyperbolicChart.Sp
     change EuclideanSpace.basisFun B ℝ b = HyperbolicChart.coordinateVector d b.1 b.2
     rw [EuclideanSpace.basisFun_apply]
     ext j
-    simp [HyperbolicChart.coordinateVector, EuclideanSpace.single_apply]
+    simp [HyperbolicChart.coordinateVector, PiLp.single_apply]
   have hhol0 : ∀ x ∈ W, DifferentiableOn ℂ (fun z => u z x) O := hhol []
   let c := cauchyCoefficient u s r k
   let p := fun y => iteratedDerivWithin k (fun z => u z y) O s

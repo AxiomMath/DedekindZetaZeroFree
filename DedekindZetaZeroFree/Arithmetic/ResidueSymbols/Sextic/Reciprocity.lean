@@ -50,7 +50,7 @@ theorem actual_sextic_prime_integral_cft (A : SArithmeticData F)
       Ideal.Quotient.mk v.asIdeal r ^ ((Fintype.card (𝓞 F ⧸ v.asIdeal) - 1) / 6) at hh
     simpa only [card_primeIdealResidueField] using hh
   have hcard : Nat.card (A.R ⧸ A.extendIdeal I) = Ideal.absNorm v.asIdeal := by
-    rw [← hI]
+    rw [← hI, Ideal.absNorm_eq_natCard]
     exact (Nat.card_congr E.toEquiv).symm
   have hredj : Ideal.Quotient.mk v.asIdeal (z ^ j) =
       Ideal.Quotient.mk v.asIdeal r ^ ((Ideal.absNorm v.asIdeal - 1) / 6) := by

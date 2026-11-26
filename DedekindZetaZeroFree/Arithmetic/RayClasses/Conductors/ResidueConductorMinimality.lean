@@ -295,7 +295,7 @@ theorem nonunit_stabilizer_witness (A : SArithmeticData F) (q : Ideal A.R)
         simpa [rho, unitReduction, ← hy] using hval
       have hm : y - 1 ∈ q' := Ideal.Quotient.eq.mp he
       change Ideal.Quotient.mk q (y - 1) ∈ J at hm
-      simpa [hy] using hm
+      rwa [RingHom.map_sub, RingHom.map_one, hy] at hm
     have hz := (hJ _).mp hmem
     rw [sub_mul, one_mul] at hz
     exact sub_eq_zero.mp hz

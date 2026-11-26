@@ -78,8 +78,7 @@ theorem absoluteValueCompletionMap_comp_of_isScalarTower
       AbsoluteValue.completionMap vK vL hKL := by
   ext x
   refine
-    UniformSpace.Completion.induction_on
-      (α := WithAbs vK) x ?_ ?_
+    AbsoluteValue.Completion.induction_on x ?_ ?_
   · exact isClosed_eq
       ((AbsoluteValue.completionMap_isometry
           vE vL hEL).continuous.comp
@@ -91,10 +90,7 @@ theorem absoluteValueCompletionMap_comp_of_isScalarTower
     have ha : (a : vK.Completion) =
         algebraMap K vK.Completion
           (WithAbs.equiv vK a) := by
-      change (a : vK.Completion) =
-        (((WithAbs.equiv vK).symm
-          (WithAbs.equiv vK a) : WithAbs vK) :
-            vK.Completion)
+      rw [AbsoluteValue.algebraMap_eq_coe]
       exact congrArg
         (fun z : WithAbs vK => (z : vK.Completion))
         ((WithAbs.equiv vK).symm_apply_apply a).symm
@@ -505,6 +501,7 @@ theorem decompositionGroupEquivAlgebraicLocalizationAut_restrict_of_commutes
     hGaloisEL.to_normal
   exact AlgEquiv.restrictNormalHom EL
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
 /-- Restriction of global decomposition-group elements agrees with
 restriction of the corresponding automorphisms of algebraic
 localizations, pointwise on local automorphisms. -/
@@ -573,6 +570,7 @@ theorem finitePlaceDecompositionTransport_restrict_tower_apply
         finitePlaceRestrictedLocalizedCompletionAlgHom_toAlgebraicLocalization
           (K := K) (L := L) (E := E) v wL z)
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
 /-- Restriction of global decomposition-group elements agrees with
 restriction of the corresponding automorphisms of algebraic
 localizations. -/

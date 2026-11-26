@@ -33,7 +33,7 @@ theorem kp_cusp_coefficientSubmodule_ne_bot
     (K : Type*) [Field K] [Algebra R K] [IsFractionRing R K]
     (M : FullLattice R K) (v : K × K) (hv : v ≠ 0) :
     coefficientSubmodule R K M.val v ≠ ⊥ := by
-  letI : Submodule.IsLattice K M.val := M.property
+  letI : Submodule.IsFullLattice K M.val := M.property
   obtain ⟨r, hr, hrv⟩ := kp_cusp_full_lattice_clear_denominators R K (K × K) M.val v
   intro h
   have hm : algebraMap R K r ∈ coefficientSubmodule R K M.val v := hrv
@@ -75,7 +75,7 @@ theorem kp_cusp_line_adapted_ideal_splitting
       ∃ e : (I × J) ≃ₗ[R] M.val,
         ∀ (s : I) (t : J), (e (s, t)).val = s.val • v + t.val • w := by
   classical
-  letI : Submodule.IsLattice K M.val := M.property
+  letI : Submodule.IsFullLattice K M.val := M.property
   let p : (K × K) →ₗ[K] K :=
     { toFun := det₂ K v
       map_add' := by intro x y; simp [det₂]; ring

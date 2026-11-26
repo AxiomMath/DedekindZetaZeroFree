@@ -14,7 +14,7 @@ Authors: The Tau Ceti contributors
 Vendored from TauCetiProject/TauCeti at 66f3330c1cbabafd0f5b3ea4a646c43e23105ee2,
 `TauCeti/LinearAlgebra/SymmetricPower/Coordinates.lean`. Original Apache-2.0 copyright and authors retained.
 Source Lean v4.35.0-rc3 / Mathlib f6090c7095e1e56b3464c1daba5f24631f1290d2;
-target Lean v4.35.0-rc2 / Mathlib 065356127b1dc0016f66b7283ce0ce2c4055aa55.
+target Lean v4.36.0 / Mathlib fc4f59e577feb1a4956671bc04ac18aaaf8cd842.
 Port: import/module surface and TauCeti-owned namespace references only;
 root Mathlib extensions are retained. Proof bodies otherwise unchanged.
 License: vendor root LICENSE.
@@ -52,6 +52,7 @@ private theorem repr_basis_symmetricPower_tprod_smul_basis [DecidableEq κ] (c :
     rw [Basis.symmetricPower_apply, tprodOfSym_ofFn]
   rw [(tprod R).map_smul_univ c fun i => b (p i), hbasis, map_smul, Basis.repr_self,
     Finsupp.smul_single, smul_eq_mul, mul_one, Finsupp.single_apply]
+  simp only [RingHom.id_apply]
 
 theorem repr_basis_symmetricPower_tprod [Fintype κ] [DecidableEq κ] (v : Fin n → M) (s : Sym κ n) :
     (b.symmetricPower n).repr (⨂ₛ[R] i, v i) s =

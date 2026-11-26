@@ -106,10 +106,9 @@ theorem CRT_completed_residue_representative (v : HeightOneSpectrum (𝓞 F)) (b
   rw [hp', ← WithZero.exp_nsmul]
   simp
  have hopen : IsOpen {x : v.adicCompletion F | Valued.v (x - b) < Valued.v z} := by
-  have hc : IsOpen {x : (v.valuation F).Completion | Valued.v (x - (b : v.adicCompletion F).toCompletion) < Valued.v z.toCompletion} := by
-   simpa only [Valuation.restrict_lt_iff, Set.preimage_setOf_eq, Pi.sub_apply, id_eq] using
-    (Valued.isOpen_ball ((v.valuation F).Completion) (Valued.v.restrict z.toCompletion)).preimage (continuous_id.sub continuous_const)
-  exact hc.preimage (HeightOneSpectrum.adicCompletion.continuous_toCompletion F v)
+  simpa only [Valuation.restrict_lt_iff, Set.preimage_setOf_eq, Pi.sub_apply, id_eq] using
+   (Valued.isOpen_ball (v.adicCompletion F) (Valued.v.restrict z)).preimage
+    (continuous_id.sub continuous_const)
  obtain ⟨q, hq⟩ := (v.denseRange_algebraMap F).exists_mem_open hopen ⟨b, by simp [hz]⟩
  have hq' : Valued.v (algebraMap F (v.adicCompletion F) q - b) < WithZero.exp (-(n : ℤ)) := by simpa [hz] using hq
  have hn1 : WithZero.exp (-(n : ℤ)) ≤ (1 : WithZero (Multiplicative ℤ)) := by

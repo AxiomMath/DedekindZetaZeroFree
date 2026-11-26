@@ -395,8 +395,8 @@ theorem extension_infiniteComponent
         _root_.infinitePlaceBelow (K := K) W
       letI : W.1.LiesOver v.1 := ⟨rfl⟩
       Units.map
-        (NumberField.LiesOver.completionMap
-          (v := v) (w := W))
+        (AbsoluteValue.Completion.map
+          v.1 W.1)
         (infiniteComponent v a) := by
   let : Algebra.IsIntegral K L :=
     Algebra.IsIntegral.of_finite K L
@@ -438,8 +438,8 @@ theorem extension_infiniteComponent
         (K := K) (L := L) v
         ((infiniteComponent v a : v.Completion) ⊗ₜ[K] (1 : L))
         ⟨W, rfl⟩ =
-      NumberField.LiesOver.completionMap
-        (v := v) (w := W)
+      AbsoluteValue.Completion.map
+        v.1 W.1
         (infiniteComponent v a : v.Completion)
   simpa only [map_one, mul_one] using
     (_root_.infinitePlaceTensorRingEquivAbove_tmul
@@ -648,15 +648,15 @@ theorem extension_self :
         (hv : v = W)
         [hov : W.1.LiesOver v.1] :
         Units.map
-            (NumberField.LiesOver.completionMap
-              (v := v) (w := W)).toMonoidHom
+            (AbsoluteValue.Completion.map
+              v.1 W.1).toMonoidHom
             (infiniteComponent v a) =
           infiniteComponent W a := by
       subst v
       apply Units.ext
       change
-        NumberField.LiesOver.completionMap
-            (v := W) (w := W)
+        AbsoluteValue.Completion.map
+            W.1 W.1
             (infiniteComponent W a : W.Completion) =
           (infiniteComponent W a : W.Completion)
       exact
@@ -737,26 +737,26 @@ theorem extension_comp
         [hWV : W.1.LiesOver V.1]
         [hWv : W.1.LiesOver v.1] :
         Units.map
-            (NumberField.LiesOver.completionMap
-              (v := V) (w := W)).toMonoidHom
+            (AbsoluteValue.Completion.map
+              V.1 W.1).toMonoidHom
             (Units.map
-              (NumberField.LiesOver.completionMap
-                (v := v') (w := V)).toMonoidHom
+              (AbsoluteValue.Completion.map
+                v'.1 V.1).toMonoidHom
               (infiniteComponent v' a)) =
           Units.map
-            (NumberField.LiesOver.completionMap
-              (v := v) (w := W)).toMonoidHom
+            (AbsoluteValue.Completion.map
+              v.1 W.1).toMonoidHom
             (infiniteComponent v a) := by
       subst v'
       apply Units.ext
       change
-        NumberField.LiesOver.completionMap
-            (v := V) (w := W)
-            (NumberField.LiesOver.completionMap
-              (v := v) (w := V)
+        AbsoluteValue.Completion.map
+            V.1 W.1
+            (AbsoluteValue.Completion.map
+              v.1 V.1
               (infiniteComponent v a : v.Completion)) =
-          NumberField.LiesOver.completionMap
-            (v := v) (w := W)
+          AbsoluteValue.Completion.map
+            v.1 W.1
             (infiniteComponent v a : v.Completion)
       exact
         _root_.infinitePlaceCompletionMap_comp_apply

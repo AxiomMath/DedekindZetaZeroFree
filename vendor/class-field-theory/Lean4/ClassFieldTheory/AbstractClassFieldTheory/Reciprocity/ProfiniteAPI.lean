@@ -64,7 +64,7 @@ noncomputable def normResidueSymbol
         (K.field.toSubgroup ⧸
           extensionSubgroup K.field L.field L.below) := L.finite
     FiniteNormQuotient A K.field L.field L.below ≃+
-      Additive (Abelianization L.extensionQuotient) :=
+      Additive (Group.Abelianization L.extensionQuotient) :=
   D.normResidueSymbol A v hcf K L
 
 end ClassFormation.Profinite

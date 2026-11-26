@@ -370,7 +370,7 @@ private theorem compact_derivative_bound (f : ℂ → ℂ) (U A : Set ℂ)
     ∃ C : ℝ, 1 ≤ C ∧ ∀ i ≤ n, ∀ x ∈ A, ‖iteratedFDeriv ℝ i f x‖ ≤ C := by
   have hc : ContinuousOn (fun x => ∑ i ∈ Finset.range (n+1),
       ‖iteratedFDeriv ℝ i f x‖) A := by
-    apply continuousOn_finset_sum
+    apply continuousOn_finsetSum
     intro i hi
     exact ((ContinuousOn.continuousOn_iteratedFDeriv hf hU (by simp)).norm).mono hAU
   obtain ⟨C, hC⟩ := hA.exists_bound_of_continuousOn hc

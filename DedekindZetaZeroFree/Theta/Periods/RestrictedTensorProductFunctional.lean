@@ -12,7 +12,7 @@ variable {J : Type u} (V : J → Type v)
 variable [∀ j, AddCommGroup (V j)] [∀ j, Module ℂ (V j)]
 variable (e : ∀ j, V j) (bad : Finset J) (ell : ∀ j, V j →ₗ[ℂ] ℂ)
 
-def stageMultilinear (s : Finset J) : MultilinearMap ℂ (fun j : s => V j) ℂ :=
+def stageMultilinear (s : Finset J) : MultilinearMap (RingHom.id ℂ) (fun j : s => V j) ℂ :=
   (MultilinearMap.mkPiRing ℂ s (1 : ℂ)).compLinearMap (fun j => ell j)
 
 @[simp] theorem stageMultilinear_apply (s : Finset J) (x : ∀ j : s, V j) :

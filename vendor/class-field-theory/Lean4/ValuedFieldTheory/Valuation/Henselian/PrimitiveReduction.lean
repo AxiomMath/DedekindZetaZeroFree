@@ -246,10 +246,10 @@ theorem exists_primitive_irreducible_lift_of_irreducible
     by_cases hn : n ∈ p.support
     · have hcoeffne : p.coeff n ≠ 0 :=
         Polynomial.mem_support_iff.mp hn
-      simp [q, Polynomial.coeff_monomial, coeffV, hn, hcoeffne]
+      simp [q, Polynomial.finsetSum_coeff, Finsupp.single_apply, coeffV, hn, hcoeffne]
     · have hcoeffzero : p.coeff n = 0 :=
         Polynomial.notMem_support_iff.mp hn
-      simp [q, Polynomial.coeff_monomial, coeffV, hn, hcoeffzero]
+      simp [q, Polynomial.finsetSum_coeff, Finsupp.single_apply, coeffV, hn, hcoeffzero]
   have hqcoeff (n : ℕ) :
       ((q.coeff n : V) : K) = p.coeff n / a := by
     rw [hqcoeffV]

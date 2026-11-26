@@ -26,7 +26,7 @@ theorem normalizedRayTheta_continuousOn
   letI : Fintype (RayIdealClass F m hm) := Fintype.ofFinite _
   unfold normalizedRayTheta
   apply continuousOn_const.mul
-  apply continuousOn_finset_sum
+  apply continuousOn_finsetSum
   intro c hc
   apply continuousOn_const.mul
   exact (DedekindZetaZeroFree.rayTheta_continuousOn_fδ (D.coset c) ∅).comp
@@ -42,7 +42,7 @@ theorem normalizedRayConjugateTheta_continuousOn
   letI : Fintype (RayIdealClass F m hm) := Fintype.ofFinite _
   unfold normalizedRayConjugateTheta
   apply continuousOn_const.mul
-  apply continuousOn_finset_sum
+  apply continuousOn_finsetSum
   intro c hc
   apply continuousOn_const.mul
   exact (DedekindZetaZeroFree.rayTheta_continuousOn_fδ (D.coset c) ∅).comp

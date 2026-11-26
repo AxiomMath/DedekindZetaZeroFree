@@ -55,7 +55,7 @@ lemma digit_diff (u : A.U) (P : Finset (KPFinitePlace F)) (hP : ∀ q ∈ P, q �
         Ideal.map (algebraMap (𝓞 F) A.R) q.val.asIdeal := by
   dsimp only
   apply Ideal.Quotient.eq_zero_iff_mem.mp
-  rw [map_sub, map_mul, map_pow]
+  rw [RingHom.map_sub, RingHom.map_mul, RingHom.map_pow]
   have he := Classical.choose_spec (ThetaDigitAverage.residue_SInteger_comparison A q.val (hP _ q.property))
   change ∀ r, ThetaDigitDescent.residueComparison A q.val (hP _ q.property)
     (Ideal.Quotient.mk q.val.asIdeal r) = Ideal.Quotient.mk _ (algebraMap (𝓞 F) A.R r) at he

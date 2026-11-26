@@ -26,7 +26,9 @@ def sLocalDiagonal (F : Type*) [Field F] [NumberField F]
     (t : F) (v : InfinitePlace F) :
     (sLocalDiagonal F S t).1 v = algebraMap F v.Completion t := by
   simp only [sLocalDiagonal]
-  exact InfiniteAdeleRing.algebraMap_apply F t v
+  refine (InfiniteAdeleRing.algebraMap_apply F t v).trans ?_
+  rw [AbsoluteValue.Completion.algebraMap_def, WithAbs.algebraMap_right_apply,
+    Algebra.algebraMap_self_apply]
 
 @[simp] theorem sLocalDiagonal_finite (F : Type*) [Field F] [NumberField F]
     (S : Finset (HeightOneSpectrum (RingOfIntegers F))) (t : F) (v : S) :

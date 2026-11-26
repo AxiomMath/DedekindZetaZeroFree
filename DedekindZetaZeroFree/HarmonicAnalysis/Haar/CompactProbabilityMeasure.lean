@@ -17,7 +17,7 @@ Vendored from TauCetiProject/TauCeti at
 `TauCeti/RepresentationTheory/Compact/Haar.lean`.
 Original Apache-2.0 copyright and author notice retained above.
 Source Lean v4.35.0-rc3 / Mathlib f6090c7095e1e56b3464c1daba5f24631f1290d2;
-target Lean v4.35.0-rc2 / Mathlib 065356127b1dc0016f66b7283ce0ce2c4055aa55.
+target Lean v4.36.0 / Mathlib fc4f59e577feb1a4956671bc04ac18aaaf8cd842.
 Only the enclosing namespace/module surface is adapted; proof bodies are unchanged.
 Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0
 -/

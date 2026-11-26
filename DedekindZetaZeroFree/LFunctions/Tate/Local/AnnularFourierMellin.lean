@@ -96,7 +96,7 @@ theorem annularTest_mem_localSchwartz (v : HeightOneSpectrum (𝓞 F)) :
   · exact (LocallyConstant.charFn ℂ hU).isLocallyConstant
   · apply HasCompactSupport.intro (isCompact_finiteCompletionBall F v 0)
     intro x hx
-    exact Set.indicator_of_notMem (fun h => hx h.1) _
+    exact Set.indicator_of_notMem (fun h => hx (by exact h.1)) _
 
 theorem rescaledCharacter_continuous (v : HeightOneSpectrum (𝓞 F))
     (ψ : AddChar (v.adicCompletion F) Circle) (hψ : Continuous ψ)

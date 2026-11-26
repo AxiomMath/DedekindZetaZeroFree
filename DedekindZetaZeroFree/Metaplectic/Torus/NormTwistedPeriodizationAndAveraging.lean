@@ -248,7 +248,7 @@ theorem normPowerArchSmooth_of_chart_formula
   apply normPowerArchSmooth_of_delta_smooth F ζ hζ _ s
   have hp : ContDiff ℝ (⊤ : ℕ∞)
       (fun z : KPGlobalTorusFunctionData.TorusArch F => ∏ w : InfinitePlace F, ‖z w‖ ^ 2) := by
-    exact contDiff_prod (fun w _ => (contDiff_apply ℝ ℂ w).norm_sq ℝ)
+    exact contDiff_prod (fun w _ => (contDiff_apply ℝ (fun _ => ℂ) w).norm_sq ℝ)
   exact hp.contDiffOn.congr (fun z hz => hδ z hz)
 
 theorem normPowerArchSmooth_neg (s : ℂ) (ha : NormPowerArchSmooth F ζ hζ s) :

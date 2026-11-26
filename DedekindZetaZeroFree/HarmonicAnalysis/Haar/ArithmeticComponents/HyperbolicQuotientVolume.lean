@@ -116,8 +116,8 @@ private lemma rationalArch_mk (m : Matrix.GeneralLinearGroup (Fin 2) F)
         (algebraMap F (KPAdelicCoverRestrictedProduct.Adeles F))) = w.embedding := by
     ext x
     change NumberField.InfinitePlace.Completion.extensionEmbedding w
-      ((WithAbs.equiv w.1).symm x : w.Completion) = _
-    simp
+      (algebraMap F w.Completion x) = _
+    simp [AbsoluteValue.Completion.algebraMap_def, WithAbs.algebraMap_right_apply]
   change Matrix.ProjGenLinGroup.mk
     (Matrix.GeneralLinearGroup.map _ (Matrix.GeneralLinearGroup.map _ m)) = _
   simp only [← MonoidHom.comp_apply, ← Matrix.GeneralLinearGroup.map_comp]
@@ -179,7 +179,7 @@ theorem arch_group_domain_quotient_volume
   have hD₀m : MeasurableSet D₀ := hb hE
   have hqmp : Measure.QuasiMeasurePreserving (archBasepoint F) R.archHaar
       (KPArch.hyperbolicVolume (KPCuspLogShape.dimension F)) :=
-    ⟨hb, by rw [hpush]; exact Measure.smul_absolutelyContinuous⟩
+    ⟨hb.aemeasurable, by rw [hpush]; exact Measure.smul_absolutelyContinuous⟩
   have hD₀ : IsFundamentalDomain (Ga F ζ hζ hF U A i) D₀ R.archHaar := by
     exact (A.cuspAtlas i).isFundamentalDomain.preimage_of_equiv hqmp
       (subgroupEquiv F ζ hζ hF U A i).bijective

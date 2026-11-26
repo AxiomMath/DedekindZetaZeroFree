@@ -23,7 +23,7 @@ private theorem invariant_level {G : Type*} [Group G] [TopologicalSpace G]
   letI : CompactSpace K := isCompact_iff_compactSpace.mp hK
   obtain ⟨U₀, _⟩ := hb Set.univ (by simp)
   let c (k : K) : N →* N :=
-    { toFun := fun n => ⟨k.val * n.val * k.val⁻¹, Subgroup.Normal.conj_mem inferInstance n.val n.property k.val⟩
+    { toFun := fun n => ⟨k.val * n.val * k.val⁻¹, Subgroup.Normal.conj_mem n.val n.property k.val⟩
       map_one' := by apply Subtype.ext; simp
       map_mul' := by intro a b; apply Subtype.ext; dsimp; group }
   let U : Subgroup N := ⨅ k : K, U₀.toOpenSubgroup.toSubgroup.comap (c k)
@@ -52,7 +52,7 @@ private theorem invariant_level {G : Type*} [Group G] [TopologicalSpace G]
   constructor
   · intro hn
     obtain ⟨a, ha, rfl⟩ := hn
-    refine ⟨⟨k * a.val * k⁻¹, Subgroup.Normal.conj_mem inferInstance a.val a.property k⟩, ?_, rfl⟩
+    refine ⟨⟨k * a.val * k⁻¹, Subgroup.Normal.conj_mem a.val a.property k⟩, ?_, rfl⟩
     apply Subgroup.mem_iInf.mpr
     intro l
     have h := Subgroup.mem_iInf.mp ha (l * ⟨k,hk⟩)
@@ -67,7 +67,7 @@ private theorem invariant_level {G : Type*} [Group G] [TopologicalSpace G]
     change a.val = k * n * k⁻¹ at he
     have hna : n = k⁻¹ * a.val * k := by rw [he]; group
     refine ⟨⟨n, ?_⟩, ?_, rfl⟩
-    · rw [hna]; simpa using Subgroup.Normal.conj_mem inferInstance a.val a.property k⁻¹
+    · rw [hna]; simpa using Subgroup.Normal.conj_mem a.val a.property k⁻¹
     · apply Subgroup.mem_iInf.mpr
       intro l
       have h := Subgroup.mem_iInf.mp ha (l * ⟨k⁻¹, K.inv_mem hk⟩)

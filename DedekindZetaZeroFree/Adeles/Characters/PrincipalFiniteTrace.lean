@@ -40,11 +40,11 @@ theorem finiteTrace_eq_localTraceCharacter {F : Type} [Field F] [NumberField F]
   let g (y : (w : ↥A.Sf) → w.val.adicCompletion F) : ℂ :=
     ∏ w, (ResidueTrace.localTraceCharacter w.val (y w) : ℂ)
   have hf : Continuous f := by
-    apply continuous_finset_prod
+    apply continuous_finsetProd
     intro w hw
     exact continuous_subtype_val.comp ((P.continuousTrace w).comp (continuous_apply w))
   have hg : Continuous g := by
-    apply continuous_finset_prod
+    apply continuous_finsetProd
     intro w hw
     exact continuous_subtype_val.comp
       ((ResidueTrace.continuous_localTraceCharacter w.val).comp (continuous_apply w))

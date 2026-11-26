@@ -109,8 +109,10 @@ private theorem balancedDyadicBox_compact {F : Type} [Field F] [NumberField F]
         (⟨t.val, hp t.val t.property⟩ : {t : ℝ // 0 < t})) :=
       continuous_subtype_val.subtype_mk _
     simpa only [Function.comp_def, Set.domRestrict, A.localToAdditive_radialSection] using hc.comp hsub
-  exact (hrad.comp continuousOn_fst (fun p hp => hp.1)).mul
-    (A.continuous_localToAdditive.continuousOn.comp continuousOn_snd (fun p hp => hp.2))
+  exact (hrad.comp continuousOn_fst
+      (fun p (hp : p ∈ Set.Icc (1 / 2 : ℝ) 1 ×ˢ K_bal) => hp.1)).mul
+    (A.continuous_localToAdditive.continuousOn.comp continuousOn_snd
+      (fun p (hp : p ∈ Set.Icc (1 / 2 : ℝ) 1 ×ˢ K_bal) => hp.2))
 
 private theorem balanced_generator_row {F : Type} [Field F] [NumberField F]
     (A : SArithmeticData F) (B : Subgroup A.V) (K_bal : Set A.G)

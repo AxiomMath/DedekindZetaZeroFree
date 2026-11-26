@@ -167,13 +167,9 @@ private theorem mapped_diagonalUnit
       fin_cases i <;> fin_cases j <;> simp [Matrix.GeneralLinearGroup.map,
         singleAdele, KPAdelicCoverRestrictedProduct.adeleEval, r,
         KPCplxCharacterHaar.upperUnipotent, Pi.single_apply, RingHom.comp_apply, RingHom.fst, Pi.evalRingHom_apply]
-      change Pi.single w _ w = _
-      simp
     · fin_cases i <;> fin_cases j <;> simp [Matrix.GeneralLinearGroup.map,
         singleAdele, KPAdelicCoverRestrictedProduct.adeleEval, r, hv,
         KPCplxCharacterHaar.upperUnipotent, Pi.single_apply, RingHom.comp_apply, RingHom.fst, Pi.evalRingHom_apply]
-      change Pi.single w _ v = 0
-      simp [Pi.single_apply, hv]
 
  theorem upper_projective (a d : ℂˣ) (b : ℂ) :
     Matrix.ProjGenLinGroup.mk (KPCplxPrincipalSeriesCharts.upperTriangular a d b) =

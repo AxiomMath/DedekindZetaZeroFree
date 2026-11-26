@@ -34,7 +34,7 @@ instance (j : A ⊕ Q) : Module ℂ (FullV V j) := by cases j <;> dsimp [FullV] 
         LinearMap.id_apply, PiTensorProduct.lift.tprod, MultilinearMap.mkPiRing_apply,
         smul_eq_mul, mul_one, LinearMap.toSpanSingleton_apply]
       have h := (PiTensorProduct.tprod ℂ (s := fun _ : J => ℂ)).map_smul_univ x (fun _ => 1)
-      simpa only [smul_eq_mul, mul_one] using h.symm)
+      simpa only [smul_eq_mul, mul_one, RingHom.id_apply] using h.symm)
 
  def split (s : Finset (A ⊕ Q)) : s ≃ s.toLeft ⊕ s.toRight where
   toFun j := match j with

@@ -283,8 +283,8 @@ theorem moving_inverse_local (g : G F ζ hζ) (x : ArchCoordinates F)
     have hS : IsOpen S := by
       have hc : ContinuousOn (fun q : KPSmoothLocalQuotientCharts.Coordinates F × ArchCoordinates F =>
           E.symm q.1 * archParam F q.2) (E.target ×ˢ archDomain F) :=
-        (E.symm.continuousOn.comp continuous_fst.continuousOn (fun _ h => h.1)).mul
-          ((param_continuous F ζ hζ).comp continuous_snd.continuousOn (fun _ h => h.2))
+        (E.symm.continuousOn.comp continuous_fst.continuousOn (fun _ h => (Set.mem_prod.mp h).1)).mul
+          ((param_continuous F ζ hζ).comp continuous_snd.continuousOn (fun _ h => (Set.mem_prod.mp h).2))
       exact hc.isOpen_inter_preimage (E.open_target.prod (domain_open F)) O.open_target
     have hJ : ContDiffOn ℝ (⊤ : ℕ∞) J S := by
       intro q hq

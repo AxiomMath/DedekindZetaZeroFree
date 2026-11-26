@@ -53,9 +53,9 @@ noncomputable def infinitePlaceBaseUnitExtension
     ⟨rfl⟩
   exact
     Units.map
-      (NumberField.LiesOver.completionMap
-        (v := _root_.infinitePlaceBelow (K := K) W)
-        (w := W)).toMonoidHom
+      (AbsoluteValue.Completion.map
+        (_root_.infinitePlaceBelow (K := K) W).1
+        W.1).toMonoidHom
 
 /-- The actual completion map carries negative one to negative one. -/
 @[simp]
@@ -79,7 +79,7 @@ noncomputable def infinitePlaceCompletionDegree
   let v := _root_.infinitePlaceBelow (K := K) W
   letI : W.1.LiesOver v.1 := ⟨rfl⟩
   letI : Algebra v.Completion W.Completion :=
-    (NumberField.LiesOver.completionMap (v := v) (w := W)).toAlgebra
+    AbsoluteValue.Completion.algebraOfLiesOver v.1 W.1
   exact Module.finrank v.Completion W.Completion
 
 /-- The idele norm of a base-completion unit supported at one
@@ -124,15 +124,15 @@ theorem norm_infinitePlaceIdele_infinitePlaceBaseUnitExtension
       · rw [infinitePlaceIdele_infiniteComponent_same]
         let : W.1.LiesOver v.1 := ⟨rfl⟩
         let : Algebra v.Completion W.Completion :=
-          (NumberField.LiesOver.completionMap (v := v) (w := W)).toAlgebra
+          AbsoluteValue.Completion.algebraOfLiesOver v.1 W.1
         have hmap :
             algebraMap v.Completion W.Completion =
-              NumberField.LiesOver.completionMap (v := v) (w := W) :=
-          RingHom.algebraMap_toAlgebra _
+              AbsoluteValue.Completion.map v.1 W.1 :=
+          AbsoluteValue.Completion.algebraMap_eq_of_liesOver v.1 W.1
         change
           LocalFieldTheory.normUnits v.Completion W.Completion
               (Units.map
-                (NumberField.LiesOver.completionMap (v := v) (w := W)).toMonoidHom
+                (AbsoluteValue.Completion.map v.1 W.1).toMonoidHom
                 x) =
             x ^ Module.finrank v.Completion W.Completion
         rw [← hmap]
@@ -212,7 +212,7 @@ theorem norm_infinitePlaceIdele_infinitePlaceBaseUnitExtension_of_isUnramified
   let v := _root_.infinitePlaceBelow (K := K) W
   let : W.1.LiesOver v.1 := ⟨rfl⟩
   let : Algebra v.Completion W.Completion :=
-    (NumberField.LiesOver.completionMap (v := v) (w := W)).toAlgebra
+    AbsoluteValue.Completion.algebraOfLiesOver v.1 W.1
   have hDegree :
       Module.finrank v.Completion W.Completion = 1 :=
     InfinitePlace.IsUnramified.finrank_eq_one

@@ -22,7 +22,7 @@ theorem full_multilinear_integral (Q : Finset (KPFinitePlace F)) (hQ : C.excepti
     (hD : localDifferentSupport F ⊆ (Q : Set _))
     {J : (fullLevel R P C Q hQ).val → Type} [∀ i, Fintype (J i)] [∀ i, DecidableEq (J i)]
     {V : (fullLevel R P C Q hQ).val → Type} [∀ i, AddCommGroup (V i)] [∀ i, Module ℂ (V i)]
-    (e : ∀ i, V i ≃ₗ[ℂ] (J i → ℂ)) (L : MultilinearMap ℂ V ℂ)
+    (e : ∀ i, V i ≃ₗ[ℂ] (J i → ℂ)) (L : MultilinearMap (RingHom.id ℂ) V ℂ)
     (f : ∀ i, RootPoint R i.val → V i) (v : ∀ i, V i)
     (hf : ∀ i j, Integrable (fun x => e i (f i x) j) (arithmeticRootMeasure R N i.val))
     (hv : ∀ i j, e i (v i) j = ∫ x, e i (f i x) j ∂arithmeticRootMeasure R N i.val) :
@@ -47,7 +47,7 @@ theorem full_multilinear_integral (Q : Finset (KPFinitePlace F)) (hQ : C.excepti
         rw [L.map_sum_finset]
         apply Finset.sum_congr rfl
         intro r _
-        simpa only [smul_eq_mul] using
+        simpa only [smul_eq_mul, RingHom.id_apply] using
           L.map_smul_univ (fun i => e i (y i) (r i)) (fun i => w i (r i))
   have hi (r : ∀ i, J i) : Integrable
       (fun x : KPGlobalTorusFunctionData.Adeles F => (∏ i, e i (f i (rootCoordinate R x i.val)) (r i)) * L (fun i => w i (r i)))

@@ -279,7 +279,7 @@ theorem kp_cont_compact_interior_equivariant_h1_approximation
       H0 Set.univ (fun x => u p.1 x - u p.2 x)
         (fun j x => fderiv ℝ (fun y => u p.1 y - u p.2 y) x (coordinateDirection j))
         (h0ud p.1 p.2)) atTop (𝓝 0) := by
-    have hs := tendsto_finset_sum Finset.univ fun j _ => (hud_diff_tend j).pow 2
+    have hs := tendsto_finsetSum Finset.univ fun j _ => (hud_diff_tend j).pow 2
     have ht := hu_diff_tend.add (Real.continuous_sqrt.continuousAt.tendsto.comp hs)
     simp only [Finset.sum_const_zero, zero_pow (by norm_num : (2 : ℕ) ≠ 0),
       Real.sqrt_zero, add_zero] at ht
@@ -453,7 +453,7 @@ theorem kp_cont_compact_interior_equivariant_h1_approximation
   have hH0error_tend : Tendsto (fun m => H0 D.chart (fun x => f x - v m x)
       (fun j x => g j x - fderiv ℝ (v m) x (coordinateDirection j)) (herror0 m))
       atTop (𝓝 0) := by
-    have hs := tendsto_finset_sum Finset.univ fun j _ => (hgerror_tend j).pow 2
+    have hs := tendsto_finsetSum Finset.univ fun j _ => (hgerror_tend j).pow 2
     have ht := hferror_tend.add (Real.continuous_sqrt.continuousAt.tendsto.comp hs)
     simpa only [H0, Function.comp_apply, zero_pow (by norm_num : (2 : ℕ) ≠ 0), Finset.sum_const_zero,
       Real.sqrt_zero, add_zero] using ht

@@ -601,17 +601,17 @@ private theorem exists_localizedCompletionNormPreimage_with_norm_bounds
             ‖(y : E)‖ ≤ 1 ∧
               ‖((y⁻¹ : Eˣ) : E)‖ ≤ 1 := by
   classical
-  let vK := HeightOneSpectrum.adicAbv K v₀
-  let w := chosenFinitePlaceExtension (L := L) v₀
-  let hvK : vK.IsNontrivial :=
-    RayClass.adicAbv_isNontrivial v₀
-  let hvKna : IsNonarchimedean (vK : K → ℝ) :=
-    HeightOneSpectrum.isNonarchimedean_adicAbv K v₀
+  -- Use the `let`s of the statement itself: restating them would make every
+  -- comparison with the goal unfold the local definitions.
+  intro vK w E
   let hK := AbsoluteValue.extensionCompletionAlgebra (K := K) w.1
   let : SMul K w.1.Completion := hK.toSMul
   let : Algebra vK.Completion w.1.Completion :=
     AbsoluteValue.completionAlgebra vK w.1 w.2
-  let E := LocalizedCompletion vK w
+  let hvK : vK.IsNontrivial :=
+    RayClass.adicAbv_isNontrivial v₀
+  let hvKna : IsNonarchimedean (vK : K → ℝ) :=
+    HeightOneSpectrum.isNonarchimedean_adicAbv K v₀
   let : FiniteDimensional vK.Completion E :=
     localizedCompletionModuleFinite vK hvK w
   let : IsGalois vK.Completion E :=

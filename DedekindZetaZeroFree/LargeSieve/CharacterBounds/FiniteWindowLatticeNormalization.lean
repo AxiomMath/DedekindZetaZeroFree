@@ -161,7 +161,8 @@ theorem finite_window_lattice_equiv (F : Type) [Field F] [NumberField F]
     apply (mixedEmbedding.euclidean.toMixed F).injective
     rw [PoissonArch.infiniteAdeleToSpace_coordinates]
     simp [PoissonArch.minkowskiEmbedding, sLocalDiagonal_infinite, mixedEmbedding]
-    exact ⟨rfl, rfl⟩
+    refine ⟨?_, ?_⟩ <;> funext v <;>
+      simp [AbsoluteValue.Completion.algebraMap_def, WithAbs.algebraMap_right_apply]
   have hmem (m : ProbeSeparation.Integers F S) :
       (sLocalDiagonal F S (m : F)).2 ∈ PoissonS.finiteBall F S k ↔
         (m : F) ∈ PoissonS.ballFractionalIdeal F S k :=

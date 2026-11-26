@@ -585,8 +585,7 @@ theorem raw_pure_scalar_descent_exists
           change (raw (Sum.inl w))⁻¹ = 1
           rw [hi, inv_one]
         · intro q
-          change (t q).val⁻¹ =
-            KPPGLLocalCover.coverQuotient F ζ hζ (Sum.inr q) (raw (Sum.inr q))⁻¹
+          simp only [RestrictedProduct.inv_apply, InvMemClass.coe_inv]
           rw [ht, map_inv]
         · rw [map_inv, hg]; rfl }
   obtain ⟨w, hw⟩ := raw_pure_product_function_descent F ζ hζ P T C S hS f

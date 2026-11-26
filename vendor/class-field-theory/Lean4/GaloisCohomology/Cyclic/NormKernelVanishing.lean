@@ -133,7 +133,7 @@ theorem normKernel_le_sigmaMinusOneRange_of_tateHMinusOne_isZero
     {G : Type} [Group G] [Fintype G]
     (A : Rep.{0} ℤ G) (g : G) (hg : ∀ x, x ∈ Subgroup.zpowers g)
     (hzero : Limits.IsZero (tateCohomology A (-1))) :
-    ∀ x : A.V, A.norm.hom x = 0 →
+    ∀ x : A.V, A.norm.asHom.hom x = 0 →
       ∃ y : A.V, A.ρ g y - y = x := by
   let : IsCyclic G := isCyclic_of_generator g hg
   let : CommGroup G := IsCyclic.commGroup (α := G)
@@ -143,7 +143,7 @@ theorem normKernel_le_sigmaMinusOneRange_of_tateHMinusOne_isZero
     ModuleCat.subsingleton_of_isZero hH1
   intro x hx
   let : Module ℤ A.V := A.hV2
-  let x' : LinearMap.ker A.norm.hom.toLinearMap := ⟨x, hx⟩
+  let x' : LinearMap.ker A.norm.asHom.hom.toLinearMap := ⟨x, hx⟩
   have hclass :
       Rep.FiniteCyclicGroup.groupCohomologyπOdd A g hg 1 (by simp) x' = 0 :=
     Subsingleton.elim _ _

@@ -54,7 +54,7 @@ private theorem scalar_jet_joint (U : Set E) (O : Set ℂ) (f : ℂ → E → �
   obtain ⟨j,hj,heq⟩ := hh C hC hCU n v
   have hjoint : ContinuousOn (fun p : ℂ × C => j p.1 p.2) (O ×ˢ Set.univ) :=
     continuous_eval.comp_continuousOn ((hj.continuousOn.comp continuous_fst.continuousOn
-      (fun _ hp => hp.1)).prodMk continuous_snd.continuousOn)
+      (fun _ hp => (Set.mem_prod.mp hp).1)).prodMk continuous_snd.continuousOn)
   apply continuousOn_iff_continuous_restrict.mpr
   let g : (O ×ˢ C) → ℂ × C := fun p => (p.val.1, ⟨p.val.2, p.property.2⟩)
   have hg : Continuous g := (continuous_fst.comp continuous_subtype_val).prodMk
@@ -207,7 +207,7 @@ private theorem labeledAInv_smooth (p : Fin (d F) ≃ Fin (KPCuspLogShape.dimens
   apply (CotangentLogCoframe.A (d F)).symm.contDiff.comp
   apply contDiff_pi.mpr
   intro k
-  exact contDiff_apply ℝ (ℂ × ℝ) (p k)
+  exact contDiff_apply ℝ (fun _ => ℂ × ℝ) (p k)
 
 private theorem action_smooth (g : KPCuspArithmetic.PGL2 F) :
     ContDiff ℝ (⊤ : ℕ∞) (fun x : KPCuspGenuineMonodromy.SymmetricSpace F => g • x) := by
@@ -318,7 +318,7 @@ theorem parameter_jets_sections_source
     have hA : ContDiff ℝ (⊤ : ℕ∞) (labeledA (placeEquiv F ζ hζ)) := by
       apply contDiff_pi.mpr
       intro q
-      exact (contDiff_apply ℝ (ℂ × ℝ) ((placeEquiv F ζ hζ).symm q)).comp
+      exact (contDiff_apply ℝ (fun _ => ℂ × ℝ) ((placeEquiv F ζ hζ).symm q)).comp
         (CotangentLogCoframe.A (d F)).contDiff
     have hU : IsOpen (omega (charts j)) := (charts j).domain_open.preimage hA.continuous
     have hsp : ∀ z ∈ O, ContDiffOn ℝ (⊤ : ℕ∞)

@@ -41,20 +41,12 @@ theorem chosenRayClassSubgroupSubfield_antitone
       GlobalClassFieldTheory.GlobalClassFields.rayClassSubgroupSubfield
         (K := K) (GlobalClassFieldComparison.rayClassModulusToOriginal K m)
         (H.map (GlobalClassFieldComparison.rayClassGroupEquivOriginalIdele K m).toMonoidHom) := by
-  let m' := GlobalClassFieldComparison.rayClassModulusToOriginal K m
-  let e := GlobalClassFieldComparison.rayClassGroupEquivOriginalIdele K m
-  have hmap : H.map e.toMonoidHom ≤ J.map e.toMonoidHom :=
-    Subgroup.map_mono hHJ
-  have hfixed :
-      GlobalClassFieldTheory.GlobalClassFields.rayClassSubgroupFixedField
-          (K := K) m' (J.map e.toMonoidHom) ≤
-        GlobalClassFieldTheory.GlobalClassFields.rayClassSubgroupFixedField
-          (K := K) m' (H.map e.toMonoidHom) := by
-    exact IntermediateField.fixedField_le (Subgroup.map_mono hmap)
   exact
     IntermediateField.map_mono
-      (GlobalClassFieldTheory.GlobalClassFields.rayClassFieldEmbedding K m')
-      hfixed
+      (GlobalClassFieldTheory.GlobalClassFields.rayClassFieldEmbedding K
+        (GlobalClassFieldComparison.rayClassModulusToOriginal K m))
+      (IntermediateField.fixedField_le
+        (Subgroup.map_mono (Subgroup.map_mono hHJ)))
 
 end ClassFieldTheory
 

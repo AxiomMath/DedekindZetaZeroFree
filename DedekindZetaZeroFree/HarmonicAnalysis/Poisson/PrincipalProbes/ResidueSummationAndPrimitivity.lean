@@ -79,7 +79,8 @@ theorem raw_diagonal_tracePhase_eq (A : SArithmeticData F) (σ : F →+* ℂ)
       have hfst : (sLocalDiagonal F A.Sf z).1 = algebraMap F (InfiniteAdeleRing F) z := by
         funext w
         rw [sLocalDiagonal_infinite]
-        exact (InfiniteAdeleRing.algebraMap_apply F z w).symm
+        rw [InfiniteAdeleRing.algebraMap_apply, AbsoluteValue.Completion.algebraMap_def,
+          WithAbs.algebraMap_right_apply, Algebra.algebraMap_self_apply]
       rw [hfst, ← InfiniteAdeleRing.mixedEmbedding_eq_algebraMap_comp]
     · rfl
   rw [hd, hd, raw_tracePhase_eq]
@@ -135,7 +136,7 @@ theorem raw_annular_tensor_coordinates (A : SArithmeticData F) (W : SLocalProduc
   have hsm : ContDiff ℝ (⊤ : ℕ∞) (TateTensorProfile.archTensor F fc) := by
     apply contDiff_prod
     intro v _
-    exact (hc v).1.comp ((contDiff_apply ℝ ℂ v).comp
+    exact (hc v).1.comp ((contDiff_apply ℝ (fun _ => ℂ) v).comp
       (contDiff_snd.comp (mixedEmbedding.euclidean.toMixed F).contDiff))
   let Kc := Set.pi Set.univ (fun v => tsupport (fc v))
   let K := (mixedEmbedding.euclidean.toMixed F) ⁻¹'
@@ -196,7 +197,8 @@ theorem raw_localDilationModule_eq_norm (A : SArithmeticData F) (g : A.G) :
       have hfst : (sLocalDiagonal F A.Sf z).1 = algebraMap F (InfiniteAdeleRing F) z := by
         funext w
         rw [sLocalDiagonal_infinite]
-        exact (InfiniteAdeleRing.algebraMap_apply F z w).symm
+        rw [InfiniteAdeleRing.algebraMap_apply, AbsoluteValue.Completion.algebraMap_def,
+          WithAbs.algebraMap_right_apply, Algebra.algebraMap_self_apply]
       rw [hfst, ← InfiniteAdeleRing.mixedEmbedding_eq_algebraMap_comp]
     · rfl
 

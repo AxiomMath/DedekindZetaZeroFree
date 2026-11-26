@@ -82,7 +82,7 @@ theorem idealAbsoluteSum_converges (F : Type) [Field F] [NumberField F]
     · refine ⟨?_, ?_⟩
       · intro n
         letI := (Ideal.finite_setOfPred_absNorm_eq (S := 𝓞 F) n).fintype
-        exact summable_of_finite_support (Set.toFinite _)
+        exact Summable.of_finite
       · exact hL.norm.congr (fun n => (hfiber n).symm)
     · intro I
       exact ⟨Ideal.absNorm I, rfl, fun n hn => hn.symm⟩

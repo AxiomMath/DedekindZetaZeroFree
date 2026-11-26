@@ -3,6 +3,7 @@ module
 public import Mathlib.LinearAlgebra.PiTensorProduct.Dual
 public import Mathlib.LinearAlgebra.PiTensorProduct.Finite
 public import Mathlib.LinearAlgebra.Dual.Lemmas
+public import Mathlib.LinearAlgebra.PiTensorProduct.Generators
 
 @[expose] public section
 

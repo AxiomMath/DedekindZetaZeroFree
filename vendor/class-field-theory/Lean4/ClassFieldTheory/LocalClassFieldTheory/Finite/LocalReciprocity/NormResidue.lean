@@ -40,13 +40,13 @@ variable (K L : Type) [Field K] [Field L] [Algebra K L]
 group of an abelian extension. -/
 noncomputable def abelianLocalArtinMonoidHom :
     Kˣ →* Gal(L / K) :=
-  ((Abelianization.equivOfComm (H := Gal(L / K))).symm).toMonoidHom.comp
+  ((Group.Abelianization.equivOfComm (H := Gal(L / K))).symm).toMonoidHom.comp
     (localArtinMonoidHom K L)
 
 /-- The actual abelian local Artin homomorphism is surjective. -/
 theorem abelianLocalArtinMonoidHom_surjective :
     Function.Surjective (abelianLocalArtinMonoidHom K L) :=
-  (Abelianization.equivOfComm (H := Gal(L / K))).symm.surjective.comp
+  (Group.Abelianization.equivOfComm (H := Gal(L / K))).symm.surjective.comp
     (localArtinMonoidHom_surjective K L)
 
 /-- The kernel of the actual abelian local Artin homomorphism is the norm
@@ -60,7 +60,7 @@ theorem abelianLocalArtinMonoidHom_ker :
     MonoidHom.coe_comp, Function.comp_apply]
   constructor
   · intro ha
-    apply (Abelianization.equivOfComm (H := Gal(L / K))).symm.injective
+    apply (Group.Abelianization.equivOfComm (H := Gal(L / K))).symm.injective
     simpa using ha
   · intro ha
     rw [ha, map_one]
@@ -73,7 +73,7 @@ noncomputable def topologicalAbelianizationEquivSelf :
     QuotientGroup.discreteTopology (isOpen_discrete _)
   let e : TopologicalAbelianization Gal(L / K) ≃* Gal(L / K) :=
     (topologicalAbelianization_finite_equiv K L).symm.trans
-      (Abelianization.equivOfComm (H := Gal(L / K))).symm
+      (Group.Abelianization.equivOfComm (H := Gal(L / K))).symm
   exact
     { e with
       continuous_toFun := continuous_of_discreteTopology
@@ -93,10 +93,10 @@ theorem abelianLocalArtinMap_toMonoidHom :
     (abelianLocalArtinMap K L).toMonoidHom =
       abelianLocalArtinMonoidHom K L := by
   change
-    ((Abelianization.equivOfComm (H := Gal(L / K))).symm).toMonoidHom.comp
+    ((Group.Abelianization.equivOfComm (H := Gal(L / K))).symm).toMonoidHom.comp
         ((topologicalAbelianization_finite_equiv K L).symm.toMonoidHom.comp
           (localArtinMap K L).toMonoidHom) =
-      ((Abelianization.equivOfComm (H := Gal(L / K))).symm).toMonoidHom.comp
+      ((Group.Abelianization.equivOfComm (H := Gal(L / K))).symm).toMonoidHom.comp
         (localArtinMonoidHom K L)
   rw [localArtinMap_toMonoidHom K L]
 

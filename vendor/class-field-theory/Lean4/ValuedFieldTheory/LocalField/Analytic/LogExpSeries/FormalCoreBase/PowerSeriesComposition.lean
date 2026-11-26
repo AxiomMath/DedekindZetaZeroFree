@@ -53,6 +53,8 @@ theorem eq_zero_of_derivative_mul_one_add_X_eq_self
       PowerSeries.derivative f * (1 + PowerSeries.X : PowerSeries A) = f)
     (hc : PowerSeries.constantCoeff f = 0) :
     f = 0 := by
+  haveI : HasUniqueDiv A := ⟨fun _ hn a b h =>
+    eq_of_nsmul_eq_nsmul_of_addCommute hn (AddCommute.all a b) h⟩
   ext n
   induction n with
   | zero =>
@@ -125,6 +127,8 @@ theorem eq_X_of_derivative_eq_one
     (hD : PowerSeries.derivative f = 1)
     (hc : PowerSeries.constantCoeff f = 0) :
     f = PowerSeries.X := by
+  haveI : HasUniqueDiv A := ⟨fun _ hn a b h =>
+    eq_of_nsmul_eq_nsmul_of_addCommute hn (AddCommute.all a b) h⟩
   apply PowerSeries.derivative.ext
   · rw [hD, PowerSeries.derivative_X]
   · simp [hc]

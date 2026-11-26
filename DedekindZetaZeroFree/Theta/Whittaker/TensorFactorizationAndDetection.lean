@@ -14,7 +14,7 @@ variable [∀ j, AddCommGroup (V j)] [∀ j, Module ℂ (V j)]
 variable (e : ∀ j, V j) (bad : Finset J)
 variable (L : RestrictedTensorSimple.Core V e bad →ₗ[ℂ] ℂ)
 
-def coreStageMultilinear (s : RestrictedTensorSimple.Level bad) : MultilinearMap ℂ (fun j : s.val => V j) ℂ :=
+def coreStageMultilinear (s : RestrictedTensorSimple.Level bad) : MultilinearMap (RingHom.id ℂ) (fun j : s.val => V j) ℂ :=
   (L.comp (RestrictedTensorSimple.stageInclusion V e bad s)).compMultilinearMap
     (PiTensorProduct.tprod ℂ)
 

@@ -117,7 +117,7 @@ private theorem compact_reverse_endpoint
   have hden : Differentiable ℂ (denominator (LocalField F q) .minus) := by
     change Differentiable ℂ (fun s => 1 - (residueCardinality (LocalField F q) : ℂ) *
       (r (LocalField F q) s)⁻¹ ^ 6)
-    fun_prop
+    exact (differentiable_const _).sub ((differentiable_const _).mul (hunit.pow 6))
   have hEq : N = fun s => denominator (LocalField F q) .minus s * L s := by
     apply AnalyticOnNhd.eq_of_eventuallyEq
       (Complex.analyticOnNhd_univ_iff_differentiable.mpr hN)

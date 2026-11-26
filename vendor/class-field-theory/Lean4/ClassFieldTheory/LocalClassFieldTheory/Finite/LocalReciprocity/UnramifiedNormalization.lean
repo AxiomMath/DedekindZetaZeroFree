@@ -218,7 +218,7 @@ omit [IsUniformAddGroup L] in
 the arithmetic Frobenius class. -/
 theorem localArtinMonoidHom_localAbstractPrimeFieldUnit :
     localArtinMonoidHom K L (localAbstractPrimeFieldUnit K) =
-      Abelianization.of
+      Group.Abelianization.of
         (arithmeticFrobeniusOfUnramifiedValuation K L) := by
   let i := AlgebraicNumberTheory.separableEmbeddingIntoSeparableClosure K L
   let D := localResidueDatum K
@@ -302,7 +302,7 @@ theorem localArtinMonoidHom_localAbstractPrimeFieldUnit :
     concreteNormResidueSymbolOfEmbedding K L i D v hcf
         (Additive.toMul
           (e.symm (relativeNorm (unramifiedNormalizationAbsoluteUnits K) (unramifiedNormalizationAbstractBase K) S hSB pi))) =
-      Abelianization.of
+      Group.Abelianization.of
         (finiteGaloisAbstractQuotientEquivGaloisGroupOfEmbedding K L i q)
     at hsymbol
   rw [hx, ← localArtinMonoidHom_eq_of_embedding K L i] at hsymbol
@@ -351,13 +351,13 @@ theorem abelianizationEquivNormQuotient_symm_eq_unramifiedLocalReciprocityIso :
     simpa [zsmul_eq_mul] using hm
   have hcanonical :
       (abelianizationEquivNormQuotient K L).symm p =
-        Abelianization.of
+        Group.Abelianization.of
           (arithmeticFrobeniusOfUnramifiedValuation K L) := by
     change localArtinMonoidHom K L (localAbstractPrimeFieldUnit K) = _
     exact localArtinMonoidHom_localAbstractPrimeFieldUnit K L
   have hactual :
       unramifiedLocalReciprocityIso K L p =
-        Abelianization.of
+        Group.Abelianization.of
           (arithmeticFrobeniusOfUnramifiedValuation K L) := by
     change unramifiedLocalReciprocityIso K L
       (normClass K L (localAbstractPrimeFieldUnit K)) =
@@ -390,14 +390,14 @@ theorem localArtinMonoidHom_eq_unramifiedLocalArtinMap :
 theorem localArtinMonoidHom_inverseIntegerRingUniformizerFieldUnit :
     localArtinMonoidHom K L
         (inverseIntegerRingUniformizerFieldUnit K) =
-      Abelianization.of
+      Group.Abelianization.of
         (arithmeticFrobeniusOfUnramifiedValuation K L) := by
   rw [localArtinMonoidHom_eq_unramifiedLocalArtinMap K L]
   change
     unramifiedLocalReciprocityIso K L
         (normClass K L
           (inverseIntegerRingUniformizerFieldUnit K)) =
-      Abelianization.of
+      Group.Abelianization.of
         (arithmeticFrobeniusOfUnramifiedValuation K L)
   exact
     unramifiedLocalReciprocityIso_inverseIntegerRingUniformizerFieldUnit
@@ -406,7 +406,7 @@ theorem localArtinMonoidHom_inverseIntegerRingUniformizerFieldUnit :
 /-- Full unramified Artin formula for the canonical local norm-residue symbol. -/
 theorem localArtinMonoidHom_eq_frobenius_zpow (x : Kˣ) :
     localArtinMonoidHom K L x =
-      (Abelianization.of
+      (Group.Abelianization.of
         (arithmeticFrobeniusOfUnramifiedValuation K L)) ^
           LocalFieldTheory.IsNonarchimedeanLocalField.valuationMap K
             (Additive.ofMul x) := by
@@ -420,7 +420,7 @@ class of arithmetic Frobenius raised to its normalized valuation. -/
 theorem localArtinMap_eq_frobenius_zpow (x : Kˣ) :
     localArtinMap K L x =
       (topologicalAbelianization_finite_equiv K L
-        (Abelianization.of
+        (Group.Abelianization.of
           (arithmeticFrobeniusOfUnramifiedValuation K L))) ^
             LocalFieldTheory.IsNonarchimedeanLocalField.valuationMap K
               (Additive.ofMul x) := by
@@ -430,7 +430,7 @@ theorem localArtinMap_eq_frobenius_zpow (x : Kˣ) :
   change
     (((topologicalAbelianization_finite_equiv K L).symm.toMonoidHom.comp
       (localArtinMap K L).toMonoidHom) x) =
-        (Abelianization.of
+        (Group.Abelianization.of
           (arithmeticFrobeniusOfUnramifiedValuation K L)) ^
             LocalFieldTheory.IsNonarchimedeanLocalField.valuationMap K
               (Additive.ofMul x)
@@ -444,14 +444,14 @@ the topological abelianization. -/
 theorem localArtinMap_localAbstractPrimeFieldUnit :
     localArtinMap K L (localAbstractPrimeFieldUnit K) =
       topologicalAbelianization_finite_equiv K L
-        (Abelianization.of
+        (Group.Abelianization.of
           (arithmeticFrobeniusOfUnramifiedValuation K L)) := by
   apply (topologicalAbelianization_finite_equiv K L).symm.injective
   rw [(topologicalAbelianization_finite_equiv K L).symm_apply_apply]
   change
     (((topologicalAbelianization_finite_equiv K L).symm.toMonoidHom.comp
       (localArtinMap K L).toMonoidHom) (localAbstractPrimeFieldUnit K)) =
-        Abelianization.of
+        Group.Abelianization.of
           (arithmeticFrobeniusOfUnramifiedValuation K L)
   rw [localArtinMap_toMonoidHom]
   exact localArtinMonoidHom_localAbstractPrimeFieldUnit K L
@@ -461,7 +461,7 @@ theorem localArtinMap_localAbstractPrimeFieldUnit :
 theorem localArtinMap_uniformizer :
     localArtinMap K L (inverseIntegerRingUniformizerFieldUnit K) =
       topologicalAbelianization_finite_equiv K L
-        (Abelianization.of
+        (Group.Abelianization.of
           (arithmeticFrobeniusOfUnramifiedValuation K L)) := by
   rw [localArtinMap_eq_frobenius_zpow,
     LocalFieldTheory.IsNonarchimedeanLocalField.valuationMap_apply,
@@ -513,7 +513,7 @@ theorem abelianLocalArtinMonoidHom_eq_frobenius_zpow (x : Kˣ) :
       (fun σ : Gal(L / K) =>
         σ ^ LocalFieldTheory.IsNonarchimedeanLocalField.valuationMap K
           (Additive.ofMul x))
-      ((Abelianization.equivOfComm (H := Gal(L / K))).symm_apply_apply
+      ((Group.Abelianization.equivOfComm (H := Gal(L / K))).symm_apply_apply
         (arithmeticFrobeniusOfUnramifiedValuation K L))
 
 end AbelianUnramifiedPrimeClass

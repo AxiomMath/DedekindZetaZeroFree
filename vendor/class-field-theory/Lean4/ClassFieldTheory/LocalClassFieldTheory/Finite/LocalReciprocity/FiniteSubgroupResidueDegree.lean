@@ -394,6 +394,16 @@ theorem localResidueDatum_residueDegree_eq_selectedResidueFinrank
   norm_cast
   simpa only [Subgroup.relIndex_top_right] using hindex
 
+/-! Shortcut instance: since the Mathlib bump, instance search for this algebraicity
+first tries quotient-module instances against the (reducible) residue-field quotient,
+which exhausts the heartbeat budget in the statement below. -/
+
+local instance (priority := high) decompositionResidueIsAlgebraic_finiteSubgroupResidueDegree
+    (K : Type*) {L : Type*} [Field K] [Field L] [Algebra K L] [IsGalois K L]
+    (A : ValuationSubring L) :
+    Algebra.IsAlgebraic (decompositionResidueField K A) (selectedResidueField A) :=
+  (decompositionResidueExtension_normal (K := K) A).toIsAlgebraic
+
 /-- **Finite local reciprocity, pointwise fixed-field degree comparison.**
 The normalized degree on a finite abstract field is the ordinary intrinsic
 absolute residue degree after changing the finite residue base to the

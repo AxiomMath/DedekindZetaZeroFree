@@ -14,6 +14,10 @@ open scoped NumberField Classical Pointwise
 namespace ActualRowTransfer
 variable {F : Type} [Field F] [NumberField F]
 
+local instance instContinuousDivG (A : SArithmeticData F) : ContinuousDiv A.G :=
+  IsTopologicalGroup.to_continuousDiv
+
+
 def rowIdeal (A : SArithmeticData F) (m : ThetaReflectionData.Row A) : A.Exterior :=
   A.exteriorIdealEquiv.symm ⟨Ideal.span {m.val}, by
     exact fun h => m.property (Ideal.span_singleton_eq_bot.mp h)⟩

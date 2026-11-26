@@ -619,7 +619,7 @@ theorem expSeries_logOnePlusSeries_eq_one_add_ofWithZeroValuation_scaled_of_thre
   let : Valued K (WithZero (Multiplicative ℤ)) := Valued.mk' v
   let : CompleteSpace K := hcomplete
   have : NonarchimedeanRing K := nonarchimedeanRing_ofWithZeroValuation v
-  let : IsAddTorsionFree K := IsAddTorsionFree.of_module_rat K
+  let : HasUniqueDiv K := HasUniqueDiv.of_module_rat K
   by_cases hx : x = 0
   · subst x
     simp
@@ -720,7 +720,7 @@ theorem logOnePlusSeries_expSeries_sub_one_eq_self_ofWithZeroValuation_scaled_of
   let : Valued K (WithZero (Multiplicative ℤ)) := Valued.mk' v
   let : CompleteSpace K := hcomplete
   have : NonarchimedeanRing K := nonarchimedeanRing_ofWithZeroValuation v
-  let : IsAddTorsionFree K := IsAddTorsionFree.of_module_rat K
+  let : HasUniqueDiv K := HasUniqueDiv.of_module_rat K
   by_cases hx : x = 0
   · subst x
     simp

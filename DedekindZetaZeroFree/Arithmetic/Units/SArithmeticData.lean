@@ -50,6 +50,18 @@ abbrev G (A : SArithmeticData F) :=
   ((w : InfinitePlace F) → w.Completionˣ) ×
     ((v : {v // v ∈ A.Sf}) → (v.val.adicCompletion F)ˣ)
 
+instance instCommGroupG (A : SArithmeticData F) : CommGroup A.G :=
+  inferInstanceAs (CommGroup (((w : InfinitePlace F) → w.Completionˣ) ×
+    ((v : {v // v ∈ A.Sf}) → (v.val.adicCompletion F)ˣ)))
+
+instance instTopologicalSpaceG (A : SArithmeticData F) : TopologicalSpace A.G :=
+  inferInstanceAs (TopologicalSpace (((w : InfinitePlace F) → w.Completionˣ) ×
+    ((v : {v // v ∈ A.Sf}) → (v.val.adicCompletion F)ˣ)))
+
+instance instIsTopologicalGroupG (A : SArithmeticData F) : IsTopologicalGroup A.G :=
+  inferInstanceAs (IsTopologicalGroup (((w : InfinitePlace F) → w.Completionˣ) ×
+    ((v : {v // v ∈ A.Sf}) → (v.val.adicCompletion F)ˣ)))
+
 def diagonal (A : SArithmeticData F) : Fˣ →* A.G where
   toFun u := (fun w => Units.map (algebraMap F w.Completion).toMonoidHom u,
     fun v => Units.map (algebraMap F (v.val.adicCompletion F)).toMonoidHom u)
@@ -65,9 +77,14 @@ def G1 (A : SArithmeticData F) : Subgroup A.G where
   one_mem' := by simp [norm]
   mul_mem' := by
     intro x y hx hy
-    simp only [Set.mem_setOf_eq] at hx hy ⊢
-    simpa [norm, norm_mul, mul_pow, Finset.prod_mul_distrib, mul_mul_mul_comm] using
-      congrArg₂ (· * ·) hx hy
+    change A.norm x = 1 at hx
+    change A.norm y = 1 at hy
+    change A.norm (x * y) = 1
+    have hxy : A.norm (x * y) = A.norm x * A.norm y := by
+      simp only [norm, Prod.fst_mul, Prod.snd_mul, Pi.mul_apply, Units.val_mul, norm_mul,
+        mul_pow, Finset.prod_mul_distrib]
+      ring
+    rw [hxy, hx, hy, one_mul]
   inv_mem' := by
     intro x hx
     simp only [Set.mem_setOf_eq] at hx ⊢
@@ -172,7 +189,9 @@ theorem norm_diagonal_unit (A : SArithmeticData F) (u : A.U) :
   rw [SUnitGroup.finprod_finitePlace_eq_prod_adicAbv A.Sf u] at hp
   have hinf (w : InfinitePlace F) (x : F) :
       ‖algebraMap F w.Completion x‖ = w x := by
-    exact InfinitePlace.Completion.norm_coe w ((WithAbs.equiv w.1).symm x)
+    rw [AbsoluteValue.Completion.algebraMap_def, AbsoluteValue.Completion.norm_coe,
+      WithAbs.algebraMap_right_apply, WithAbs.ofAbs_toAbs, Algebra.algebraMap_self_apply]
+    rfl
   have hfin (v : HeightOneSpectrum (𝓞 F)) (x : F) :
       ‖algebraMap F (v.adicCompletion F) x‖ = HeightOneSpectrum.adicAbv F v x := by
     exact FinitePlace.norm_embedding _ _
@@ -194,7 +213,9 @@ theorem generator_norm (A : SArithmeticData F) (I : A.Exterior) (r : A.R)
   have hp := SIntegerLocalization.generator_norm A.Sf I.val I.property.1 I.property.2 r hr.1 hr.2
   have hinf (w : InfinitePlace F) (x : F) :
       ‖algebraMap F w.Completion x‖ = w x := by
-    exact InfinitePlace.Completion.norm_coe w ((WithAbs.equiv w.1).symm x)
+    rw [AbsoluteValue.Completion.algebraMap_def, AbsoluteValue.Completion.norm_coe,
+      WithAbs.algebraMap_right_apply, WithAbs.ofAbs_toAbs, Algebra.algebraMap_self_apply]
+    rfl
   have hfin (v : HeightOneSpectrum (𝓞 F)) (x : F) :
       ‖algebraMap F (v.adicCompletion F) x‖ = HeightOneSpectrum.adicAbv F v x := by
     exact FinitePlace.norm_embedding _ _

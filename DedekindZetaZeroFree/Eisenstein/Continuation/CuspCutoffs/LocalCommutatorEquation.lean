@@ -25,7 +25,7 @@ abbrev d := Module.finrank ℚ F / 2
 
 private theorem smooth_height (d : ℕ) (i : Fin d) :
     ContDiff ℝ (⊤ : ℕ∞) (fun z : KPArch.Space d => KPArch.height (z i)) := by
-  exact (contDiff_snd.comp (contDiff_apply ℝ KPArch.H3 i)).exp
+  exact (contDiff_snd.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i)).exp
 private theorem smooth_density (d : ℕ) :
     ContDiff ℝ (⊤ : ℕ∞) (KPArch.volumeDensity d) := by
   unfold KPArch.volumeDensity

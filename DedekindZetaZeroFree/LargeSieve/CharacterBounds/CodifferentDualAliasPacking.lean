@@ -508,10 +508,10 @@ theorem trace_coordinates_and_finite_annihilator
     let Q : PoissonFinite.Space F S → ℂ := fun x =>
       ∏ v : S, (localFiniteCharacter F v.val (x v) : ℂ)
     have hP : Continuous P := by
-      exact continuous_finset_prod _ (fun v _ => continuous_subtype_val.comp
+      exact continuous_finsetProd _ (fun v _ => continuous_subtype_val.comp
         ((he v).comp (continuous_apply v)))
     have hQ : Continuous Q := by
-      exact continuous_finset_prod _ (fun v _ => continuous_subtype_val.comp
+      exact continuous_finsetProd _ (fun v _ => continuous_subtype_val.comp
         ((continuous_localFiniteCharacter F v.val).comp (continuous_apply v)))
     have hPQ : P = Q := by
       apply (PoissonSFiniteDensity.diagonal_denseRange F S).equalizer hP hQ
@@ -569,7 +569,8 @@ theorem trace_coordinates_and_finite_annihilator
       change InfiniteAdeleRing.ringEquiv_mixedSpace F ((sLocalDiagonal F S) (g ν)).1 =
         mixedEmbedding F (g ν)
       rw [InfiniteAdeleRing.ringEquiv_mixedSpace_apply]
-      ext v <;> simp [sLocalDiagonal_infinite, mixedEmbedding]
+      ext v <;> simp [sLocalDiagonal_infinite, mixedEmbedding,
+        AbsoluteValue.Completion.algebraMap_def, WithAbs.algebraMap_right_apply]
     rw [hd]
     exact hcoord ν
   have hne : ∀ v : S, ∃ y, e v y ≠ 1 := by

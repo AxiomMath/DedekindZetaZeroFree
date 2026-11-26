@@ -883,7 +883,7 @@ lemma piece_compact (D : GroupChart F ζ hζ U R P H)
   rw [heq]
   apply (hK.prod hu).image_of_continuousOn
   exact ((D.groupLift_continuous.mono hKT).comp continuous_fst.continuousOn
-    (fun p hp => hp.1)).mul
+    (fun p (hp : p ∈ K ×ˢ (Set.univ : Set U.toOpenSubgroup)) => hp.1)).mul
       ((continuous_subtype_val.comp continuous_subtype_val).comp continuous_snd).continuousOn
 lemma piece_nhds (D : GroupChart F ζ hζ U R P H)
     (K : Set (KPContLocalNorm.Space (groupDimension F)))

@@ -233,9 +233,9 @@ finite abstract base. -/
     (hAB : A = B)
     (P : FiniteGaloisSubextension A.field)
     {X : Type} [AddGroup X]
-    (e : Additive (Abelianization P.extensionQuotient) ≃+ X) :
+    (e : Additive (Group.Abelianization P.extensionQuotient) ≃+ X) :
     Additive
-        (Abelianization
+        (Group.Abelianization
           (Eq.mp
             (congrArg
               (fun Y : FiniteAbstractField G =>
@@ -253,8 +253,8 @@ subextensions over a fixed abstract base. -/
     {P Q : FiniteGaloisSubextension K}
     (hPQ : P = Q)
     {X : Type} [AddGroup X]
-    (e : Additive (Abelianization P.extensionQuotient) ≃+ X) :
-    Additive (Abelianization Q.extensionQuotient) ≃+ X := by
+    (e : Additive (Group.Abelianization P.extensionQuotient) ≃+ X) :
+    Additive (Group.Abelianization Q.extensionQuotient) ≃+ X := by
   cases hPQ
   exact e
 
@@ -305,7 +305,7 @@ private theorem extensionQuotientMulEquiv_transportFiniteGalois_mk
   cases hPQ
   rfl
 
-/-- Abelianization commutes with simultaneous transport of the abstract base
+/-- Group.Abelianization commutes with simultaneous transport of the abstract base
 and its finite Galois subextension. -/
 private theorem abelianizedCanonicalEquiv_transportFiniteGalois
     {G : Type u} [Group G] [TopologicalSpace G]
@@ -327,11 +327,11 @@ private theorem abelianizedCanonicalEquiv_transportFiniteGalois
           hAB P
           (MulEquiv.toAdditive
             (e.abelianizationCongr.trans
-              (Abelianization.equivOfComm : X ≃* Abelianization X).symm))) =
+              (Group.Abelianization.equivOfComm : X ≃* Group.Abelianization X).symm))) =
       MulEquiv.toAdditive
         (((extensionQuotientMulEquiv_transportFiniteGalois
             hAB P hPQ).trans e).abelianizationCongr.trans
-          (Abelianization.equivOfComm : X ≃* Abelianization X).symm) := by
+          (Group.Abelianization.equivOfComm : X ≃* Group.Abelianization X).symm) := by
   cases hAB
   cases hPQ
   rfl
@@ -345,7 +345,7 @@ dependent base, extension, quotient and comparison maps move together. -/
     {C X : Type} [AddGroup C] [AddGroup X]
     (eIdele : C ≃+
       ambientFixedAddSubgroup rationalIdeleClassRepresentation K.field)
-    (eGalois : Additive (Abelianization L.extensionQuotient) ≃+ X)
+    (eGalois : Additive (Group.Abelianization L.extensionQuotient) ≃+ X)
     (c : C) : X := by
   letI :
       Finite
@@ -373,7 +373,7 @@ private theorem rationalFiniteNormResidueValue_transportBase
     {C X : Type} [AddGroup C] [AddGroup X]
     (eIdele : C ≃+
       ambientFixedAddSubgroup rationalIdeleClassRepresentation A.field)
-    (eGalois : Additive (Abelianization P.extensionQuotient) ≃+ X)
+    (eGalois : Additive (Group.Abelianization P.extensionQuotient) ≃+ X)
     (c : C) :
     rationalFiniteNormResidueValue A P eIdele eGalois c =
       rationalFiniteNormResidueValue B
@@ -408,7 +408,7 @@ private theorem rationalFiniteNormResidueValue_transportExtension
     {C X : Type} [AddGroup C] [AddGroup X]
     (eIdele : C ≃+
       ambientFixedAddSubgroup rationalIdeleClassRepresentation K.field)
-    (eGalois : Additive (Abelianization P.extensionQuotient) ≃+ X)
+    (eGalois : Additive (Group.Abelianization P.extensionQuotient) ≃+ X)
     (c : C) :
     rationalFiniteNormResidueValue K P eIdele eGalois c =
       rationalFiniteNormResidueValue K Q eIdele
@@ -425,16 +425,16 @@ private theorem abelianizationCongrToComm_apply
     (e : Q ≃* R) (q : Q) :
     MulEquiv.toAdditive
         (e.abelianizationCongr.trans
-          (Abelianization.equivOfComm : R ≃* Abelianization R).symm)
-        (Additive.ofMul (Abelianization.of q)) =
+          (Group.Abelianization.equivOfComm : R ≃* Group.Abelianization R).symm)
+        (Additive.ofMul (Group.Abelianization.of q)) =
       Additive.ofMul (e q) := by
   apply Additive.toMul.injective
   change
-    (Abelianization.equivOfComm : R ≃* Abelianization R).symm
-        (e.abelianizationCongr (Abelianization.of q)) = e q
+    (Group.Abelianization.equivOfComm : R ≃* Group.Abelianization R).symm
+        (e.abelianizationCongr (Group.Abelianization.of q)) = e q
   rw [abelianizationCongr_of]
   exact
-    (Abelianization.equivOfComm : R ≃* Abelianization R).symm_apply_apply _
+    (Group.Abelianization.equivOfComm : R ≃* Group.Abelianization R).symm_apply_apply _
 
 /-- Evaluation of the canonical quotient from the abelianization of a
 commutative group. -/
@@ -442,15 +442,15 @@ private theorem commutativeAbelianizationEquiv_apply
     {Q R : Type*} [CommGroup Q] [Group R]
     (e : Q ≃* R) (q : Q) :
     MulEquiv.toAdditive
-        ((Abelianization.equivOfComm : Q ≃* Abelianization Q).symm.trans e)
-        (Additive.ofMul (Abelianization.of q)) =
+        ((Group.Abelianization.equivOfComm : Q ≃* Group.Abelianization Q).symm.trans e)
+        (Additive.ofMul (Group.Abelianization.of q)) =
       Additive.ofMul (e q) := by
   apply Additive.toMul.injective
   change
-    e ((Abelianization.equivOfComm : Q ≃* Abelianization Q).symm
-      (Abelianization.of q)) = e q
+    e ((Group.Abelianization.equivOfComm : Q ≃* Group.Abelianization Q).symm
+      (Group.Abelianization.of q)) = e q
   exact congrArg e
-    ((Abelianization.equivOfComm : Q ≃* Abelianization Q).symm_apply_apply q)
+    ((Group.Abelianization.equivOfComm : Q ≃* Group.Abelianization Q).symm_apply_apply q)
 
 section AbstractFixedFieldInclusion
 
@@ -664,7 +664,7 @@ private theorem rationalFiniteNormResidueValue_transportToAbstractExtension
     {C X : Type} [AddGroup C] [AddGroup X]
     (eIdele : C ≃+
       ambientFixedAddSubgroup rationalIdeleClassRepresentation A.field)
-    (eGalois : Additive (Abelianization L.extensionQuotient) ≃+ X)
+    (eGalois : Additive (Group.Abelianization L.extensionQuotient) ≃+ X)
     (c : C) :
     rationalFiniteNormResidueValue A L eIdele eGalois c =
       rationalFiniteNormResidueValue H P.toFiniteGaloisExtension
@@ -1506,7 +1506,7 @@ embedded finite Galois package to the canonical one. -/
       (SeparableClosure ℚ ≃ₐ[ℚ] SeparableClosure ℚ))
     (P : FiniteAbelianSubextension H.field) :
     Additive
-        (Abelianization
+        (Group.Abelianization
           P.toFiniteGaloisExtension.extensionQuotient) ≃+
       Additive
         (Gal(
@@ -1551,7 +1551,7 @@ opaque extension-quotient endpoint. -/
       (SeparableClosure ℚ ≃ₐ[ℚ] SeparableClosure ℚ))
     (P : FiniteAbelianSubextension H.field) :
     Additive
-        (Abelianization
+        (Group.Abelianization
           P.toFiniteGaloisExtension.extensionQuotient) ≃+
       Additive
         (Gal(
@@ -1567,7 +1567,7 @@ opaque extension-quotient endpoint. -/
     MulEquiv.toAdditive
       ((MulEquiv.abelianizationCongr
         (abstractFixedFieldInclusionTransportedExtensionQuotientEquiv H P)).trans
-          (Abelianization.equivOfComm : Q ≃* Abelianization Q).symm)
+          (Group.Abelianization.equivOfComm : Q ≃* Group.Abelianization Q).symm)
 
 /-- Pointwise opaque value of the transported abelianized equivalence. -/
  noncomputable def
@@ -1576,7 +1576,7 @@ opaque extension-quotient endpoint. -/
       (SeparableClosure ℚ ≃ₐ[ℚ] SeparableClosure ℚ))
     (P : FiniteAbelianSubextension H.field)
     (z : Additive
-      (Abelianization P.toFiniteGaloisExtension.extensionQuotient)) :
+      (Group.Abelianization P.toFiniteGaloisExtension.extensionQuotient)) :
     Additive
       (Gal(
         (abstractRelativeFixedField
@@ -1592,7 +1592,7 @@ from the transported quotient endpoint. -/
       (SeparableClosure ℚ ≃ₐ[ℚ] SeparableClosure ℚ))
     (P : FiniteAbelianSubextension H.field)
     (z : Additive
-      (Abelianization P.toFiniteGaloisExtension.extensionQuotient)) :
+      (Group.Abelianization P.toFiniteGaloisExtension.extensionQuotient)) :
     Additive
       (Gal(
         (abstractRelativeFixedField
@@ -1608,7 +1608,7 @@ abelianization comparison. -/
       (SeparableClosure ℚ ≃ₐ[ℚ] SeparableClosure ℚ))
     (P : FiniteAbelianSubextension H.field)
     (z : Additive
-      (Abelianization P.toFiniteGaloisExtension.extensionQuotient)) :
+      (Group.Abelianization P.toFiniteGaloisExtension.extensionQuotient)) :
     Additive
       (Gal(
         (abstractRelativeFixedField
@@ -1624,7 +1624,7 @@ private theorem
       (SeparableClosure ℚ ≃ₐ[ℚ] SeparableClosure ℚ))
     (P : FiniteAbelianSubextension H.field)
     (z : Additive
-      (Abelianization P.toFiniteGaloisExtension.extensionQuotient)) :
+      (Group.Abelianization P.toFiniteGaloisExtension.extensionQuotient)) :
     abstractFixedFieldInclusionTransportedAbelianizedValue H P z =
       abstractFixedFieldInclusionTransportedCanonicalAbelianizedValue
         H P z := by
@@ -1676,7 +1676,7 @@ private theorem
     (P : FiniteAbelianSubextension H.field)
     (q : P.toFiniteGaloisExtension.extensionQuotient) :
     abstractFixedFieldInclusionTransportedCanonicalAbelianizedValue H P
-        (Additive.ofMul (Abelianization.of q)) =
+        (Additive.ofMul (Group.Abelianization.of q)) =
       Additive.ofMul
         (abstractFixedFieldInclusionTransportedExtensionQuotientValue
           H P q) := by
@@ -1696,7 +1696,7 @@ private theorem
     (P : FiniteAbelianSubextension H.field)
     (q : P.toFiniteGaloisExtension.extensionQuotient) :
     abstractFixedFieldInclusionCanonicalAbelianizedValue H P
-        (Additive.ofMul (Abelianization.of q)) =
+        (Additive.ofMul (Group.Abelianization.of q)) =
       Additive.ofMul
         (abstractFixedFieldInclusionCanonicalExtensionQuotientValue
           H P q) := by
@@ -1709,12 +1709,12 @@ private theorem
     abstractFixedFieldInclusionCanonicalExtensionQuotientEquiv H P
   change
     MulEquiv.toAdditive
-        ((Abelianization.equivOfComm :
+        ((Group.Abelianization.equivOfComm :
           P.toFiniteGaloisExtension.extensionQuotient ≃*
-            Abelianization
+            Group.Abelianization
               P.toFiniteGaloisExtension.extensionQuotient).symm.trans
           qAbstractRaw)
-        (Additive.ofMul (Abelianization.of q)) =
+        (Additive.ofMul (Group.Abelianization.of q)) =
       Additive.ofMul (qAbstractRaw q)
   exact commutativeAbelianizationEquiv_apply qAbstractRaw q
 
@@ -1726,12 +1726,12 @@ private theorem
       (SeparableClosure ℚ ≃ₐ[ℚ] SeparableClosure ℚ))
     (P : FiniteAbelianSubextension H.field)
     (z : Additive
-      (Abelianization P.toFiniteGaloisExtension.extensionQuotient)) :
+      (Group.Abelianization P.toFiniteGaloisExtension.extensionQuotient)) :
     abstractFixedFieldInclusionTransportedCanonicalAbelianizedValue H P z =
       abstractFixedFieldInclusionCanonicalAbelianizedValue H P z := by
   let q : P.toFiniteGaloisExtension.extensionQuotient :=
     Quotient.out z.toMul
-  have hz : Additive.ofMul (Abelianization.of q) = z := by
+  have hz : Additive.ofMul (Group.Abelianization.of q) = z := by
     apply Additive.ext
     exact Quotient.out_eq' z.toMul
   rw [← hz]
@@ -1763,7 +1763,7 @@ private theorem
       (SeparableClosure ℚ ≃ₐ[ℚ] SeparableClosure ℚ))
     (P : FiniteAbelianSubextension H.field)
     (z : Additive
-      (Abelianization P.toFiniteGaloisExtension.extensionQuotient)) :
+      (Group.Abelianization P.toFiniteGaloisExtension.extensionQuotient)) :
     abstractFixedFieldInclusionTransportedAbelianizedValue H P z =
       abstractFixedFieldInclusionCanonicalAbelianizedValue H P z :=
   (abstractFixedFieldInclusionTransportedAbelianizedValue_eq_canonical
@@ -1933,7 +1933,7 @@ private theorem rationalFiniteNormResidueValue_congr_apply
     (eIdele eIdele' : C ≃+
       ambientFixedAddSubgroup rationalIdeleClassRepresentation K.field)
     (eGalois eGalois' :
-      Additive (Abelianization L.extensionQuotient) ≃+ X)
+      Additive (Group.Abelianization L.extensionQuotient) ≃+ X)
     (c : C)
     (heIdele : eIdele c = eIdele' c)
     (heGalois : ∀ z, eGalois z = eGalois' z) :
@@ -2362,7 +2362,7 @@ theorem
     [FiniteDimensional K' L'] [IsAbelianGalois K' L']
     (j : L' →ₐ[ℚ] SeparableClosure ℚ)
     (z :
-      Abelianization
+      Group.Abelianization
         (numberFieldEmbeddedFiniteGaloisSubextension
           K' L' j).extensionQuotient) :
     let jLower : L →ₐ[ℚ] SeparableClosure ℚ :=
@@ -2461,14 +2461,14 @@ theorem
       K' L' j).extensionQuotientMk_surjective q
   change
     restrictActual
-        ((Abelianization.equivOfComm (H := Gal(L' / K'))).symm
+        ((Group.Abelianization.equivOfComm (H := Gal(L' / K'))).symm
           (qUpperRaw.abelianizationCongr
-            (Abelianization.of (QuotientGroup.mk σ)))) =
-      (Abelianization.equivOfComm (H := Gal(L / K))).symm
+            (Group.Abelianization.of (QuotientGroup.mk σ)))) =
+      (Group.Abelianization.equivOfComm (H := Gal(L / K))).symm
         (qLowerRaw.abelianizationCongr
           (normResidueNaturalityAbelianizedRestriction
             H H' J J' hJH hJ'H' hH'H hJ'J
-            (Abelianization.of (QuotientGroup.mk σ))))
+            (Group.Abelianization.of (QuotientGroup.mk σ))))
   rw [normResidueNaturalityAbelianizedRestriction_of_mk,
     abelianizationCongr_of, abelianizationCongr_of]
   change
@@ -2920,13 +2920,13 @@ theorem normResidueSymbol_restriction_sameBase
       FiniteNormQuotient A K.field M hMK
     let AL : Type :=
       Additive
-        (Abelianization
+        (Group.Abelianization
           (K.field.toSubgroup ⧸
             CyclicCohomology.extensionSubgroup
               K.field L (hLM.trans hMK)))
     let AM : Type :=
       Additive
-        (Abelianization
+        (Group.Abelianization
           (K.field.toSubgroup ⧸
             CyclicCohomology.extensionSubgroup K.field M hMK))
     let restriction :
@@ -2975,13 +2975,13 @@ theorem normResidueSymbol_restriction_sameBase
     FiniteNormQuotient A K.field M hMK
   let AL : Type :=
     Additive
-      (Abelianization
+      (Group.Abelianization
         (K.field.toSubgroup ⧸
           CyclicCohomology.extensionSubgroup
             K.field L (hLM.trans hMK)))
   let AM : Type :=
     Additive
-      (Abelianization
+      (Group.Abelianization
         (K.field.toSubgroup ⧸
           CyclicCohomology.extensionSubgroup K.field M hMK))
   let restriction :

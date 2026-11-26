@@ -80,7 +80,7 @@ theorem continuous_radial (P : Packet R Q) : Continuous (radial P) := by
     simp [radial, Set.indicator, Set.mem_pi]
   rw [he]
   apply (hi.continuous_indicator continuous_const).comp continuous_snd |>.mul
-  apply continuous_finset_prod
+  apply continuous_finsetProd
   intro w _
   have ht : Continuous (fun y : R.A.G => ‖(y.1 w : w.Completion)‖ ^ 2) :=
     ((Units.continuous_val.comp ((continuous_apply w).comp continuous_fst)).norm).pow 2

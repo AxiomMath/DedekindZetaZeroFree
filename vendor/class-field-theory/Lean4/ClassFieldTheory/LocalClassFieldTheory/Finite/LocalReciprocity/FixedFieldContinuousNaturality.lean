@@ -42,7 +42,7 @@ quotient is opaque to typeclass search, so expose the canonical topology
 locally while constructing the continuous finite maps. -/
  local instance abelianizationQuotientTopologicalSpace
     (G : Type*) [Group G] [TopologicalSpace G] :
-    TopologicalSpace (Abelianization G) := by
+    TopologicalSpace (Group.Abelianization G) := by
   change TopologicalSpace (G ⧸ commutator G)
   exact QuotientGroup.instTopologicalSpace (commutator G)
 
@@ -65,7 +65,7 @@ noncomputable def abstractFixedFieldNormResidueMonoidHom
         extensionSubgroup (baseField (Gal(Ω / k))) K
           (le_baseField K))] :
     (abstractFixedField k Ω K)ˣ →*
-      Abelianization
+      Group.Abelianization
         Gal(abstractRelativeFixedField k Ω hLK /
           abstractFixedField k Ω K) :=
   MonoidHom.toAdditive.symm
@@ -99,10 +99,10 @@ noncomputable def abstractFixedFieldAbelianizedRestrictionMonoidHom
     (hL'L : L'.toSubgroup ≤ L.toSubgroup)
     [hLnormal : (extensionSubgroup K L hLK).Normal]
     [hL'normal : (extensionSubgroup K' L' hL'K').Normal] :
-    Abelianization
+    Group.Abelianization
         Gal(abstractRelativeFixedField k Ω hL'K' /
           abstractFixedField k Ω K') →*
-      Abelianization
+      Group.Abelianization
         Gal(abstractRelativeFixedField k Ω hLK /
           abstractFixedField k Ω K) :=
   MonoidHom.toAdditive.symm
@@ -126,11 +126,11 @@ noncomputable def abstractFixedFieldAbelianizedTransferMonoidHom
         (K'.toSubgroup ⧸ extensionSubgroup K' L hLK') :=
       FiniteGaloisSubextension.finite_extension_over_intermediate
         (hLK'.trans hK'K) hK'K hLK'
-    Abelianization
+    Group.Abelianization
         Gal(abstractRelativeFixedField k Ω
             (hLK'.trans hK'K) /
           abstractFixedField k Ω K) →*
-      Abelianization
+      Group.Abelianization
         Gal(abstractRelativeFixedField k Ω hLK' /
           abstractFixedField k Ω K') :=
   MonoidHom.toAdditive.symm
@@ -293,7 +293,7 @@ noncomputable def abstractFixedFieldNormResidueMap
     letI : NontriviallyNormedField (abstractFixedField k Ω K) :=
       finiteExtensionSpectralNormedField k (abstractFixedField k Ω K)
     (abstractFixedField k Ω K)ˣ →ₜ*
-      Abelianization
+      Group.Abelianization
         Gal(abstractRelativeFixedField k Ω hLK /
           abstractFixedField k Ω K) := by
   let F := abstractFixedField k Ω K
@@ -311,14 +311,14 @@ noncomputable def abstractFixedFieldNormResidueMap
       k Ω K L hLK hKabsolute hfinite
   letI : IsGalois F E :=
     abstractRelativeFixedField_isGalois k Ω K L hLK hnormal
-  letI : DiscreteTopology (Abelianization Gal(E / F)) :=
+  letI : DiscreteTopology (Group.Abelianization Gal(E / F)) :=
     QuotientGroup.discreteTopology (isOpen_discrete _)
   let f := abstractFixedFieldNormResidueMonoidHom
     k Ω D v hcf K L hLK
   refine { f with continuous_toFun := ?_ }
   apply continuous_of_continuousAt_one f
   rw [ContinuousAt, map_one,
-    @nhds_discrete (Abelianization Gal(E / F)) _ _, Filter.tendsto_pure]
+    @nhds_discrete (Group.Abelianization Gal(E / F)) _ _, Filter.tendsto_pure]
   have hopen : IsOpen (f.ker : Set Fˣ) := by
     rw [abstractFixedFieldNormResidueMonoidHom_ker
       k Ω D v hcf K L hLK]
@@ -442,10 +442,10 @@ noncomputable def abstractFixedFieldAbelianizedRestrictionMap
       ((baseField (Gal(Ω / k))).toSubgroup ⧸
         extensionSubgroup (baseField (Gal(Ω / k))) K'
           (le_baseField K'))] :
-    Abelianization
+    Group.Abelianization
         Gal(abstractRelativeFixedField k Ω hL'K' /
           abstractFixedField k Ω K') →ₜ*
-      Abelianization
+      Group.Abelianization
         Gal(abstractRelativeFixedField k Ω hLK /
           abstractFixedField k Ω K) := by
   let F' := abstractFixedField k Ω K'
@@ -456,7 +456,7 @@ noncomputable def abstractFixedFieldAbelianizedRestrictionMap
   letI : IsGalois F' E' :=
     abstractRelativeFixedField_isGalois
       k Ω K' L' hL'K' hL'normal
-  letI : DiscreteTopology (Abelianization Gal(E' / F')) :=
+  letI : DiscreteTopology (Group.Abelianization Gal(E' / F')) :=
     QuotientGroup.discreteTopology (isOpen_discrete _)
   let f := abstractFixedFieldAbelianizedRestrictionMonoidHom
     k Ω K K' L L' hLK hL'K' hK'K hL'L
@@ -484,11 +484,11 @@ noncomputable def abstractFixedFieldAbelianizedTransferMap
         (K'.toSubgroup ⧸ extensionSubgroup K' L hLK') :=
       FiniteGaloisSubextension.finite_extension_over_intermediate
         (hLK'.trans hK'K) hK'K hLK'
-    Abelianization
+    Group.Abelianization
         Gal(abstractRelativeFixedField k Ω
             (hLK'.trans hK'K) /
           abstractFixedField k Ω K) →ₜ*
-      Abelianization
+      Group.Abelianization
         Gal(abstractRelativeFixedField k Ω hLK' /
           abstractFixedField k Ω K') := by
   letI : (extensionSubgroup K' L hLK').Normal :=
@@ -507,7 +507,7 @@ noncomputable def abstractFixedFieldAbelianizedTransferMap
   letI : IsGalois F E :=
     abstractRelativeFixedField_isGalois
       k Ω K L (hLK'.trans hK'K) hLnormal
-  letI : DiscreteTopology (Abelianization Gal(E / F)) :=
+  letI : DiscreteTopology (Group.Abelianization Gal(E / F)) :=
     QuotientGroup.discreteTopology (isOpen_discrete _)
   let f := abstractFixedFieldAbelianizedTransferMonoidHom
     k Ω K K' L hLK' hK'K
@@ -532,7 +532,7 @@ noncomputable def lowerNormResidueMap
       finiteExtensionSpectralNormedField k
         (abstractFixedField k (SeparableClosure k) T.lowerBase)
     (abstractFixedField k (SeparableClosure k) T.lowerBase)ˣ →ₜ*
-      Abelianization
+      Group.Abelianization
         Gal(abstractRelativeFixedField k (SeparableClosure k)
             T.lowerTop_le_lowerBase /
           abstractFixedField k (SeparableClosure k) T.lowerBase) := by
@@ -571,7 +571,7 @@ noncomputable def upperNormResidueMap
       finiteExtensionSpectralNormedField k
         (abstractFixedField k (SeparableClosure k) T.upperBase)
     (abstractFixedField k (SeparableClosure k) T.upperBase)ˣ →ₜ*
-      Abelianization
+      Group.Abelianization
         Gal(abstractRelativeFixedField k (SeparableClosure k)
             T.upperTop_le_upperBase /
           abstractFixedField k (SeparableClosure k) T.upperBase) := by
@@ -768,7 +768,7 @@ noncomputable def baseNormResidueMap
       finiteExtensionSpectralNormedField k
         (abstractFixedField k (SeparableClosure k) T.base)
     (abstractFixedField k (SeparableClosure k) T.base)ˣ →ₜ*
-      Abelianization
+      Group.Abelianization
         Gal(abstractRelativeFixedField k (SeparableClosure k)
             (T.top_le_intermediate.trans T.intermediate_le_base) /
           abstractFixedField k (SeparableClosure k) T.base) := by
@@ -810,7 +810,7 @@ noncomputable def intermediateNormResidueMap
       finiteExtensionSpectralNormedField k
         (abstractFixedField k (SeparableClosure k) T.intermediate)
     (abstractFixedField k (SeparableClosure k) T.intermediate)ˣ →ₜ*
-      Abelianization
+      Group.Abelianization
         Gal(abstractRelativeFixedField k (SeparableClosure k)
             T.top_le_intermediate /
           abstractFixedField k (SeparableClosure k) T.intermediate) := by

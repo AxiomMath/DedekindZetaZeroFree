@@ -227,8 +227,8 @@ theorem infinitePlaceTensorRingEquivAbove_tmul
     infinitePlaceTensorRingEquivAbove
         (K := K) (L := L) w
         (a ⊗ₜ[K] x) W =
-      NumberField.LiesOver.completionMap
-          (v := w) (w := W.1) a *
+      AbsoluteValue.Completion.map
+          w.1 W.1.1 a *
         algebraMap L W.1.Completion x := by
   let : W.1.1.LiesOver w.1 :=
     ⟨congrArg (fun q : InfinitePlace K => q.1) W.2⟩
@@ -240,8 +240,8 @@ theorem infinitePlaceTensorRingEquivAbove_tmul
           ((infinitePlaceCompletionAlgEquiv w a) ⊗ₜ[K] x)
           (infinitePlaceAboveToExtension
             (K := K) (L := L) w W)) =
-      NumberField.LiesOver.completionMap
-          (v := w) (w := W.1) a *
+      AbsoluteValue.Completion.map
+          w.1 W.1.1 a *
         algebraMap L W.1.Completion x
   dsimp only [infinitePlaceAboveToExtension]
   rw [completionTensorDecomposition_left_tmul_apply, map_mul]
@@ -251,7 +251,10 @@ theorem infinitePlaceTensorRingEquivAbove_tmul
       (K := K) (L := L) w W.1 W.property) a
   apply (InfinitePlace.Completion.equiv W.1).injective
   rw [(InfinitePlace.Completion.equiv W.1).apply_symm_apply]
-  exact h
+  simp only [RingHom.comp_apply, RingEquiv.coe_toRingHom, AlgEquiv.coe_ringEquiv,
+    infinitePlaceCompletionAlgEquiv_apply] at h ⊢
+  simp only [InfinitePlace.Completion.equiv_apply, InfinitePlace.Completion.toCompletion]
+  exact absoluteValue_completionMap_eq_map _ _ _ a
 
 /-- Flatten the products over finite base places and places above them
 to the product over all finite places of the extension field. -/
@@ -890,8 +893,8 @@ theorem relativeAdeleBaseChangeRingEquiv_infiniteComponent_tmul
     letI : W.1.LiesOver v.1 := ⟨rfl⟩
     (relativeAdeleBaseChangeRingEquiv
         (K := K) (L := L) (a ⊗ₜ[K] x)).1 W =
-      NumberField.LiesOver.completionMap
-          (v := v) (w := W) (a.1 v) *
+      AbsoluteValue.Completion.map
+          v.1 W.1 (a.1 v) *
         algebraMap L W.Completion x := by
   let v := infinitePlaceBelow (K := K) W
   let : W.1.LiesOver v.1 := ⟨rfl⟩
@@ -899,8 +902,8 @@ theorem relativeAdeleBaseChangeRingEquiv_infiniteComponent_tmul
     infinitePlaceTensorRingEquivAbove
         (K := K) (L := L) v
         (a.1 v ⊗ₜ[K] x) ⟨W, rfl⟩ =
-      NumberField.LiesOver.completionMap
-          (v := v) (w := W) (a.1 v) *
+      AbsoluteValue.Completion.map
+          v.1 W.1 (a.1 v) *
         algebraMap L W.Completion x
   exact
     infinitePlaceTensorRingEquivAbove_tmul

@@ -55,7 +55,8 @@ theorem ideal_smul_top_le_module_jacobson_of_henselianRing
     {R M : Type*} [CommRing R] [AddCommGroup M] [Module R M]
     {I : Ideal R} [HenselianRing R I] :
     I • (⊤ : Submodule R M) ≤ Module.jacobson R M :=
-  ideal_smul_top_le_module_jacobson_of_le_jacobson_bot HenselianRing.jac
+  ideal_smul_top_le_module_jacobson_of_le_jacobson_bot
+    (Ideal.jacobson_bot (R := R) ▸ HenselianRing.jac)
 
 /-- Algebra form of `ideal_smul_top_le_module_jacobson_of_henselianRing`: the
 base Henselian ideal mapped into an algebra lies in the module Jacobson radical
@@ -118,7 +119,7 @@ theorem ideal_map_le_jacobson_bot_of_henselianRing_of_moduleFinite
     [Module.Finite R S] {I : Ideal R} [HenselianRing R I] :
     I.map (algebraMap R S) ≤ Ideal.jacobson (⊥ : Ideal S) :=
   ideal_map_le_jacobson_bot_of_le_jacobson_bot_of_moduleFinite
-    (R := R) (S := S) (I := I) HenselianRing.jac
+    (R := R) (S := S) (I := I) (Ideal.jacobson_bot (R := R) ▸ HenselianRing.jac)
 
 /-- In a Noetherian finite algebra over a Henselian pair, the extended
 Henselian ideal is adically Hausdorff. -/
@@ -129,8 +130,9 @@ theorem isHausdorff_map_algebraMap_of_henselianRing_of_moduleFinite
     IsHausdorff (I.map (algebraMap R S)) S :=
   IsHausdorff.of_le_jacobson
     (R := S) (M := S) (I := I.map (algebraMap R S))
-    (ideal_map_le_jacobson_bot_of_henselianRing_of_moduleFinite
-      (R := R) (S := S) (I := I))
+    (Ideal.jacobson_bot (R := S) ▸
+      ideal_map_le_jacobson_bot_of_henselianRing_of_moduleFinite
+        (R := R) (S := S) (I := I))
 
 /-- Pulling back an adic power submodule along a linear equivalence gives the
 corresponding adic power submodule on the source. -/
@@ -310,7 +312,7 @@ theorem isHausdorff_maximalIdeal (F : HenselianDVF.{u, v} K) :
       (R := F.valuationSubring) (M := F.valuationSubring)
       (I := F.maximalIdeal)
       (show F.maximalIdeal ≤
-          Ideal.jacobson (⊥ : Ideal F.valuationSubring) from
+          Ring.jacobson F.valuationSubring from
         HenselianRing.jac)
 
 /-- A precomplete Henselian DVF valuation ring is adically complete at its

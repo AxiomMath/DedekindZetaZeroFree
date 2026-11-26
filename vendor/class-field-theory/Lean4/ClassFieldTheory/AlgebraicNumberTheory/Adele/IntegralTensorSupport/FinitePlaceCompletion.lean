@@ -82,9 +82,10 @@ noncomputable def relativeFinitePlaceCompletionRingHom
     (w : HeightOneSpectrum (𝓞 K)) :
     (NumberField.HeightOneSpectrum.adicAbv K w).Completion →+*
       w.adicCompletion K :=
-  UniformSpace.Completion.extensionHom
+  (UniformSpace.Completion.extensionHom
     (relativeFinitePlaceCompletionBaseMap w)
-    (relativeFinitePlaceCompletionBaseMap_isometry w).continuous
+    (relativeFinitePlaceCompletionBaseMap_isometry w).continuous).comp
+    AbsoluteValue.Completion.toCompletion
 
 /-- Coercion, isometry, and surjectivity facts for the canonical ring homomorphism. -/
 
@@ -96,8 +97,10 @@ theorem relativeFinitePlaceCompletionRingHom_coe
     relativeFinitePlaceCompletionRingHom w
         (x :
           (NumberField.HeightOneSpectrum.adicAbv K w).Completion) =
-      relativeFinitePlaceCompletionBaseMap w x :=
-  UniformSpace.Completion.extensionHom_coe
+      relativeFinitePlaceCompletionBaseMap w x := by
+  rw [relativeFinitePlaceCompletionRingHom, RingHom.comp_apply,
+    AbsoluteValue.Completion.toCompletion_coe]
+  exact UniformSpace.Completion.extensionHom_coe
     (relativeFinitePlaceCompletionBaseMap w)
     (relativeFinitePlaceCompletionBaseMap_isometry w).continuous x
 
@@ -105,7 +108,8 @@ theorem relativeFinitePlaceCompletionRingHom_coe
 theorem relativeFinitePlaceCompletionRingHom_isometry
     (w : HeightOneSpectrum (𝓞 K)) :
     Isometry (relativeFinitePlaceCompletionRingHom w) :=
-  (relativeFinitePlaceCompletionBaseMap_isometry w).completion_extension
+  (relativeFinitePlaceCompletionBaseMap_isometry w).completion_extension.comp
+    (AbsoluteValue.Completion.isometry_toCompletion _)
 
 /-- The canonical finite-place ring homomorphism is surjective. -/
 theorem relativeFinitePlaceCompletionRingHom_surjective
@@ -159,13 +163,11 @@ noncomputable def relativeFinitePlaceCompletionAlgEquiv
   commutes' x := by
     change
       relativeFinitePlaceCompletionRingHom w
-          (((WithAbs.equiv
-            (NumberField.HeightOneSpectrum.adicAbv K w)).symm x :
-              WithAbs
-                (NumberField.HeightOneSpectrum.adicAbv K w)) :
-            (NumberField.HeightOneSpectrum.adicAbv K w).Completion) =
+          (algebraMap K
+            (NumberField.HeightOneSpectrum.adicAbv K w).Completion x) =
         algebraMap K (w.adicCompletion K) x
-    rw [relativeFinitePlaceCompletionRingHom_coe]
+    rw [AbsoluteValue.Completion.algebraMap_def,
+      relativeFinitePlaceCompletionRingHom_coe]
     rfl
 
 /-- Base change in the first tensor factor, now without a universe

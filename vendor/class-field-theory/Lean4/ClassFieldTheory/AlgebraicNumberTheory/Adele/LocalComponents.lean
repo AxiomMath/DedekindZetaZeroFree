@@ -77,13 +77,6 @@ theorem relativeAdeleInfiniteComponent_basis_repr
   classical
   rw [relativeAdeleInfiniteComponent_eq_sum_tmul_coefficients]
   simp [relativeExtensionBasis, Finsupp.single_apply]
-  change
-    (relativeAdeleCoefficient
-        (K := K) (L := L) z i).1 w *
-        algebraMap K w.Completion (1 : K) =
-      (relativeAdeleCoefficient
-        (K := K) (L := L) z i).1 w
-  rw [map_one, mul_one]
 
 omit [NumberField L] in
 /-- Equality of every archimedean and finite tensor component implies

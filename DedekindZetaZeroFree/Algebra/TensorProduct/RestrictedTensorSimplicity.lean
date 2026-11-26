@@ -46,7 +46,7 @@ theorem exists_insert (e : ∀ j, V j) (s t : Finset J) (hst : s ⊆ t) :
           PiTensorProduct.tprod ℂ (fun j : t =>
             if h : (j : J) ∈ s then x ⟨j, h⟩ else e j) := by
   classical
-  let m : MultilinearMap ℂ (fun j : s => V j) (Stage V t) :=
+  let m : MultilinearMap (RingHom.id ℂ) (fun j : s => V j) (Stage V t) :=
     { toFun := fun x => PiTensorProduct.tprod ℂ (extend V e s t x)
       map_update_add' := fun x i z w => by
         simp only [extend_update V e s t hst]
@@ -129,7 +129,7 @@ noncomputable def contract (s t : Finset J) (hst : s ⊆ t)
     by_cases hj : j = i
     · subst j; simp [p]
     · simp [p, Function.update_of_ne hj]
-  let m : MultilinearMap ℂ (fun j : t => V j) (Stage V s) :=
+  let m : MultilinearMap (RingHom.id ℂ) (fun j : t => V j) (Stage V s) :=
     { toFun := fun x => (∏ j, p x j) • PiTensorProduct.tprod ℂ (restrict V s t hst x)
       map_update_add' := fun x i z w => by
         by_cases hi : (i : J) ∈ s
@@ -146,10 +146,10 @@ noncomputable def contract (s t : Finset J) (hst : s ⊆ t)
             rw [hp]
             simp [hi, p, Function.update_eq_self]
           simp only [hp', restrict_update_mem V s t hst _ _ hi,
-            MultilinearMap.map_update_smul, smul_comm c]
+            MultilinearMap.map_update_smul, smul_comm c, RingHom.id_apply]
         · simp only [hp, Finset.prod_update_of_mem (Finset.mem_univ i), if_neg hi,
             restrict_update_notMem V s t hst _ _ hi, map_smul, smul_eq_mul,
-            mul_assoc, mul_smul] }
+            mul_assoc, mul_smul, RingHom.id_apply] }
   exact PiTensorProduct.lift m
 
 private theorem contract_insert (e : ∀ j, V j) (s t : Finset J) (hst : s ⊆ t)
@@ -518,6 +518,7 @@ private theorem stage_cyclic [∀ j, IsSimpleModule (A j) (V j)]
         B.repr (PiTensorProduct.tprod ℂ z) p • PiTensorProduct.tprod ℂ y
       rw [(PiTensorProduct.tprod ℂ).map_smul_univ]
       rw [Basis.piTensorProduct_repr_tprod_apply]
+      simp only [RingHom.id_apply]
     have hm := tensorMap_mem V A hcommutant e E N s f x hx
     rw [hmap, LinearMap.smulRight_apply, map_smul] at hm
     have hm' := scalar_mem ((B.repr x p)⁻¹) _ hm

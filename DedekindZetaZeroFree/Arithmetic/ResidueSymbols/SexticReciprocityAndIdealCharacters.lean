@@ -46,11 +46,12 @@ theorem exists_exterior_prime_sextic_character (A : SArithmeticData F)
   let Q := 𝓞 F ⧸ I.val
   letI : Field Q := Ideal.Quotient.field I.val
   let E := ArithGaussCRT.exteriorQuotientEquiv A I
-  have hcard : Nat.card (A.R ⧸ A.extendIdeal I) = Ideal.absNorm I.val :=
-    (Nat.card_congr E.toEquiv).symm
+  have hcard : Nat.card (A.R ⧸ A.extendIdeal I) = Ideal.absNorm I.val := by
+    rw [Ideal.absNorm_eq_natCard]
+    exact (Nat.card_congr E.toEquiv).symm
   have hd : 6 ∣ Nat.card Q - 1 := by
-    change 6 ∣ Ideal.absNorm I.val - 1
-    rw [hI]
+    change 6 ∣ Nat.card (𝓞 F ⧸ I.val) - 1
+    rw [← Ideal.absNorm_eq_natCard, hI]
     omega
   letI : Fintype Q := Fintype.ofFinite Q
   letI : Fintype Qˣ := Fintype.ofFinite Qˣ
@@ -88,7 +89,7 @@ theorem exists_exterior_prime_sextic_character (A : SArithmeticData F)
       rw [← Nat.card_eq_fintype_card]
       rw [Nat.card_units Q]
       change ((Nat.card (A.R ⧸ A.extendIdeal I) - 1) / 6) * 6 = Nat.card Q - 1
-      rw [hcard]
+      rw [hcard, Ideal.absNorm_eq_natCard]
       exact Nat.div_mul_cancel hd
     rw [hk]
     exact pow_card_eq_one

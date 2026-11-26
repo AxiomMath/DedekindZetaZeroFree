@@ -375,7 +375,7 @@ theorem canonical_trace_dual (A : SArithmeticData F) (x : F) :
       (ResidueTrace.localTraceCharacter v (algebraMap F (v.adicCompletion F) x *
         (y v : v.adicCompletion F)) : ℂ)
     have hg : Continuous g := by
-      apply continuous_finset_prod
+      apply continuous_finsetProd
       intro v hv
       exact continuous_subtype_val.comp ((ResidueTrace.continuous_localTraceCharacter v).comp
         (continuous_const.mul (continuous_subtype_val.comp (continuous_apply v))))

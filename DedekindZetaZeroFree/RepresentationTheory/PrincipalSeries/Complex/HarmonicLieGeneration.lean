@@ -86,7 +86,7 @@ private theorem tangent_smooth (X : RawMat) : ContDiff ℝ ∞ (fun g : RawMat =
   simp only [Matrix.mul_apply]
   apply ContDiff.sum
   intro k _
-  exact ((contDiff_apply ℝ ℂ k).comp (contDiff_apply ℝ (Fin 2 → ℂ) i)).mul contDiff_const
+  exact ((contDiff_apply ℝ (fun _ => ℂ) k).comp (contDiff_apply ℝ (fun _ => (Fin 2 → ℂ)) i)).mul contDiff_const
 private theorem lie_smooth (X : RawMat) (f : ComplexGL2 → ℂ)
     (hf : ContDiffOn ℝ ∞ (matrixFunction f) {g | g.det ≠ 0}) :
     ContDiffOn ℝ ∞ (matrixFunction (rawLie X f)) {g | g.det ≠ 0} := by
@@ -709,7 +709,7 @@ theorem harmonic_mem_raw_spherical_span (ℓ : ℕ)
       (Set.range (fun w : RawWord =>
         rawWord w (sphericalSection positiveParameter : ComplexGL2 → ℂ))) := by
   induction ℓ using Nat.strong_induction_on generalizing f with
-  | h n ih =>
+  | ind n ih =>
     cases n with
     | zero => exact harmonic_zero_mem_raw_spherical_span f hf
     | succ ℓ =>

@@ -381,7 +381,7 @@ private theorem norm_fderiv_average_coordinate_le {n r : ℕ} {Γ : Type*}
   apply mul_le_mul_of_nonneg_left _ (by positivity)
   refine Finset.sum_le_sum fun γ _ => ?_
   have ht := norm_fderiv_operator_term_le D γ u hu (hCchart hx) (coordinateDirection j)
-  have hz : ‖coordinateDirection j‖ = 1 := by simp [coordinateDirection, EuclideanSpace.norm_single]
+  have hz : ‖coordinateDirection j‖ = 1 := by simp [coordinateDirection, PiLp.norm_single]
   rw [hz, mul_one, mul_one] at ht
   refine ht.trans (add_le_add ?_ ?_)
   · calc ‖fderiv ℝ u (D.act γ x)‖ * ‖fderiv ℝ (D.act γ) x‖
@@ -547,11 +547,11 @@ private theorem averaged_energy_bound {n r : ℕ} (hn : 1 ≤ n) (hr : 1 ≤ r)
     simp [hz]
   have hcR : IntegrableOn (fun x => (Fintype.card Γ : ℝ)⁻¹ *
       ∑ γ : Γ, ‖u (D.act γ x)‖ ^ 2) C :=
-    (integrable_finset_sum _ (fun γ _ => hcU γ)).const_mul _
+    (integrable_finsetSum _ (fun γ _ => hcU γ)).const_mul _
   have hval : (∫ x, ‖v x‖ ^ 2) ≤ L * (∫ x, ‖u x‖ ^ 2) := by
     have hh := integral_mono_ae ((h0v.1.integrable_norm_pow (by norm_num)).restrict (s := C)) hcR
       (by filter_upwards [ae_restrict_mem hC.measurableSet] with x hx; exact norm_average_sq_le D u (hCchart hx))
-    rw [heqU, integral_const_mul, integral_finset_sum _ (fun γ _ => hcU γ)] at hh
+    rw [heqU, integral_const_mul, integral_finsetSum _ (fun γ _ => hcU γ)] at hh
     refine hh.trans ?_
     calc (Fintype.card Γ : ℝ)⁻¹ * ∑ γ : Γ, ∫ x in C, ‖u (D.act γ x)‖ ^ 2
         ≤ (Fintype.card Γ : ℝ)⁻¹ * ∑ γ : Γ, L * (∫ x, ‖u x‖ ^ 2) :=
@@ -565,16 +565,16 @@ private theorem averaged_energy_bound {n r : ℕ} (hn : 1 ≤ n) (hr : 1 ≤ r)
     have hR : IntegrableOn (fun x => (Fintype.card Γ : ℝ)⁻¹ * ∑ γ : Γ,
         (2 * A ^ 2 * n * (∑ k : Fin n, ‖fderiv ℝ u (D.act γ x) (coordinateDirection k)‖ ^ 2) +
           2 * K ^ 2 * ‖u (D.act γ x)‖ ^ 2)) C := by
-      refine (integrable_finset_sum _ (fun γ _ => ?_)).const_mul _
-      exact ((integrable_finset_sum _ (fun k _ => hcG γ k)).const_mul _).add ((hcU γ).const_mul _)
+      refine (integrable_finsetSum _ (fun γ _ => ?_)).const_mul _
+      exact ((integrable_finsetSum _ (fun k _ => hcG γ k)).const_mul _).add ((hcU γ).const_mul _)
     have hh := integral_mono_ae (((h0v.2 j).integrable_norm_pow (by norm_num)).restrict (s := C)) hR
       (by filter_upwards [ae_restrict_mem hC.measurableSet] with x hx;
           exact coordinate_derivative_square_bound D C hCchart A K hA hK hb u hu hx j)
     have hi : ∀ γ : Γ, IntegrableOn (fun x =>
         2 * A ^ 2 * n * (∑ k : Fin n, ‖fderiv ℝ u (D.act γ x) (coordinateDirection k)‖ ^ 2) +
           2 * K ^ 2 * ‖u (D.act γ x)‖ ^ 2) C := fun γ =>
-      ((integrable_finset_sum _ (fun k _ => hcG γ k)).const_mul _).add ((hcU γ).const_mul _)
-    rw [heqG j, integral_const_mul, integral_finset_sum _ (fun γ _ => hi γ)] at hh
+      ((integrable_finsetSum _ (fun k _ => hcG γ k)).const_mul _).add ((hcU γ).const_mul _)
+    rw [heqG j, integral_const_mul, integral_finsetSum _ (fun γ _ => hi γ)] at hh
     refine hh.trans ?_
     have hterm : ∀ γ : Γ,
       (∫ x in C, 2 * A ^ 2 * n * (∑ k : Fin n, ‖fderiv ℝ u (D.act γ x) (coordinateDirection k)‖ ^ 2) +
@@ -582,9 +582,9 @@ private theorem averaged_energy_bound {n r : ℕ} (hn : 1 ≤ n) (hr : 1 ≤ r)
       2 * A ^ 2 * n * L * (∑ k : Fin n, ∫ x, ‖fderiv ℝ u x (coordinateDirection k)‖ ^ 2) +
       2 * K ^ 2 * L * (∫ x, ‖u x‖ ^ 2) := by
       intro γ
-      rw [integral_add ((integrable_finset_sum _ (fun k _ => hcG γ k)).const_mul _)
+      rw [integral_add ((integrable_finsetSum _ (fun k _ => hcG γ k)).const_mul _)
         ((hcU γ).const_mul _), integral_const_mul, integral_const_mul,
-        integral_finset_sum _ (fun k _ => hcG γ k)]
+        integral_finsetSum _ (fun k _ => hcG γ k)]
       have hd := Finset.sum_le_sum (s := Finset.univ) (fun k _ => hdtransport γ k)
       rw [← Finset.mul_sum] at hd
       have hh1 := mul_le_mul_of_nonneg_left hd (show 0 ≤ 2 * A ^ 2 * n by positivity)

@@ -183,14 +183,15 @@ theorem valuation_natCast_eq_exp_neg_ramificationIndex_mul_padicValNat
     dsimp [p]
     infer_instance
   have hpow : p ^ k ∣ m := by
-    exact pow_padicValNat_dvd
+    rw [show k = multiplicity p m from Nat.padicValNat_def]
+    exact pow_multiplicity_dvd _ _
   have hmfac : p ^ k * a = m := by
     exact Nat.mul_div_cancel' hpow
   have ha : ¬ p ∣ a := by
     intro hpa
     have hnot : ¬ p ^ (k + 1) ∣ m := by
-      simpa [k] using
-        (pow_succ_padicValNat_not_dvd (p := p) hm)
+      simpa [k, Nat.padicValNat_def] using
+        (pow_succ_multiplicity_not_dvd (p := p) hm)
     apply hnot
     rcases hpa with ⟨b, hb⟩
     refine ⟨b, ?_⟩

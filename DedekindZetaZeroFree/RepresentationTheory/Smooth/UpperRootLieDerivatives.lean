@@ -182,7 +182,8 @@ theorem upperLieDerivative_smooth (w : InfinitePlace F) (b : Bool) (f : Function
       KPGlobalTorusFunctionData.globalLevel F R.A.zeta12 R.A.primitive_zeta12 U,
       g⁻¹ * z = archChart F R.A.zeta12 R.A.primitive_zeta12 x * u :=
     (show ContinuousAt (fun z : Group R => g⁻¹ * z) g from
-      continuousAt_const.mul continuousAt_id).eventually (by simpa using hth)
+      continuousAt_const.mul continuousAt_id).eventually
+        (by simp only [inv_mul_cancel]; exact hth)
   filter_upwards [hg] with z hz
   obtain ⟨x, hx, u, hu, he⟩ := hz
   have hz : z = (g * archChart F R.A.zeta12 R.A.primitive_zeta12 x) * u := by

@@ -431,9 +431,7 @@ theorem finiteSupportKummerQuotient_finite
     (K := K) (Omega := Omega) n Delta T hT
   let : Group.FG H := by
     dsimp only [H, chosenFiniteSupportCoefficientSubgroup]
-    exact Group.closure_finset_fg
-      (chosenFiniteSupportCoefficientSet
-        (K := K) (Omega := Omega) n Delta.1 T hT)
+    exact (Group.fg_iff_subgroup_fg _).mpr inferInstance
   let : Group.FG Q :=
     Group.fg_of_surjective
       (chosenFiniteSupportCoefficientToQuotient_surjective

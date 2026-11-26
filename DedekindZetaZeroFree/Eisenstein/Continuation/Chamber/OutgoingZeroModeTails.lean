@@ -900,7 +900,7 @@ theorem parameterScalar_radialModel (hι : Function.Injective ι)
   rw [parameterScalar_expansion F ζ hζ C R P H U a ι B f χ source hι hf k s hs p ht hb]
   unfold radialModel radialPolynomial KPChamberOutgoingL2.outgoingFactor
   congr 1
-  simp only [Polynomial.eval_finset_sum, Polynomial.eval_monomial]
+  simp only [Polynomial.eval_finsetSum, Polynomial.eval_monomial]
   apply Finset.sum_congr rfl
   intro i hi
   rw [mul_pow]
@@ -911,10 +911,10 @@ theorem radialPolynomial_degree (k : ℕ) (s : ℂ) :
   apply Polynomial.natDegree_le_iff_coeff_eq_zero.mpr
   intro m hm
   unfold radialPolynomial
-  simp only [Polynomial.finset_sum_coeff]
+  simp only [Polynomial.finsetSum_coeff]
   apply Finset.sum_eq_zero
   intro i hi
-  rw [Polynomial.coeff_monomial]
+  rw [Polynomial.coeff_monomial_apply]
   have him : i ≠ m := by have := Finset.mem_range.mp hi; omega
   simp [him]
 
@@ -940,8 +940,8 @@ theorem radialDerivativePolynomial_coeff_continuous (hι : Function.Injective ι
   | zero =>
     change ContinuousOn (fun s => (radialPolynomial F ζ hζ C R P H U a ι f k s).coeff m) V
     unfold radialPolynomial
-    simp only [Polynomial.finset_sum_coeff, Polynomial.coeff_monomial]
-    apply continuousOn_finset_sum
+    simp only [Polynomial.finsetSum_coeff, Polynomial.coeff_monomial_apply]
+    apply continuousOn_finsetSum
     intro i hi
     split_ifs
     · exact (coefficient_parameterJet_continuous F ζ hζ C R P H U a ι f hι hf (k-i) 0).const_mul _
@@ -1307,14 +1307,14 @@ private theorem radial_covariantNorm_continuous (n : ℕ) (j : Fin 3) (q : ℂ) 
   · exact hc0.norm
   · simp_rw [frameDerivative_radial n g hg]
     apply Continuous.sqrt
-    apply continuous_finset_sum
+    apply continuous_finsetSum
     intro v hv
     split_ifs <;> fun_prop
   · simp_rw [hessian_radial n g hg hg']
     apply Continuous.sqrt
-    apply continuous_finset_sum
+    apply continuous_finsetSum
     intro v hv
-    apply continuous_finset_sum
+    apply continuous_finsetSum
     intro w hw
     split_ifs <;> fun_prop
 
@@ -1497,7 +1497,7 @@ theorem squareTail_uniform_vanishing (hι : Function.Injective ι)
   have hsum : Filter.Tendsto (fun A : ℝ => ∑ a : Cusps F ζ hζ C R P H U,
       ∫⁻ p in tail F A, ENNReal.ofReal (Real.exp ((d F : ℝ)*p.2)) ∂endMeasure F ζ hζ C R P H U a)
       Filter.atTop (𝓝 0) := by
-    simpa using tendsto_finset_sum Finset.univ (fun a ha => exponential_tail_tendsto F ζ hζ C R P H U a τ)
+    simpa using tendsto_finsetSum Finset.univ (fun a ha => exponential_tail_tendsto F ζ hζ C R P H U a τ)
   have hmass : Filter.Tendsto mass Filter.atTop (𝓝 0) := by
     simpa [mass] using ENNReal.Tendsto.const_mul hsum (Or.inr ENNReal.ofReal_ne_top)
   intro ε hε

@@ -160,11 +160,11 @@ private theorem localNormSubgroup_isOpen_of_compatibleLocalField
     apply Nat.finite_of_card_ne_zero
     rw [IsGalois.card_aut_eq_finrank K L]
     exact Nat.ne_of_gt Module.finrank_pos
-  let : Finite (Abelianization (Gal(L / K))) :=
-    Finite.of_surjective Abelianization.of QuotientGroup.mk_surjective
+  let : Finite (Group.Abelianization (Gal(L / K))) :=
+    Finite.of_surjective Group.Abelianization.of QuotientGroup.mk_surjective
   let : Finite (NormQuotient K L) :=
     Finite.of_equiv
-      (Abelianization (Gal(L / K)))
+      (Group.Abelianization (Gal(L / K)))
       (abelianizationEquivNormQuotient K L).toEquiv
   let : Finite (Kˣ ⧸ localNormSubgroup K L) := by
     change Finite (NormQuotient K L)
@@ -381,7 +381,7 @@ variable (K L : Type) [Field K] [Field L] [Algebra K L]
 /-- For a finite-dimensional Galois extension, algebraic and topological
 abelianization agree as multiplicative groups. -/
 noncomputable def topologicalAbelianization_finite_equiv :
-    Abelianization (Gal(L / K)) ≃* TopologicalAbelianization (Gal(L / K)) := by
+    Group.Abelianization (Gal(L / K)) ≃* TopologicalAbelianization (Gal(L / K)) := by
   let h : Subgroup.topologicalClosure (commutator (Gal(L / K))) =
       commutator (Gal(L / K)) :=
     commutator_topologicalClosure_eq (Gal(L / K))

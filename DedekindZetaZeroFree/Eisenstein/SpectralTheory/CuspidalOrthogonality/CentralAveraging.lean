@@ -23,7 +23,7 @@ theorem integral_central_average (g : CoveredSpherical F ζ hζ U → ℂ)
   have hi (ε : rootsOfUnity 3 F) : Integrable (fun v => g (z F ζ hζ U ε v))
       (coveredMeasure F ζ hζ R U) :=
     (hmp ε).integrable_comp_of_integrable hg
-  rw [integral_const_mul, integral_finset_sum _ (fun ε _ => hi ε)]
+  rw [integral_const_mul, integral_finsetSum _ (fun ε _ => hi ε)]
   have he (ε : rootsOfUnity 3 F) :
       (∫ v, g (z F ζ hζ U ε v) ∂coveredMeasure F ζ hζ R U) =
         ∫ v, g v ∂coveredMeasure F ζ hζ R U :=
@@ -63,7 +63,7 @@ def centralComplexAverage (g : CoveredSpherical F ζ hζ U → ℂ) :
     (hg : Integrable g (coveredMeasure F ζ hζ R U)) :
     Integrable (centralComplexAverage F ζ hζ U g) (coveredMeasure F ζ hζ R U) := by
   apply Integrable.const_mul
-  apply integrable_finset_sum
+  apply integrable_finsetSum
   intro ε _
   exact (KPContSectorCentralHaarInvariance.z_measurePreserving F ζ hζ R U ε).integrable_comp_of_integrable hg
 

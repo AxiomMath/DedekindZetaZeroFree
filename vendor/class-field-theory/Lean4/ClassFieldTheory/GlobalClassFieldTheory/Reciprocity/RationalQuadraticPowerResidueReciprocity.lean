@@ -43,9 +43,8 @@ namespace Reciprocity
       (WithAbs (HeightOneSpectrum.adicAbv ℚ v)) :=
     WithAbs.instUniformContinuousConstSMulReal _
   exact
-    @UniformSpace.Completion.algebra
-      (WithAbs (HeightOneSpectrum.adicAbv ℚ v)) _ _ _ _
-      ℚ _ hWith hUniform
+    @AbsoluteValue.Completion.instAlgebra
+      ℚ _ (HeightOneSpectrum.adicAbv ℚ v) ℚ _ hWith hUniform
 
 open KummerTheory
 open AlgebraicNumberTheory.PowerResidueSymbols

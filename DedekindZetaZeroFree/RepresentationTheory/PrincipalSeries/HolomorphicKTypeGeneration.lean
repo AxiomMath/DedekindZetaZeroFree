@@ -312,7 +312,7 @@ private theorem row_pos (h : Mat) (hh : h ∈ invDomain) :
  theorem phase_smooth : ContDiffOn ℝ ∞ phase invDomain := by
   have hdet : ContDiff ℝ ∞ (fun h : Mat => h.det) := by
     simp only [Matrix.det_fin_two]; fun_prop
-  have hnorm := hdet.contDiffOn.norm ℂ (fun h hh => hh)
+  have hnorm := (hdet.contDiffOn (s := invDomain)).norm ℂ (fun h hh => hh)
   have hrow : ContDiff ℝ ∞ (fun h : Mat => ‖h 1 0‖ ^ 2 + ‖h 1 1‖ ^ 2) := by
     apply ContDiff.add
     · exact (by fun_prop : ContDiff ℝ ∞ (fun h : Mat => h 1 0)).norm_sq (𝕜 := ℂ)

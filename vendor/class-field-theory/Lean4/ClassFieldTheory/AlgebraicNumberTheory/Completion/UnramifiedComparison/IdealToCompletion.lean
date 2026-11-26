@@ -132,13 +132,11 @@ noncomputable def chosenFinitePlaceCompletionIntegralUniformizer
       eBaseField (πCompletion : vF.Completion) =
         (πConcrete : v.adicCompletion F) at happ
     rw [happ]
-    let x : WithAbs vF :=
-      (WithAbs.equiv vF).symm (π : F)
     change
       (π : v.adicCompletion F) =
         finitePlaceCompletionRingHom v
-          (x : vF.Completion)
-    rw [finitePlaceCompletionRingHom_coe]
+          (algebraMap F vF.Completion (π : F))
+    rw [AbsoluteValue.Completion.algebraMap_def, finitePlaceCompletionRingHom_coe]
     rfl
   have hπCompletionMaximal :
       πCompletion ∈

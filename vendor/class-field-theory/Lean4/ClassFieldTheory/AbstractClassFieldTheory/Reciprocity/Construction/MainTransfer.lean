@@ -192,15 +192,15 @@ noncomputable def transferNormNaturalityTransfer
     [hL'normal : (extensionSubgroup K' L hLK').Normal]
     [Finite (K.toSubgroup ⧸
       extensionSubgroup K L (hLK'.trans hK'K))] :
-    Abelianization (K.toSubgroup ⧸
+    Group.Abelianization (K.toSubgroup ⧸
         extensionSubgroup K L (hLK'.trans hK'K)) →*
-      Abelianization (K'.toSubgroup ⧸ extensionSubgroup K' L hLK') := by
+      Group.Abelianization (K'.toSubgroup ⧸ extensionSubgroup K' L hLK') := by
   let H := transferNormNaturalityIntermediateSubgroup K K' L hLK' hK'K
   letI : H.FiniteIndex := Subgroup.finiteIndex_of_finite
   let e := transferNormNaturalityIntermediateQuotientEquiv K K' L hLK' hK'K
   exact e.symm.abelianizationCongr.toMonoidHom.comp
-    (Abelianization.lift
-      (MonoidHom.transfer (Abelianization.of : H →* Abelianization H)))
+    (Group.Abelianization.lift
+      (MonoidHom.transfer (Group.Abelianization.of : H →* Group.Abelianization H)))
 
 namespace DegreeData
 
@@ -219,9 +219,9 @@ theorem transferNormNaturalityTransfer_restriction_natural
         extensionSubgroup E.base.field L (hL.trans E.below))] :
     (transferNormNaturalityTransfer
         E.base.field E.field.field L hL E.below).comp
-        (Abelianization.map
+        (Group.Abelianization.map
           (D.extensionRestriction E.base.field L (hL.trans E.below))) =
-      (Abelianization.map
+      (Group.Abelianization.map
         (D.extensionRestriction E.field.field L hL)).comp
         (D.transferNormNaturalityFrobeniusTransfer E L hL) := by
   let P := E.base.field.toSubgroup ⧸
@@ -255,12 +255,12 @@ theorem transferNormNaturalityTransfer_restriction_natural
   dsimp only at hnat
   have htransferCast :
       c.abelianizationCongr.toMonoidHom.comp
-          (Abelianization.lift
+          (Group.Abelianization.lift
             (MonoidHom.transfer
-              (Abelianization.of : H.map f →* Abelianization (H.map f)))) =
-        Abelianization.lift
+              (Group.Abelianization.of : H.map f →* Group.Abelianization (H.map f)))) =
+        Group.Abelianization.lift
           (MonoidHom.transfer
-            (Abelianization.of : H₀ →* Abelianization H₀)) := by
+            (Group.Abelianization.of : H₀ →* Group.Abelianization H₀)) := by
     exact abelianization_transfer_congr_subgroup (H.map f) H₀ hmap
   have hcomm (x : E.field.field.toSubgroup ⧸
       D.extensionInertiaWithin E.field.field L hL) :
@@ -276,15 +276,15 @@ theorem transferNormNaturalityTransfer_restriction_natural
   have htransport :
       (e₀.symm.abelianizationCongr.toMonoidHom.comp
           c.abelianizationCongr.toMonoidHom).comp
-            (Abelianization.map (f.subgroupMap H)) =
-        (Abelianization.map
+            (Group.Abelianization.map (f.subgroupMap H)) =
+        (Group.Abelianization.map
           (D.extensionRestriction E.field.field L hL)).comp
           e.symm.abelianizationCongr.toMonoidHom := by
-    apply Abelianization.hom_ext
+    apply Group.Abelianization.hom_ext
     apply MonoidHom.ext
     intro h
-    simp only [MonoidHom.comp_apply, Abelianization.map_of]
-    apply congrArg Abelianization.of
+    simp only [MonoidHom.comp_apply, Group.Abelianization.map_of]
+    apply congrArg Group.Abelianization.of
     obtain ⟨x, rfl⟩ := e.surjective h
     have hex : e.symm.toMonoidHom (e x) = x := e.symm_apply_apply x
     rw [hex]
@@ -301,38 +301,38 @@ theorem transferNormNaturalityTransfer_restriction_natural
   dsimp only
   calc
     (e₀.symm.abelianizationCongr.toMonoidHom.comp
-          (Abelianization.lift
+          (Group.Abelianization.lift
             (MonoidHom.transfer
-              (Abelianization.of : H₀ →* Abelianization H₀)))).comp
-        (Abelianization.map f) =
+              (Group.Abelianization.of : H₀ →* Group.Abelianization H₀)))).comp
+        (Group.Abelianization.map f) =
       (e₀.symm.abelianizationCongr.toMonoidHom.comp
           (c.abelianizationCongr.toMonoidHom.comp
-            (Abelianization.lift
+            (Group.Abelianization.lift
               (MonoidHom.transfer
-                (Abelianization.of : H.map f →*
-                  Abelianization (H.map f)))))).comp
-        (Abelianization.map f) := by rw [htransferCast]
+                (Group.Abelianization.of : H.map f →*
+                  Group.Abelianization (H.map f)))))).comp
+        (Group.Abelianization.map f) := by rw [htransferCast]
     _ = (e₀.symm.abelianizationCongr.toMonoidHom.comp
           c.abelianizationCongr.toMonoidHom).comp
-        ((Abelianization.map (f.subgroupMap H)).comp
-          (Abelianization.lift
+        ((Group.Abelianization.map (f.subgroupMap H)).comp
+          (Group.Abelianization.lift
             (MonoidHom.transfer
-              (Abelianization.of : H →* Abelianization H)))) := by
+              (Group.Abelianization.of : H →* Group.Abelianization H)))) := by
       rw [hnat]
       simp only [MonoidHom.comp_assoc]
-    _ = ((Abelianization.map
+    _ = ((Group.Abelianization.map
           (D.extensionRestriction E.field.field L hL)).comp
             e.symm.abelianizationCongr.toMonoidHom).comp
-        (Abelianization.lift
+        (Group.Abelianization.lift
           (MonoidHom.transfer
-            (Abelianization.of : H →* Abelianization H))) := by
+            (Group.Abelianization.of : H →* Group.Abelianization H))) := by
       rw [← MonoidHom.comp_assoc, htransport]
-    _ = (Abelianization.map
+    _ = (Group.Abelianization.map
           (D.extensionRestriction E.field.field L hL)).comp
         (e.symm.abelianizationCongr.toMonoidHom.comp
-          (Abelianization.lift
+          (Group.Abelianization.lift
             (MonoidHom.transfer
-              (Abelianization.of : H →* Abelianization H)))) := by
+              (Group.Abelianization.of : H →* Group.Abelianization H)))) := by
       simp only [MonoidHom.comp_assoc]
 
 /-- For a positive Frobenius lift, finite transfer is the product of the
@@ -358,9 +358,9 @@ theorem transferNormNaturalityTransfer_frobenius_product
         (hL.trans E.below)) ⧸ H))
     letI : Fintype Ω := Fintype.ofFinite _
     transferNormNaturalityTransfer E.base.field E.field.field L hL E.below
-        (Abelianization.of
+        (Group.Abelianization.of
           (D.frobeniusRestriction E.base L (hL.trans E.below) σ)) =
-      ∏ q : Ω, Abelianization.of
+      ∏ q : Ω, Group.Abelianization.of
         (D.frobeniusRestriction E.field L hL
           (D.transferNormNaturalityTransferFrobeniusLift
             E L hL σ q)) := by
@@ -376,20 +376,20 @@ theorem transferNormNaturalityTransfer_frobenius_product
   let : Fintype Ω := Fintype.ofFinite _
   have hnat := D.transferNormNaturalityTransfer_restriction_natural
     E L hL
-  have hnatσ := DFunLike.congr_fun hnat (Abelianization.of σ.1)
+  have hnatσ := DFunLike.congr_fun hnat (Group.Abelianization.of σ.1)
   have hprod := D.transferNormNaturalityFrobeniusTransfer_doubleCoset_formula
     E L hL σ.1
   calc
     transferNormNaturalityTransfer E.base.field E.field.field L hL E.below
-        (Abelianization.of
+        (Group.Abelianization.of
           (D.frobeniusRestriction E.base L (hL.trans E.below) σ)) =
-      Abelianization.map (D.extensionRestriction E.field.field L hL)
+      Group.Abelianization.map (D.extensionRestriction E.field.field L hL)
         (D.transferNormNaturalityFrobeniusTransfer E L hL
-          (Abelianization.of σ.1)) := by
-        simpa only [MonoidHom.comp_apply, Abelianization.map_of,
+          (Group.Abelianization.of σ.1)) := by
+        simpa only [MonoidHom.comp_apply, Group.Abelianization.map_of,
           DegreeData.frobeniusRestriction] using hnatσ
-    _ = Abelianization.map (D.extensionRestriction E.field.field L hL)
-        (∏ q : Ω, Abelianization.of
+    _ = Group.Abelianization.map (D.extensionRestriction E.field.field L hL)
+        (∏ q : Ω, Group.Abelianization.of
           ((D.transferNormNaturalityFrobeniusIntermediateEquiv
             E L hL).symm
               ⟨q.out.out⁻¹ * σ.1 ^ Function.minimalPeriod (σ.1 • ·) q.out *
@@ -397,14 +397,14 @@ theorem transferNormNaturalityTransfer_frobenius_product
                 QuotientGroup.out_conj_pow_minimalPeriod_mem
                   H σ.1 q.out⟩)) := by
         rw [hprod]
-    _ = ∏ q : Ω, Abelianization.of
+    _ = ∏ q : Ω, Group.Abelianization.of
         (D.frobeniusRestriction E.field L hL
           (D.transferNormNaturalityTransferFrobeniusLift
             E L hL σ q)) := by
         rw [map_prod]
         apply Finset.prod_congr rfl
         intro q _
-        rw [Abelianization.map_of]
+        rw [Group.Abelianization.map_of]
         rfl
 
 end DegreeData
@@ -430,11 +430,11 @@ noncomputable def transferNormNaturalityAbelianizedReciprocity
     [hLnormal : (extensionSubgroup K.field L hLK).Normal]
     [hLfinite : Finite
       (K.field.toSubgroup ⧸ extensionSubgroup K.field L hLK)] :
-    Additive (Abelianization
+    Additive (Group.Abelianization
         (K.field.toSubgroup ⧸ extensionSubgroup K.field L hLK)) →+
       FiniteNormQuotient A K.field L hLK :=
   MonoidHom.toAdditiveLeft
-    (Abelianization.lift
+    (Group.Abelianization.lift
       (AddMonoidHom.toMultiplicativeRight
         (D.finiteReciprocityHom A v hAxiom K L hLK)))
 
@@ -456,9 +456,9 @@ theorem transferNormNaturalityAbelianizedReciprocity_of
       (K.field.toSubgroup ⧸ extensionSubgroup K.field L hLK)]
     (q : K.field.toSubgroup ⧸ extensionSubgroup K.field L hLK) :
     D.transferNormNaturalityAbelianizedReciprocity A v hAxiom K L hLK
-        (Additive.ofMul (Abelianization.of q)) =
+        (Additive.ofMul (Group.Abelianization.of q)) =
       D.finiteReciprocityHom A v hAxiom K L hLK (Additive.ofMul q) := by
-  exact Abelianization.lift_apply_of
+  exact Group.Abelianization.lift_apply_of
     (AddMonoidHom.toMultiplicativeRight
       (D.finiteReciprocityHom A v hAxiom K L hLK)) q
 
@@ -490,11 +490,11 @@ theorem transferNormNaturality_transfer_doubleCoset_formula
         ((K.toSubgroup ⧸
           extensionSubgroup K L (hLK'.trans hK'K)) ⧸ H))) :=
       Fintype.ofFinite _
-    transferNormNaturalityTransfer K K' L hLK' hK'K (Abelianization.of σ) =
+    transferNormNaturalityTransfer K K' L hLK' hK'K (Group.Abelianization.of σ) =
       ∏ q : Quotient (orbitRel (Subgroup.zpowers σ)
           ((K.toSubgroup ⧸
             extensionSubgroup K L (hLK'.trans hK'K)) ⧸ H)),
-        Abelianization.of
+        Group.Abelianization.of
           ((transferNormNaturalityIntermediateQuotientEquiv K K' L hLK' hK'K).symm
             ⟨q.out.out⁻¹ * σ ^ Function.minimalPeriod (σ • ·) q.out *
                 q.out.out,
@@ -509,12 +509,12 @@ theorem transferNormNaturality_transfer_doubleCoset_formula
       ((K.toSubgroup ⧸
         extensionSubgroup K L (hLK'.trans hK'K)) ⧸ H)))
   rw [transferNormNaturalityTransfer]
-  simp only [MonoidHom.comp_apply, Abelianization.lift_apply_of]
+  simp only [MonoidHom.comp_apply, Group.Abelianization.lift_apply_of]
   rw [MonoidHom.transfer_eq_prod_quotient_orbitRel_zpowers_quot]
   rw [map_prod]
   apply Finset.prod_congr rfl
   intro q _
-  exact abelianizationCongr_of
+  exact Group.abelianizationCongr_of
     (transferNormNaturalityIntermediateQuotientEquiv K K' L hLK' hK'K).symm _
 
 end GroupOnly
@@ -973,7 +973,7 @@ theorem transferNormNaturality_generator_square
         (Additive.ofMul
           (transferNormNaturalityTransfer
             F.base.field F.field.field L hL F.below
-            (Abelianization.of
+            (Group.Abelianization.of
               (D.frobeniusRestriction
                 (F.base.toFiniteResidueAbstractField D) L
                 (hL.trans F.below) σ)))) =
@@ -982,7 +982,7 @@ theorem transferNormNaturality_generator_square
         (D.transferNormNaturalityAbelianizedReciprocity A v hAxiom
           F.base L (hL.trans F.below)
           (Additive.ofMul
-            (Abelianization.of
+            (Group.Abelianization.of
               (D.frobeniusRestriction
                 (F.base.toFiniteResidueAbstractField D) L
                 (hL.trans F.below) σ)))) := by
@@ -1128,14 +1128,14 @@ theorem transferNormNaturality_generator_square
         (Additive.ofMul
           (transferNormNaturalityTransfer
             E.base.field E.field.field L hL E.below
-            (Abelianization.of
+            (Group.Abelianization.of
               (D.frobeniusRestriction E.base L
                 (hL.trans E.below) σ)))) = _
   rw [hTransfer]
   change D.transferNormNaturalityAbelianizedReciprocity A v hAxiom
       F.field L hL
         (∑ q : Ω, Additive.ofMul
-          (Abelianization.of
+          (Group.Abelianization.of
             (D.frobeniusRestriction E.field L hL (β q)))) = _
   rw [map_sum]
   let hLnormalF :
@@ -1154,7 +1154,7 @@ theorem transferNormNaturality_generator_square
         D.transferNormNaturalityAbelianizedReciprocity A v hAxiom
           F.field L hL
             (Additive.ofMul
-              (Abelianization.of
+              (Group.Abelianization.of
                 (D.frobeniusRestriction E.field L hL (β q))))) =
       ∑ q : Ω, finiteNormClass A F.field.field L hL
           (relativeNorm A F.field.field (Sβ q) (hSβK'F q) (πβ q)) := by
@@ -1182,7 +1182,7 @@ theorem transferNormNaturality_generator_square
       D.transferNormNaturalityAbelianizedReciprocity A v hAxiom
           F.base L (hL.trans F.below)
           (Additive.ofMul
-            (Abelianization.of
+            (Group.Abelianization.of
               (D.frobeniusRestriction (F.base.toFiniteResidueAbstractField D) L
                 (hL.trans F.below) σ))) =
         finiteNormClass A F.base.field L (hL.trans F.below)

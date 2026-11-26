@@ -164,7 +164,7 @@ theorem reverse_compact_laurent_annulus_of_finite_integrable_coefficients
       then reverseCompactRootCoefficient F ζ hζ q T A P I B L (χ n) h v else 0
   refine ⟨S, c, ?_, ?_⟩
   · intro h ij hij
-    apply integrable_finset_sum
+    apply integrable_finsetSum
     intro n hn
     have hi := (hc h n hn).indicator (hmeas n ij)
     change Integrable _ _ at hi

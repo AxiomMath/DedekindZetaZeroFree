@@ -886,10 +886,10 @@ theorem tauStandard_integral_dual (I : IwasawaData A) (μ : Measure (LocalField 
     (Jτ.integral_eq ε z hz f g (rep d)).1.const_mul (c d)
   constructor
   · simp_rw [hc]
-    exact integrable_finset_sum _ (fun d _ => hi d)
+    exact integrable_finsetSum _ (fun d _ => hi d)
   · rw [hc]
     simp_rw [hc]
-    rw [integral_finset_sum _ (fun d _ => hi d)]
+    rw [integral_finsetSum _ (fun d _ => hi d)]
     apply Finset.sum_congr rfl
     intro d _
     rw [integral_const_mul, (Jτ.integral_eq ε z hz f g (rep d)).2]
@@ -988,7 +988,7 @@ private theorem center_scalarLaurent_coeff {V : Type*} [AddCommMonoid V] [Module
     (center_scalarLaurent p l).coeff n = l (p n) := by
   classical
   simp only [center_scalarLaurent, ← LaurentPolynomial.single_eq_C_mul_T,
-    Finsupp.sum, AddMonoidAlgebra.coeff_sum, Finsupp.finset_sum_apply,
+    Finsupp.sum, AddMonoidAlgebra.coeff_sum, Finsupp.finsetSum_apply,
     AddMonoidAlgebra.coeff_single]
   rw [Finset.sum_eq_single n]
   · simp

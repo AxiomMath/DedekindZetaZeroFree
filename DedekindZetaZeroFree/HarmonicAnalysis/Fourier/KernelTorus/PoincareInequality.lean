@@ -418,7 +418,7 @@ theorem kernel_torus_energy_parseval
   · have hs := summable_sum (s := Finset.univ) (fun i _ => hq i)
     simpa only [hqe] using hs
   · change (∫ z, ∑ i, a i * (‖g i z‖ ^ 2 + ‖k i z‖ ^ 2) ∂μ) = _
-    rw [integral_finset_sum Finset.univ
+    rw [integral_finsetSum Finset.univ
       (f := fun i z => a i * (‖g i z‖ ^ 2 + ‖k i z‖ ^ 2))
       (fun i _ => ((hgi i).add (hki i)).const_mul (a i))]
     simp_rw [integral_const_mul]
@@ -521,7 +521,7 @@ theorem continuous_torusHorizontalSq
   change Continuous (fun y : KPCuspCharts.Horizontal F =>
     torusHorizontalSq S D ρ b t f (QuotientAddGroup.mk y))
   simp_rw [torusHorizontalSq_mk]
-  apply continuous_finset_sum
+  apply continuous_finsetSum
   intro i hi
   exact continuous_const.mul
     ((((hf.continuous_fderiv (by simp)).clm_apply continuous_const).norm.pow 2).add

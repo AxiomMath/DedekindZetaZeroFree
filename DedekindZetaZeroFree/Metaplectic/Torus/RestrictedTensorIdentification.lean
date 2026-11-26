@@ -329,7 +329,7 @@ theorem rawFiniteTensor_evaluations_separate (C : RawLocalScalarData F ζ hζ P 
         (fun q : S => rawEvaluationLinear F ζ hζ P T C q.val (t q))) x = 0) : x = 0 := by
   letI := fun q : S => KPLocalStoneVonNeumann.tau_moduleFinite
     (C.canonical q.val).heisenberg (C.polarization q.val)
-  let φ : MultilinearMap ℂ
+  let φ : MultilinearMap (RingHom.id ℂ)
       (fun q : S => Module.Dual ℂ (KPLocalStoneVonNeumann.InducedModule (C.polarization q.val))) ℂ :=
     ((LinearMap.applyₗ' ℂ x).comp PiTensorProduct.dualDistrib).compMultilinearMap
       (PiTensorProduct.tprod ℂ)

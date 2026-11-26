@@ -73,7 +73,7 @@ private theorem localArchEquiv_apply (F : Type) [Field F] [NumberField F]
   rw [ContinuousLinearEquiv.apply_symm_apply] at hx
   rw [← hx]
   ext v <;> simp [ContinuousLinearEquiv.piCongrRight_apply,
-    ContinuousLinearEquiv.unitsEquivAut_apply, mul_comm]
+    ContinuousLinearEquiv.unitsEquivAut_apply, mul_comm] <;> exact Or.inl rfl
 
 private theorem localArchEquiv_abs_det (F : Type) [Field F] [NumberField F]
     (d : (InfiniteAdeleRing F)ˣ) :

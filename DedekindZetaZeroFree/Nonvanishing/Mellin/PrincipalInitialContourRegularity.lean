@@ -16,7 +16,7 @@ private theorem L_holo (R : PrincipalMellin.ActualRecipe S η) :
       {s : ℂ | 0 < s.re ∧ s ≠ 1} from fun s hs => ⟨by
         dsimp at hs ⊢; linarith, by intro h; simp [h] at hs⟩)
   apply hP.mul
-  apply DifferentiableOn.fun_finset_prod
+  apply DifferentiableOn.fun_finsetProd
   intro v hv
   exact ((((differentiable_id.neg).mul_const
     (Real.log (idealNorm v.asIdeal) : ℂ)).cexp).const_mul
@@ -59,7 +59,7 @@ private theorem L_bounds (R : PrincipalMellin.ActualRecipe S η) (a : ℝ) (ha :
   have hupos (v) : 0 < u v := by
     have hQ : 1 < idealNorm v.asIdeal := by
       dsimp [idealNorm]
-      exact_mod_cast NumberField.RingOfIntegers.HeightOneSpectrum.one_lt_absNorm v
+      exact_mod_cast NumberField.HeightOneSpectrum.one_lt_absNorm v
     have hlog := Real.log_pos hQ
     dsimp [u]; apply inv_pos.mpr; apply sub_pos.mpr
     rw [Real.exp_lt_one_iff]; nlinarith
@@ -68,7 +68,7 @@ private theorem L_bounds (R : PrincipalMellin.ActualRecipe S η) (a : ℝ) (ha :
       ‖(1 - R.target v.asIdeal * comparisonRealPower (idealNorm v.asIdeal) (-s))⁻¹‖ ≤ u v := by
     have hQ : 1 < idealNorm v.asIdeal := by
       dsimp [idealNorm]
-      exact_mod_cast NumberField.RingOfIntegers.HeightOneSpectrum.one_lt_absNorm v
+      exact_mod_cast NumberField.HeightOneSpectrum.one_lt_absNorm v
     have hlog := Real.log_pos hQ
     have hpow : ‖R.target v.asIdeal * comparisonRealPower (idealNorm v.asIdeal) (-s)‖ ≤
         Real.exp (-a * Real.log (idealNorm v.asIdeal)) := by
@@ -148,7 +148,7 @@ private theorem kernel_holo
   change Differentiable ℂ R.W.W1Hat at hW
   constructor
   · intro w z
-    have hHx := (hH.1 w z).mono (fun ξ hx => box_omega a ha hx)
+    have hHx := (hH.1 w z).mono (s := {ξ : ℂ | (ξ, w, z) ∈ box a}) (fun ξ hx => box_omega a ha hx)
     change DifferentiableOn ℂ (fun ξ => correction R C U ξ w z) _ at hHx
     have hLx := hL.mono (show {ξ : ℂ | (ξ, w, z) ∈ box a} ⊆ {s | 1 < s.re} from
       fun ξ hx => ha.trans hx.1)
@@ -162,7 +162,7 @@ private theorem kernel_holo
         (fun ξ hx => hLzero ξ (ha.trans hx.1))
   constructor
   · intro ξ z
-    have hHw := (hH.2.1 ξ z).mono (fun w hx => box_omega a ha hx)
+    have hHw := (hH.2.1 ξ z).mono (s := {w : ℂ | (ξ, w, z) ∈ box a}) (fun w hx => box_omega a ha hx)
     change DifferentiableOn ℂ (fun w => correction R C U ξ w z) _ at hHw
     have hLw := hL.mono (show {w : ℂ | (ξ, w, z) ∈ box a} ⊆ {s | 1 < s.re} from
       fun w hx => ha.trans hx.2.2.1)
@@ -175,7 +175,7 @@ private theorem kernel_holo
       fun_prop
     · exact (hLw.const_mul _).div_const _
   · intro ξ w
-    have hHz := (hH.2.2 ξ w).mono (fun z hx => box_omega a ha hx)
+    have hHz := (hH.2.2 ξ w).mono (s := {z : ℂ | (ξ, w, z) ∈ box a}) (fun z hx => box_omega a ha hx)
     change DifferentiableOn ℂ (fun z => correction R C U ξ w z) _ at hHz
     have hMz := hM.mono (show {z : ℂ | (ξ, w, z) ∈ box a} ⊆ {s | 0 < s.re} from
       fun z hx => by dsimp [box] at hx; dsimp; linarith [hx.2.2.2.2.1])

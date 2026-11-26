@@ -31,7 +31,7 @@ def pureCompact (s : ℝ) (f : ι → PrincipalSeries s) (k : ι → compactSubg
 
 theorem pureCompact_continuous (s : ℝ) (f : ι → PrincipalSeries s) :
     Continuous (pureCompact s f) := by
-  apply continuous_finset_prod
+  apply continuous_finsetProd
   intro i hi
   exact (evaluation_point_eval_continuous s 1).comp
     ((KPCplxPrincipalSeriesCharts.pi_continuous s).comp (((continuous_subtype_val.comp (continuous_apply i))).prodMk continuous_const))

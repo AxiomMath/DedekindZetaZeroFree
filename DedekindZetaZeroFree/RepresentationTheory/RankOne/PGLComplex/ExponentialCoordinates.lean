@@ -419,7 +419,7 @@ theorem exponential_local_coordinates :
     change (e.restr U) 0 ∈ affineChart.source
     rw [OpenPartialHomeomorph.restr_apply, he, exponential_zero, h0]
     simpa using zero_mem_affineSource
-  · apply (hf.mono (fun a ha => ha.1.1)).congr
+  · apply (hf.mono (t := E.source) (fun a ha => ha.1.1)).congr
     intro a ha
     rw [hEexp a ha]
     exact (he a).symm
@@ -825,7 +825,7 @@ theorem productAffineIsManifold {C : ChartedSpace Coordinates Group}
   apply (productCoordinatesFlatten ι).contDiff.contDiffOn.comp
   · apply contDiffOn_pi.mpr
     intro i
-    exact (hc i).comp ((contDiff_apply ℝ Coordinates i).comp
+    exact (hc i).comp ((contDiff_apply ℝ (fun _ => Coordinates) i).comp
       (productCoordinatesFlatten ι).symm.contDiff).contDiffOn (by
         intro a ha
         simp only [modelWithCornersSelf_coe, PartialEquiv.refl_symm,
@@ -879,7 +879,7 @@ theorem product_projection_contMDiff [IsManifold (𝓘(ℝ, Coordinates)) (⊤ :
     filter_upwards [hc.eventually ((chartAt Coordinates (g i)).open_target.mem_nhds ht)] with a ha
     exact (chartAt Coordinates (g i)).right_inv ha
   apply ContDiffAt.contDiffWithinAt
-  exact (((contDiff_apply ℝ Coordinates i).comp (productCoordinatesFlatten ι).symm.contDiff).contDiffAt).congr_of_eventuallyEq he
+  exact (((contDiff_apply ℝ (fun _ => Coordinates) i).comp (productCoordinatesFlatten ι).symm.contDiff).contDiffAt).congr_of_eventuallyEq he
 end Maps
 
 theorem productAffineLieGroup {C : ChartedSpace Coordinates Group}
@@ -927,7 +927,7 @@ def productExponentialDiffeomorph : letI := productAffineChartedSpace ι (C := C
   · apply product_contMDiffOn ι
     intro i
     apply D.exponentialChart.contMDiffOn.comp
-      (((contDiff_apply ℝ Coordinates i).comp (productCoordinatesFlatten ι).symm.contDiff).contMDiff.contMDiffOn)
+      (((contDiff_apply ℝ (fun _ => Coordinates) i).comp (productCoordinatesFlatten ι).symm.contDiff).contMDiff.contMDiffOn)
     intro a ha
     exact ha.2 i (mem_univ i)
   · change ContMDiffOn (𝓘(ℝ, ProductCoordinates ι)) (𝓘(ℝ, ProductCoordinates ι)) (⊤ : ℕ∞)
@@ -966,7 +966,7 @@ theorem product_lie_exponential_data :
     apply product_contMDiff
     intro i
     exact (exponential_contMDiff hC).comp
-      (((contDiff_apply ℝ Coordinates i).comp
+      (((contDiff_apply ℝ (fun _ => Coordinates) i).comp
         (productCoordinatesFlatten ι).symm.contDiff).contMDiff)
   have ha (a b : ι × Fin 6) :
       ContMDiff (𝓘(ℝ, ProductCoordinates ι)) (𝓘(ℝ, ℝ)) (⊤ : ℕ∞)

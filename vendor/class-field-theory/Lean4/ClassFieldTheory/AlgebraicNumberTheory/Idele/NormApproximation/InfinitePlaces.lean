@@ -274,7 +274,11 @@ theorem exists_principal_quotient_locallyNormEverywhere_of_splitsOutside
   refine ⟨x, ?_, hinfinite⟩
   intro v
   by_cases hv : v ∈ S
-  · exact hfinite ⟨v, hv⟩
+  · -- Elaborate the hypothesis first: unifying `?v.1` with `v` from the goal
+    -- would otherwise unfold the local norm subgroups.
+    have hmem := hfinite ⟨v, hv⟩
+    dsimp only at hmem
+    exact hmem
   · rw [
       chosenFinitePlaceLocalNormSubgroup_eq_top_of_splitsCompletely
         (K := K) (L := L) v (hsplit v hv)]

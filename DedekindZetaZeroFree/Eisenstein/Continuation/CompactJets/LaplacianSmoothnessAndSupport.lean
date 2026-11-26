@@ -173,7 +173,7 @@ private theorem contDiff_labeledAInv :
   refine (CotangentLogCoframe.A (d F)).symm.contDiff.comp ?_
   apply contDiff_pi.mpr
   intro k
-  exact contDiff_apply ℝ KPArch.H3 ((placeEquiv F ζ hζ) k)
+  exact contDiff_apply ℝ (fun _ => KPArch.H3) ((placeEquiv F ζ hζ) k)
 
 end DedekindZetaZeroFree.KPContActualCompactSectionL2Jets
 

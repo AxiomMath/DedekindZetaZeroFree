@@ -36,7 +36,7 @@ theorem cleared_chart_joint_continuousOn (T : Realization R Q) (v : R.A.UnitQuot
     simpa only [norm_iteratedFDeriv_zero, P] using
       hN M hM p.1 (by simpa using hp.1) p.2 hp.2
   have hP (M : ℕ) : ContinuousOn (P M) (Metric.closedBall (0 : ℂ) r ×ˢ C) := by
-    apply continuousOn_finset_sum
+    apply continuousOn_finsetSum
     intro n hn
     have hc := (T.coefficients_smooth v n).2.1 g
     exact (continuous_fst.pow n).continuousOn.mul

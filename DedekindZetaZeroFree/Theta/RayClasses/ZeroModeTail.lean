@@ -111,8 +111,8 @@ private theorem puncture_sum {ι : Type*} (x : ι → euclidean.mixedSpace K)
    exact H.symm
  · rw [if_neg h, zero_add]
    symm
-   apply tsum_subtype_eq_of_support_subset
-   intro i _; exact fun hi => h ⟨i,hi⟩
+   exact tsum_subtype_eq_of_support_subset (s := {i | x i ≠ 0})
+     (fun i _ => fun hi => h ⟨i,hi⟩)
 private theorem puncture_integral
  (D : RayCoset.Data K) (δ : Finset (RayCoset.RealPlaces K))
  (L : Submodule ℤ (euclidean.mixedSpace K)) [DiscreteTopology L] [Countable L]

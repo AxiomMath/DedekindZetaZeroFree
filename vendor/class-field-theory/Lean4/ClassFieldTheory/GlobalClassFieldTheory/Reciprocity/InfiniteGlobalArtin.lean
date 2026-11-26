@@ -392,6 +392,29 @@ noncomputable def infiniteGlobalArtinMonoidHom
       K Ω).symm).comp
     (infiniteGlobalArtinToLimit K Ω)
 
+private theorem infiniteGlobalArtinToLimit_apply
+    (K Ω : Type) [Field K] [NumberField K]
+    [Field Ω] [Algebra K Ω] [IsAbelianGalois K Ω]
+    (a : IdeleGroup K) :
+    infiniteGlobalArtinToLimit K Ω a = infiniteGlobalArtinLimitPoint K Ω a :=
+  rfl
+
+private theorem proj_infiniteGlobalArtinLimitPoint
+    (K Ω : Type) [Field K] [NumberField K]
+    [Field Ω] [Algebra K Ω] [IsAbelianGalois K Ω]
+    (a : IdeleGroup K)
+    (E : FiniteGaloisIntermediateField K Ω)
+    (hE : NumberField E) :
+    letI : NumberField E := hE
+    InfiniteGalois.proj (k := K) (K := Ω) E
+        (infiniteGlobalArtinLimitPoint K Ω a) =
+      globalArtinMonoidHom (K := K) (L := E) a := by
+  have hproj (g : limit (InfiniteGalois.asProfiniteGaloisGroupFunctor K Ω)) :
+      InfiniteGalois.proj (k := K) (K := Ω) E g = g.val (op E) :=
+    rfl
+  rw [hproj]
+  simp only [infiniteGlobalArtinLimitPoint, Opposite.unop_op]
+
 /-- Projection of the infinite global Artin homomorphism to a finite
 Galois intermediate field is exactly that field's finite global Artin
 homomorphism, using a caller-supplied number-field witness. -/
@@ -407,15 +430,18 @@ theorem restrictNormalHom_infiniteGlobalArtinMonoidHom_of_numberField
         (infiniteGlobalArtinMonoidHom K Ω a) =
       globalArtinMonoidHom
         (K := K) (L := E) a := by
-  let : NumberField E := hE
-  have hcomponent :=
-    congrArg
-      (InfiniteGalois.proj
-        (k := K) (K := Ω) E)
-      ((InfiniteGalois.continuousMulEquivToLimit
-        K Ω).apply_symm_apply
-          (infiniteGlobalArtinToLimit K Ω a))
-  exact hcomponent
+  have h1 :
+      AlgEquiv.restrictNormalHom E (infiniteGlobalArtinMonoidHom K Ω a) =
+        InfiniteGalois.proj (k := K) (K := Ω) E
+          (InfiniteGalois.continuousMulEquivToLimit K Ω
+            (infiniteGlobalArtinMonoidHom K Ω a)) := rfl
+  have h2 :
+      InfiniteGalois.continuousMulEquivToLimit K Ω
+          (infiniteGlobalArtinMonoidHom K Ω a) =
+        infiniteGlobalArtinToLimit K Ω a :=
+    (InfiniteGalois.continuousMulEquivToLimit K Ω).apply_symm_apply _
+  rw [h1, h2, infiniteGlobalArtinToLimit_apply,
+    proj_infiniteGlobalArtinLimitPoint K Ω a E hE]
 
 /-- Finite projection with both finite-layer structures supplied explicitly.
 This is useful when a concrete tower already has named canonical witnesses
@@ -454,15 +480,13 @@ theorem restrictNormalHom_infiniteGlobalArtinMonoidHom_of_intermediateField
     AlgEquiv.restrictNormalHom E
         (infiniteGlobalArtinMonoidHom K Ω a) =
       globalArtinMonoidHom (K := K) (L := E) a := by
-  let G : FiniteGaloisIntermediateField K Ω :=
-    { toIntermediateField := E
-      finiteDimensional := inferInstance
-      isGalois := inferInstance }
-  let : NumberField E := hE
-  let : IsAbelianGalois K E := hAbelian
+  obtain ⟨E', rfl⟩ :
+      ∃ E' : FiniteGaloisIntermediateField K Ω, E'.toIntermediateField = E :=
+    ⟨{ toIntermediateField := E, finiteDimensional := inferInstance,
+        isGalois := inferInstance }, rfl⟩
   exact
     restrictNormalHom_infiniteGlobalArtinMonoidHom_of_structures
-      K Ω a G hE hAbelian
+      K Ω a E' hE hAbelian
 
 /-- Finite projection for a plain intermediate field when its structures are
 already installed as ambient instances. -/

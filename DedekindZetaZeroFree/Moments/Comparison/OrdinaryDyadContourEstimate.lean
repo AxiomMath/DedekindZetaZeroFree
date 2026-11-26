@@ -339,7 +339,7 @@ lemma finite_shift (Z : ℝ) (hZ : 1 ≤ Z) (C : Finset ι)
     comparisonFrequencyIntegral q M W E C Z comparisonSigma₁ (3/1000) (2/5) := by
   classical
   unfold comparisonFrequencyIntegral comparisonTripleVerticalIntegral
-  rw [integral_finset_sum, integral_finset_sum]
+  rw [integral_finsetSum, integral_finsetSum]
   · congr 1
     apply Finset.sum_congr rfl
     intro u hu

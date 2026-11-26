@@ -12,6 +12,10 @@ open NumberField MeasureTheory IsDedekindDomain
 namespace DedekindZetaZeroFree.DigitMasks
 open MomentSources ThetaProfileHaarSheets ThetaSheetExactUnfolding
 variable {F : Type} [Field F] [NumberField F]
+
+local instance instContinuousDivG (A : SArithmeticData F) : ContinuousDiv A.G :=
+  IsTopologicalGroup.to_continuousDiv
+
 variable {S : SArithmeticData F} {η : RayClassCharacter F S.modulus}
 
 attribute [local instance] KPAdelicCoverRestrictedProduct.localTopology
@@ -54,10 +58,10 @@ attribute [local instance] KPAdelicCoverRestrictedProduct.localTopology
     Continuous (localIdele R) := by
   unfold localIdele
   apply Continuous.mul
-  · apply continuous_finset_prod
+  · apply continuous_finsetProd
     intro w _
     exact (localIdele_continuous (Sum.inl w)).comp ((continuous_apply w).comp continuous_fst)
-  · apply continuous_finset_prod
+  · apply continuous_finsetProd
     intro p _
     exact (localIdele_continuous (Sum.inr p.val)).comp ((continuous_apply p).comp continuous_snd)
 
@@ -169,7 +173,7 @@ theorem signedDigits_continuous (R : PrincipalMellin.ActualRecipe S η)
     {Q : AdmissibleFlatSources R} (T : Realization R Q)
     (v : R.A.UnitQuotient) (m : ThetaReflectionData.Row R.A) (b : Bool) :
     Continuous (signedDigits R Q T v m b) := by
-  apply continuous_finset_sum
+  apply continuous_finsetSum
   intro d _
   exact continuous_const.mul ((T.automorphic v).1.1.comp (signedArgument_continuous R m b d))
 
@@ -180,6 +184,7 @@ theorem signedDigits_continuous (R : PrincipalMellin.ActualRecipe S η)
     Units.isEmbedding_val₀.secondCountableTopology
   infer_instance
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
 private theorem sixthPowers_measurable (A : SArithmeticData F) :
     MeasurableSet (A.sixthPowers : Set A.G) := by
   have h : IsSigmaCompact (Set.range (fun y : A.G => y ^ 6)) :=
@@ -219,11 +224,11 @@ private theorem correctionLS_continuous (A : SArithmeticData F)
   have hθ := SArithmeticData.CorrectionAssembly.correctionTheta_continuous A
     D.Λ D.G D.η_id D.Λ_continuous D.G_continuous D.eta_continuous
   apply Continuous.mul
-  · apply continuous_finset_prod
+  · apply continuous_finsetProd
     intro w _
     exact (hθ.comp ((SArithmeticData.CorrectionTopology.infinite_embedding_continuous w).comp
       ((continuous_apply w).comp continuous_fst))).inv
-  · apply continuous_finset_prod
+  · apply continuous_finsetProd
     intro p _
     exact (hθ.comp ((SArithmeticData.CorrectionTopology.finite_embedding_continuous p.val).comp
       ((continuous_apply p).comp continuous_snd))).inv

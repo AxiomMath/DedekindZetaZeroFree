@@ -358,6 +358,7 @@ private theorem rationalPrimePowerFinitePlaceArtinOfExtension_eq_one
       q n x
       (rationalPrimePowerFinitePlaceLocalInputPadicArtin_eq_one q n x hx)
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
 /-- The local semilinear calculation for a ramified prime-power level.  Its
 statement only exposes the named global Artin value. -/
 private theorem
@@ -374,6 +375,7 @@ private theorem
     rationalCyclotomicChosenFinitePlaceExtension] using
     rationalPrimePowerFinitePlaceArtinOfExtension_eq_one q n x hx
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
 /-- A principal unit of depth `n + 1` has trivial chosen finite-place
 Artin symbol in the genuine `q ^ (n + 1)`-st rational cyclotomic level. -/
 theorem
@@ -461,6 +463,7 @@ private theorem
     _root_.GlobalClassFieldTheory.GlobalClassFields.finitePlaceCompletion_valuationMap_eq_zero_of_mem_localHigherUnitGroup
       (K := ℚ) (RayClass.rationalPrime q) n x hx
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
 /-- The rational ray-class higher-unit group at `q` consists of actual
 local norms from the chosen completion of the genuine cyclotomic level. -/
 theorem
@@ -690,6 +693,7 @@ theorem rationalCyclotomicLevel_rationalModulus_localNorm
   exact
     rationalCyclotomicLevel_localHigherUnitGroup_le_chosenLocalNorm m q
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
 /-- The rational ray congruence subgroup modulo `(m)` is contained in the
 genuine idèle-class norm range from the actual cyclotomic level `ℚ(μ_m)`. -/
 theorem

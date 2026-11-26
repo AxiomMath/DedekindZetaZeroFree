@@ -42,7 +42,7 @@ private theorem norm_le_one_iff (v : HeightOneSpectrum (RingOfIntegers F))
   change (WithZeroMulInt.toNNReal (HeightOneSpectrum.absNorm_ne_zero v) (Valued.v x) : ℝ) ≤ 1 ↔ _
   rw [← NNReal.coe_one, NNReal.coe_le_coe]
   apply WithZeroMulInt.toNNReal_le_one_iff
-  exact_mod_cast RingOfIntegers.HeightOneSpectrum.one_lt_absNorm v
+  exact_mod_cast NumberField.HeightOneSpectrum.one_lt_absNorm v
 
 private theorem localNormalization_finiteHaar
     (S : Finset (HeightOneSpectrum (RingOfIntegers F))) :

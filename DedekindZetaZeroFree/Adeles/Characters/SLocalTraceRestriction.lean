@@ -106,7 +106,7 @@ theorem continuous_zeroExtendS :
       (fun w : HeightOneSpectrum (𝓞 F) => (w.adicCompletionIntegers F : Set (w.adicCompletion F)))
       Filter.cofinite) := inferInstanceAs (ContinuousAdd (FiniteAdeleRing (𝓞 F) F))
   apply Continuous.prodMk continuous_fst
-  apply continuous_finset_sum
+  apply continuous_finsetSum
   intro v hv
   exact (continuous_finite_single F v.1).comp ((continuous_apply v).comp continuous_snd)
 

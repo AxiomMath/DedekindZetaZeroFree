@@ -23,7 +23,7 @@ private theorem product_analytic {ι : Type} (f : ι → ℂ → ℂ) (U : Set �
       (fun z => ∑' T : Finset ι, ∏ i ∈ T, (f i z - 1)) U := by
     apply Complex.differentiableOn_tsum_of_summable_norm hs
     · intro T
-      exact DifferentiableOn.fun_finset_prod fun i _ => (hf i).sub_const 1
+      exact DifferentiableOn.fun_finsetProd fun i _ => (hf i).sub_const 1
     · exact hU
     · intro T z hz
       refine (Finset.norm_prod_le _ _).trans ?_
@@ -102,7 +102,7 @@ private theorem local_ne_zero {S : SArithmeticData F} {η : RayClassCharacter F 
     (s : ℂ) (hs : (2 / 3 : ℝ) < s.re) : R.localCorrection p s ≠ 0 := by
   have hq : 1 < idealNorm p.val.val := by
     change 1 < (Ideal.absNorm p.val.val : ℝ)
-    have h := NumberField.RingOfIntegers.HeightOneSpectrum.one_lt_absNorm (primePlace R p)
+    have h := NumberField.HeightOneSpectrum.one_lt_absNorm (primePlace R p)
     exact_mod_cast h
   have hphase := local_phases R p
   unfold ActualRecipe.localCorrection
@@ -137,7 +137,7 @@ private theorem local_majorized {S : SArithmeticData F} {η : RayClassCharacter 
   · intro p s hs
     have hq : 2 ≤ idealNorm p.val.val := by
       change 2 ≤ (Ideal.absNorm p.val.val : ℝ)
-      have h := NumberField.RingOfIntegers.HeightOneSpectrum.one_lt_absNorm (primePlace R p)
+      have h := NumberField.HeightOneSpectrum.one_lt_absNorm (primePlace R p)
       exact_mod_cast h
     exact (hb _ hq _ _ (local_phases R p).1 (local_phases R p).2 s hs).1
 private theorem local_diff {S : SArithmeticData F} {η : RayClassCharacter F S.modulus}
@@ -147,7 +147,7 @@ private theorem local_diff {S : SArithmeticData F} {η : RayClassCharacter F S.m
   change (2 / 3 : ℝ) < s.re at hs
   have hq : 1 < idealNorm p.val.val := by
     change 1 < (Ideal.absNorm p.val.val : ℝ)
-    exact_mod_cast NumberField.RingOfIntegers.HeightOneSpectrum.one_lt_absNorm (primePlace R p)
+    exact_mod_cast NumberField.HeightOneSpectrum.one_lt_absNorm (primePlace R p)
   have hphase := local_phases R p
   have hD : 1 - R.target p.val.val * comparisonRealPower (idealNorm p.val.val) (-s) ≠ 0 := by
     apply sub_ne_zero.mpr
@@ -245,7 +245,7 @@ private theorem spectral_L_inv_bounded (R : ActualRecipe S η) (a : ℝ) (ha : 1
   intro v
   have hQ : 1 < idealNorm v.asIdeal := by
    dsimp [idealNorm]
-   exact_mod_cast NumberField.RingOfIntegers.HeightOneSpectrum.one_lt_absNorm v
+   exact_mod_cast NumberField.HeightOneSpectrum.one_lt_absNorm v
   have hlog := Real.log_pos hQ
   dsimp [u]
   apply inv_pos.mpr
@@ -259,7 +259,7 @@ private theorem spectral_L_inv_bounded (R : ActualRecipe S η) (a : ℝ) (ha : 1
   intro v
   have hQ : 1 < idealNorm v.asIdeal := by
    dsimp [idealNorm]
-   exact_mod_cast NumberField.RingOfIntegers.HeightOneSpectrum.one_lt_absNorm v
+   exact_mod_cast NumberField.HeightOneSpectrum.one_lt_absNorm v
   have hlog := Real.log_pos hQ
   have hpow : ‖R.target v.asIdeal * comparisonRealPower (idealNorm v.asIdeal) (-s)‖ ≤
    Real.exp (-a * Real.log (idealNorm v.asIdeal)) := by
@@ -370,7 +370,7 @@ theorem actual_principal_spectral_properties
           {s : ℂ | 0 < s.re ∧ s ≠ 1} from fun s hs => ⟨by
             dsimp at hs ⊢; linarith, by intro h; simp [h] at hs⟩)
       apply hP.mul
-      apply DifferentiableOn.fun_finset_prod
+      apply DifferentiableOn.fun_finsetProd
       intro v hv
       exact ((((differentiable_id.neg).mul_const
         (Real.log (idealNorm v.asIdeal) : ℂ)).cexp).const_mul

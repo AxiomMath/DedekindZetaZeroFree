@@ -392,9 +392,9 @@ private theorem cross_unit
 
   have hunit : IsUnit (Ideal.Quotient.mk (A.extendIdeal (p v)) (π w)) := by
     refine IsUnit.of_mul_eq_one (Ideal.Quotient.mk (A.extendIdeal (p v)) y) ?_
-    rw [← map_mul, ← hy]
+    rw [← RingHom.map_mul, ← hy]
     have hj_eq : j = 1 - i := by rw [eq_sub_iff_add_eq, add_comm]; exact hij
-    rw [hj_eq, map_sub, map_one, Ideal.Quotient.eq_zero_iff_mem.mpr hi, sub_zero]
+    rw [hj_eq, RingHom.map_sub, RingHom.map_one, Ideal.Quotient.eq_zero_iff_mem.mpr hi, sub_zero]
   exact hunit
 
 private theorem chi_mul (p : LocalFiniteSums.ExteriorPrime A)
@@ -584,9 +584,9 @@ theorem cross_prime_residue_ne_zero
 
   have hunit : IsUnit (Ideal.Quotient.mk (A.extendIdeal (p v)) (π w)) := by
     refine IsUnit.of_mul_eq_one (Ideal.Quotient.mk (A.extendIdeal (p v)) y) ?_
-    rw [← map_mul, ← hy]
+    rw [← RingHom.map_mul, ← hy]
     have hj_eq : j = 1 - i := by rw [eq_sub_iff_add_eq, add_comm]; exact hij
-    rw [hj_eq, map_sub, map_one, Ideal.Quotient.eq_zero_iff_mem.mpr hi, sub_zero]
+    rw [hj_eq, RingHom.map_sub, RingHom.map_one, Ideal.Quotient.eq_zero_iff_mem.mpr hi, sub_zero]
 
   have hne0 : A.sexticResidue (p v) (π w) ≠ 0 := by
     rw [SArithmeticData.sexticResidue, SArithmeticData.residueValue, ← hunit.unit_spec,

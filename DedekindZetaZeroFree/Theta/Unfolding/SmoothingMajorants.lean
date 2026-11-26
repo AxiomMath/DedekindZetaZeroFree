@@ -38,7 +38,7 @@ theorem smoothingMajorant_integrable {N : TraceHaarTransport R} (C : JointUpperV
     (Z : ℝ) (hZ : 0 < Z) (i : OrbitIndex R) :
     Integrable (smoothingMajorant R C v m b Z hZ i) positiveHaar := by
   letI := C.transport.groupHaar_isHaar
-  exact integrable_finset_sum Finset.univ
+  exact integrable_finsetSum Finset.univ
     (fun d _ => C.absolute.orbit_smoothing_integrable v m b Z hZ i d)
 
 theorem smoothingMajorant_integral_summable {N : TraceHaarTransport R} (C : JointUpperVanishingSources R N)
@@ -57,7 +57,7 @@ theorem smoothingMajorant_integral_summable {N : TraceHaarTransport R} (C : Join
           ∂pregroupingSheetHaar R.A C.packet.v₀ C.transport.groupHaar
             ⟨t.val / Z, div_pos t.property hZ⟩ ∂positiveHaar := by
     unfold smoothingMajorant
-    exact integral_finset_sum _
+    exact integral_finsetSum _
       (fun d _ => C.absolute.orbit_smoothing_integrable v m b Z hZ i d)
   simp_rw [he]
   exact C.absolute.orbit_pregrouping v m b Z hZ
@@ -88,7 +88,7 @@ theorem mul_orbitSheet_integral_norm_le {N : TraceHaarTransport R} (C : JointUpp
       rw [norm_mul]
       exact mul_le_mul_of_nonneg_left (orbitSheet_norm_le R C v m b i l z) (norm_nonneg k)
     _ = smoothingMajorant R C v m b Z hZ i t := by
-      rw [integral_const_mul, integral_finset_sum _ (fun d _ =>
+      rw [integral_const_mul, integral_finsetSum _ (fun d _ =>
         C.absolute.orbit_sheet_integrable v m b i d l), Finset.mul_sum]
       unfold smoothingMajorant
       apply Finset.sum_congr rfl

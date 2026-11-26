@@ -26,7 +26,7 @@ open _root_.DedekindZetaZeroFree.KPRankOneTranslatedMeromorphy renaming target_s
     {ι : Type} [Fintype ι] [DecidableEq ι]
     {J : ι → Type} [∀ i, Fintype (J i)] [∀ i, DecidableEq (J i)]
     {V : ι → Type} [∀ i, AddCommGroup (V i)] [∀ i, Module ℂ (V i)]
-    (e : ∀ i, V i ≃ₗ[ℂ] (J i → ℂ)) (L : MultilinearMap ℂ V ℂ)
+    (e : ∀ i, V i ≃ₗ[ℂ] (J i → ℂ)) (L : MultilinearMap (RingHom.id ℂ) V ℂ)
     (v : ℂ → ∀ i, V i) (Ω : Set ℂ)
     (hv : ∀ i j, AnalyticOnNhd ℂ (fun s => e i (v s i) j) Ω) :
     AnalyticOnNhd ℂ (fun s => L (v s)) Ω := by
@@ -47,7 +47,7 @@ open _root_.DedekindZetaZeroFree.KPRankOneTranslatedMeromorphy renaming target_s
         rw [L.map_sum_finset]
         apply Finset.sum_congr rfl
         intro r _
-        simpa only [smul_eq_mul] using
+        simpa only [smul_eq_mul, RingHom.id_apply] using
           L.map_smul_univ (fun i => e i (y i) (r i)) (fun i => w i (r i))
   have hf : (fun s => L (v s)) =
       (fun s => ∑ r : ∀ i, J i, (∏ i, e i (v s i) (r i)) * L (fun i => w i (r i))) :=

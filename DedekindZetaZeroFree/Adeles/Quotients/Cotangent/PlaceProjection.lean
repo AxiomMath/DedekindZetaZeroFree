@@ -29,7 +29,7 @@ private theorem action_diff (g : Matrix.GeneralLinearGroup (Fin 2) ℂ) :
     ContDiff ℝ ∞ (KPArch.action g) := by
   have h := (KPArch.productAction_contDiff 1 (fun _ => g)).of_le
     (show (∞ : WithTop ℕ∞) ≤ ⊤ from le_top)
-  exact (contDiff_apply ℝ KPArch.H3 (0 : Fin 1)).comp
+  exact (contDiff_apply ℝ (fun _ => KPArch.H3) (0 : Fin 1)).comp
     (h.comp (show ContDiff ℝ ∞ (fun z : KPArch.H3 => (fun _ : Fin 1 => z)) by fun_prop))
 private theorem product_deriv (n : ℕ) (g : Fin n → Matrix.GeneralLinearGroup (Fin 2) ℂ)
     (z v : KPArch.Space n) (i : Fin n) (hv : v i = 0) :

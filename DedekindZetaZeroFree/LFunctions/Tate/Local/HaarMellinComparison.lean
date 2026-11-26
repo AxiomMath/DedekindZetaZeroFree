@@ -43,8 +43,8 @@ theorem modulus_continuous [NumberField.IsTotallyComplex F] :
   unfold TateTensorProfile.modulus
   apply Continuous.mul
   · simp only [InfiniteAdeleRing.norm_def]
-    exact continuous_finset_prod _ (fun v _ => ((continuous_apply v).comp continuous_fst).norm.pow _)
-  · exact continuous_finset_prod _ (fun v _ => ((continuous_apply v).comp continuous_snd).norm)
+    exact continuous_finsetProd _ (fun v _ => ((continuous_apply v).comp continuous_fst).norm.pow _)
+  · exact continuous_finsetProd _ (fun v _ => ((continuous_apply v).comp continuous_snd).norm)
 
 theorem units_val_isOpenEmbedding [NumberField.IsTotallyComplex F] :
     Topology.IsOpenEmbedding (Units.val : (SLocalProduct F S)ˣ → SLocalProduct F S) := by

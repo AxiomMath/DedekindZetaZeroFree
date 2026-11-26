@@ -513,7 +513,7 @@ private theorem unitary_QP_direct (C : ModelData F ζ hζ) (f : ProductUnitary F
     simp_rw [hterm x]
     exact tsum_eq_sum (fun a ha => by rw [hout a ha, zero_mul])
   simp_rw [hsum]
-  rw [integral_finset_sum S (fun a ha => (phase_integrable F ζ hζ C _).const_mul (c a))]
+  rw [integral_finsetSum S (fun a ha => (phase_integrable F ζ hζ C _).const_mul (c a))]
   simp_rw [integral_const_mul]
   have hi (a) (ha : a ≠ (1 : PeriodizationIndex F ζ hζ C)) :
       (∫ x, v a x ∂probabilityHaar F ζ hζ C) = 0 := by

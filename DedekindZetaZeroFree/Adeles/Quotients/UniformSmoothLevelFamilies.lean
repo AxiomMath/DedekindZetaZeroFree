@@ -53,7 +53,10 @@ private theorem smoothArchInclusion_add {F : Type*} [Field F] [NumberField F]
     smoothArchInclusion F (x + y) = smoothArchInclusion F x + smoothArchInclusion F y := by
   let i : mixedEmbedding.mixedSpace F →+ AdeleRing (𝓞 F) F :=
     { toFun := fun x => ((InfiniteAdeleRing.ringEquiv_mixedSpace F).symm x, 0)
-      map_zero' := by change (_, _) = ((0, 0) : InfiniteAdeleRing F × _); simp
+      map_zero' := by
+        change ((InfiniteAdeleRing.ringEquiv_mixedSpace F).symm 0,
+          (0 : FiniteAdeleRing (𝓞 F) F)) = ((0, 0) : InfiniteAdeleRing F × _)
+        rw [map_zero]
       map_add' := by
         intros a b
         change ((InfiniteAdeleRing.ringEquiv_mixedSpace F).symm (a + b),

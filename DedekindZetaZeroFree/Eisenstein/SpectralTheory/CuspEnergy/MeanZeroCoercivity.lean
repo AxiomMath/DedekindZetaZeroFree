@@ -67,7 +67,7 @@ private theorem continuous_energy (f : KPCuspCharts.Cross F → ℂ)
         (‖fderiv ℝ (fun z => f (z,x.2)) x.1 (Pi.single i 1)‖ ^ 2 +
          ‖fderiv ℝ (fun z => f (z,x.2)) x.1 (Pi.single i Complex.I)‖ ^ 2)) := by
   simp_rw [slice_deriv f (hf.differentiable (by simp))]
-  apply continuous_finset_sum
+  apply continuous_finsetSum
   intro i hi
   apply Continuous.mul
   · exact Real.continuous_exp.comp (continuous_const.mul (continuous_const.add
@@ -581,7 +581,7 @@ private theorem representative_differentiableAt (G : KPCuspCharts.ChartOutput F 
       (real (KPCuspLogShape.dimension F) (KPCuspCharts.toArch F (x, t.val))) := by
   have hh : Continuous (KPCuspLogShape.meanHeight (KPCuspLogShape.dimension F)) := by
     unfold KPCuspLogShape.meanHeight
-    exact (continuous_finset_sum _ (fun i _ => (continuous_apply i).snd)).div_const _
+    exact (continuous_finsetSum _ (fun i _ => (continuous_apply i).snd)).div_const _
   have ho : IsOpen {z : KPArch.Space (KPCuspLogShape.dimension F) |
       T < KPCuspLogShape.meanHeight (KPCuspLogShape.dimension F) z} :=
     isOpen_lt continuous_const hh

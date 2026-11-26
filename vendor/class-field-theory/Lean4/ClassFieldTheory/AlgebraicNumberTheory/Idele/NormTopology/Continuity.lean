@@ -215,8 +215,8 @@ private theorem integralFiniteNormComponents_continuous :
         _root_.infinitePlaceBelow (K := K) W = v₀},
         Algebra v₀.Completion W.1.Completion :=
       fun W =>
-        (NumberField.LiesOver.completionMap
-          (v := v₀) (w := W.1)).toAlgebra
+        AbsoluteValue.Completion.algebraOfLiesOver
+          v₀.1 W.1.1
     exact
       ∏ W : {W : InfinitePlace L //
           _root_.infinitePlaceBelow (K := K) W = v₀},
@@ -233,15 +233,15 @@ private theorem infinitePlace_normUnits_continuous
     letI : W.1.1.LiesOver v₀.1 :=
       ⟨congrArg (fun q : InfinitePlace K => q.1) W.2⟩
     letI : Algebra v₀.Completion W.1.Completion :=
-      (NumberField.LiesOver.completionMap
-        (v := v₀) (w := W.1)).toAlgebra
+      AbsoluteValue.Completion.algebraOfLiesOver
+        v₀.1 W.1.1
     Continuous
       (LocalFieldTheory.normUnits v₀.Completion W.1.Completion) := by
   let : W.1.1.LiesOver v₀.1 :=
     ⟨congrArg (fun q : InfinitePlace K => q.1) W.2⟩
   let : Algebra v₀.Completion W.1.Completion :=
-    (NumberField.LiesOver.completionMap
-      (v := v₀) (w := W.1)).toAlgebra
+    AbsoluteValue.Completion.algebraOfLiesOver
+      v₀.1 W.1.1
   rcases v₀.isReal_or_isComplex with hvReal | hvComplex
   · rcases W.1.isReal_or_isComplex with hWReal | hWComplex
     · let eBase :=
@@ -504,8 +504,8 @@ private theorem integralInfiniteNormComponents_continuous :
       _root_.infinitePlaceBelow (K := K) W = v₀},
       Algebra v₀.Completion W.1.Completion :=
     fun W =>
-      (NumberField.LiesOver.completionMap
-        (v := v₀) (w := W.1)).toAlgebra
+      AbsoluteValue.Completion.algebraOfLiesOver
+        v₀.1 W.1.1
   apply continuous_finsetProd Finset.univ
   intro W _
   exact

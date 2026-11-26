@@ -228,7 +228,7 @@ theorem z_residue_kernel_nonpolar_line_integrable
     change DifferentiableOn ℂ (fun s => R.continuation.L s * ∏ v ∈ R.A.Sf,
       (1 - R.target v.asIdeal * comparisonRealPower (idealNorm v.asIdeal) (-s))) _
     apply R.continuation.L_holo.mul
-    apply DifferentiableOn.fun_finset_prod
+    apply DifferentiableOn.fun_finsetProd
     intro v hv
     exact ((((differentiable_id.neg).mul_const
       (Real.log (idealNorm v.asIdeal) : ℂ)).cexp).const_mul
@@ -395,7 +395,7 @@ theorem z_clearedKernel_differentiableOn (R : PrincipalMellin.ActualRecipe S η)
     (ContinuationSteps.actual_mellin_weight_far_inputs R).1.mono hpos
   have hreg : DifferentiableOn ℂ (regularization R) {s : ℂ | 0 < s.re} := by
     apply R.continuation.R_holo.mul
-    apply DifferentiableOn.fun_finset_prod
+    apply DifferentiableOn.fun_finsetProd
     intro v hv
     exact ((((differentiable_id.neg).mul_const
       (Real.log (idealNorm v.asIdeal) : ℂ)).cexp).const_mul

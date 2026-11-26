@@ -198,7 +198,6 @@ private lemma dual_split (F : Type) [Field F] [NumberField F]
     convert (tsum_subtype ({b | b ∉ s} : Set (Ideal (𝓞 F)))
       (ReflectedTails.dualSummand F k T d)).symm using 1 <;>
       try simp only [Set.indicator, Set.mem_setOf_eq, ite_not]
-    rfl
   rw [heq, ht, ← hs.sum_add_tsum_subtype_compl s]
   congr 1
   exact Finset.sum_congr rfl (fun b hb => by

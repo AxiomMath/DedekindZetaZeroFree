@@ -13,7 +13,7 @@ set_option maxHeartbeats 8000000
 set_option synthInstance.maxHeartbeats 200000
 namespace DedekindZetaZeroFree.NativeScalarFiniteProductCovariantSlices
 variable {ι : Type} [Fintype ι] {V : ι → Type} [∀ i, AddCommGroup (V i)] [∀ i, Module ℂ (V i)]
- def contractionMultilinear [DecidableEq ι] (q : ι) (l : ∀ i, V i →ₗ[ℂ] ℂ) : MultilinearMap ℂ V (V q) :=
+ def contractionMultilinear [DecidableEq ι] (q : ι) (l : ∀ i, V i →ₗ[ℂ] ℂ) : MultilinearMap (RingHom.id ℂ) V (V q) :=
   .mk' (fun x => (∏ i ∈ Finset.univ.erase q, l i (x i)) • x q)
     (by
     intro x i a b
@@ -46,7 +46,7 @@ variable {ι : Type} [Fintype ι] {V : ι → Type} [∀ i, AddCommGroup (V i)] 
         intro j hj
         simp only [Function.update_of_ne (Finset.ne_of_mem_erase hj)]
       rw [hh (c • a), hh a]
-      simp only [Function.update_self, smul_smul, mul_comm]
+      simp only [Function.update_self, smul_smul, mul_comm, RingHom.id_apply]
     · have hm : i ∈ Finset.univ.erase q := Finset.mem_erase.mpr ⟨hi, Finset.mem_univ _⟩
       have hh (z : V i) : (∏ j ∈ Finset.univ.erase q, l j (Function.update x i z j)) =
           l i z * ∏ j ∈ (Finset.univ.erase q).erase i, l j (x j) := by
@@ -57,7 +57,8 @@ variable {ι : Type} [Fintype ι] {V : ι → Type} [∀ i, AddCommGroup (V i)] 
         intro j hj
         simp only [Function.update_of_ne (Finset.ne_of_mem_erase hj)]
       rw [hh (c • a), hh a]
-      simp only [Function.update_of_ne (Ne.symm hi), map_smul, smul_eq_mul, mul_assoc, mul_smul]
+      simp only [Function.update_of_ne (Ne.symm hi), map_smul, smul_eq_mul, mul_assoc, mul_smul,
+        RingHom.id_apply]
     )
  def contraction [DecidableEq ι] (q : ι) (l : ∀ i, V i →ₗ[ℂ] ℂ) := PiTensorProduct.lift (contractionMultilinear q l)
  theorem contraction_mapSingle [DecidableEq ι] (q : ι) (l : ∀ i, V i →ₗ[ℂ] ℂ) (A : V q →ₗ[ℂ] V q) (x : PiTensorProduct ℂ V) :

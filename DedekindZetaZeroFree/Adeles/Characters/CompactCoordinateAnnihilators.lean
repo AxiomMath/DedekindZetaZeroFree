@@ -21,7 +21,7 @@ theorem exists_open_phase_annihilator
   let X := (v : S) → v.val.adicCompletion F
   let q : X × X → Circle := fun p ↦ ∏ v : S, e v (-p.1 v * p.2 v)
   have hq : Continuous q := by
-    apply continuous_finset_prod
+    apply continuous_finsetProd
     intro v hv
     exact (he v).comp (((continuous_apply v).comp continuous_fst).neg.mul
       ((continuous_apply v).comp continuous_snd))

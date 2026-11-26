@@ -660,7 +660,7 @@ private theorem exteriorLocalSexticChar_cube_neg_one (A : SArithmeticData F) (σ
     unfold sexticResidue residueValue at hn
     have hq : Ideal.Quotient.mk (A.extendIdeal I) (-1 : A.R) =
       ((-1 : (A.R ⧸ A.extendIdeal I)ˣ) : A.R ⧸ A.extendIdeal I) := by
-      simp only [map_neg, map_one, Units.val_neg, Units.val_one]
+      simp only [RingHom.map_neg, RingHom.map_one, Units.val_neg, Units.val_one]
     rw [hq, MulChar.ofUnitHom_coe, map_one] at hn
     exact hn
   rw [hc, one_pow]

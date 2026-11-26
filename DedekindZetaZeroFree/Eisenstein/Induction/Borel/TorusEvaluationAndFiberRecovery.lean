@@ -186,7 +186,9 @@ theorem rawRationalEvaluator_torus
           torusSlot R P C u t a d p (localValue R N P C p (g p) (y p))) := by
       funext p
       exact localValue_torus_factor R N P C u t a d b ht hp p (y p) (g p)
-    rw [hv, MultilinearMap.map_smul_univ, map_smul, map_smul,
+    rw [hv, MultilinearMap.map_smul_univ]
+    simp only [RingHom.id_apply]
+    rw [map_smul, map_smul,
       normHalf_product R P C u t a d b e ht hp he U.val hnU]
     change c * (_ * _) = _ * (c * _)
     rw [comparisonSmooth_torus_stage R P C u t a d b e ht hp he U _ hslot r]

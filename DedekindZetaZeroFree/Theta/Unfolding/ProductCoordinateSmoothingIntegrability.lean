@@ -43,7 +43,7 @@ theorem masked_orbit_product_integrable {N : TraceHaarTransport R} (C : JointUpp
       (positiveHaar.prod ((kernelHaar R.A C.packet.v₀ C.transport.groupHaar).restrict
         (pregroupingDomain R.A).carrier)) := by
   letI := C.transport.groupHaar_isHaar
-  have hi := integrable_finset_sum Finset.univ
+  have hi := integrable_finsetSum Finset.univ
     (fun d _ => C.absolute.orbit_product_integrable v m b Z hZ i d)
   have hm := (sheetMultiplier_measurable R C.packet v).comp
     (sheetCoordinate_continuous R C.packet.v₀ Z hZ).measurable

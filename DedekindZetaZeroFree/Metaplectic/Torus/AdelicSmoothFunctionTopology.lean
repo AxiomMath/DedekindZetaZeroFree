@@ -554,7 +554,7 @@ theorem stageInclusion_continuous (i : ι) :
   letI := hp.isTopologicalAddGroup
   have hq : WithSeminorms
     (fun q : finalSeminorms H χ chart U hU levels => q.val) := ⟨rfl⟩
-  apply Seminorm.continuous_of_continuous_comp
+  apply WithSeminorms.continuous_of_continuous_comp
     (E := SmoothLevel H χ chart U (levels i))
     (𝕝 := ℂ) (𝕝₂ := ℂ) (τ₁₂ := RingHom.id ℂ) hq
     (stageInclusion H χ chart U levels i)

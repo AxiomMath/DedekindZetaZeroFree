@@ -70,7 +70,7 @@ private theorem restricted_rep_norm_action
     {R : IntegralRepGroupType} [Group R] (H : Subgroup R) [H.Normal] [Fintype H]
     (B : Rep ℤ R) (r : R) (x : B.V) :
     let U : Rep ℤ H := Rep.res H.subtype B
-    U.norm.hom (B.ρ r x) = B.ρ r (U.norm.hom x) := by
+    U.norm.asHom.hom (B.ρ r x) = B.ρ r (U.norm.asHom.hom x) := by
   let U : Rep ℤ H := Rep.res H.subtype B
   simpa [Rep.norm, Representation.norm] using
     restricted_norm_action H B r x
@@ -184,24 +184,24 @@ theorem universalNormDescent_cyclic_lift_and_correction
           ∑ i ∈ s, (B.ρ (τ i) (uBarᵢ i) - uBarᵢ i) := by
   let U : Rep ℤ H := Rep.res H.subtype B
   have huGenerator : U.ρ g u = u := huFixed g
-  have huLift : ∃ z : B.V, U.norm.hom z = u :=
+  have huLift : ∃ z : B.V, U.norm.asHom.hom z = u :=
     exists_norm_eq_of_tateHZero_isZero U g hg hzero0 u huGenerator
   obtain ⟨uBar, huBar⟩ := huLift
   have huᵢGenerator (i : ι) : U.ρ g (uᵢ i) = uᵢ i := huᵢFixed i g
-  have huᵢLift (i : ι) : ∃ z : B.V, U.norm.hom z = uᵢ i :=
+  have huᵢLift (i : ι) : ∃ z : B.V, U.norm.asHom.hom z = uᵢ i :=
     exists_norm_eq_of_tateHZero_isZero U g hg hzero0
       (uᵢ i) (huᵢGenerator i)
   choose uBarᵢ huBarᵢ using huᵢLift
   let delta : B.V :=
     B.ρ φ uBar - uBar -
       ∑ i ∈ s, (B.ρ (τ i) (uBarᵢ i) - uBarᵢ i)
-  have hdeltaNorm : U.norm.hom delta = 0 := by
+  have hdeltaNorm : U.norm.asHom.hom delta = 0 := by
     calc
-      U.norm.hom delta =
-          U.norm.hom (B.ρ φ uBar) - U.norm.hom uBar -
+      U.norm.asHom.hom delta =
+          U.norm.asHom.hom (B.ρ φ uBar) - U.norm.asHom.hom uBar -
             ∑ i ∈ s,
-              (U.norm.hom (B.ρ (τ i) (uBarᵢ i)) -
-                U.norm.hom (uBarᵢ i)) := by
+              (U.norm.asHom.hom (B.ρ (τ i) (uBarᵢ i)) -
+                U.norm.asHom.hom (uBarᵢ i)) := by
         dsimp [delta]
         rw [map_sub, map_sub, map_sum]
         simp_rw [map_sub]
@@ -228,7 +228,7 @@ theorem rep_norm_eq_generatorPowerSum
     {Q : IntegralRepGroupType} [Group Q] [Fintype Q]
     (B : Rep ℤ Q) (g : Q) (hg : ∀ q, q ∈ Subgroup.zpowers g)
     (n : ℕ) (hcard : Fintype.card Q = n) (x : B.V) :
-    B.norm.hom x = ∑ i : Fin n, B.ρ (g ^ i.1) x := by
+    B.norm.asHom.hom x = ∑ i : Fin n, B.ρ (g ^ i.1) x := by
   classical
   have horder : orderOf g = n := by
     calc
@@ -274,7 +274,7 @@ theorem rep_norm_eq_generatorIterateSum
     (B : Rep ℤ Q) (g : Q) (hg : ∀ q, q ∈ Subgroup.zpowers g)
     (n : ℕ) (hcard : Fintype.card Q = n)
     (f : B.V → B.V) (hf : ∀ z, B.ρ g z = f z) (x : B.V) :
-    B.norm.hom x = ∑ i : Fin n, (f^[i.1]) x := by
+    B.norm.asHom.hom x = ∑ i : Fin n, (f^[i.1]) x := by
   rw [rep_norm_eq_generatorPowerSum B g hg n hcard x]
   apply Finset.sum_congr rfl
   intro i _

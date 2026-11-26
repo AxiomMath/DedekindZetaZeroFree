@@ -323,8 +323,8 @@ theorem archimedeanNorm_norm
         _root_.infinitePlaceBelow (K := K) W = v₀}),
       Algebra v₀.Completion W.1.Completion :=
     fun v₀ W =>
-      (NumberField.LiesOver.completionMap
-        (v := v₀) (w := W.1)).toAlgebra
+      AbsoluteValue.Completion.algebraOfLiesOver
+        v₀.1 W.1.1
   rw [InfiniteIdeleGroup.archimedeanNorm_apply,
     InfiniteIdeleGroup.archimedeanNorm_apply]
   change

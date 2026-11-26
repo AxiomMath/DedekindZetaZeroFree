@@ -89,9 +89,9 @@ lemma gram_tensor_average_smooth {X ι : Type*} [TopologicalSpace X]
   apply contDiff_prod
   intro w _
   have hp : ContDiff ℝ (⊤ : ℕ∞) (fun A : ι → Fin 2 → ℂ => A w (r w).1) :=
-    (contDiff_apply ℝ ℂ (r w).1).comp (contDiff_apply ℝ (Fin 2 → ℂ) w)
+    (contDiff_apply ℝ (fun _ => ℂ) (r w).1).comp (contDiff_apply ℝ (fun _ => Fin 2 → ℂ) w)
   have hq : ContDiff ℝ (⊤ : ℕ∞) (fun A : ι → Fin 2 → ℂ => A w (r w).2) :=
-    (contDiff_apply ℝ ℂ (r w).2).comp (contDiff_apply ℝ (Fin 2 → ℂ) w)
+    (contDiff_apply ℝ (fun _ => ℂ) (r w).2).comp (contDiff_apply ℝ (fun _ => Fin 2 → ℂ) w)
   exact hp.mul (Complex.conjCLE.contDiff.comp hq)
 
 lemma gram_tensor_real_average_smooth {X ι : Type*} [TopologicalSpace X]

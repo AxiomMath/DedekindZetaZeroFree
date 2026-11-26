@@ -30,7 +30,7 @@ theorem rightHalfPlane_bound (R : PrincipalMellin.ActualRecipe S η)
     intro v hv
     have hQ : 1 < idealNorm v.asIdeal := by
       dsimp [idealNorm]
-      exact_mod_cast NumberField.RingOfIntegers.HeightOneSpectrum.one_lt_absNorm v
+      exact_mod_cast NumberField.HeightOneSpectrum.one_lt_absNorm v
     have hpow : ‖R.target v.asIdeal * comparisonRealPower (idealNorm v.asIdeal) (-s)‖ ≤ 1 := by
       rw [norm_mul]
       have hn := RayUnitary.ray_character_norm_le_one F R.A.modulus R.A.modulus_ne_zero
@@ -90,7 +90,7 @@ theorem rightHalfPlane_reciprocal_bound
     intro v
     have hQ : 1 < idealNorm v.asIdeal := by
       dsimp [idealNorm]
-      exact_mod_cast NumberField.RingOfIntegers.HeightOneSpectrum.one_lt_absNorm v
+      exact_mod_cast NumberField.HeightOneSpectrum.one_lt_absNorm v
     have hlog := Real.log_pos hQ
     dsimp [u]
     apply inv_pos.mpr
@@ -105,7 +105,7 @@ theorem rightHalfPlane_reciprocal_bound
     intro v
     have hQ : 1 < idealNorm v.asIdeal := by
       dsimp [idealNorm]
-      exact_mod_cast NumberField.RingOfIntegers.HeightOneSpectrum.one_lt_absNorm v
+      exact_mod_cast NumberField.HeightOneSpectrum.one_lt_absNorm v
     have hlog := Real.log_pos hQ
     have hpow : ‖R.target v.asIdeal * comparisonRealPower (idealNorm v.asIdeal) (-s)‖ ≤
         Real.exp (-a * Real.log (idealNorm v.asIdeal)) := by

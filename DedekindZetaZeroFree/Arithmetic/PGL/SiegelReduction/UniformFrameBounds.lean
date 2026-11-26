@@ -22,9 +22,9 @@ variable (F : Type*) [Field F] [NumberField F]
     (hM : KPCuspArithmetic.IsRankTwoLattice F M) :
     FullLattice (KPCuspArithmetic.Order F) F :=
   ⟨M.map ((coordinates F).restrictScalars (KPCuspArithmetic.Order F)).toLinearMap,
-    { fg := by
+    { toIsLattice := Submodule.IsLattice.of_fg F (by
         letI := hM.1
-        exact (Submodule.FG.of_finite (N := M)).map _
+        exact (Submodule.FG.of_finite (N := M)).map _)
       span_eq_top := by
         rw [Submodule.map_coe]
         change Submodule.span F ((coordinates F).toLinearMap '' (M : Set _)) = ⊤
@@ -239,9 +239,9 @@ theorem integral_lattice_determinant_unit
   let e := LinearEquiv.finTwoArrow F F
   let L : FullLattice (NumberField.RingOfIntegers F) F :=
     ⟨M.map (e.restrictScalars _).toLinearMap,
-      { fg := by
+      { toIsLattice := Submodule.IsLattice.of_fg F (by
           letI := hM.1
-          exact (Submodule.FG.of_finite (N := M)).map _
+          exact (Submodule.FG.of_finite (N := M)).map _)
         span_eq_top := by
           rw [Submodule.map_coe]
           change Submodule.span F (e.toLinearMap '' (M : Set _)) = ⊤
@@ -325,7 +325,9 @@ theorem integral_lattice_entry_denominator
     ∃ c : F, c ≠ 0 ∧ ∀ A : Matrix.GeneralLinearGroup (Fin 2) F,
       (∀ v, v ∈ M ↔ (A : Matrix (Fin 2) (Fin 2) F) *ᵥ v ∈ M) →
       ∀ i j, c * A i j ∈ (1 : FractionalIdeal (NumberField.RingOfIntegers F)⁰ F) := by
-  letI : Submodule.IsLattice F M := ⟨Module.Finite.iff_fg.mp hM.1, hM.2⟩
+  letI : Submodule.IsFullLattice F M :=
+    { toIsLattice := Submodule.IsLattice.of_fg F (Module.Finite.iff_fg.mp hM.1)
+      span_eq_top := hM.2 }
   have hd (i : Fin 2) : ∃ c : (NumberField.RingOfIntegers F)⁰,
       ∀ v ∈ M, algebraMap (NumberField.RingOfIntegers F) F c * v i ∈
         (1 : FractionalIdeal (NumberField.RingOfIntegers F)⁰ F) := by

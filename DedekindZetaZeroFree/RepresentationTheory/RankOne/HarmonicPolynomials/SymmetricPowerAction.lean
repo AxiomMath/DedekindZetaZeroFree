@@ -286,7 +286,7 @@ private theorem coefficientAction_coeff_continuous (p : Polynomial)
   | mul_X p i hp =>
       simp only [map_mul, coefficientAction, MvPolynomial.aeval_X,
         Finset.mul_sum, MvPolynomial.coeff_sum]
-      apply continuous_finset_sum
+      apply continuous_finsetSum
       intro j hj
       simp only [mul_left_comm (MvPolynomial.aeval _ p), MvPolynomial.coeff_C_mul,
         MvPolynomial.coeff_mul_X']

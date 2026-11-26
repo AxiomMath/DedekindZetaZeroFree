@@ -72,7 +72,7 @@ private lemma coord_star (k : ComplexSU2) (i : Fin 3) :
     star (compactSphereCoordinate k i) = compactSphereCoordinate k i := by
   fin_cases i <;> simp [compactSphereCoordinate]
 
-abbrev S := Set.range compactSphereCoordinate
+noncomputable abbrev S := Set.range compactSphereCoordinate
 
 noncomputable def q : C(ComplexSU2, S) :=
   ⟨fun k => ⟨compactSphereCoordinate k, ⟨k, rfl⟩⟩, coord_cont.subtype_mk _⟩

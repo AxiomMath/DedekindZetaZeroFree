@@ -25,10 +25,10 @@ private theorem ideal_eq_of_exponents (F : Type) [Field F] [NumberField F]
 theorem isLeast_mul_sq_iff (F : Type) [Field F] [NumberField F]
     (h12 : (primitiveRoots 12 F).Nonempty) (x y : Fˣ)
     (v : HeightOneSpectrum (𝓞 F)) (n : ℕ) :
-    IsLeast (fun k : ℕ =>
+    IsLeast (setOf fun k : ℕ =>
       ClassFieldTheory.rayLocalHigherUnitGroup v k ≤
         (RMKummerLocalNormCharacter.lambda F h12 (x * y ^ 2) v).ker) n ↔
-    IsLeast (fun k : ℕ =>
+    IsLeast (setOf fun k : ℕ =>
       ClassFieldTheory.rayLocalHigherUnitGroup v k ≤
         (RMKummerLocalNormCharacter.lambda F h12 x v).ker) n := by
   have hchar : RMKummerLocalNormCharacter.lambda F h12 (x * y ^ 2) v =

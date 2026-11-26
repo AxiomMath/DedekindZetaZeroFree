@@ -508,7 +508,7 @@ theorem collarError_continuous_nonnegative (χ₀ : Cutoff F ζ hζ U R P H)
     Continuous (collarError F ζ hζ U R P H χ₀ χ) ∧
       ∀ x, 0 ≤ collarError F ζ hζ U R P H χ₀ χ x := by
   refine ⟨(continuous_differentialNormSquared F ζ hζ U R P H χ₀).add
-    (continuous_finset_sum _ (fun c _ => continuous_differentialNormSquared F ζ hζ U R P H (χ c))), ?_⟩
+    (continuous_finsetSum _ (fun c _ => continuous_differentialNormSquared F ζ hζ U R P H (χ c))), ?_⟩
   intro x
   exact add_nonneg (differentialNormSquared_nonnegative F ζ hζ U R P H χ₀ x)
     (Finset.sum_nonneg (fun c _ => differentialNormSquared_nonnegative F ζ hζ U R P H (χ c) x))

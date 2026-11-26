@@ -57,7 +57,7 @@ lemma orbitMass_integrable {N : TraceHaarTransport R} (C : JointUpperVanishingSo
     (Z : ℝ) (hZ : 0 < Z) (i : OrbitIndex R) :
     Integrable (orbitMass R C v m b Z hZ i) positiveHaar := by
   letI := C.transport.groupHaar_isHaar
-  exact integrable_finset_sum _ (fun d _ => C.absolute.orbit_smoothing_integrable v m b Z hZ i d)
+  exact integrable_finsetSum _ (fun d _ => C.absolute.orbit_smoothing_integrable v m b Z hZ i d)
 
 lemma orbitMass_integral_summable {N : TraceHaarTransport R} (C : JointUpperVanishingSources R N)
     (v : R.A.UnitQuotient) (m : ThetaReflectionData.Row R.A) (b : Bool)
@@ -72,7 +72,7 @@ lemma orbitMass_integral_summable {N : TraceHaarTransport R} (C : JointUpperVani
           ∂pregroupingSheetHaar R.A C.packet.v₀ C.transport.groupHaar ⟨t.val / Z, div_pos t.property hZ⟩
           ∂positiveHaar := by
     unfold orbitMass
-    exact integral_finset_sum _ (fun d _ => C.absolute.orbit_smoothing_integrable v m b Z hZ i d)
+    exact integral_finsetSum _ (fun d _ => C.absolute.orbit_smoothing_integrable v m b Z hZ i d)
   simp_rw [he]
   exact C.absolute.orbit_pregrouping v m b Z hZ
 
@@ -95,9 +95,9 @@ lemma smoothed_orbit_norm_le {N : TraceHaarTransport R} (C : JointUpperVanishing
   change ‖C.packet.kernel t.val * ∫ z, orbitSheet R C v m b i l z ∂μ‖ ≤ _
   rw [← integral_const_mul]
   refine (norm_integral_le_integral_norm _).trans ?_
-  have hm := integral_mono hi.norm (integrable_finset_sum _ (fun d _ => hd d))
+  have hm := integral_mono hi.norm (integrable_finsetSum _ (fun d _ => hd d))
     (fun z => smoothing_orbitSheet_norm_le R C v m b i l z (C.packet.kernel t.val))
-  exact hm.trans_eq (integral_finset_sum _ (fun d _ => hd d))
+  exact hm.trans_eq (integral_finsetSum _ (fun d _ => hd d))
 
 theorem smoothed_orbit_integral_norm_summable {N : TraceHaarTransport R} (C : JointUpperVanishingSources R N)
     (hx : AbsoluteExtraction R C) (v : R.A.UnitQuotient)

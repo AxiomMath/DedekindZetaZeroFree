@@ -41,7 +41,7 @@ private lemma regular_inv {F : Type*} [Field F] {u : F} {r : RatFunc F}
     (_hr : Regular u r) (hv : RatFunc.eval (RingHom.id F) u r ≠ 0) : Regular u r⁻¹ := by
   have hr0 : r ≠ 0 := by intro h; simp [h] at hv
   intro h
-  have hn := Polynomial.eval_eq_zero_of_dvd_of_eval_eq_zero (RatFunc.denom_inv_dvd hr0) h
+  have hn := Polynomial.eval_eq_zero_of_dvd_of_eval_eq_zero (RatFunc.denom_inv_dvd _) h
   apply hv
   simp [RatFunc.eval, hn]
 private lemma eval_inv {F : Type*} [Field F] {u : F} {r : RatFunc F}

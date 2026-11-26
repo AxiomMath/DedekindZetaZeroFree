@@ -24,7 +24,7 @@ private lemma summable_ideal_scaled_inverse_power (p Y : ℝ) (hp : 1 < p) (hY :
       (Y * (Ideal.absNorm I.val : ℝ)) ^ (-p)) := by
   have hbase : Summable (fun I : {I : Ideal (𝓞 F) // I ≠ ⊥} =>
       (Ideal.absNorm I.val : ℝ) ^ (-p)) := by
-    have h := (summable_ideal_inverse_power F p hp).subtype ({I : Ideal (𝓞 F) | I ≠ ⊥})
+    have h := (summable_ideal_inverse_power F p hp).subtype (fun I : Ideal (𝓞 F) => I ≠ ⊥)
     exact h.congr fun I => by
       rw [Function.comp_apply, if_neg I.2]
   have hmul : Summable (fun I : {I : Ideal (𝓞 F) // I ≠ ⊥} =>

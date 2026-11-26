@@ -46,19 +46,19 @@ variable {G : Type*} [Group G]
 /-- Transfer from `G` to the abelianization of a finite-index subgroup. -/
 noncomputable def transferToAbelianization
     (H : Subgroup G) [H.FiniteIndex] :
-    G →* Abelianization H :=
-  MonoidHom.transfer (Abelianization.of : H →* Abelianization H)
+    G →* Group.Abelianization H :=
+  MonoidHom.transfer (Group.Abelianization.of : H →* Group.Abelianization H)
 
 /-- The transfer factors through the abelianization of `G`. -/
 noncomputable def abelianizedTransfer
     (H : Subgroup G) [H.FiniteIndex] :
-    Abelianization G →* Abelianization H :=
-  Abelianization.lift (transferToAbelianization H)
+    Group.Abelianization G →* Group.Abelianization H :=
+  Group.Abelianization.lift (transferToAbelianization H)
 
 @[simp]
 theorem abelianizedTransfer_of
     (H : Subgroup G) [H.FiniteIndex] (g : G) :
-    abelianizedTransfer H (Abelianization.of g) =
+    abelianizedTransfer H (Group.Abelianization.of g) =
       transferToAbelianization H g :=
   rfl
 
@@ -67,12 +67,12 @@ the relative augmentation construction. -/
 theorem abelianizedTransfer_of_eq_diff
     (H : Subgroup G) [H.FiniteIndex]
     (T : H.LeftTransversal) (g : G) :
-    abelianizedTransfer H (Abelianization.of g) =
+    abelianizedTransfer H (Group.Abelianization.of g) =
       Subgroup.leftTransversals.diff
-        (Abelianization.of : H →* Abelianization H)
+        (Group.Abelianization.of : H →* Group.Abelianization H)
         T (g • T) := by
   exact MonoidHom.transfer_def
-    (Abelianization.of : H →* Abelianization H) T g
+    (Group.Abelianization.of : H →* Group.Abelianization H) T g
 
 /-- The inclusion of the subgroup ring `ℤ[H]` into `ℤ[G]`. -/
 def subgroupRingMap (H : Subgroup G) :
@@ -240,14 +240,14 @@ def relativeDeltaMonoidHom (H : Subgroup G) :
 
 /-- The right vertical augmentation map in the relative augmentation construction. -/
 def relativeDeltaAbelianization (H : Subgroup G) :
-    Abelianization H →*
+    Group.Abelianization H →*
       Multiplicative (RelativeAugmentationQuotient H) :=
-  Abelianization.lift (relativeDeltaMonoidHom H)
+  Group.Abelianization.lift (relativeDeltaMonoidHom H)
 
 @[simp]
 theorem relativeDeltaAbelianization_of
     (H : Subgroup G) (h : H) :
-    relativeDeltaAbelianization H (Abelianization.of h) =
+    relativeDeltaAbelianization H (Group.Abelianization.of h) =
       Multiplicative.ofAdd (relativeDeltaClass H h) :=
   rfl
 
@@ -285,20 +285,20 @@ theorem transversalComponent_mul_right
 `Hᵃᵇ`. -/
 def transversalCoefficientToAbelianization
     (H : Subgroup G) (T : H.LeftTransversal) (g : G) :
-    ℤ →+ Additive (Abelianization H) where
+    ℤ →+ Additive (Group.Abelianization H) where
   toFun n :=
     n • Additive.ofMul
-      (Abelianization.of (transversalComponent H T g))
+      (Group.Abelianization.of (transversalComponent H T g))
   map_zero' := zero_zsmul _
   map_add' _ _ := add_zsmul _ _ _
 
 /-- Transversal linearization of `ℤ[G]` in `Hᵃᵇ`. -/
 def transversalLinearization
     (H : Subgroup G) (T : H.LeftTransversal) :
-    IntegralGroupRing G →+ Additive (Abelianization H) :=
+    IntegralGroupRing G →+ Additive (Group.Abelianization H) :=
   ((Finsupp.liftAddHom
       (α := G) (M := ℤ)
-      (N := Additive (Abelianization H)))
+      (N := Additive (Group.Abelianization H)))
       (transversalCoefficientToAbelianization H T)).comp
     MonoidAlgebra.coeffAddEquiv.toAddMonoidHom
 
@@ -309,7 +309,7 @@ theorem transversalLinearization_single
     transversalLinearization H T
         (MonoidAlgebra.single g n) =
       n • Additive.ofMul
-        (Abelianization.of (transversalComponent H T g)) := by
+        (Group.Abelianization.of (transversalComponent H T g)) := by
   simp [transversalLinearization,
     transversalCoefficientToAbelianization]
 
@@ -319,7 +319,7 @@ ordinary abelianization linearization. -/
 theorem transversalLinearization_embeddedDelta
     (H : Subgroup G) (T : H.LeftTransversal) (h : H) :
     transversalLinearization H T (embeddedDelta H h) =
-      Additive.ofMul (Abelianization.of h) := by
+      Additive.ofMul (Group.Abelianization.of h) := by
   have hc :=
     transversalComponent_mul_right H T (1 : G) h
   rw [embeddedDelta_eq]
@@ -410,7 +410,7 @@ theorem transversalLinearization_eq_zero_of_mem_mixed
 def relativeLinearizationOnNumerator
     (H : Subgroup G) (T : H.LeftTransversal) :
     relativeAugmentationNumerator H →+
-      Additive (Abelianization H) where
+      Additive (Group.Abelianization H) where
   toFun x :=
     transversalLinearization H T
       (x : IntegralGroupRing G)
@@ -421,7 +421,7 @@ def relativeLinearizationOnNumerator
 def relativeQuotientLinearization
     (H : Subgroup G) (T : H.LeftTransversal) :
     RelativeAugmentationQuotient H →+
-      Additive (Abelianization H) :=
+      Additive (Group.Abelianization H) :=
   QuotientAddGroup.lift
     (mixedProductInNumerator H)
     (relativeLinearizationOnNumerator H T) (by
@@ -435,14 +435,14 @@ theorem relativeQuotientLinearization_deltaClass
     (H : Subgroup G) (T : H.LeftTransversal) (h : H) :
     relativeQuotientLinearization H T
         (relativeDeltaClass H h) =
-      Additive.ofMul (Abelianization.of h) := by
+      Additive.ofMul (Group.Abelianization.of h) := by
   exact transversalLinearization_embeddedDelta H T h
 
 /-- Multiplicative form of inverse relative linearization. -/
 def relativeQuotientLinearizationMonoidHom
     (H : Subgroup G) (T : H.LeftTransversal) :
     Multiplicative (RelativeAugmentationQuotient H) →*
-      Abelianization H :=
+      Group.Abelianization H :=
   (relativeQuotientLinearization H T).toMultiplicativeLeft
 
 @[simp]
@@ -450,13 +450,13 @@ theorem relativeQuotientLinearizationMonoidHom_deltaClass
     (H : Subgroup G) (T : H.LeftTransversal) (h : H) :
     relativeQuotientLinearizationMonoidHom H T
         (Multiplicative.ofAdd (relativeDeltaClass H h)) =
-      Abelianization.of h := by
+      Group.Abelianization.of h := by
   exact congrArg Additive.toMul
     (relativeQuotientLinearization_deltaClass H T h)
 
 theorem relativeQuotientLinearizationMonoidHom_deltaAbelianization
     (H : Subgroup G) (T : H.LeftTransversal)
-    (a : Abelianization H) :
+    (a : Group.Abelianization H) :
     relativeQuotientLinearizationMonoidHom H T
         (relativeDeltaAbelianization H a) =
       a := by
@@ -548,7 +548,7 @@ theorem relativeDeltaAbelianization_surjective
     Function.Surjective (relativeDeltaAbelianization H) := by
   intro q
   change
-    ∃ a : Abelianization H,
+    ∃ a : Group.Abelianization H,
       relativeDeltaAbelianization H a =
         Multiplicative.ofAdd (Multiplicative.toAdd q)
   refine
@@ -579,7 +579,7 @@ theorem relativeDeltaAbelianization_surjective
 /-- The right vertical isomorphism in the diagram of the relative augmentation construction. -/
 noncomputable def relativeDeltaAbelianizationEquiv
     (H : Subgroup G) :
-    Abelianization H ≃*
+    Group.Abelianization H ≃*
       Multiplicative (RelativeAugmentationQuotient H) :=
   MulEquiv.ofBijective (relativeDeltaAbelianization H)
     ⟨relativeDeltaAbelianization_injective H,
@@ -587,7 +587,7 @@ noncomputable def relativeDeltaAbelianizationEquiv
 
 @[simp]
 theorem relativeDeltaAbelianizationEquiv_apply
-    (H : Subgroup G) (a : Abelianization H) :
+    (H : Subgroup G) (a : Group.Abelianization H) :
     relativeDeltaAbelianizationEquiv H a =
       relativeDeltaAbelianization H a :=
   rfl
@@ -596,7 +596,7 @@ theorem relativeDeltaAbelianizationEquiv_apply
 theorem relativeDeltaAbelianizationEquiv_of
     (H : Subgroup G) (h : H) :
     relativeDeltaAbelianizationEquiv H
-        (Abelianization.of h) =
+        (Group.Abelianization.of h) =
       Multiplicative.ofAdd (relativeDeltaClass H h) :=
   rfl
 
@@ -625,7 +625,7 @@ theorem augmentationTransfer_apply
 /-- Commutativity of the transfer/augmentation square. -/
 theorem augmentationTransfer_deltaAbelianization
     (H : Subgroup G) [H.FiniteIndex]
-    (a : Abelianization G) :
+    (a : Group.Abelianization G) :
     augmentationTransfer H (deltaAbelianization G a) =
       relativeDeltaAbelianization H
         (abelianizedTransfer H a) := by
@@ -642,7 +642,7 @@ theorem augmentationTransfer_deltaClass
         (transferToAbelianization H g) := by
   rw [← deltaAbelianization_of]
   exact augmentationTransfer_deltaAbelianization H
-    (Abelianization.of g)
+    (Group.Abelianization.of g)
 
 /-- The representative of a left coset selected by `T`. -/
 def leftRepresentative
@@ -673,10 +673,10 @@ theorem leftRepresentative_mul_transferComponent
 theorem abelianizedTransfer_of_eq_prod_transferComponent
     (H : Subgroup G) [H.FiniteIndex]
     (T : H.LeftTransversal) (g : G) :
-    abelianizedTransfer H (Abelianization.of g) =
+    abelianizedTransfer H (Group.Abelianization.of g) =
       letI := H.fintypeQuotientOfFiniteIndex
       ∏ q : G ⧸ H,
-        Abelianization.of (transferComponent H T g q) := by
+        Group.Abelianization.of (transferComponent H T g q) := by
   let := H.fintypeQuotientOfFiniteIndex
   rw [abelianizedTransfer_of_eq_diff H T g]
   rfl

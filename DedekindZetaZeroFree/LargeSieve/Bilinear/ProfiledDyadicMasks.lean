@@ -53,10 +53,10 @@ theorem finite_separated_sieve {I U : Type*} [Fintype I] [Fintype U]
   let g : ℝ → I → ℂ := fun t d => ∑ c, a c d * (W t * cp t c * rp t d)
   have hg : ∀ d, Integrable (fun t => g t d) := by
     intro d
-    exact integrable_finset_sum _ (fun c _ => (hpair c d).const_mul (a c d))
+    exact integrable_finsetSum _ (fun c _ => (hpair c d).const_mul (a c d))
   have he : ∀ d, (∑ c, a c d * P c d) = ∫ t, g t d := by
     intro d
-    rw [integral_finset_sum _ (fun c _ => (hpair c d).const_mul (a c d))]
+    rw [integral_finsetSum _ (fun c _ => (hpair c d).const_mul (a c d))]
     apply Finset.sum_congr rfl
     intro c hc
     rw [integral_const_mul, ← hP c d]

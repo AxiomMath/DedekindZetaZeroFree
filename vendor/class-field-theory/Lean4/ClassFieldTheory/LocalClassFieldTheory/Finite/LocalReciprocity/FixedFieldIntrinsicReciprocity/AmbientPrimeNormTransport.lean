@@ -472,7 +472,7 @@ theorem
           ((abstractExtensionQuotientEquivGaloisGroup
             K (SeparableClosure K) H.field J hJH hJnormal
             ).abelianizationCongr
-            (Abelianization.of
+            (Group.Abelianization.of
               ((localResidueDatum K).frobeniusRestriction
                 (H.toFiniteResidueAbstractField (localResidueDatum K))
                 J hJH sigma))) := by
@@ -551,7 +551,7 @@ theorem
                 H.field S hSH pi)))) =
       Additive.ofMul
         (qH.abelianizationCongr
-          (Abelianization.of qAmbient)) at hsymbol
+          (Group.Abelianization.of qAmbient)) at hsymbol
   rw [hx] at hsymbol
   exact hsymbol
 
@@ -630,7 +630,7 @@ theorem
           ((abstractExtensionQuotientEquivGaloisGroup
             K (SeparableClosure K) H.field J hJH hJnormal
             ).abelianizationCongr
-            (Abelianization.of
+            (Group.Abelianization.of
               ((localResidueDatum K).frobeniusRestriction
                 (H.toFiniteResidueAbstractField (localResidueDatum K))
                 J hJH sigma))) := by

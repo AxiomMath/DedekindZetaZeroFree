@@ -446,7 +446,7 @@ theorem raw_character_laws :
   let S : Finset (KPHilbert.Place F) := Finset.univ.image Sum.inl
   let f := fun x : rawCenter F ζ hζ =>
     ∏ w : InfinitePlace F, localValue F ζ hζ (Sum.inl w) (x.val (Sum.inl w))
-  have hf : Continuous f := continuous_finset_prod _
+  have hf : Continuous f := continuous_finsetProd _
     (fun w _ => complex_raw_value_continuous F ζ hζ w)
   have ho : IsOpen {x : Raw F ζ hζ | ∀ v, x v ∈ KPAdelicCoverRestrictedProduct.compact F ζ hζ v} :=
     RestrictedProduct.isOpen_forall_mem (KPAdelicCoverRestrictedProduct.compact_open F ζ hζ)

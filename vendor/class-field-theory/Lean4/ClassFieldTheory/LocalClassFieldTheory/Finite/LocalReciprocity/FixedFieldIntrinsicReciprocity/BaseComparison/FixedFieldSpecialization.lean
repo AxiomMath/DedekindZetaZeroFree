@@ -30,6 +30,20 @@ open LocalFieldTheory RamificationTheory CyclicCohomology KummerTheory
 open ClassFormation
 open scoped ValuativeRel
 
+/-! Shortcut instances: since the Mathlib bump, the generic search for the residue-field
+algebra of a valuation extension times out in the fixed-field contexts below. -/
+
+local instance (priority := high) residueAlgebraOfHasExtension_fixedFieldSpecialization
+    (K L : Type*) [Field K] [ValuativeRel K] [Field L] [ValuativeRel L] [Algebra K L]
+    [Valuation.HasExtension (ValuativeRel.valuation K) (ValuativeRel.valuation L)] :
+    Algebra 𝓀[K] 𝓀[L] := inferInstance
+
+local instance (priority := high) residueModuleOfHasExtension_fixedFieldSpecialization
+    (K L : Type*) [Field K] [ValuativeRel K] [Field L] [ValuativeRel L] [Algebra K L]
+    [Valuation.HasExtension (ValuativeRel.valuation K) (ValuativeRel.valuation L)] :
+    Module 𝓀[K] 𝓀[L] := Algebra.toModule
+
+
 private theorem mem_subgroup_iff_of_map_eq_of_ker_eq
     {G H Q : Type*} [Group G] [Group H] [Group Q]
     (f : G →* Q) (g : H →* Q) (I : Subgroup G) (J : Subgroup H)
@@ -105,6 +119,8 @@ theorem intrinsicExtensionSubgroup_iff_ambientFixedField
         qF (QuotientGroup.mk τ) :=
     fixedFieldQuotientEquiv_mk_compatibility
       K H J hJH e τ
+  letI : One (H.field.toSubgroup ⧸ extensionSubgroup H.field J hJH) :=
+    (QuotientGroup.Quotient.group (extensionSubgroup H.field J hJH)).toOne
   constructor
   · intro hτ
     have hF : (QuotientGroup.mk τ :
@@ -121,20 +137,11 @@ theorem intrinsicExtensionSubgroup_iff_ambientFixedField
           hcompat
         _ = qF 1 := congrArg qF hF
         _ = 1 := map_one qF
-    have hHquotient :
-        (QuotientGroup.mk (φ τ.1) :
-          H.field.toSubgroup ⧸
-            extensionSubgroup H.field J hJH) = 1 := by
-      apply qH.injective
-      exact hHimage.trans (map_one qH).symm
+    have hHquotient := qH.injective (hHimage.trans (map_one qH).symm)
     exact (QuotientGroup.eq_one_iff (φ τ.1)).1 hHquotient
   · intro hφτ
-    have hHquotient :
-        (QuotientGroup.mk (φ τ.1) :
-          H.field.toSubgroup ⧸
-            extensionSubgroup H.field J hJH) = 1 := by
-      rw [QuotientGroup.eq_one_iff]
-      exact hφτ
+    have hHquotient :=
+      (QuotientGroup.eq_one_iff (N := extensionSubgroup H.field J hJH) (φ τ.1)).2 hφτ
     have hFimage :
         qF (QuotientGroup.mk τ) = 1 := by
       calc

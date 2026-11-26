@@ -49,12 +49,12 @@ theorem recipe_zero_free (s : ℂ) (hs : 31 / 32 < s.re) (hs1 : s ≠ 1) :
   have hT : AnalyticOnNhd ℂ (DedekindZetaZeroFree.Quantitative.MellinTransform.T D)
       {s : ℂ | 31 / 32 < s.re ∧ s ≠ 1} :=
     ((DedekindZetaZeroFree.Quantitative.MellinHolomorphic.T_differentiableOn D).mono
-      (fun z hz => hz.1)).analyticOnNhd hU
+      (fun z (hz : z ∈ {s : ℂ | 31 / 32 < s.re ∧ s ≠ 1}) => hz.1)).analyticOnNhd hU
   have hN : AnalyticOnNhd ℂ
       (fun s : ℂ => Complex.exp ((s - 5 / 6) ^ 2) * DedekindZetaZeroFree.Quantitative.Spectral.H D s)
       {s : ℂ | 31 / 32 < s.re ∧ s ≠ 1} :=
     ((DedekindZetaZeroFree.Quantitative.SpectralData.numerator_differentiableOn D).mono
-      (fun z hz => hz.1)).analyticOnNhd hU
+      (fun z (hz : z ∈ {s : ℂ | 31 / 32 < s.re ∧ s ≠ 1}) => hz.1)).analyticOnNhd hU
   have key := DedekindZetaZeroFree.mellin_holomorphic_zero_transfer (31 / 32) (by norm_num)
     D.zetaSCont (DedekindZetaZeroFree.Quantitative.MellinTransform.T D)
     (fun s : ℂ => Complex.exp ((s - 5 / 6) ^ 2) * DedekindZetaZeroFree.Quantitative.Spectral.H D s)

@@ -108,6 +108,7 @@ theorem box_fiber_parameter (E Q : Finset (KPFinitePlace F)) (hE : C.exceptional
     rw [← Complex.exp_sum]
     apply congrArg Complex.exp
     rw [Complex.ofReal_sum, Finset.mul_sum]
+  simp only [RingHom.id_apply]
   rw [hp]
 
 end DedekindZetaZeroFree.FourierContinuation.LiteralSource.CofactorChamber

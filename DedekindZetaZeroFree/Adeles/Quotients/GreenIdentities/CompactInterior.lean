@@ -31,7 +31,7 @@ theorem smoothOnLift_sectionFields
       (labeledA (placeEquiv F ζ hζ) : M F → KPCuspGenuineMonodromy.SymmetricSpace F) := by
     apply contDiff_pi.mpr
     intro k
-    exact (contDiff_apply ℝ (ℂ × ℝ) ((placeEquiv F ζ hζ).symm k)).comp
+    exact (contDiff_apply ℝ (fun _ => ℂ × ℝ) ((placeEquiv F ζ hζ).symm k)).comp
       (CotangentLogCoframe.A (d F)).contDiff
   refine ⟨fun x => (s a.component).val (labeledA (placeEquiv F ζ hζ) x),
     ((hs a.component).comp hA).contDiffOn, ?_⟩

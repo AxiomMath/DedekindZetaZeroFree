@@ -471,9 +471,9 @@ private theorem principalSeries_hasSmoothOrbit (s : ℝ) (f : PrincipalSeries s)
     HasSmoothOrbit s f := by
   obtain ⟨_, hf⟩ := (principalSeries_mem_iff s f).mp f.property
   constructor
-  · have h := hf.comp openSmooth.contDiffOn (fun p hp => openMaps p hp)
+  · have h := hf.comp (openSmooth.contDiffOn (s := {p | p.1.det ≠ 0})) (fun p hp => openMaps p hp)
     exact h
-  · have h := hf.comp lowerSmooth.contDiffOn (fun p hp => lowerMaps p hp)
+  · have h := hf.comp (lowerSmooth.contDiffOn (s := {p | p.1.det ≠ 0})) (fun p hp => lowerMaps p hp)
     exact h
 
 theorem exceptional_principalSeries_continuous_smooth :

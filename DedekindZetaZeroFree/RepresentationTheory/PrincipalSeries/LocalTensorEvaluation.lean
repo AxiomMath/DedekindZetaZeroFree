@@ -152,7 +152,7 @@ theorem rawStageInsertion_arch_factorization (s : RestrictedTensorSimple.Level (
   rw [rawStageInsertion_pure]
   simp_rw [localValue_factor]
   rw [(PiTensorProduct.tprod ℂ).map_smul_univ]
-  simp only [map_smul, Submodule.coe_smul_of_tower, Pi.smul_apply, smul_eq_mul]
+  simp only [map_smul, Submodule.coe_smul_of_tower, Pi.smul_apply, smul_eq_mul, RingHom.id_apply]
 
 variable {S : SArithmeticData F} {η : RayClassCharacter F S.modulus}
 

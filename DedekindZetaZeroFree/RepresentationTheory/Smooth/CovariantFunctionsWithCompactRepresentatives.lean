@@ -4,7 +4,7 @@ public import DedekindZetaZeroFree.RepresentationTheory.PrincipalSeries.LocalCom
 
 @[expose] public section
 
-open scoped Topology
+open scoped Topology Pointwise
 namespace DedekindZetaZeroFree.KPRankOneBruhatKernelTransport.OpenCellSmoothnessSteps
 open KPLocalPrincipalSeries
 noncomputable section

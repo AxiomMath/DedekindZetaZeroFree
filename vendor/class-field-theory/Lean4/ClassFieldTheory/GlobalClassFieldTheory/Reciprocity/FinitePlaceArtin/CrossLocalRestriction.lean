@@ -813,6 +813,7 @@ private theorem finitePlaceCrossDecompositionTransport_core
         (algebraMap L L' (phiLower tauLower z)) := by
       rw [hEmbedding]
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
 /-- Restriction through the completed local square agrees with restriction of
 the corresponding global decomposition-group automorphisms. -/
 theorem finitePlaceCrossDecompositionTransport

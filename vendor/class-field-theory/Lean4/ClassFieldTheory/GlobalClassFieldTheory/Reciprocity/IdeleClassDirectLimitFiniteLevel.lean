@@ -113,7 +113,7 @@ theorem rationalRelativeIdeleEmbedding_unflatten
           ((IntermediateField.inclusion hKN).toRingHom.toAlgebra)
           inferInstance
           (relativeAdeleRingIntermediateAlgebra ℚ K)
-          (smulCommClass_self K (RelativeAdeleRing ℚ K))).toRingHom a :
+          (smulCommClass_self K (RelativeAdeleRing ℚ K))).toRingHom.toMonoidHom a :
         TowerRelativeIdeleGroup ℚ K N) := by
   let : Algebra K N :=
     (IntermediateField.inclusion hKN).toRingHom.toAlgebra

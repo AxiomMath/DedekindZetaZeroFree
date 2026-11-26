@@ -213,15 +213,15 @@ private theorem annular_weight_continuous (A : SArithmeticData F)
   rw [show W = _ from funext heq]
   apply Continuous.mul
   · apply Continuous.mul
-    · apply continuous_finset_prod
+    · apply continuous_finsetProd
       intro v hv
       exact (hr v).1.continuous.comp ((continuous_apply v).comp
         (continuous_fst.comp (hm.comp continuous_fst)))
-    · apply continuous_finset_prod
+    · apply continuous_finsetProd
       intro v hv
       exact (hc v).1.continuous.comp ((continuous_apply v).comp
         (continuous_snd.comp (hm.comp continuous_fst)))
-  · apply continuous_finset_prod
+  · apply continuous_finsetProd
     intro v hv
     exact (hf v).1.continuous.comp ((continuous_apply v).comp continuous_snd)
 
@@ -290,6 +290,7 @@ def expandedProbeSummand (A : SArithmeticData F)
         asLocalPoint A (((t : A.G) * radialSection A (A.exteriorNorm s * X))⁻¹)) *
       ThetaReflectionData.forwardSummand A D ⟨m, hm⟩ Z i.1 i.2
 
+attribute [local irreducible] AbsoluteValue.Completion.instNormedField in
 theorem principal_inserted_absolutely_convergent (A : SArithmeticData F)
     (σ : F →+* ℂ) (η : RayClassCharacter F A.modulus) (hS : A.ContainsTraceBadPlaces)
     (P : PrincipalData A σ η hS) (X Y Z : ℝ)
@@ -333,14 +334,14 @@ theorem principal_inserted_absolutely_convergent (A : SArithmeticData F)
   · intro s
     apply (summable_prod_of_nonneg (fun j => norm_nonneg _)).mpr
     refine ⟨hinner s, ?_⟩
-    apply summable_of_finite_support
+    apply summable_of_hasFiniteSupport
     apply hfinite.subset
     intro m hm
     by_contra hn
     apply hm
     change (∑' i, f (s, m, i)) = 0
     simp only [hzero s m (Or.inr hn), tsum_zero]
-  · apply summable_of_finite_support
+  · apply summable_of_hasFiniteSupport
     apply (exterior_weight_finite A P.W1 Y hY).subset
     intro s hs
     by_contra hn

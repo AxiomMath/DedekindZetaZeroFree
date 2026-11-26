@@ -282,7 +282,7 @@ theorem padic_mulValuation_natCast_of_ne_zero
       WithZero.exp (-(padicValNat p n : ℤ)) := by
   have hnQp : (((n : ℕ) : ℚ_[p]) ≠ 0) :=
     Nat.cast_ne_zero.mpr hn
-  simp [Padic.mulValuation, hnQp]
+  simp [Padic.mulValuation, hnQp, Nat.padicValNat_def]
 
 /-- Successor form of the natural-number denominator valuation used in the
 logarithm-series estimate. -/

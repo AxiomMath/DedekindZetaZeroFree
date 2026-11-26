@@ -497,7 +497,7 @@ theorem relativeIdeleClassNorm_index_eq_finrank_cyclic
   classical
   induction hfinrank : Module.finrank K L using
       Nat.strong_induction_on generalizing K L with
-  | h degree ih =>
+  | ind degree ih =>
     by_cases hdegreeOne : Module.finrank K L = 1
     · have hsurjective :
           Function.Surjective
@@ -728,7 +728,7 @@ theorem
   classical
   induction hfinrank : Module.finrank K L using
       Nat.strong_induction_on generalizing K L with
-  | h degree ih =>
+  | ind degree ih =>
     by_cases hdegreeOne : Module.finrank K L = 1
     · have hAutCard :
           Nat.card (L ≃ₐ[K] L) = 1 := by

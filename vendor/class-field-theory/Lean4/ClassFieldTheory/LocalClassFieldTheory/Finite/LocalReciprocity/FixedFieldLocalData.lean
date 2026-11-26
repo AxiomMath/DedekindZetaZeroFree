@@ -39,6 +39,20 @@ open scoped NNReal Pointwise ValuativeRel
 open ClassFormation LocalFieldTheory RamificationTheory CyclicCohomology
 open RamificationTheory.HilbertRamification.ValuationSubring
 
+/-! Shortcut instances: since the Mathlib bump, the generic search for the residue-field
+algebra of a valuation extension times out in the fixed-field contexts below. -/
+
+local instance (priority := high) residueAlgebraOfHasExtension_fixedFieldLocalData
+    (K L : Type*) [Field K] [ValuativeRel K] [Field L] [ValuativeRel L] [Algebra K L]
+    [Valuation.HasExtension (ValuativeRel.valuation K) (ValuativeRel.valuation L)] :
+    Algebra 𝓀[K] 𝓀[L] := inferInstance
+
+local instance (priority := high) residueModuleOfHasExtension_fixedFieldLocalData
+    (K L : Type*) [Field K] [ValuativeRel K] [Field L] [ValuativeRel L] [Algebra K L]
+    [Valuation.HasExtension (ValuativeRel.valuation K) (ValuativeRel.valuation L)] :
+    Module 𝓀[K] 𝓀[L] := Algebra.toModule
+
+
  abbrev finiteFixedField
     (K : Type) [Field K]
     (H : FiniteAbstractField (Gal(SeparableClosure K / K))) :
@@ -1100,6 +1114,8 @@ theorem localResidueDegree_eq_normalizedDegree_abstractFixedFieldEquiv
   obtain ⟨tau, hTau⟩ := exists_abstractFixedFieldResidueEquiv K H e
   let : Fintype kA :=
     finiteExtensionDecompositionResidueFintype K F j e
+  let : Algebra.IsAlgebraic kA (selectedResidueField A) :=
+    (decompositionResidueExtension_normal (K := F) A).toIsAlgebraic
   have hlocal :
       localResidueDegree F sigma =
         residueAbsoluteDegreeIn kA (selectedResidueField A)

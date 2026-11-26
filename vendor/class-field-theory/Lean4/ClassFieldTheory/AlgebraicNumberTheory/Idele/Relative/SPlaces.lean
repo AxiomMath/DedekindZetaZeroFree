@@ -755,6 +755,19 @@ noncomputable def relativeIdeleSPlaceFactorsAction
             (K := K) (L := L) w.1)
   exact inferInstance
 
+/-! Shortcut instance: since the Mathlib bump, the scalar action of the Galois group on the
+complete local-factor model is found only after a long search through the completion instances
+(products, units, tensor algebras), which exhausts the instance budget in the statement below.
+The shortcut reads it off the coordinatewise action. -/
+
+omit [NumberField L] [IsGalois K L] in
+local instance (priority := high) relativeIdeleSPlaceFactors_smul
+    (S : Finset (HeightOneSpectrum (𝓞 K)))
+    [h : MulDistribMulAction (L ≃ₐ[K] L)
+      (RelativeIdeleSPlaceFactors (K := K) (L := L) S)] :
+    SMul (L ≃ₐ[K] L) (RelativeIdeleSPlaceFactors (K := K) (L := L) S) :=
+  h.toSMul
+
 omit [NumberField L] [IsGalois K L] in
 /-- The complete local-component map is equivariant. -/
 theorem relativeIdeleSupportedComponents_smul

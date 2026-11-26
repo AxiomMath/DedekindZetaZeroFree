@@ -65,8 +65,8 @@ private theorem bigHilbertClassFieldQuotientEquivNarrowClassGroup_mk
   letI : W.1.LiesOver v.1 :=
     ⟨rfl⟩
   exact
-    NumberField.LiesOver.completionMap
-      (v := v) (w := W)
+    AbsoluteValue.Completion.map
+      (v := v.1) (w := W.1)
 
 private theorem infinitePlaceCompletionCongrHom_algebraMap
     (e : K ≃ₐ[ℚ] M)
@@ -82,26 +82,15 @@ private theorem infinitePlaceCompletionCongrHom_algebraMap
   let : W.1.LiesOver v.1 :=
     ⟨rfl⟩
   change
-    NumberField.LiesOver.completionMap
-        (v := v) (w := W)
+    AbsoluteValue.Completion.map
+        (v := v.1) (w := W.1)
         (algebraMap K v.Completion x) =
       algebraMap M W.Completion
         (algebraMap K M x)
-  have hx :
-      algebraMap K v.Completion x =
-        ((WithAbs.toAbs v.1 x : WithAbs v.1) :
-          v.Completion) :=
-    rfl
-  rw [hx,
-    NumberField.LiesOver.completionMap_coe
-      (v := v) (w := W)]
-  apply InfinitePlace.Completion.ext
-  rw [
-    InfinitePlace.Completion.algebraMap_toCompletion,
-    UniformSpace.Completion.algebraMap_def]
-  simp only [WithAbs.algebraMap_left_apply,
-    WithAbs.algebraMap_right_apply,
-    Algebra.algebraMap_self_apply]
+  rw [AbsoluteValue.Completion.algebraMap_def,
+    AbsoluteValue.Completion.algebraMap_def,
+    AbsoluteValue.Completion.map_coe]
+  rfl
 
 private theorem
     relativeAdeleBaseChangeRingEquiv_relativeAdeleCongr_infiniteComponent_tmul
@@ -124,8 +113,8 @@ private theorem
   change
     (relativeAdeleBaseChangeRingEquiv
         (K := ℚ) (L := M) (b ⊗ₜ[ℚ] e x)).1 W =
-      NumberField.LiesOver.completionMap
-        (v := v) (w := W)
+      AbsoluteValue.Completion.map
+        (v := v.1) (w := W.1)
         ((relativeAdeleBaseChangeRingEquiv
           (K := ℚ) (L := K) (b ⊗ₜ[ℚ] x)).1 v)
   let qv :=
@@ -148,8 +137,8 @@ private theorem
   let : W.1.LiesOver qv.1 :=
     ⟨congrArg (fun q : InfinitePlace ℚ => q.1) hq.symm⟩
   have hxMap :
-      NumberField.LiesOver.completionMap
-          (v := v) (w := W)
+      AbsoluteValue.Completion.map
+          (v := v.1) (w := W.1)
           (algebraMap K v.Completion x) =
         algebraMap M W.Completion (e x) := by
     simpa only [infinitePlaceCompletionCongrHom] using
@@ -158,22 +147,22 @@ private theorem
       (qv' : InfinitePlace ℚ)
       (h : qv' = qW)
       [v.1.LiesOver qv'.1] :
-      NumberField.LiesOver.completionMap
-            (v := qW) (w := W) (b.1 qW) *
+      AbsoluteValue.Completion.map
+            (v := qW.1) (w := W.1) (b.1 qW) *
           algebraMap M W.Completion (e x) =
-        NumberField.LiesOver.completionMap
-            (v := v) (w := W)
-            (NumberField.LiesOver.completionMap
-                (v := qv') (w := v) (b.1 qv') *
+        AbsoluteValue.Completion.map
+            (v := v.1) (w := W.1)
+            (AbsoluteValue.Completion.map
+                (v := qv'.1) (w := v.1) (b.1 qv') *
               algebraMap K v.Completion x) := by
     subst qv'
     have hcomp :
-        NumberField.LiesOver.completionMap
-            (v := v) (w := W)
-            (NumberField.LiesOver.completionMap
-              (v := qW) (w := v) (b.1 qW)) =
-          NumberField.LiesOver.completionMap
-            (v := qW) (w := W) (b.1 qW) := by
+        AbsoluteValue.Completion.map
+            (v := v.1) (w := W.1)
+            (AbsoluteValue.Completion.map
+              (v := qW.1) (w := v.1) (b.1 qW)) =
+          AbsoluteValue.Completion.map
+            (v := qW.1) (w := W.1) (b.1 qW) := by
       convert
         (infinitePlaceCompletionMap_comp_apply
           (K := ℚ) (M := K) (L := M) W (b.1 qW)) using 1
@@ -261,6 +250,8 @@ private theorem
     W.comap e.toRingHom
   let : W.1.LiesOver v.1 :=
     ⟨rfl⟩
+  letI : Algebra v.Completion W.Completion :=
+    AbsoluteValue.Completion.algebraOfLiesOver v.1 W.1
   let :
       NumberField.ComplexEmbedding.LiesOver
         (InfinitePlace.Completion.extensionEmbedding W)
@@ -269,12 +260,13 @@ private theorem
       W (hW.comap e.toRingHom)
   have hComplex :
       InfinitePlace.Completion.extensionEmbedding W
-          (NumberField.LiesOver.completionMap
-            (v := v) (w := W) x) =
+          (AbsoluteValue.Completion.map
+            (v := v.1) (w := W.1) x) =
         InfinitePlace.Completion.extensionEmbedding v x := by
-    exact
+    have h :=
       InfinitePlace.Completion.liesOver_extensionEmbedding_apply
-        (v := v) (w := W)
+        (φ := InfinitePlace.Completion.extensionEmbedding W) (x := x)
+    rwa [AbsoluteValue.Completion.algebraMap_eq_of_liesOver] at h
   apply Complex.ofReal_injective
   simpa only [
     InfinitePlace.Completion.extensionEmbeddingOfIsReal_apply,

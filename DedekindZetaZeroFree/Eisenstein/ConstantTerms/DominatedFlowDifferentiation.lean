@@ -54,7 +54,7 @@ theorem constantTerm_casimir_expansion
   change (∫ q, ∑ w : NumberField.InfinitePlace F, -((1 : ℂ) / 4) *
     (d w 0 0 q - d w 1 1 q + 2 *
       (d w 2 4 q + d w 4 2 q - d w 3 5 q - d w 5 3 q)) ∂dn) = _
-  rw [integral_finset_sum _ (fun w _ => hs w)]
+  rw [integral_finsetSum _ (fun w _ => hs w)]
   apply Finset.sum_congr rfl
   intro w hw
   simp only [integral_const_mul]

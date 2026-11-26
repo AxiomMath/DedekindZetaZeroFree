@@ -48,7 +48,7 @@ noncomputable def localVector (F : Type*) [Field F] [NumberField F]
     Matrix (Fin 2) (Fin 1) (v.adicCompletion F) :=
   fun i _ => algebraMap F (v.adicCompletion F) (if i = 0 then x.1 else x.2)
 
-def localTranslatedLattice (F : Type*) [Field F] [NumberField F]
+noncomputable def localTranslatedLattice (F : Type*) [Field F] [NumberField F]
     (g : AdelicGL F)
     (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers F)) :
     Set (Matrix (Fin 2) (Fin 1) (v.adicCompletion F)) :=
@@ -475,7 +475,10 @@ theorem bounded_crt_lattice_and_projective_compact
           localTranslatedLattice F g v) := by
   refine ⟨integralPG_compact_open F, ?_⟩
   intro g
-  refine ⟨⟨rationalIntersectionModule F g, ⟨rationalIntersection_fg F g, rationalIntersection_span F g⟩⟩, ?_, ?_⟩
+  have hlat : Submodule.IsLattice F (rationalIntersectionModule F g) :=
+    Submodule.IsLattice.of_fg F (rationalIntersection_fg F g)
+  refine ⟨⟨rationalIntersectionModule F g,
+    { toIsLattice := hlat, span_eq_top := rationalIntersection_span F g }⟩, ?_, ?_⟩
   · exact rationalIntersectionModule_mem F g
   · exact local_closure F g
 

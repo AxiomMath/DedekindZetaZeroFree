@@ -22,7 +22,7 @@ private theorem normalized_shrink
   letI : CompactSpace D.K := isCompact_iff_compactSpace.mp D.compact
   let conj (k : D.K) : finitePart F ζ hζ →* finitePart F ζ hζ :=
     { toFun := fun u => ⟨k.val⁻¹ * u.val * k.val,
-        Subgroup.Normal.conj_mem inferInstance u.val u.property k.val⁻¹ |> (by simpa using ·)⟩
+        (finitePart_normal F ζ hζ).conj_mem u.val u.property k.val⁻¹ |> (by simpa using ·)⟩
       map_one' := by apply Subtype.ext; simp
       map_mul' := by intros; apply Subtype.ext; change _ = _; simp [mul_assoc] }
   let V : Subgroup (finitePart F ζ hζ) :=

@@ -27,7 +27,7 @@ theorem comparisonPrincipalIncompleteL_eulerFactors_ne_zero
   refine Finset.prod_ne_zero_iff.mpr ?_
   intro v hv
   have hZ : 1 < idealNorm v.asIdeal := by
-    have := NumberField.RingOfIntegers.HeightOneSpectrum.one_lt_absNorm v
+    have := NumberField.HeightOneSpectrum.one_lt_absNorm v
     simpa [idealNorm] using this
   have hlog : 0 < Real.log (idealNorm v.asIdeal) := Real.log_pos hZ
   have hnorm : ‖comparisonRealPower (idealNorm v.asIdeal) (-s)‖ < 1 := by

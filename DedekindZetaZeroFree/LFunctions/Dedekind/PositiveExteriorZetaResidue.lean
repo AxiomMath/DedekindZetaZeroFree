@@ -87,7 +87,7 @@ theorem exterior_residue_pos
   apply Finset.prod_pos
   intro p hp
   have hn : (1 : ℝ) < Ideal.absNorm p.asIdeal := by
-    exact_mod_cast NumberField.RingOfIntegers.HeightOneSpectrum.one_lt_absNorm p
+    exact_mod_cast NumberField.HeightOneSpectrum.one_lt_absNorm p
   exact sub_pos.mpr ((inv_lt_one₀ (zero_lt_one.trans hn)).mpr hn)
 
 theorem exterior_regularization_at_one

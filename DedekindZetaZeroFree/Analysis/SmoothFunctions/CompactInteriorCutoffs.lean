@@ -136,7 +136,7 @@ theorem exists_smooth_cutoff {n : ℕ} (hn : 0 < n)
           ≤ ‖fderiv ℝ η x‖ * ‖EuclideanSpace.single j 1‖ :=
             ContinuousLinearMap.le_opNorm _ _
         _ = ‖fderiv ℝ η x‖ := by
-            rw [EuclideanSpace.norm_single, norm_one, mul_one]
+            rw [PiLp.norm_single, norm_one, mul_one]
         _ ≤ max C2 0 := hC2' x
         _ ≤ max 1 (max C2 0) := le_max_right _ _
 

@@ -46,7 +46,7 @@ noncomputable def infinitePlaceCompletionCongrHom
     rfl
   let : W.1.LiesOver w.1 :=
     ⟨congrArg (fun v : InfinitePlace K => v.1) hKM⟩
-  exact NumberField.LiesOver.completionMap (v := w) (w := W)
+  exact AbsoluteValue.Completion.map w.1 W.1
 
 /-- The archimedean completion map is continuous. -/
 theorem infinitePlaceCompletionCongrHom_continuous
@@ -59,8 +59,8 @@ theorem infinitePlaceCompletionCongrHom_continuous
     rfl
   let : W.1.LiesOver w.1 :=
     ⟨congrArg (fun v : InfinitePlace K => v.1) hKM⟩
-  change Continuous (NumberField.LiesOver.completionMap (v := w) (w := W))
-  exact NumberField.LiesOver.continuous_completionMap w W
+  change Continuous (AbsoluteValue.Completion.map w.1 W.1)
+  exact AbsoluteValue.Completion.continuous_map w.1 W.1
 
 /-- Transport along a field isomorphism is an equivalence of the
 corresponding infinite-place completions. -/
@@ -82,9 +82,9 @@ noncomputable def infinitePlaceCompletionCongrEquiv
   let : w.1.LiesOver W.1 :=
     ⟨congrArg (fun v : InfinitePlace M => v.1) hMK⟩
   let f : w.Completion →+* W.Completion :=
-    NumberField.LiesOver.completionMap (v := w) (w := W)
+    AbsoluteValue.Completion.map w.1 W.1
   let g : W.Completion →+* w.Completion :=
-    NumberField.LiesOver.completionMap (v := W) (w := w)
+    AbsoluteValue.Completion.map W.1 w.1
   exact RingEquiv.ofRingHom f g
     (by
       apply RingHom.ext
@@ -92,8 +92,8 @@ noncomputable def infinitePlaceCompletionCongrEquiv
       change f (g x) = x
       refine InfinitePlace.Completion.induction_on W x ?_ ?_
       · exact isClosed_eq
-          ((NumberField.LiesOver.continuous_completionMap w W).comp
-            (NumberField.LiesOver.continuous_completionMap W w))
+          ((AbsoluteValue.Completion.continuous_map w.1 W.1).comp
+            (AbsoluteValue.Completion.continuous_map W.1 w.1))
           continuous_id
       · intro y
         dsimp only [f, g]
@@ -113,8 +113,8 @@ noncomputable def infinitePlaceCompletionCongrEquiv
       change g (f x) = x
       refine InfinitePlace.Completion.induction_on w x ?_ ?_
       · exact isClosed_eq
-          ((NumberField.LiesOver.continuous_completionMap W w).comp
-            (NumberField.LiesOver.continuous_completionMap w W))
+          ((AbsoluteValue.Completion.continuous_map W.1 w.1).comp
+            (AbsoluteValue.Completion.continuous_map w.1 W.1))
           continuous_id
       · intro y
         dsimp only [f, g]
@@ -144,16 +144,11 @@ theorem infinitePlaceCompletionCongrHom_algebraMap
     rfl
   let : W.1.LiesOver w.1 :=
     ⟨congrArg (fun v : InfinitePlace K => v.1) hKM⟩
-  change NumberField.LiesOver.completionMap
-      (v := w) (w := W)
-      ((WithAbs.toAbs w.1 x : WithAbs w.1) : w.Completion) =
+  change AbsoluteValue.Completion.map
+      w.1 W.1 (algebraMap K w.Completion x) =
     algebraMap M W.Completion (e x)
-  rw [NumberField.LiesOver.completionMap_coe]
-  apply InfinitePlace.Completion.ext
-  rw [InfinitePlace.Completion.algebraMap_toCompletion,
-    UniformSpace.Completion.algebraMap_def]
-  simp [WithAbs.algebraMap_left_apply,
-    WithAbs.algebraMap_right_apply]
+  rw [AbsoluteValue.Completion.algebraMap_def, AbsoluteValue.Completion.map_coe,
+    AbsoluteValue.Completion.algebraMap_def]
   rfl
 
 /-- On infinite coordinates, `adeleCongr` is the completion map at the
@@ -213,12 +208,12 @@ theorem adeleCongr_infiniteComponent
           [hWv : W.1.LiesOver v.1]
           [hwv' : w.1.LiesOver v'.1]
           [hWw : W.1.LiesOver w.1] :
-          NumberField.LiesOver.completionMap
-              (v := v) (w := W) (b.1 v) =
-            NumberField.LiesOver.completionMap
-              (v := w) (w := W)
-              (NumberField.LiesOver.completionMap
-                (v := v') (w := w) (b.1 v')) := by
+          AbsoluteValue.Completion.map
+              v.1 W.1 (b.1 v) =
+            AbsoluteValue.Completion.map
+              w.1 W.1
+              (AbsoluteValue.Completion.map
+                v'.1 w.1 (b.1 v')) := by
         subst v'
         exact (infinitePlaceCompletionMap_comp_apply
           (K := ℚ) (M := K) (L := M) W (b.1 v)).symm

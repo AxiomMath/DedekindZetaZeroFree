@@ -840,6 +840,21 @@ theorem lubinTateUniformizerDiagonalAutomorphism_restrict_level
   (Classical.choose_spec
     (exists_lubinTateUniformizerDiagonalAutomorphism K hπ n u)).2
 
+/-! Shortcut instances for intermediate fields: since the Mathlib bump, the repeated
+generic searches in the statement below exceed the heartbeat budget. -/
+
+local instance (priority := high) intermediateFieldSemiring_lubinTateDiagonal
+    {F E : Type*} [Field F] [Field E] [Algebra F E]
+    (S : IntermediateField F E) : Semiring S := inferInstance
+
+local instance (priority := high) intermediateFieldField_lubinTateDiagonal
+    {F E : Type*} [Field F] [Field E] [Algebra F E]
+    (S : IntermediateField F E) : Field S := inferInstance
+
+local instance (priority := high) intermediateFieldAlgebra_lubinTateDiagonal
+    {F E : Type*} [Field F] [Field E] [Algebra F E]
+    (S : IntermediateField F E) : Algebra F S := inferInstance
+
 /-- The two factor restrictions uniquely determine the diagonal automorphism. -/
 theorem lubinTateUniformizerDiagonalAutomorphism_unique
     (K : Type) [Field K] [ValuativeRel K] [TopologicalSpace K]

@@ -211,13 +211,9 @@ theorem conjugateExtensionCompletionRingEquiv_norm_eq
     ‖conjugateExtensionCompletionRingEquiv vK wL σ x‖ =
       ‖x‖ := by
   change ‖conjugateCompletionRingEquiv wL.1 σ x‖ = ‖x‖
-  let f := (conjugateWithAbsRingEquiv wL.1 σ).toRingHom
-  let h := conjugateWithAbsRingEquiv_isometry wL.1 σ
-  change
-    ‖UniformSpace.Completion.mapRingHom f h.continuous x‖ = ‖x‖
   exact
-    (UniformSpace.Completion.isometry_mapRingHom h).norm_map_of_map_zero
-      (map_zero (UniformSpace.Completion.mapRingHom f h.continuous)) x
+    (conjugateCompletionRingEquiv_isometry wL.1 σ).norm_map_of_map_zero
+      (map_zero (conjugateCompletionRingEquiv wL.1 σ)) x
 
 omit [NumberField K] [NumberField L]
     [FiniteDimensional K L] in

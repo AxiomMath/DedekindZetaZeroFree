@@ -22,8 +22,9 @@ theorem finite_preimage_card_bound {ι κ : Type*} (f : ι → κ) (M : ℕ)
     rw [hEq]
     exact hB.biUnion fun b _ => (hf b).1
   refine ⟨hfin, ?_⟩
-  have hcard : Nat.card {i : ι // f i ∈ B} = ({i : ι | f i ∈ B} : Set ι).ncard :=
-    Nat.card_coe_set_eq _
+  have hcard : Nat.card {i : ι // f i ∈ B} = ({i : ι | f i ∈ B} : Set ι).ncard := by
+    rw [← Nat.card_coe_set_eq]
+    exact Nat.card_congr (Equiv.subtypeEquivRight fun i => by simp)
   rw [hcard, hEq]
   have h1 : (⋃ b ∈ B, {i : ι | f i = b}).ncard ≤
       ∑ b ∈ hB.toFinset, ({i : ι | f i = b} : Set ι).ncard := by
@@ -306,7 +307,8 @@ theorem ideal_count_linear (cS : Ideal (𝓞 F)) :
   refine ⟨hfinite, ?_⟩
   change (Nat.card ↥{a : ExteriorIdeal cS | idealNorm a.val ≤ T} : ℝ) ≤ C * T
   rw [Nat.card_coe_set_eq]
-  have hn := Set.ncard_le_ncard_of_injOn f (fun a ha => ha) hf.injOn
+  have hn := Set.ncard_le_ncard_of_injOn (s := {a : ExteriorIdeal cS | idealNorm a.val ≤ T}) f
+    (fun a ha => ha) hf.injOn
     (normBoundedIdeals_finite F T)
   have hb := (hbound Set.univ).1 T hT
   simp only [Set.univ_inter] at hb

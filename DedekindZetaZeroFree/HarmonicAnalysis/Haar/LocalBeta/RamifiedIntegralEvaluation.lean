@@ -67,7 +67,9 @@ theorem conductor_exact (ξ : CubicUnitCharacters.Character K) (hξ : ξ ≠ 1) 
       (∀ j < CubicUnitCharacters.conductor K ξ,
         ¬ CubicUnitCharacters.unitFiltration K j ≤ ξ.toMonoidHom.ker) := by
   have hmin : CubicUnitCharacters.unitFiltration K (CubicUnitCharacters.conductor K ξ) ≤
-        ξ.toMonoidHom.ker := Nat.sInf_mem (conductor_exists K ξ)
+        ξ.toMonoidHom.ker :=
+    Nat.sInf_mem (s := {j | CubicUnitCharacters.unitFiltration K j ≤ ξ.toMonoidHom.ker})
+      (conductor_exists K ξ)
   have hlower : ∀ j < CubicUnitCharacters.conductor K ξ,
       ¬ CubicUnitCharacters.unitFiltration K j ≤ ξ.toMonoidHom.ker := by
     intro j hj h

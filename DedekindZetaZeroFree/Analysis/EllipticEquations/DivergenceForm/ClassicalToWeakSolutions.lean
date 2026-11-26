@@ -203,7 +203,7 @@ theorem classical_weighted_weak {n : ℕ} (B : LocalBall n)
   have hneg : IntegrableOn (fun x => -(∑ i, coordinateDerivativeList [i] (classicalFlux D u i) x * ψ x))
       B.carrier volume := hsum.neg
   rw [integral_sub hneg (hmass.const_mul z), integral_neg,
-    integral_finset_sum _ (fun i _ => hdi i), integral_const_mul] at hh
+    integral_finsetSum _ (fun i _ => hdi i), integral_const_mul] at hh
   have hflux : (∫ x in B.carrier, (D.density x : ℂ) *
       ∑ i, ∑ j, (D.matrix x i j : ℂ) * coordinateDerivativeList [j] u x *
         star (coordinateDerivativeList [i] (fun y => φ y) x)) =
@@ -215,7 +215,7 @@ theorem classical_weighted_weak {n : ℕ} (B : LocalBall n)
       funext x
       simp only [ψ, coordinateDerivative_conjugateTest, classicalFlux,
         Finset.mul_sum, Finset.sum_mul, mul_assoc]
-    rw [hp, integral_finset_sum _ (fun i _ => hfi i)]
+    rw [hp, integral_finsetSum _ (fun i _ => hfi i)]
     simp_rw [integral_mul_coordinateDerivative_test B (hf _) ψ]
     rw [Finset.sum_neg_distrib]
   rw [hflux]

@@ -247,6 +247,8 @@ private theorem tail_summand_majorant (A : SArithmeticData F) (G : AllowedRecipe
       (betaIdeal (activeSupport A i.1.val) i.1.val.a.val *
         (rowNorm i.1.val.a i.2.val i.1.val.n) ^ (-1 : ℝ) /
           (Real.sqrt (A.exteriorNorm i.2.val) * A.exteriorNorm i.1.val.n))
+    have ha := idealNorm_ge_one i.1.val.a.val i.1.val.a.property.1
+    have hrow : 0 < rowNorm i.1.val.a i.2.val i.1.val.n := by unfold rowNorm; positivity
     positivity
 
 theorem numerical_tail_from_joint_majorant (A : SArithmeticData F)

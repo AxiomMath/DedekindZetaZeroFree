@@ -63,7 +63,7 @@ private lemma inverse_coefficients (U : Set E) (O : Set P) (hU : IsOpen U) (hO :
   let a : B → P → ℝ := fun b x => ContinuousLinearMap.inverse (A (ψ x)) (fderiv ℝ ψ x v) b
   refine ⟨a, ?_, ?_⟩
   · intro b
-    exact (contDiff_apply ℝ ℝ b).comp_contDiffOn
+    exact (contDiff_apply ℝ (fun _ : B => ℝ) b).comp_contDiffOn
       ((hi.comp hψ hψU).clm_apply ((hψ.fderiv_of_isOpen hO (by simp)).clm_apply contDiffOn_const))
   · intro x hx
     obtain ⟨e, he⟩ := hAe (ψ x) (hψU hx)

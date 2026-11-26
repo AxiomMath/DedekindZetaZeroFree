@@ -229,7 +229,7 @@ theorem productAction_contDiff (d : ℕ) (g : Fin d → Matrix.GeneralLinearGrou
     ContDiff ℝ ⊤ (productAction d g) := by
   apply contDiff_pi.mpr
   intro i
-  exact (action_contDiff (g i)).comp (contDiff_apply ℝ H3 i)
+  exact (action_contDiff (g i)).comp (contDiff_apply ℝ (fun _ : Fin d => H3) i)
 
 end
 
@@ -470,7 +470,15 @@ private lemma w_discr {ι : Type*} [Fintype ι] [DecidableEq ι] (w : ι → ℝ
       simp_rw [add_mul, mul_add, Finset.sum_add_distrib]
       simp [Pi.single_apply, Finset.sum_ite_irrel, mul_ite, ite_mul]
       split_ifs <;> simp_all <;> ring
-    rw [hsum]
+    have h2 : ∀ v : ℝ, (⅟(2 : Module.End ℝ ℝ)) • v = v / 2 := by
+      intro v
+      have h := LinearMap.congr_fun (mul_invOf_self (2 : Module.End ℝ ℝ)) v
+      rw [Module.End.mul_apply, Module.End.one_apply] at h
+      have h' : (2 : Module.End ℝ ℝ) ((⅟(2 : Module.End ℝ ℝ)) v) =
+          2 * (⅟(2 : Module.End ℝ ℝ)) v := by simp
+      rw [Module.End.smul_def]
+      linarith
+    rw [hsum, h2]
     simp [Pi.single_apply, Matrix.diagonal_apply]
     split_ifs <;> ring
   rw [QuadraticForm.discr', hm, Matrix.det_diagonal]

@@ -266,7 +266,7 @@ private lemma fiber_mask (C : A.GeneralArithmeticContext σ η hS)
       apply Ideal.Quotient.eq_zero_iff_mem.mpr
       rw [← (generator_generates C p).2]
       exact Ideal.subset_span (by simp)
-    simp only [map_add, map_mul, hg', zero_mul, add_zero]
+    simp only [RingHom.map_add, RingHom.map_mul, hg', zero_mul, add_zero]
   simp only [maskedPower, Nat.succ_ne_zero, dif_neg, hu, hred, one_ne_zero]
 
 private lemma fiber_phase (C : A.GeneralArithmeticContext σ η hS)

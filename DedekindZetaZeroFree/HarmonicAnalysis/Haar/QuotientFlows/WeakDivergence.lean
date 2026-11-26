@@ -143,6 +143,20 @@ private theorem ambient_flow_measurePreserving
   letI := ActualQuotient.actual_cover_secondCountable F ζ hζ
   letI : BorelSpace (Cover F ζ hζ) := ⟨rfl⟩
   letI := R.adelic_isHaar
+  letI : IsTopologicalGroup (KPSmoothLocalQuotientCharts.ActualCover F ζ hζ) :=
+    (KPAdelicCoverRestrictedProduct.adelic_pgl_topological_cover F ζ hζ).2.2.1
+  haveI : RegularSpace (KPSmoothLocalQuotientCharts.ActualCover F ζ hζ) := IsTopologicalGroup.regularSpace _
+  haveI : TopologicalSpace.PseudoMetrizableSpace (KPSmoothLocalQuotientCharts.ActualCover F ζ hζ) :=
+    TopologicalSpace.PseudoMetrizableSpace.of_regularSpace_secondCountableTopology _
+  haveI : SigmaCompactSpace (KPSmoothLocalQuotientCharts.ActualCover F ζ hζ) := sigmaCompactSpace_of_locallyCompact_secondCountable
+  haveI : IsLocallyFiniteMeasure R.adelicHaar := inferInstance
+  haveI hReg : R.adelicHaar.Regular :=
+    Measure.Regular.of_sigmaCompactSpace_of_isLocallyFiniteMeasure _
+  haveI hσ : SigmaFinite R.adelicHaar := inferInstance
+  haveI hLT : R.adelicHaar.InnerRegularCompactLTTop :=
+    ⟨hReg.innerRegular.measurableSet_of_isOpen (fun _ _ hs hU ↦ hs.diff hU)⟩
+  haveI : R.adelicHaar.InnerRegular :=
+    ⟨hLT.innerRegular.trans (Measure.InnerRegularWRT.of_sigmaFinite (μ := R.adelicHaar))⟩
   refine ⟨(continuous_id.mul continuous_const).measurable, ?_⟩
   rw [Measure.map_right_mul_eq_modularCharacterFun_smul]
   change (Measure.modularCharacter (KPSmoothActualFlowData.archimedeanInsertion F ζ hζ

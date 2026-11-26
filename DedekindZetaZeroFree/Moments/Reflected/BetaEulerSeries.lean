@@ -205,7 +205,7 @@ private theorem betaIdealTerm_eq_prod (f : ExteriorSquarefreeIdeal cS) (σ : ℝ
     simp [idealNorm, map_prod, map_pow]
   unfold betaIdealTerm betaIdeal
   rw [if_pos ⟨a.val.property.1, a.val.property.2, a.property⟩, hnorm]
-  have hpow := Real.finset_prod_rpow Finset.univ
+  have hpow := Real.finsetProd_rpow Finset.univ
     (fun p : ↥(idealPrimeSupport f.val.val) => idealNorm p.val ^ idealPrimeExponent p.val a.val.val)
     (fun p _ => by unfold idealNorm; positivity) (-σ)
   simp only [← Real.rpow_eq_pow] at hpow

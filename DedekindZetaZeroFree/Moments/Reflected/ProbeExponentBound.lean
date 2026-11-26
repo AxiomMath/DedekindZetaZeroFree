@@ -14,6 +14,9 @@ open MeasureTheory
 
 variable {F : Type} [Field F] [NumberField F]
 
+local instance instContinuousDivG (A : SArithmeticData F) : ContinuousDiv A.G :=
+  IsTopologicalGroup.to_continuousDiv
+
 def BalancedReflectedMomentConclusion (A : SArithmeticData F)
     (D : ComparisonPoissonCoefficientData F A) : Prop :=
   ∀ Kshape : Set A.G, IsCompact Kshape →
@@ -79,8 +82,9 @@ private theorem scaled_row_shape (A : SArithmeticData F) (T : ℝ) (hT : 0 < T)
       ⟨m.property, ActualRowTransfer.span_rowIdeal A m⟩
       (ThetaReflectionData.rowUnit A m) (by rfl), hg]
     have hmul (x y : A.G) : A.norm (x * y) = A.norm x * A.norm y := by
-      simp [SArithmeticData.norm, norm_mul, mul_pow, Finset.prod_mul_distrib,
-        mul_mul_mul_comm]
+      simp only [SArithmeticData.norm, Prod.fst_mul, Prod.snd_mul, Pi.mul_apply,
+        Units.val_mul, norm_mul, mul_pow, Finset.prod_mul_distrib]
+      ring
     rw [hmul, A.norm_radialSection]
   refine ⟨k, hk, ?_, hn⟩
   unfold ActualRowTransfer.rowShape normalizeShape

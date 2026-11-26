@@ -245,6 +245,7 @@ theorem natCard_finiteCompletionBallQuotient_succ (v : HeightOneSpectrum (𝓞 F
     (n : ℤ) :
     Nat.card (finiteCompletionBallQuotient F v n (n + 1)) =
       Ideal.absNorm v.asIdeal := by
+  rw [Ideal.absNorm_eq_natCard]
   exact Nat.card_congr (finiteCompletionBallResidueEquiv F v n).toEquiv
 
 theorem finiteCompletionBall_disjoint_coset_decomposition

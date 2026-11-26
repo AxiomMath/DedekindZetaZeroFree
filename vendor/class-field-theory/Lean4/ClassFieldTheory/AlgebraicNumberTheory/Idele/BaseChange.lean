@@ -91,18 +91,18 @@ theorem infinitePlaceCompletionMap_self_apply
     letI : W.1.LiesOver W.1 :=
       ⟨congrArg (fun q : InfinitePlace K => q.1)
         (infinitePlaceBelow_self (K := K) W)⟩
-    NumberField.LiesOver.completionMap
-        (v := W) (w := W) x = x := by
+    AbsoluteValue.Completion.map
+        W.1 W.1 x = x := by
   let : W.1.LiesOver W.1 :=
     ⟨congrArg (fun q : InfinitePlace K => q.1)
       (infinitePlaceBelow_self (K := K) W)⟩
   refine InfinitePlace.Completion.induction_on W x ?_ ?_
   · exact isClosed_eq
-      (NumberField.LiesOver.continuous_completionMap W W)
+      (AbsoluteValue.Completion.continuous_map W.1 W.1)
       continuous_id
   · intro y
     change
-      NumberField.LiesOver.completionMap W W
+      AbsoluteValue.Completion.map W.1 W.1
           (y : W.Completion) =
         (y : W.Completion)
     rw [NumberField.LiesOver.completionMap_coe
@@ -140,12 +140,12 @@ theorem infinitePlaceCompletionMap_comp_apply
           (K := K) (M := M) (L := L) W)⟩
     letI : W.1.LiesOver V.1 := ⟨rfl⟩
     letI : W.1.LiesOver v.1 := ⟨rfl⟩
-    NumberField.LiesOver.completionMap
-        (v := V) (w := W)
-        (NumberField.LiesOver.completionMap
-          (v := v) (w := V) x) =
-      NumberField.LiesOver.completionMap
-        (v := v) (w := W) x := by
+    AbsoluteValue.Completion.map
+        V.1 W.1
+        (AbsoluteValue.Completion.map
+          v.1 V.1 x) =
+      AbsoluteValue.Completion.map
+        v.1 W.1 x := by
   dsimp only
   let V :=
     infinitePlaceBelow (K := M) W
@@ -159,12 +159,12 @@ theorem infinitePlaceCompletionMap_comp_apply
   let : W.1.LiesOver v.1 := ⟨rfl⟩
   refine InfinitePlace.Completion.induction_on v x ?_ ?_
   · exact isClosed_eq
-      ((NumberField.LiesOver.continuous_completionMap
-          (v := V) (w := W)).comp
-        (NumberField.LiesOver.continuous_completionMap
-          (v := v) (w := V)))
-      (NumberField.LiesOver.continuous_completionMap
-        (v := v) (w := W))
+      ((AbsoluteValue.Completion.continuous_map
+          V.1 W.1).comp
+        (AbsoluteValue.Completion.continuous_map
+          v.1 V.1))
+      (AbsoluteValue.Completion.continuous_map
+        v.1 W.1)
   · intro y
     rw [NumberField.LiesOver.completionMap_coe
         (v := v) (w := V) y,

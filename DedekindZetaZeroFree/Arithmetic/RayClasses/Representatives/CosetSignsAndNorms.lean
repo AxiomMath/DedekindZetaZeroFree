@@ -63,7 +63,7 @@ theorem isRayUnit_inv (m : Ideal (𝓞 K)) (u : (𝓞 K)ˣ)
     nlinarith
 
 def positiveRayUnits (m : Ideal (𝓞 K)) : Subgroup (𝓞 K)ˣ where
-  carrier := IsRayUnit K m
+  carrier := {u | IsRayUnit K m u}
   one_mem' := isRayUnit_one K m
   mul_mem' := fun hu hv => isRayUnit_mul K m _ _ hu hv
   inv_mem' := fun hu => isRayUnit_inv K m _ hu

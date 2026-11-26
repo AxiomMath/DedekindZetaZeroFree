@@ -48,13 +48,15 @@ private theorem scalar_mul_ideal
     (R : Type*) [CommRing R] [IsDedekindDomain R]
     (K : Type*) [Field K] [Algebra R K] [IsFractionRing R K]
     (I J : FractionalIdeal R⁰ K) (hI : I ≠ 0) (hJ : J ≠ 0) :
-    Submodule.IsLattice K (coordinateLattice R K I J) := by
+    Submodule.IsFullLattice K (coordinateLattice R K I J) := by
   obtain ⟨a, ha, ha0⟩ := (I : Submodule R K).ne_bot_iff.mp
     (FractionalIdeal.coeToSubmodule_ne_bot.mpr hI)
   obtain ⟨b, hb, hb0⟩ := (J : Submodule R K).ne_bot_iff.mp
     (FractionalIdeal.coeToSubmodule_ne_bot.mpr hJ)
-  refine ⟨(FractionalIdeal.fg_of_isNoetherianRing le_rfl I).prod
-    (FractionalIdeal.fg_of_isNoetherianRing le_rfl J), ?_⟩
+  have hlat : Submodule.IsLattice K (coordinateLattice R K I J) :=
+    Submodule.IsLattice.of_fg K ((FractionalIdeal.fg_of_isNoetherianRing le_rfl I).prod
+      (FractionalIdeal.fg_of_isNoetherianRing le_rfl J))
+  refine { toIsLattice := hlat, span_eq_top := ?_ }
   apply top_unique
   intro x _
   have he1 : ((a, 0) : K × K) ∈ coordinateLattice R K I J :=
@@ -158,8 +160,8 @@ theorem kp_cusp_rank_two_normal_form
   let D : FractionalIdeal R⁰ K := I * J
   have hD : D ≠ 0 := mul_ne_zero hI hJ
   let N := coordinate_full_lattice R K 1 D one_ne_zero hD
-  letI : Submodule.IsLattice K M.val := M.property
-  letI : Submodule.IsLattice K N.val := N.property
+  letI : Submodule.IsFullLattice K M.val := M.property
+  letI : Submodule.IsFullLattice K N.val := N.property
   obtain ⟨s⟩ := kp_cusp_ideal_steinitz_nonempty R K I J hI hJ
   let f : M.val ≃ₗ[R] N.val :=
     e.symm.trans (s.trans
@@ -188,8 +190,8 @@ theorem kp_cusp_latticeEquivalent_iff_determinantClass_eq
       ((kp_cusp_class_eq_iff_scalar R K D E hD hE).mp hDE)
     let P := coordinate_full_lattice R K 1 D one_ne_zero hD
     let Q := coordinate_full_lattice R K 1 E one_ne_zero hE
-    letI : Submodule.IsLattice K P.val := P.property
-    letI : Submodule.IsLattice K Q.val := Q.property
+    letI : Submodule.IsFullLattice K P.val := P.property
+    letI : Submodule.IsFullLattice K Q.val := Q.property
     let f : P.val ≃ₗ[R] Q.val := (coordinate_prod_equiv R K 1 D).symm.trans
       ((LinearEquiv.prodCongr (LinearEquiv.refl R (1 : FractionalIdeal R⁰ K)) e).trans
         (coordinate_prod_equiv R K 1 E))

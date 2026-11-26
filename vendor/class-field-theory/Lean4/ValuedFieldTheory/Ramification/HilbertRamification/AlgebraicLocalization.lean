@@ -98,26 +98,33 @@ automorphism of the metric completion of `(L,w)`. -/
 def valuationPreservingCompletionRingEquiv
     (σ : L ≃ₐ[K] L) (hσ : ∀ x : L, w.1 (σ x) = w.1 x) :
     w.1.Completion ≃+* w.1.Completion :=
-  UniformSpace.Completion.mapRingEquiv
-    (valuationPreservingWithAbsRingEquiv vK w σ)
-    (valuationPreservingWithAbsRingEquiv_isometry vK w σ hσ).continuous
-    (valuationPreservingWithAbsRingEquiv_symm_isometry vK w σ hσ).continuous
+  (AbsoluteValue.Completion.equiv w.1).trans
+    ((UniformSpace.Completion.mapRingEquiv
+      (valuationPreservingWithAbsRingEquiv vK w σ)
+      (valuationPreservingWithAbsRingEquiv_isometry vK w σ hσ).continuous
+      (valuationPreservingWithAbsRingEquiv_symm_isometry vK w σ hσ).continuous).trans
+      (AbsoluteValue.Completion.equiv w.1).symm)
+
+theorem valuationPreservingCompletionRingEquiv_apply
+    (σ : L ≃ₐ[K] L) (hσ : ∀ x : L, w.1 (σ x) = w.1 x) (z : w.1.Completion) :
+    valuationPreservingCompletionRingEquiv vK w σ hσ z =
+      AbsoluteValue.Completion.ofCompletion
+        (UniformSpace.Completion.map (valuationPreservingWithAbsRingEquiv vK w σ)
+          z.toCompletion) := by
+  rw [valuationPreservingCompletionRingEquiv, RingEquiv.trans_apply, RingEquiv.trans_apply,
+    AbsoluteValue.Completion.equiv_apply, UniformSpace.Completion.mapRingEquiv_apply,
+    AbsoluteValue.Completion.equiv_symm_apply]
 
 @[simp] theorem valuationPreservingCompletionRingEquiv_toCompletion
     (σ : L ≃ₐ[K] L) (hσ : ∀ x : L, w.1 (σ x) = w.1 x) (x : L) :
     valuationPreservingCompletionRingEquiv vK w σ hσ
         (AbsoluteValue.toCompletion w.1 x) =
       AbsoluteValue.toCompletion w.1 (σ x) := by
-  change
-    UniformSpace.Completion.mapRingEquiv
-          (valuationPreservingWithAbsRingEquiv vK w σ)
-          (valuationPreservingWithAbsRingEquiv_isometry vK w σ hσ).continuous
-          (valuationPreservingWithAbsRingEquiv_symm_isometry vK w σ hσ).continuous
-        (((WithAbs.equiv w.1).symm x : WithAbs w.1) : w.1.Completion) = _
-  rw [UniformSpace.Completion.mapRingEquiv_apply,
+  rw [AbsoluteValue.toCompletion_apply, AbsoluteValue.toCompletion_apply,
+    valuationPreservingCompletionRingEquiv_apply, AbsoluteValue.Completion.toCompletion_coe,
     UniformSpace.Completion.map_coe
       (valuationPreservingWithAbsRingEquiv_isometry
-        vK w σ hσ).uniformContinuous]
+        vK w σ hσ).uniformContinuous, AbsoluteValue.Completion.ofCompletion_coe]
   rfl
 
 /-- The extended automorphism fixes the embedded completed base field. -/
@@ -132,15 +139,19 @@ theorem valuationPreservingCompletionRingEquiv_completionMap
         valuationPreservingCompletionRingEquiv vK w σ hσ
           (AbsoluteValue.completionMap vK w.1 w.2 y)) =
         AbsoluteValue.completionMap vK w.1 w.2 := by
-    apply UniformSpace.Completion.ext
-    · exact UniformSpace.Completion.continuous_map.comp
-        (AbsoluteValue.completionMap_isometry vK w.1 w.2).continuous
+    apply AbsoluteValue.Completion.ext
+    · refine Continuous.congr ((AbsoluteValue.Completion.continuous_ofCompletion _).comp
+        ((UniformSpace.Completion.continuous_map
+            (f := valuationPreservingWithAbsRingEquiv vK w σ)).comp
+          ((AbsoluteValue.Completion.continuous_toCompletion _).comp
+            (AbsoluteValue.completionMap_isometry vK w.1 w.2).continuous))) fun y => ?_
+      exact (valuationPreservingCompletionRingEquiv_apply vK w σ hσ _).symm
     · exact (AbsoluteValue.completionMap_isometry vK w.1 w.2).continuous
     · intro y
       have hy : (y : vK.Completion) =
           algebraMap K vK.Completion (WithAbs.equiv vK y) := by
-        rw [← AbsoluteValue.toCompletion_eq_algebraMap]
-        simp
+        rw [AbsoluteValue.algebraMap_eq_coe]
+        rfl
       rw [hy, AbsoluteValue.completionMap_coe]
       change
         valuationPreservingCompletionRingEquiv vK w σ hσ
@@ -162,7 +173,7 @@ theorem valuationPreservingCompletionRingEquiv_mem_localization
   let := AbsoluteValue.completionAlgebra vK w.1 w.2
   let E := AbsoluteValue.algebraicLocalization vK w.1 w.2
   apply IntermediateField.adjoin_induction
-      (p := fun x (_ : x ∈ E) =>
+      (motive := fun x (_ : x ∈ E) =>
         valuationPreservingCompletionRingEquiv vK w σ hσ x ∈ E)
       (s := Set.range (AbsoluteValue.toCompletion w.1))
   · intro x hx
@@ -194,7 +205,7 @@ theorem valuationPreservingCompletionRingEquiv_symm_mem_localization
   let := AbsoluteValue.completionAlgebra vK w.1 w.2
   let E := AbsoluteValue.algebraicLocalization vK w.1 w.2
   apply IntermediateField.adjoin_induction
-      (p := fun x (_ : x ∈ E) =>
+      (motive := fun x (_ : x ∈ E) =>
         (valuationPreservingCompletionRingEquiv vK w σ hσ).symm x ∈ E)
       (s := Set.range (AbsoluteValue.toCompletion w.1))
   · intro x hx

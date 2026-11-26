@@ -332,7 +332,7 @@ theorem principalContourCorrection_measurable (R : PrincipalMellin.ActualRecipe 
 theorem principal_L_differentiableOn (R : PrincipalMellin.ActualRecipe S η) :
     DifferentiableOn ℂ R.L {s : ℂ | 0 < s.re ∧ s ≠ 1} := by
   apply R.continuation.L_holo.mul
-  apply DifferentiableOn.fun_finset_prod
+  apply DifferentiableOn.fun_finsetProd
   intro v hv
   exact ((((differentiable_id.neg).mul_const
     (Real.log (idealNorm v.asIdeal) : ℂ)).cexp).const_mul
@@ -443,7 +443,7 @@ theorem principal_incomplete_reciprocal_bound
     intro v
     have hQ : 1 < idealNorm v.asIdeal := by
       dsimp [idealNorm]
-      exact_mod_cast NumberField.RingOfIntegers.HeightOneSpectrum.one_lt_absNorm v
+      exact_mod_cast NumberField.HeightOneSpectrum.one_lt_absNorm v
     have hlog := Real.log_pos hQ
     dsimp [u]
     apply inv_pos.mpr
@@ -458,7 +458,7 @@ theorem principal_incomplete_reciprocal_bound
     intro v
     have hQ : 1 < idealNorm v.asIdeal := by
       dsimp [idealNorm]
-      exact_mod_cast NumberField.RingOfIntegers.HeightOneSpectrum.one_lt_absNorm v
+      exact_mod_cast NumberField.HeightOneSpectrum.one_lt_absNorm v
     have hlog := Real.log_pos hQ
     have hpow : ‖R.target v.asIdeal * comparisonRealPower (idealNorm v.asIdeal) (-s)‖ ≤
         Real.exp (-a * Real.log (idealNorm v.asIdeal)) := by

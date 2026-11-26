@@ -92,8 +92,10 @@ theorem exists_rayRepresentative_affine_multiplier
     have hγspan : FractionalIdeal.spanSingleton (𝓞 F)⁰ (γ : F) =
         FractionalIdeal.spanSingleton (𝓞 F)⁰ (u : F) *
           (FractionalIdeal.spanSingleton (𝓞 F)⁰ x.val)⁻¹ := by
-      simp [γ, div_eq_mul_inv, FractionalIdeal.spanSingleton_inv,
-        FractionalIdeal.spanSingleton_mul_spanSingleton]
+      have hγ' : (γ : F) = (u : F) * (x.val)⁻¹ := by
+        simp [γ, div_eq_mul_inv]
+      rw [hγ', ← FractionalIdeal.spanSingleton_mul_spanSingleton,
+        FractionalIdeal.spanSingleton_inv]
     rw [hγspan, he', rayIdealFractionalIdeal_coe]
     have hi : (a : FractionalIdeal (𝓞 F)⁰ F) ≠ 0 :=
       FractionalIdeal.coeIdeal_ne_zero.mpr ha

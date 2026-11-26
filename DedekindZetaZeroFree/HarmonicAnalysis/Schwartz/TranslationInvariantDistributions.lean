@@ -102,7 +102,7 @@ theorem iteratedFDeriv_directional_derivative
     rw [fderiv_clm_apply hdJ (differentiableAt_const v),
       fderiv_clm_apply hdJ (differentiableAt_const (m 0))]
     simpa using congrArg (fun c => c (Fin.tail m))
-      (hJ.contDiffAt.isSymmSndFDerivAt (by simp [minSmoothness]) (m 0) v)
+      (hJ.contDiffAt.isSymmSndFDerivAt (by simp) (m 0) v)
 
 end DedekindZetaZeroFree.KPCplxOpenCellDistributionsInfinitesimal
 

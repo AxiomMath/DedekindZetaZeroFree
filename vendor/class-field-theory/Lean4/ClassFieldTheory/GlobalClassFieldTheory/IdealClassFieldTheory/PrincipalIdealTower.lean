@@ -209,7 +209,7 @@ theorem abelianIntermediateField_le_of_finiteAbelianIntermediate
       (commutator P.extensionQuotient) k).1 hk
   have hrestriction :
       restriction (P.extensionQuotientMk k) = 1 :=
-    Abelianization.commutator_subset_ker restriction hkcomm
+    Group.Abelianization.commutator_le_ker restriction hkcomm
   change
     (QuotientGroup.mk k :
       K.toSubgroup ⧸

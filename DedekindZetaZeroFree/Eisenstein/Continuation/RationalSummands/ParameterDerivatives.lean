@@ -268,7 +268,7 @@ theorem actual_parameterTerm_joint_right_chart_smooth
       (m := j) (by simp) KPChamberL2Defect.chamber_isOpen.uniqueDiffOn).contDiffOn
       (n := (↑(⊤ : ℕ∞) : WithTop ℕ∞)) KPChamberL2Defect.chamber_isOpen).restrict_scalars ℝ
   apply ContDiffOn.congr _ (fun p hp =>
-    actual_parameterTerm_formula F ζ hζ U ι f hf q k p.1 hp.1 _)
+    actual_parameterTerm_formula F ζ hζ U ι f hf q k p.1 (Set.mem_prod.mp hp).1 _)
   apply ContDiffOn.sum
   intro i _
   apply ContDiffOn.sum

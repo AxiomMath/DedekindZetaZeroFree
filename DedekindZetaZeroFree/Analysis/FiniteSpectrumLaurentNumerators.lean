@@ -60,7 +60,7 @@ private theorem scalarLaurent_coeff (Q : ℤ →₀ ℂ) (n : ℤ) :
     (scalarLaurent Q).coeff n = Q n := by
   classical
   simp only [scalarLaurent, ← LaurentPolynomial.single_eq_C_mul_T,
-    Finsupp.sum, AddMonoidAlgebra.coeff_sum, Finsupp.finset_sum_apply,
+    Finsupp.sum, AddMonoidAlgebra.coeff_sum, Finsupp.finsetSum_apply,
     AddMonoidAlgebra.coeff_single]
   rw [Finset.sum_eq_single n]
   · simp

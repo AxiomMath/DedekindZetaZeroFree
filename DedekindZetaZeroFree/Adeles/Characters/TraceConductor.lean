@@ -106,7 +106,7 @@ private theorem conductor_localFinite (A : SArithmeticData F) :
         simpa only [Pi.single_eq_same] using h
       · simp only [Pi.single_eq_of_ne hw, norm_zero]
         exact le_of_lt (zpow_pos (by exact_mod_cast
-          (Nat.zero_lt_of_lt (NumberField.RingOfIntegers.HeightOneSpectrum.one_lt_absNorm w.val))) _))
+          (Nat.zero_lt_of_lt (NumberField.HeightOneSpectrum.one_lt_absNorm w.val))) _))
     intro x hx
     let u : PoissonFinite.Space F A.Sf := Pi.single v x
     have hu : u ∈ PoissonS.finiteBall F A.Sf (fun _ => 0) := by

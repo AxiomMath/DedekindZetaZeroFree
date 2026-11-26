@@ -48,8 +48,8 @@ noncomputable def ambientEmbeddedPrimeTransportValue
     [FiniteDimensional F E] [IsAbelianGalois F E]
     (j : E →ₐ[K] SeparableClosure K)
     (e : ambientEmbeddedSeparableClosureEquiv K F E j)
-    (z : Abelianization Gal(E / F)) :
-    Abelianization Gal(E / F) := by
+    (z : Group.Abelianization Gal(E / F)) :
+    Group.Abelianization Gal(E / F) := by
   let i :=
     j.comp (IsScalarTower.toAlgHom K F E)
   letI : Algebra F (SeparableClosure K) :=
@@ -126,7 +126,7 @@ noncomputable def ambientEmbeddedPrimeSymbolProperty
     [FiniteDimensional F E] [IsAbelianGalois F E]
     (j : E →ₐ[K] SeparableClosure K)
     (e : ambientEmbeddedSeparableClosureEquiv K F E j)
-    (z : Abelianization Gal(E / F)) : Prop := by
+    (z : Group.Abelianization Gal(E / F)) : Prop := by
   let i :=
     j.comp (IsScalarTower.toAlgHom K F E)
   letI : Algebra F (SeparableClosure K) :=
@@ -204,7 +204,7 @@ noncomputable def ambientEmbeddedPrimeSymbolProperty
     exact hSourceFinite
   let RH :=
     H.toFiniteResidueAbstractField (localResidueDatum K)
-  let zF : Abelianization EI.extensionQuotient :=
+  let zF : Group.Abelianization EI.extensionQuotient :=
     qF.abelianizationCongr.symm z
   let q :=
     Classical.choose (QuotientGroup.mk_surjective zF)
@@ -230,7 +230,7 @@ noncomputable def ambientEmbeddedPrimeSymbolProperty
             (ambientEmbeddedPrimeWitness K F E j e z))) =
       Additive.ofMul
         (q₀.abelianizationCongr
-          (Abelianization.of qAmbient))
+          (Group.Abelianization.of qAmbient))
 
 /-- The explicit fixed-field symbol formula identifies the transported
 prime value with its ambient Frobenius target. -/
@@ -249,7 +249,7 @@ theorem
     [FiniteDimensional F E] [IsAbelianGalois F E]
     (j : E →ₐ[K] SeparableClosure K)
     (e : ambientEmbeddedSeparableClosureEquiv K F E j)
-    (z : Abelianization Gal(E / F)) :
+    (z : Group.Abelianization Gal(E / F)) :
     let i :=
       j.comp (IsScalarTower.toAlgHom K F E)
     letI : Algebra F (SeparableClosure F) :=
@@ -329,7 +329,7 @@ theorem
       exact hSourceFinite
     let RH :=
       H.toFiniteResidueAbstractField (localResidueDatum K)
-    let zF : Abelianization EI.extensionQuotient :=
+    let zF : Group.Abelianization EI.extensionQuotient :=
       qF.abelianizationCongr.symm z
     let q :=
       Classical.choose (QuotientGroup.mk_surjective zF)
@@ -355,7 +355,7 @@ theorem
                 (ambientEmbeddedPrimeWitness K F E j e z))) =
           Additive.ofMul
             (q₀.abelianizationCongr
-              (Abelianization.of qAmbient))),
+              (Group.Abelianization.of qAmbient))),
       ambientEmbeddedPrimeTransportValue K F E j e z =
         ambientEmbeddedPrimeTarget K F E j e z := by
   dsimp only

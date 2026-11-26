@@ -115,8 +115,8 @@ private theorem average_equivariant (n r : ℕ) (Γ : Type*) [Group Γ] [Fintype
     apply ContinuousOn.measurable_piecewise ?_ continuousOn_const
       (D.open_chart.measurableSet.prod MeasurableSet.univ)
     exact ((D.smooth_cocycle γ⁻¹).comp
-      (((D.smooth_action γ).comp contDiffOn_fst (fun p hp => hp.1)).prodMk
-        contDiffOn_snd) (fun p hp => ⟨D.act_mem γ p.1 hp.1, Set.mem_univ _⟩)).continuousOn
+      (((D.smooth_action γ).comp (contDiffOn_fst (s := D.chart ×ˢ Set.univ))
+        (fun p hp => hp.1)).prodMk contDiffOn_snd) (fun p hp => ⟨D.act_mem γ p.1 hp.1, Set.mem_univ _⟩)).continuousOn
   have hcomp := hh.comp_measurePreserving (D.invariant_measure γ)
   have ht : AEStronglyMeasurable (term n r Γ D γ h)
       (weightedMeasure n D.chart D.weight) := by

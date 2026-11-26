@@ -13,7 +13,7 @@ open IsDedekindDomain
 theorem finiteExponent_isLeast (F : Type) [Field F] [NumberField F]
     (h12 : (primitiveRoots 12 F).Nonempty) (x : Fˣ)
     (v : HeightOneSpectrum (𝓞 F)) :
-    IsLeast (fun n : ℕ =>
+    IsLeast (setOf fun n : ℕ =>
       ClassFieldTheory.rayLocalHigherUnitGroup v n ≤
         (RMKummerLocalNormCharacter.lambda F h12 x v).ker)
       ((M F (RMKummerConductor.m F h12 x)

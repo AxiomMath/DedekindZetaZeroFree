@@ -139,7 +139,7 @@ private theorem frob_congruence {E : Type} [Field E] [NumberField E]
   have hcon (a : 𝓞 E) : w.val (g (a : E) - (a : E)^Ideal.absNorm v.asIdeal) < 1 := by
     have h := hg a
     have hover := finitePlaceExtensionCentre_liesOver (K := F) (L := E) v w
-    rw [← hover.over] at h
+    rw [← hover.over, ← Ideal.absNorm_eq_natCard] at h
     change _ - a ^ Ideal.absNorm v.asIdeal ∈ W.asIdeal at h
     have h' := (mem_finitePlaceExtensionCentreIdeal_iff (K := F) (L := E) v w ((NumberField.RingOfIntegers.mapAlgEquiv g) a - a ^ Ideal.absNorm v.asIdeal)).mp h
     exact h'
@@ -235,7 +235,7 @@ theorem sexticArtinCharacter_unramified (ζ : F) (hζ : IsPrimitiveRoot ζ 12)
     (t : (v.adicCompletion F)ˣ)
     (ht : t ∈ (v.adicCompletionIntegers F).units) :
     sexticArtinCharacter ζ hζ σ u (IdeleGroup.finitePlaceIdeleClass v t) = 1 := by
-  let hμ : (primitiveRoots 6 F).Nonempty :=
+  have hμ : (primitiveRoots 6 F).Nonempty :=
     ⟨ζ ^ 2, (mem_primitiveRoots (by decide)).2
       (hζ.pow (by decide) (by decide : 12 = 2 * 6))⟩
   letI := sexticExtension_isAbelianGalois ζ hζ u
@@ -245,8 +245,9 @@ theorem sexticArtinCharacter_unramified (ζ : F) (hζ : IsPrimitiveRoot ζ 12)
     (K := F) (L := sexticExtension u) v hunram ht
   have hlocal : GlobalClassFieldTheory.Reciprocity.chosenFinitePlaceArtinMonoidHom
       (K := F) (L := sexticExtension u) v t = 1 := by
-    rw [← GlobalClassFieldTheory.Reciprocity.chosenFinitePlaceArtinMonoidHom_ker] at hnorm
-    exact MonoidHom.mem_ker.mp hnorm
+    exact MonoidHom.mem_ker.mp
+      ((GlobalClassFieldTheory.Reciprocity.chosenFinitePlaceArtinMonoidHom_ker (K := F) v).ge
+        hnorm)
   rw [sexticArtinCharacter_apply]
   change sexticRootCharacter ζ hζ σ u
     (GlobalClassFieldTheory.Reciprocity.globalNormResidueMonoidHom F (sexticExtension u)

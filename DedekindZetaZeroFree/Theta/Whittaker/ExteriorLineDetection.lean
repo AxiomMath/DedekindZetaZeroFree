@@ -17,7 +17,7 @@ variable [∀ j, AddCommGroup (V j)] [∀ j, Module ℂ (V j)]
 variable (e : ∀ j, V j) (bad : Finset J)
 
 def stagePeriod (L : Core V e bad →ₗ[ℂ] ℂ) (s : Level bad) :
-    MultilinearMap ℂ (fun j : s.val => V j) ℂ :=
+    MultilinearMap (RingHom.id ℂ) (fun j : s.val => V j) ℂ :=
   (L.comp (stageInclusion V e bad s)).compMultilinearMap (PiTensorProduct.tprod ℂ)
 
 @[simp] theorem stagePeriod_apply (L : Core V e bad →ₗ[ℂ] ℂ)

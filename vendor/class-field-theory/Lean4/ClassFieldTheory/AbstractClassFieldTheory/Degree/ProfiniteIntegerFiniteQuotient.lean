@@ -2,6 +2,7 @@ module
 
 public import Mathlib.Data.ZMod.QuotientGroup
 public import Mathlib.GroupTheory.Archimedean
+public import Mathlib.GroupTheory.SpecificGroups.Cyclic
 public import Mathlib.GroupTheory.FiniteIndexNormalSubgroup
 public import Mathlib.Topology.Algebra.Group.Quotient
 public import Mathlib.Topology.Algebra.Category.ProfiniteGrp.Completion
@@ -43,9 +44,10 @@ private theorem finiteIndexNormalAddSubgroup_eq_zmultiples_index
     (H : FiniteIndexNormalAddSubgroup ℤ) :
     H.toAddSubgroup =
       AddSubgroup.zmultiples (H.toAddSubgroup.index : ℤ) := by
-  obtain ⟨d, hd⟩ := Int.subgroup_cyclic H.toAddSubgroup
-  have hH : H.toAddSubgroup = AddSubgroup.zmultiples d :=
-    hd.trans (AddSubgroup.zmultiples_eq_closure d).symm
+  obtain ⟨d, hd⟩ :=
+    (AddSubgroup.isAddCyclic_iff_exists_zmultiples_eq H.toAddSubgroup).mp
+      inferInstance
+  have hH : H.toAddSubgroup = AddSubgroup.zmultiples d := hd.symm
   have hindex : H.toAddSubgroup.index = d.natAbs := by
     rw [hH, Int.index_zmultiples]
   calc

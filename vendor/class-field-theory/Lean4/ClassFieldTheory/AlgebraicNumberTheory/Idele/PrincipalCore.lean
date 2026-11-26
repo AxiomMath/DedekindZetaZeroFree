@@ -54,7 +54,7 @@ theorem infiniteComponent_principalIdele
     (x : Kˣ) (w : InfinitePlace K) :
     ((infiniteComponent w (principalIdele K x) :
       w.Completionˣ) : w.Completion) = (x : K) :=
-  rfl
+  AbsoluteValue.Completion.algebraMap_def (R := K) w.1 (x : K)
 
 variable (K)
 

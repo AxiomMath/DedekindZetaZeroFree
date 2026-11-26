@@ -33,18 +33,18 @@ private theorem smooth_real (d : ℕ) : ContDiff ℝ (⊤ : ℕ∞) (real d) := 
   rcases j with ⟨i, k⟩
   fin_cases k
   · simpa [real, Function.comp_def] using
-      Complex.reCLM.contDiff.comp (contDiff_fst.comp (contDiff_apply ℝ KPArch.H3 i))
+      Complex.reCLM.contDiff.comp (contDiff_fst.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i))
   · simpa [real, Function.comp_def] using
-      Complex.imCLM.contDiff.comp (contDiff_fst.comp (contDiff_apply ℝ KPArch.H3 i))
+      Complex.imCLM.contDiff.comp (contDiff_fst.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i))
   · simpa [real, Function.comp_def] using
-      contDiff_snd.comp (contDiff_apply ℝ KPArch.H3 i)
+      contDiff_snd.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i)
 
 private theorem smooth_mean (d : ℕ) : ContDiff ℝ (⊤ : ℕ∞) (KPCuspLogShape.meanHeight d) := by
   unfold KPCuspLogShape.meanHeight
   apply ContDiff.div_const
   apply ContDiff.sum
   intro i hi
-  exact contDiff_snd.comp (contDiff_apply ℝ KPArch.H3 i)
+  exact contDiff_snd.comp (contDiff_apply ℝ (fun _ => KPArch.H3) i)
 
 private theorem derivative_smoothAt (d : ℕ) (g : HyperbolicChart.Space d → ℂ)
     (x : HyperbolicChart.Space d)

@@ -77,10 +77,10 @@ private theorem jet_joint {B : Type*} [Fintype B]
     id contDiffOn_id (fun _ hx => hx) (List.ofFn m)
   have hsum : ContinuousOn (fun p : ℂ × E =>
       ∑ i : Fin N, c i p.2 • directionalWord fields (w i) (h p.1) p.2) (D ×ˢ K) := by
-    apply continuousOn_finset_sum
+    apply continuousOn_finsetSum
     intro i _
     exact ((hc i).continuousOn.comp continuous_snd.continuousOn
-      (fun p hp => hKU hp.2)).smul (hj (w i) K hK hKU)
+      (fun p (hp : p ∈ D ×ˢ K) => hKU hp.2)).smul (hj (w i) K hK hKU)
   apply hsum.congr
   intro p hp
   dsimp only

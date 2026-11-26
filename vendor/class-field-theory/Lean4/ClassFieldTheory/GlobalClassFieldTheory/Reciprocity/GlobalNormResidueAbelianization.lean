@@ -56,10 +56,10 @@ abelianization of the actual Galois group. -/
 noncomputable def
     numberFieldTowerAbelianizedExtensionQuotientEquivGaloisAbelianization :
     Additive
-        (Abelianization
+        (Group.Abelianization
           (ClassFormation.FiniteGaloisSubextension.extensionQuotient
             (numberFieldTowerFiniteGaloisSubextension K L))) ≃+
-      Additive (Abelianization (Gal(L / K))) :=
+      Additive (Group.Abelianization (Gal(L / K))) :=
   MulEquiv.toAdditive
     (MulEquiv.abelianizationCongr
       (numberFieldTowerExtensionQuotientEquivGaloisGroup K L))
@@ -70,8 +70,8 @@ private theorem numberFieldTowerAbelianizationCongr_of
         (numberFieldTowerFiniteGaloisSubextension K L)) :
     MulEquiv.abelianizationCongr
         (numberFieldTowerExtensionQuotientEquivGaloisGroup K L)
-        (Abelianization.of q) =
-      Abelianization.of
+        (Group.Abelianization.of q) =
+      Group.Abelianization.of
         (numberFieldTowerExtensionQuotientEquivGaloisGroup K L q) :=
   abelianizationCongr_of
     (numberFieldTowerExtensionQuotientEquivGaloisGroup K L) q
@@ -85,9 +85,9 @@ theorem
       ClassFormation.FiniteGaloisSubextension.extensionQuotient
         (numberFieldTowerFiniteGaloisSubextension K L)) :
     numberFieldTowerAbelianizedExtensionQuotientEquivGaloisAbelianization
-        K L (Additive.ofMul (Abelianization.of q)) =
+        K L (Additive.ofMul (Group.Abelianization.of q)) =
       Additive.ofMul
-        (Abelianization.of
+        (Group.Abelianization.of
           (numberFieldTowerExtensionQuotientEquivGaloisGroup K L q)) := by
   exact
     congrArg Additive.ofMul
@@ -102,7 +102,7 @@ and their instance packages from being reconstructed at each evaluation. -/
           (numberFieldTowerBaseSubgroup K L)
           (numberFieldTowerTopSubgroup L)
           (numberFieldTowerTopSubgroup_le_baseSubgroup K L) ≃+
-      Additive (Abelianization (Gal(L / K))) := by
+      Additive (Group.Abelianization (Gal(L / K))) := by
   let _ : Finite _ :=
     (numberFieldTowerReciprocityFiniteAbstractField K L).finite
   let _ :
@@ -129,10 +129,10 @@ and their instance packages from being reconstructed at each evaluation. -/
         (numberFieldTowerTopSubgroup L)
         (numberFieldTowerTopSubgroup_le_baseSubgroup K L))
       (Additive
-        (Abelianization
+        (Group.Abelianization
           (ClassFormation.FiniteGaloisSubextension.extensionQuotient
             (numberFieldTowerFiniteGaloisSubextension K L))))
-      (Additive (Abelianization (Gal(L / K))))
+      (Additive (Group.Abelianization (Gal(L / K))))
       inferInstance inferInstance inferInstance
       (rationalCyclotomicDegreeData.normResidueSymbol
         rationalIdeleClassRepresentation
@@ -151,7 +151,7 @@ noncomputable def globalNormResidueAbelianizationEquiv :
     Additive
         (IdeleClassGroup K ⧸
           (_root_.ideleClassNorm K L).range) ≃+
-      Additive (Abelianization (Gal(L / K))) := by
+      Additive (Group.Abelianization (Gal(L / K))) := by
   exact
     (numberFieldTowerFiniteNormQuotientEquivIdeleClassNormQuotient
         K L).symm.trans
@@ -254,7 +254,7 @@ theorem globalNormResidueAbelianizationEquiv_finiteReciprocityHom
               (numberFieldTowerFiniteGaloisSubextension K L).finite)
             (Additive.ofMul q))) =
       Additive.ofMul
-        (Abelianization.of
+        (Group.Abelianization.of
           (numberFieldTowerExtensionQuotientEquivGaloisGroup K L q)) := by
   let hBaseFinite :=
     (numberFieldTowerReciprocityFiniteAbstractField K L).finite
@@ -283,7 +283,7 @@ theorem globalNormResidueAbelianizationEquiv_finiteReciprocityHom
           rationalIdeleClassRepresentation_satisfiesClassFieldAxiom
           (numberFieldTowerReciprocityFiniteAbstractField K L)
           (numberFieldTowerFiniteGaloisSubextension K L) x =
-        Additive.ofMul (Abelianization.of q) :=
+        Additive.ofMul (Group.Abelianization.of q) :=
     rationalCyclotomicDegreeData.normResidueSymbol_finiteReciprocityHom
       rationalIdeleClassRepresentation
       rationalCyclotomicIdeleClassValuationData
@@ -304,7 +304,7 @@ theorem globalNormResidueAbelianizationEquiv_finiteReciprocityHom
 /-- The inverse global reciprocity equivalence for an arbitrary finite Galois
 extension. -/
 noncomputable def globalReciprocityAbelianizationEquiv :
-    Additive (Abelianization (Gal(L / K))) ≃+
+    Additive (Group.Abelianization (Gal(L / K))) ≃+
       Additive
         (IdeleClassGroup K ⧸
           (_root_.ideleClassNorm K L).range) :=
@@ -314,11 +314,11 @@ noncomputable def globalReciprocityAbelianizationEquiv :
 abelianization of the actual Galois group. -/
 noncomputable def globalNormResidueAbelianizationMonoidHom :
     IdeleClassGroup K →*
-      Abelianization (Gal(L / K)) := by
+      Group.Abelianization (Gal(L / K)) := by
   let e :
       (IdeleClassGroup K ⧸
           (_root_.ideleClassNorm K L).range) ≃*
-        Abelianization (Gal(L / K)) :=
+        Group.Abelianization (Gal(L / K)) :=
     AddEquiv.toMultiplicative
       (globalNormResidueAbelianizationEquiv K L)
   exact
@@ -431,7 +431,7 @@ theorem globalNormResidueAbelianizationMonoidHom_surjective :
   let e :
       (IdeleClassGroup K ⧸
           (_root_.ideleClassNorm K L).range) ≃*
-        Abelianization (Gal(L / K)) :=
+        Group.Abelianization (Gal(L / K)) :=
     AddEquiv.toMultiplicative
       (globalNormResidueAbelianizationEquiv K L)
   intro y
@@ -457,7 +457,7 @@ This is the genuine idele-class symbol pulled back along
 `I_K → C_K`; in particular it is not a separately chosen map. -/
 noncomputable def globalNormResidueAbelianizationIdeleMonoidHom :
     IdeleGroup K →*
-      Abelianization (Gal(L / K)) :=
+      Group.Abelianization (Gal(L / K)) :=
   (globalNormResidueAbelianizationMonoidHom K L).comp
     (QuotientGroup.mk'
       (IdeleGroup.principalSubgroup K))
@@ -563,7 +563,7 @@ theorem globalNormResidueAbelianizationMonoidHom_ker :
 abelianization of the genuine finite Galois group. -/
 theorem ideleClassNorm_index_eq_galoisAbelianization_card :
     (_root_.ideleClassNorm K L).range.index =
-      Nat.card (Abelianization (Gal(L / K))) := by
+      Nat.card (Group.Abelianization (Gal(L / K))) := by
   calc
     (_root_.ideleClassNorm K L).range.index =
         Nat.card
@@ -580,12 +580,12 @@ theorem ideleClassNorm_index_eq_galoisAbelianization_card :
     _ =
         Nat.card
           (Additive
-            (Abelianization (Gal(L / K)))) :=
+            (Group.Abelianization (Gal(L / K)))) :=
       Nat.card_congr
         (globalNormResidueAbelianizationEquiv K L).toEquiv
     _ =
         Nat.card
-          (Abelianization (Gal(L / K))) :=
+          (Group.Abelianization (Gal(L / K))) :=
       Nat.card_congr Additive.toMul
 
 section AbelianSpecialization
@@ -602,9 +602,9 @@ private theorem
         (IdeleClassGroup F ⧸
           (_root_.ideleClassNorm F E).range)) :
     MulEquiv.toAdditive
-          (Abelianization.equivOfComm :
+          (Group.Abelianization.equivOfComm :
             Gal(E / F) ≃*
-              Abelianization (Gal(E / F))).symm
+              Group.Abelianization (Gal(E / F))).symm
         (globalNormResidueAbelianizationEquiv F E q) =
       globalNormResidueEquiv F E q := by
   let H :=
@@ -629,8 +629,8 @@ private theorem
     numberFieldTowerFiniteNormQuotientEquivIdeleClassNormQuotient F E
   let canonical :
       Gal(E / F) ≃*
-        Abelianization (Gal(E / F)) :=
-    Abelianization.equivOfComm
+        Group.Abelianization (Gal(E / F)) :=
+    Group.Abelianization.equivOfComm
   have hr : Function.Surjective r :=
     rationalCyclotomicIdeleClassValuationData.abstractReciprocity_finiteReciprocityHom_surjective
       rationalIdeleClassRepresentation_satisfiesClassFieldAxiom
@@ -648,7 +648,7 @@ private theorem
           (globalNormResidueAbelianizationEquiv F E (n (r t))) =
         MulEquiv.toAdditive canonical.symm
           (Additive.ofMul
-            (Abelianization.of
+            (Group.Abelianization.of
               (numberFieldTowerExtensionQuotientEquivGaloisGroup
                 F E (Additive.toMul t)))) :=
       congrArg (MulEquiv.toAdditive canonical.symm) hAbelianized
@@ -669,9 +669,9 @@ global norm-residue equivalence. -/
 theorem globalNormResidueAbelianizationEquiv_abelianSpecialization :
     (globalNormResidueAbelianizationEquiv F E).trans
         (MulEquiv.toAdditive
-          (Abelianization.equivOfComm :
+          (Group.Abelianization.equivOfComm :
             Gal(E / F) ≃*
-              Abelianization (Gal(E / F))).symm) =
+              Group.Abelianization (Gal(E / F))).symm) =
       globalNormResidueEquiv F E := by
   apply AddEquiv.ext
   intro q
@@ -684,17 +684,17 @@ the finite-Galois construction likewise specializes to the ordinary
 abelian reciprocity equivalence. -/
 theorem globalReciprocityAbelianizationEquiv_abelianSpecialization :
     (MulEquiv.toAdditive
-        (Abelianization.equivOfComm :
+        (Group.Abelianization.equivOfComm :
           Gal(E / F) ≃*
-            Abelianization (Gal(E / F)))).trans
+            Group.Abelianization (Gal(E / F)))).trans
       (globalReciprocityAbelianizationEquiv F E) =
         globalReciprocityEquiv F E := by
   change
     ((globalNormResidueAbelianizationEquiv F E).trans
       (MulEquiv.toAdditive
-        (Abelianization.equivOfComm :
+        (Group.Abelianization.equivOfComm :
           Gal(E / F) ≃*
-            Abelianization (Gal(E / F))).symm)).symm =
+            Group.Abelianization (Gal(E / F))).symm)).symm =
       (globalNormResidueEquiv F E).symm
   exact
     congrArg AddEquiv.symm
@@ -703,9 +703,9 @@ theorem globalReciprocityAbelianizationEquiv_abelianSpecialization :
 private theorem
     globalNormResidueAbelianizationMonoidHom_abelianSpecialization_apply
     (c : IdeleClassGroup F) :
-    (Abelianization.equivOfComm :
+    (Group.Abelianization.equivOfComm :
         Gal(E / F) ≃*
-          Abelianization (Gal(E / F))).symm
+          Group.Abelianization (Gal(E / F))).symm
         (globalNormResidueAbelianizationMonoidHom F E c) =
       globalNormResidueMonoidHom F E c := by
   simpa only [
@@ -727,9 +727,9 @@ abelian global Artin homomorphism after the canonical target
 identification. -/
 theorem
     globalNormResidueAbelianizationMonoidHom_abelianSpecialization :
-    (Abelianization.equivOfComm :
+    (Group.Abelianization.equivOfComm :
         Gal(E / F) ≃*
-          Abelianization (Gal(E / F))).symm.toMonoidHom.comp
+          Group.Abelianization (Gal(E / F))).symm.toMonoidHom.comp
         (globalNormResidueAbelianizationMonoidHom F E) =
       globalNormResidueMonoidHom F E := by
   apply MonoidHom.ext
@@ -743,9 +743,9 @@ specialization, after pulling both class symbols back along
 `I_F → C_F`. -/
 theorem
     globalNormResidueAbelianizationIdeleMonoidHom_abelianSpecialization :
-    (Abelianization.equivOfComm :
+    (Group.Abelianization.equivOfComm :
         Gal(E / F) ≃*
-          Abelianization (Gal(E / F))).symm.toMonoidHom.comp
+          Group.Abelianization (Gal(E / F))).symm.toMonoidHom.comp
         (globalNormResidueAbelianizationIdeleMonoidHom F E) =
       (globalNormResidueMonoidHom F E).comp
         (QuotientGroup.mk'

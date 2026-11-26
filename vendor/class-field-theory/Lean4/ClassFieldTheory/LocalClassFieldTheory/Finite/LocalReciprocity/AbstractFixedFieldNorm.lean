@@ -35,6 +35,20 @@ finite fixed field is normal over the local ground field.
 noncomputable section
 
 open scoped ValuativeRel
+
+/-! Shortcut instances: since the Mathlib bump, the generic search for the residue-field
+algebra of a valuation extension times out in the fixed-field contexts below. -/
+
+local instance (priority := high) residueAlgebraOfHasExtension_abstractFixedFieldNorm
+    (K L : Type*) [Field K] [ValuativeRel K] [Field L] [ValuativeRel L] [Algebra K L]
+    [Valuation.HasExtension (ValuativeRel.valuation K) (ValuativeRel.valuation L)] :
+    Algebra 𝓀[K] 𝓀[L] := inferInstance
+
+local instance (priority := high) residueModuleOfHasExtension_abstractFixedFieldNorm
+    (K L : Type*) [Field K] [ValuativeRel K] [Field L] [ValuativeRel L] [Algebra K L]
+    [Valuation.HasExtension (ValuativeRel.valuation K) (ValuativeRel.valuation L)] :
+    Module 𝓀[K] 𝓀[L] := Algebra.toModule
+
 variable (K Ω : Type) [Field K] [Field Ω] [Algebra K Ω]
   [IsGalois K Ω] [IsSepClosed Ω]
 

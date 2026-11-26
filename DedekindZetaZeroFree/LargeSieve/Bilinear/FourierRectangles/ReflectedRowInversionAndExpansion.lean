@@ -341,7 +341,7 @@ private lemma pair_integral (C : Context Q) (e a f₁ f₂ : Ideal (𝓞 F))
       ∫ q : ℝ × ℝ, frequencyCell C e a f₁ f₂ q.1 q.2 * A q := by
   unfold frequencyCell Context.pairSum
   simp_rw [Finset.sum_mul]
-  rw [integral_finset_sum _ (fun p hp => ?_)]
+  rw [integral_finsetSum _ (fun p hp => ?_)]
   · apply Finset.sum_congr rfl
     intro p hp
     split_ifs with hv hd <;> simp [integral_const_mul, mul_assoc]

@@ -223,9 +223,7 @@ theorem
     localizedCompletionGlobalAlgebra vQ w
   let : SMul ℚ (LocalizedCompletion vQ w) :=
     (localizedCompletionGlobalAlgebra vQ w).toSMul
-  let : IsScalarTower ℚ vQ.Completion
-      (LocalizedCompletion vQ w) :=
-    localizedCompletionIsScalarTower vQ w
+  let _ := localizedCompletionIsScalarTower vQ w
   exact
     localizedCompletion_adjoin_image_eq_top_of_adjoin_eq_top
       vQ w (rationalCyclotomicLevelPrimitiveRoot m)
